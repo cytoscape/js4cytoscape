@@ -349,7 +349,7 @@ const FONT_FAMILY_MAP = {
 
     'FranklinGothic-Medium': 'Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif',
     'Futura': 'Futura,Trebuchet MS,Arial,sans-serif',
-    'Geneva': 'Geneva,Tahoma,Verdana,sans-serif',
+    'Geneva': 'Geneva,Tahoma,Verdana,sans-serifcxToJs',
     'GillSans': 'Gill Sans,Gill Sans MT,Calibri,sans-serif',
 
     'HelveticaNeue': 'Helvetica Neue,Helvetica,Arial,sans-serif',
@@ -402,7 +402,7 @@ const FONT_FAMILY_MAP = {
     'BrushScriptMT': 'Brush Script MT,cursive'
 }
 
-exports.cxToJs = class CxToJs {
+class CxToJs {
 
     constructor(cxNetworkUtils) {
         this.cxNetworkUtils = cxNetworkUtils
@@ -1637,7 +1637,7 @@ exports.cxToJs = class CxToJs {
 }
 
 
-exports.cyNetworkUtils = class CyNetworkUtils {
+class CyNetworkUtils {
 
     constructor() {
     }
@@ -2156,7 +2156,7 @@ exports.cyNetworkUtils = class CyNetworkUtils {
                     niceCX['nodeSupports'] = aspect
                 }
 
-                var oldList = aspect[nodeId]
+                let oldList = aspect[nodeId]
 
                 if (!oldList) {
                     oldList = []
@@ -2426,3 +2426,5 @@ exports.cyNetworkUtils = class CyNetworkUtils {
         }
     }
 }
+
+module.exports = { CxToJs, CyNetworkUtils };
