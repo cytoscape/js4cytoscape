@@ -39,7 +39,7 @@ const DEFAULT_STYLE = [
         'width': 6
       }
     }
-  ]
+  ];
 
 
 describe('Example', function(){
@@ -49,131 +49,169 @@ describe('Example', function(){
     
     var rawCX = {
 
-    }
-    var niceCX = utils.rawCXtoNiceCX(rawCX)
+    };
+    var niceCX = utils.rawCXtoNiceCX(rawCX);
 
     expect( niceCX ).to.eql( { edges : {}} );
   });
 
   it('cxToJs defaultStyle', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var defaultStyle = cxToJs.getDefaultStyle()
+    var defaultStyle = cxToJs.getDefaultStyle();
 
     expect( defaultStyle ).to.eql( DEFAULT_STYLE );
   });
 
   it('cxToJs getCyAttributeName', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'}
+    var attributeNameMap = {'foo' : 'bar'};
 
-    var attributeName = cxToJs.getCyAttributeName('foo', attributeNameMap)
+    var attributeName = cxToJs.getCyAttributeName('foo', attributeNameMap);
 
     expect( attributeName ).to.equal( 'bar' );
   });
 
   it('cxToJs specialCase getCyAttributeName', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'}
+    var attributeNameMap = {'foo' : 'bar'};
 
-    var attributeName = cxToJs.getCyAttributeName('id', attributeNameMap)
+    var attributeName = cxToJs.getCyAttributeName('id', attributeNameMap);
 
     expect( attributeName ).to.equal( 'cx_id' );
   });
 
   it('cxToJs direct getCyAttributeName', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'}
+    var attributeNameMap = {'foo' : 'bar'};
 
-    var attributeName = cxToJs.getCyAttributeName('hodor', attributeNameMap)
+    var attributeName = cxToJs.getCyAttributeName('hodor', attributeNameMap);
 
     expect( attributeName ).to.equal( 'hodor' );
   });
 
   it('cxToJs invalidChar sanitizeAttributeNameMap', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'$id' : '$id'}
+    var attributeNameMap = {'$id' : '$id'};
 
-    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
     expect( attributeNameMap ).to.eql({'$id' : '_id_u1'});
   });
 
   it('cxToJs sanitizeAttributeNameMap', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'foo'}
+    var attributeNameMap = {'foo' : 'foo'};
 
-    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
     expect( attributeNameMap ).to.eql({'foo' : 'foo'});
   });
 
   it('cxToJs specialCase sanitizeAttributeNameMap', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'shared name' : 'replace me'}
+    var attributeNameMap = {'shared name' : 'replace me'};
 
-    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
     expect( attributeNameMap ).to.eql({'shared name' : 'name'});
   });
 
   it('cxToJs list_of_string getFirstElementFromList', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_string','v' : ['element the first', 'element the second']}
+    var list = {'d' : 'list_of_string','v' : ['element the first', 'element the second']};
 
-    var firstElement = cxToJs.getFirstElementFromList(list)
+    var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal('element the first')
+    expect( firstElement ).to.equal('element the first');
   });
 
   it('cxToJs list_of_boolean getFirstElementFromList', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_boolean','v' : [true, false]}
+    var list = {'d' : 'list_of_boolean','v' : [true, false]};
 
-    var firstElement = cxToJs.getFirstElementFromList(list)
+    var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal(true)
+    expect( firstElement ).to.equal(true);
   });
 
   it('cxToJs list_of_numbers getFirstElementFromList', function(){
-    var utils = new CyNetworkUtils()
-    var cxToJs = new CxToJs(utils)
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_numbers','v' : [1, 2]}
+    var list = {'d' : 'list_of_numbers','v' : [1, 2]};
 
-    var firstElement = cxToJs.getFirstElementFromList(list)
+    var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal(1)
+    expect( firstElement ).to.equal(1);
   });
 
   it('cxToJs cyColorFromCX', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var cxColor = '#0088FF'
+    var cxColor = '#0088FF';
 
-    var cyColor = cxToJs.cyColorFromCX(cxColor)
+    var cyColor = cxToJs.cyColorFromCX(cxColor);
 
-    expect( cyColor ).to.equal('rgb(0,136,255)')
+    expect( cyColor ).to.equal('rgb(0,136,255)');
   });
 
+  it('cxToJs cyNumberFromString', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
+    var cxNumber = '1e06';
+
+    var cyNumber = cxToJs.cyNumberFromString(cxNumber);
+
+    expect( cyNumber ).to.equal(1000000);
+  });
+
+  it('cxToJs cyOpacityFromCX', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxOpacity = 128;
+
+    var cyOpacity = cxToJs.cyOpacityFromCX(cxOpacity);
+
+    expect( cyOpacity ).to.equal(128/255);
+  });
+
+  it('cxToJs commaDelimitedListStringToStringList2', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var commaDelimitedList = "COL=name,T=string,K=0=Node=1,V=0=#00FF99,K=1=Node,,2,V=1=#CC0099";
+
+    let expectedList = ["COL=name",
+      "T=string",
+      "K=0=Node=1",
+      "V=0=#00FF99",
+      "K=1=Node,2",
+      "V=1=#CC0099",
+    ];
+    var list = cxToJs.commaDelimitedListStringToStringList2(commaDelimitedList);
+
+    expect( list ).to.eql(expectedList);
+  });
 
 });
