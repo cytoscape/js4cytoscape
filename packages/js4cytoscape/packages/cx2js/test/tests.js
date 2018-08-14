@@ -74,7 +74,7 @@ describe('Example', function(){
 
     var attributeName = cxToJs.getCyAttributeName('foo', attributeNameMap)
 
-    expect( attributeName ).to.eql( 'bar' );
+    expect( attributeName ).to.equal( 'bar' );
   });
 
   it('cxToJs specialCase getCyAttributeName', function(){
@@ -85,7 +85,7 @@ describe('Example', function(){
 
     var attributeName = cxToJs.getCyAttributeName('id', attributeNameMap)
 
-    expect( attributeName ).to.eql( 'cx_id' );
+    expect( attributeName ).to.equal( 'cx_id' );
   });
 
   it('cxToJs direct getCyAttributeName', function(){
@@ -96,7 +96,72 @@ describe('Example', function(){
 
     var attributeName = cxToJs.getCyAttributeName('hodor', attributeNameMap)
 
-    expect( attributeName ).to.eql( 'hodor' );
+    expect( attributeName ).to.equal( 'hodor' );
   });
 
+  it('cxToJs invalidChar sanitizeAttributeNameMap', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var attributeNameMap = {'$id' : '$id'}
+
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+
+    expect( attributeNameMap ).to.eql({'$id' : '_id_u1'});
+  });
+
+  it('cxToJs sanitizeAttributeNameMap', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var attributeNameMap = {'foo' : 'foo'}
+
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+
+    expect( attributeNameMap ).to.eql({'foo' : 'foo'});
+  });
+
+  it('cxToJs specialCase sanitizeAttributeNameMap', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var attributeNameMap = {'shared name' : 'replace me'}
+
+    cxToJs.sanitizeAttributeNameMap(attributeNameMap)
+
+    expect( attributeNameMap ).to.eql({'shared name' : 'name'});
+  });
+
+  it('cxToJs list_of_string getFirstElementFromList', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var list = {'d' : 'list_of_string','v' : ['element the first', 'element the second']}
+
+    var firstElement = cxToJs.getFirstElementFromList(list)
+
+    expect( firstElement ).to.equal('element the first')
+  });
+
+  it('cxToJs list_of_boolean getFirstElementFromList', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var list = {'d' : 'list_of_boolean','v' : [true, false]}
+
+    var firstElement = cxToJs.getFirstElementFromList(list)
+
+    expect( firstElement ).to.equal(true)
+  });
+
+  it('cxToJs list_of_numbers getFirstElementFromList', function(){
+    var utils = new cytoscapeCx2js.cyNetworkUtils()
+    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+
+    var list = {'d' : 'list_of_numbers','v' : [1, 2]}
+
+    var firstElement = cxToJs.getFirstElementFromList(list)
+
+    expect( firstElement ).to.equal(1)
+  });
 });
