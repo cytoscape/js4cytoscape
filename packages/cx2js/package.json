@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-cx2js",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A cx to Cytoscape JS utility",
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   "main": "./build/bundle.js",
   "scripts": {
     "prepublish": "run-s build",
-    "postinstall": "run-s build",
     "lint:js": "eslint ./src",
     "bundle:js": "webpack",
     "watch:js": "webpack --watch",
