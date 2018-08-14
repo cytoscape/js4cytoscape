@@ -790,8 +790,6 @@ exports.cxToJs = class CxToJs {
             // the cytoscape column is mapped to the cyjs attribute name
             var cyDataAttribute = self.getCyAttributeName(def.COL, attributeNameMap)
 
-           
-
             var colDataType = def.T
 
             //    var regExToCheckIfIntNumber   = /^-{0,1}\d+$/;
