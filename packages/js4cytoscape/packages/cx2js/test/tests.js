@@ -1,7 +1,5 @@
-var chai = require('chai');
-var cytoscapeCx2js = require('../build/bundle.js');
-var expect = chai.expect;
-var assert = chai.assert;
+const { expect, assert } = require('chai');
+const { CxToJs, CyNetworkUtils } = require('../src');
 
 const DEFAULT_STYLE = [
     {
@@ -47,7 +45,7 @@ const DEFAULT_STYLE = [
 describe('Example', function(){
   it('niceCX empty', function(){
    
-    var utils = new cytoscapeCx2js.cyNetworkUtils();
+    var utils = new CyNetworkUtils();
     
     var rawCX = {
 
@@ -58,8 +56,8 @@ describe('Example', function(){
   });
 
   it('cxToJs defaultStyle', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var defaultStyle = cxToJs.getDefaultStyle()
 
@@ -67,8 +65,8 @@ describe('Example', function(){
   });
 
   it('cxToJs getCyAttributeName', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'foo' : 'bar'}
 
@@ -78,8 +76,8 @@ describe('Example', function(){
   });
 
   it('cxToJs specialCase getCyAttributeName', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'foo' : 'bar'}
 
@@ -89,8 +87,8 @@ describe('Example', function(){
   });
 
   it('cxToJs direct getCyAttributeName', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'foo' : 'bar'}
 
@@ -100,8 +98,8 @@ describe('Example', function(){
   });
 
   it('cxToJs invalidChar sanitizeAttributeNameMap', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'$id' : '$id'}
 
@@ -111,8 +109,8 @@ describe('Example', function(){
   });
 
   it('cxToJs sanitizeAttributeNameMap', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'foo' : 'foo'}
 
@@ -122,8 +120,8 @@ describe('Example', function(){
   });
 
   it('cxToJs specialCase sanitizeAttributeNameMap', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var attributeNameMap = {'shared name' : 'replace me'}
 
@@ -133,8 +131,8 @@ describe('Example', function(){
   });
 
   it('cxToJs list_of_string getFirstElementFromList', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var list = {'d' : 'list_of_string','v' : ['element the first', 'element the second']}
 
@@ -144,8 +142,8 @@ describe('Example', function(){
   });
 
   it('cxToJs list_of_boolean getFirstElementFromList', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var list = {'d' : 'list_of_boolean','v' : [true, false]}
 
@@ -155,8 +153,8 @@ describe('Example', function(){
   });
 
   it('cxToJs list_of_numbers getFirstElementFromList', function(){
-    var utils = new cytoscapeCx2js.cyNetworkUtils()
-    var cxToJs = new cytoscapeCx2js.cxToJs(utils)
+    var utils = new CyNetworkUtils()
+    var cxToJs = new CxToJs(utils)
 
     var list = {'d' : 'list_of_numbers','v' : [1, 2]}
 
@@ -164,4 +162,18 @@ describe('Example', function(){
 
     expect( firstElement ).to.equal(1)
   });
+
+  it('cxToJs cyColorFromCX', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxColor = '#0088FF'
+
+    var cyColor = cxToJs.cyColorFromCX(cxColor)
+
+    expect( cyColor ).to.equal('rgb(0,136,255)')
+  });
+
+
+
 });
