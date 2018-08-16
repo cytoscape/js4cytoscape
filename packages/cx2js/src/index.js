@@ -782,8 +782,6 @@ class CxToJs {
                 return elements;  // empty result, vp not handled
             }
 
-           
-
             var cyVisualAttributeType = self.getCyVisualAttributeTypeForVp(vp);
 
             // the cytoscape column is mapped to the cyjs attribute name
