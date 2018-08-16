@@ -254,8 +254,67 @@ describe('Example', function(){
     let jsVisualAttribute = "background-color";
     var result = cxToJs.getCyVisualAttributeForVP(cxVP);
 
+    expect( result ).to.equal(jsVisualAttribute);
+  });
+
+  it('cxToJs base getCyVisualAttributeObjForVP', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_FILL_COLOR";
+
+    let jsVisualAttribute = { att: 'background-color', type: 'color' };
+
+    var result = cxToJs.getCyVisualAttributeObjForVP(cxVP);
+
     expect( result ).to.eql(jsVisualAttribute);
   });
 
+  it('cxToJs base getCyVisualAttributeTypeForVp', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
 
+    var cxVP = "NODE_FILL_COLOR";
+
+    let jsVisualAttributeType = 'color' ;
+
+    var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP);
+
+    expect( result ).to.equal(jsVisualAttributeType);
+  });
+
+  it('cxToJs base getCyVisualAttributeValue', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVPValue = "#0088FF";
+    var cxVPType = 'color';
+
+    let jsVisualAttributeValue = 'rgb(0,136,255)' ;
+
+    var result = cxToJs.getCyVisualAttributeValue(cxVPValue, cxVPType);
+
+    expect( result ).to.equal(jsVisualAttributeValue);
+  });
+
+  it('cxToJs base discreteMappingStyle', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_FILL_COLOR";
+    var cxElementType = "node";
+   
+    var cxDef = { 
+      m: { '0': { K: 'true', V: 'DELTA' } },
+      COL: 'directed',
+      T: 'boolean' 
+    };
+
+    let jsDiscreetMappingStyle = [ { selector: 'node[directed = \'true\']',
+    css: { 'background-color': 'rgb(222,NaN,10)' } } ];
+
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {});
+
+    expect( result ).to.eql(jsDiscreetMappingStyle);
+  });
 });
