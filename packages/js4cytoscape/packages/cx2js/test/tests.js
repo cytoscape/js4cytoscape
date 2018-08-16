@@ -196,7 +196,7 @@ describe('Example', function(){
     expect( cyOpacity ).to.equal(128/255);
   });
 
-  it('cxToJs commaDelimitedListStringToStringList2', function(){
+  it('cxToJs base commaDelimitedListStringToStringList2', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -213,5 +213,49 @@ describe('Example', function(){
 
     expect( list ).to.eql(expectedList);
   });
+
+  it('cxToJs base parseMappingDefinition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var definition = "COL=directed,T=boolean,K=0=true,V=0=DELTA";
+
+    let expectedList = { 
+      m: { '0': { K: 'true', V: 'DELTA' } },
+      COL: 'directed',
+      T: 'boolean' 
+    };
+    var result = cxToJs.parseMappingDefinition(definition);
+
+    expect( result ).to.eql(expectedList);
+  });
+
+  it('cxToJs base getNodeLabelPosition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxPosition = "C,C,c,0.00,0.00";
+
+    let jsPosition = {
+      "text-halign": "center",
+      "text-valign": "center"
+    };
+    var result = cxToJs.getNodeLabelPosition(cxPosition);
+
+    expect( result ).to.eql(jsPosition);
+  });
+
+  it('cxToJs base getCyVisualAttributeForVP', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_FILL_COLOR";
+
+    let jsVisualAttribute = "background-color";
+    var result = cxToJs.getCyVisualAttributeForVP(cxVP);
+
+    expect( result ).to.eql(jsVisualAttribute);
+  });
+
 
 });

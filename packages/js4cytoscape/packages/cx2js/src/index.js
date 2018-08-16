@@ -778,7 +778,7 @@ class CxToJs {
             var elements = [];
             var cyVisualAttribute = self.getCyVisualAttributeForVP(vp);
             if (!cyVisualAttribute) {
-                console.log('no visual attribute for ' + vp)
+                //console.log('no visual attribute for ' + vp)
                 return elements;  // empty result, vp not handled
             }
 
@@ -1185,7 +1185,7 @@ class CxToJs {
         return elements;
 
         // #10 Need to Override ID if exists
-        //​ *ID*​ has a special meaning in Cytoscape.js and if such attribute is available in CX, it should be replaced to something else.
+        //​ 'ID' has a special meaning in Cytoscape.js and if such attribute is available in CX, it should be replaced to something else.
         // This should be handled carefully because it breaks graph topology if not correctly converted.
 
         /*
