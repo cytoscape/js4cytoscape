@@ -214,7 +214,7 @@ describe('Example', function(){
     expect( list ).to.eql(expectedList);
   });
 
-  it('cxToJs base parseMappingDefinition', function(){
+  it('cxToJs discreet parseMappingDefinition', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -224,6 +224,51 @@ describe('Example', function(){
       m: { '0': { K: 'true', V: 'DELTA' } },
       COL: 'directed',
       T: 'boolean' 
+    };
+    var result = cxToJs.parseMappingDefinition(definition);
+
+    expect( result ).to.eql(expectedList);
+  });
+
+  it('cxToJs continuous parseMappingDefinition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var definition = "COL=Degree,T=integer,L=0=1,E=0=10,G=0=10,OV=0=1.0,L=1=40,E=1=40,G=1=1,OV=1=18.0";
+
+    let expectedList = { 
+      'COL': 'Degree',
+      'T': 'integer',
+         'm': {
+           '0': {
+            'E': '10',
+            'G': '10',
+            'L': '1',
+            'OV': '1.0'
+           },
+          '1': {
+            'E': '40',
+            'G': '1',
+            'L': '40',
+            'OV': '18.0'
+          }
+         }
+    };
+    var result = cxToJs.parseMappingDefinition(definition);
+
+    expect( result ).to.eql(expectedList);
+  });
+
+  it('cxToJs passthrough parseMappingDefinition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var definition = 'COL=COMMON,T=string';
+
+    let expectedList = { 
+      'COL': 'COMMON',
+      'T': 'string',
+      'm': {}
     };
     var result = cxToJs.parseMappingDefinition(definition);
 
@@ -301,8 +346,8 @@ describe('Example', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var cxVP = "NODE_FILL_COLOR";
-    var cxElementType = "node";
+    var cxVP = "EDGE_TARGET_ARROW_SHAPE";
+    var cxElementType = "edge";
    
     var cxDef = { 
       m: { '0': { K: 'true', V: 'DELTA' } },
@@ -310,11 +355,97 @@ describe('Example', function(){
       T: 'boolean' 
     };
 
-    let jsDiscreetMappingStyle = [ { selector: 'node[directed = \'true\']',
-    css: { 'background-color': 'rgb(222,NaN,10)' } } ];
+    let jsDiscreetMappingStyle = [ { selector: 'edge[directed = \'true\']',
+    css: { 'target-arrow-shape': 'triangle' } } ];
 
     var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {});
 
     expect( result ).to.eql(jsDiscreetMappingStyle);
   });
+
+  it('cxToJs base continuousMappingStyle', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_LABEL_FONT_SIZE";
+    var cxElementType = "node";
+   
+    var cxDef = { 
+      'COL': 'Degree',
+      'T': 'integer',
+         'm': {
+           '0': {
+            'E': '10',
+            'G': '10',
+            'L': '1',
+            'OV': '1.0'
+           },
+          '1': {
+            'E': '40',
+            'G': '1',
+            'L': '40',
+            'OV': '18.0'
+          }
+         }
+    };
+
+    let jsContinuousMappingStyle = [ 
+      { selector: 'node[Degree < 1]',
+        css: { 'font-size': 1 } },
+      {
+          "css": {
+            "font-size": 10
+          },
+          "selector": "node[Degree = 1]"
+        },
+        {
+          "css": {
+            "font-size": "mapData(Degree,1,18,10,40)"
+          },
+          "selector": "node[Degree > 1][Degree < 18]"
+        },
+        {
+          "css": {
+            "font-size": 40
+          },
+          "selector": "node[Degree = 18]"
+        },
+        {
+          "css": {
+            "font-size": 40
+          },
+          "selector": "node[Degree > 18]"
+        } ];
+
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {});
+
+    expect( result ).to.eql(jsContinuousMappingStyle);
+  });
+
+  it('cxToJs base passthroughMappingStyle', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_LABEL";
+    var cxElementType = "node";
+   
+    var cxDef = { 
+      'COL': 'COMMON',
+      'T': 'string',
+      'm': {}
+    };
+
+    let jsPassthroughMappingStyle = [ 
+      { 
+          "css": {
+            "content": "data(COMMON)"
+          },
+          "selector": "node[COMMON]"
+      } ];
+
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {});
+
+    expect( result ).to.eql(jsPassthroughMappingStyle);
+  });
+
 });
