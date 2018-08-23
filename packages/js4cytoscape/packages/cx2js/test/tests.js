@@ -1,5 +1,6 @@
 const { expect, assert } = require('chai');
 const { CxToJs, CyNetworkUtils } = require('../src');
+const fs  = require('fs-extra');
 
 const DEFAULT_STYLE = [
     {
@@ -43,6 +44,22 @@ const DEFAULT_STYLE = [
 
 
 describe('Example', function(){
+  
+  it('niceCX end to end', function(){
+   
+    var utils = new CyNetworkUtils();
+    //fs.readFileSync('resources/small_graph.cx');
+    var content = fs.readFileSync('test_resources/small_graph.cx');
+    var rawCX = JSON.parse(content);
+
+    var niceCX = utils.rawCXtoNiceCX(rawCX);
+
+    var expectedContent = fs.readFileSync('test_resources/small_graph_nice.cx');
+    var expectedNiceCX = JSON.parse(expectedContent);
+
+    expect( niceCX ).to.eql( expectedNiceCX );
+  });
+  
   it('niceCX empty', function(){
    
     var utils = new CyNetworkUtils();
