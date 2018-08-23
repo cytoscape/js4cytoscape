@@ -72,6 +72,27 @@ describe('Example', function(){
     expect( niceCX ).to.eql( { edges : {}} );
   });
 
+  it('cxToJs end to end', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var content = fs.readFileSync('test_resources/small_graph_nice.cx');
+    var niceCX = JSON.parse(content);
+
+    var attributeNameMap = {};
+    var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
+    
+    var expectedElementsContent = fs.readFileSync('test_resources/small_graph_elements.json');
+    var expectedElementsJson = JSON.parse(expectedElementsContent);
+    expect( elements ).to.eql( expectedElementsJson );
+
+    var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+    var expectedStyleContent = fs.readFileSync('test_resources/small_graph_style.json');
+    var expectedStyleJson = JSON.parse(expectedStyleContent);
+    expect( style ).to.eql( expectedStyleJson );
+  });
+
   it('cxToJs defaultStyle', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
