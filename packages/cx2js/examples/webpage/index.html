@@ -37,18 +37,15 @@
 
         var cyBackgroundColor = cx2Js.cyBackgroundColorFromNiceCX(niceCX);
 
+        var layout = cx2Js.getDefaultLayout();
+
         document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
 
         var cytoscapeJS = {
             container: document.getElementById('cy'),
             style: style,
             elements: elements,
-            layout: {
-                "name": "preset",
-                "animate": false,
-                "numIter": 50,
-                "coolingFactor": 0.9
-            }
+            layout: layout
         };
 
 

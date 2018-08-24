@@ -1,6 +1,8 @@
 'use strict';
 var _ = require('lodash');
 
+const DEF_LAYOUT = {name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9};
+
 const DEF_VISUAL_STYLE = [
     {
         selector: 'node',
@@ -1238,6 +1240,10 @@ class CxToJs {
         });
 
         return result;
+    }
+
+    getDefaultLayout() {
+        return DEF_LAYOUT;
     }
 
     cyStyleFromNiceCX(niceCX, attributeNameMap) {
