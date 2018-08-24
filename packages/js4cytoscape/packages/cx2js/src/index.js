@@ -335,8 +335,11 @@ const visualPropertyMap = {
     'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' }
 };
 
-// https://www.cssfontstack.com/
+
+
 const FONT_FAMILY_MAP = {
+    // https://www.cssfontstack.com/
+    
     // Sans-serif font stack
     'Arial': 'Arial,Helvetica Neue,Helvetica,sans-serif',
     'Arial-Black': 'Arial Black,Arial Bold,Gadget,sans-serif',
@@ -400,7 +403,39 @@ const FONT_FAMILY_MAP = {
     'Papyrus': 'Papyrus,fantasy',
 
     // Script font stack
-    'BrushScriptMT': 'Brush Script MT,cursive'
+    'BrushScriptMT': 'Brush Script MT,cursive',
+
+    //The following are Java logical fonts.
+    //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts
+    //Dialog
+    'Dialog.plain':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    //'Dialog.bold':'',
+    //'Dialog.boldItalic':'',
+    //'Dialog.italic':'',
+
+    //DialogInput
+    'DialogInput.plain':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    //'DialogInput.bold':'',
+    //'DialogInput.boldItalic':'',
+    //'DialogInput.italic':'',    
+
+    //Monospaced
+    //'Monospaced.plain':'',
+    //'Monospaced.bold':'',
+    //'Monospaced.boldItalic':'',
+    //'Monospaced.italic':'',
+
+    //Serif
+    //'Serif.plain':'',
+    //'Serif.bold':'',
+    //'Serif.boldItalic':'',
+    //'Serif.italic':'',
+
+    //SansSerif
+    //'SansSerif.plain':'',
+    //'SansSerif.bold':'',
+    //'SansSerif.boldItalic':'',
+    //'SansSerif.italic':''
 };
 
 class CxToJs {
