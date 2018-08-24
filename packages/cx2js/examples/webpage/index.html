@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>CX to JS in a webpage</title>
+    <title>CX to JS in a webpage</title>
     <script src="../../build/bundle.js"></script>
     <script src="cx_med.js"></script>
     <script src="cytoscape.js"></script>
@@ -11,11 +11,11 @@
 
 <style>
     #cy {
-      background-color: white;
-      width: 100%;
-      height: 600px;
-      top: 0px;
-      left: 0px;
+        background-color: white;
+        width: 100%;
+        height: 600px;
+        top: 0px;
+        left: 0px;
     }
 </style>
 
@@ -26,7 +26,7 @@
         var utils = new cytoscapeCx2js.CyNetworkUtils()
 
         var niceCX = utils.rawCXtoNiceCX(rawCX);
-      
+
         var cx2Js = new cytoscapeCx2js.CxToJs(utils);
 
         var attributeNameMap = {};
@@ -39,19 +39,18 @@
 
         document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
 
-var cytoscapeJS = {
-    container: document.getElementById('cy'),
-    style: style,
-    elements: elements,
-    layout: {
-        "name": "preset",
-        "animate": false,
-        "numIter": 50,
-        "coolingFactor": 0.9
-    }
-};
+        var cytoscapeJS = {
+            container: document.getElementById('cy'),
+            style: style,
+            elements: elements,
+            layout: {
+                "name": "preset",
+                "animate": false,
+                "numIter": 50,
+                "coolingFactor": 0.9
+            }
+        };
 
-        //console.log(cytoscapeJS);
 
         var cy = cytoscape(cytoscapeJS);
     </script>
