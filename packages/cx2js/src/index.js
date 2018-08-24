@@ -1415,6 +1415,7 @@ class CxToJs {
                 } else if (elementType === 'edges:default') {
 
                     var defaultEdgeProperties = {};
+
                     var selectedEdgeProperties = {};
                     _.forEach(vpElement.properties, function (value, vp) {
                         var cyVisualAttribute = null;
@@ -1502,7 +1503,14 @@ class CxToJs {
                             }
    
                        }); */
-
+                    /*
+                    Cytoscape js defaults to a very basic curve style that doesn't support things like curvature and 
+                    arrows. If the style is not deliberately set at this point, it is switched to 'bezier' to allow 
+                    for arrows and curvatures.
+                    */
+                    if (!defaultEdgeProperties['curve-style']) {
+                       defaultEdgeProperties['curve-style'] = 'bezier';
+                    }
                 } else if (elementType === 'nodes') {
                     // 'bypass' setting node specific properties
                     /** @namespace vpElement.applies_to **/
