@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
 
-const DEF_LAYOUT = {name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9};
+const DEF_LAYOUT = { name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9 };
 
 const DEF_VISUAL_STYLE = [
     {
@@ -339,7 +339,7 @@ const visualPropertyMap = {
 
 const FONT_FAMILY_MAP = {
     // https://www.cssfontstack.com/
-    
+
     // Sans-serif font stack
     'Arial': 'Arial,Helvetica Neue,Helvetica,sans-serif',
     'Arial-Black': 'Arial Black,Arial Bold,Gadget,sans-serif',
@@ -408,13 +408,13 @@ const FONT_FAMILY_MAP = {
     //The following are Java logical fonts.
     //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts
     //Dialog
-    'Dialog.plain':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.plain': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
     //'Dialog.bold':'',
     //'Dialog.boldItalic':'',
     //'Dialog.italic':'',
 
     //DialogInput
-    'DialogInput.plain':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.plain': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
     //'DialogInput.bold':'',
     //'DialogInput.boldItalic':'',
     //'DialogInput.italic':'',    
@@ -807,7 +807,7 @@ class CxToJs {
             // assume string
             return visualAttributeValue;
         };
-        
+
         //var getCyVisualAttributeForVP = self.getCyVisualAttributeForVP
         this.discreteMappingStyle = function (elementType, vp, def, attributeNameMap) {
             //console.log(def);
@@ -1011,6 +1011,38 @@ class CxToJs {
             } else if (type === 'PASSTHROUGH') {
                 return self.passthroughMappingStyle(elementType, vp, def, attributeNameMap);
             }
+        };
+
+        this.cyVisualPropertyFromNiceCX=  function(niceCX, type, vp) {
+            //console.log(niceCX);
+            var result = null;
+            var visualProps;
+            /** @namespace niceCX.cyVisualProperties **/
+            if (niceCX.cyVisualProperties) {
+                visualProps = niceCX.cyVisualProperties;
+            }
+            else {
+                /** @namespace niceCX.visualProperties **/
+                if (niceCX.visualProperties) {
+                    visualProps = niceCX.visualProperties;
+                } else {
+                    return null;
+                }
+            }
+
+            _.forEach(visualProps, function (vpAspectElement) {
+                _.forEach(vpAspectElement, function (vpElement) {
+                    /** @namespace vpElement.properties_of **/
+                    var elementType = vpElement.properties_of;
+                    if (elementType === type) {
+                        /** @namespace vpElement.properties.NETWORK_SCALE_FACTOR **/
+                        result = vpElement.properties[vp];
+                        return false;
+                    }
+                });
+            });
+
+            return result;
         };
     }
 
@@ -1246,35 +1278,7 @@ class CxToJs {
 
     // get the color from the network visual property and convert it to CSS format
     cyBackgroundColorFromNiceCX(niceCX) {
-        //console.log(niceCX);
-        var result = null;
-        var visualProps;
-        /** @namespace niceCX.cyVisualProperties **/
-        if (niceCX.cyVisualProperties) {
-            visualProps = niceCX.cyVisualProperties;
-        }
-        else {
-            /** @namespace niceCX.visualProperties **/
-            if (niceCX.visualProperties) {
-                visualProps = niceCX.visualProperties;
-            } else {
-                return null;
-            }
-        }
-
-        _.forEach(visualProps, function (vpAspectElement) {
-            _.forEach(vpAspectElement, function (vpElement) {
-                /** @namespace vpElement.properties_of **/
-                var elementType = vpElement.properties_of;
-                if (elementType === 'network') {
-                    /** @namespace vpElement.properties.NETWORK_BACKGROUND_PAINT **/
-                    result = vpElement.properties.NETWORK_BACKGROUND_PAINT;
-                    return false;
-                }
-            });
-        });
-
-        return result;
+        return this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_BACKGROUND_PAINT');
     }
 
     getDefaultLayout() {
@@ -1550,7 +1554,7 @@ class CxToJs {
                     for arrows and curvatures.
                     */
                     if (!defaultEdgeProperties['curve-style']) {
-                       defaultEdgeProperties['curve-style'] = 'bezier';
+                        defaultEdgeProperties['curve-style'] = 'bezier';
                     }
                 } else if (elementType === 'nodes') {
                     // 'bypass' setting node specific properties
@@ -1596,6 +1600,21 @@ class CxToJs {
             edgeSelectedStyles);
     }
 
+    cyZoomFromNiceCX(niceCX) {
+        let networkScaleFactor = this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_SCALE_FACTOR');
+        return networkScaleFactor ? parseInt(networkScaleFactor) : false;
+    }
+
+    cyPanFromNiceCX(niceCX) {
+        let cyX = this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_CENTER_X_LOCATION');
+        let cyY = this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_CENTER_Y_LOCATION');
+        if (cyX && cyY) {
+            let result = { x : parseFloat(cyX), y: parseFloat(cyY)};
+            return result;
+        } else {
+            return false;
+        }
+    }
 
     /*
 
@@ -1893,35 +1912,35 @@ class CyNetworkUtils {
         }
 
         switch (aspectName) {
-        case 'nodes':
-        case 'edges':
-        case 'citations':
-        case 'supports':
-            aspect[element['@id']] = element;
-            break;
-        case 'nodeAttributes':
-            this.addElementToAspectValueMap(aspect, element);
-            break;
-        case 'edgeAttributes':
-            this.addElementToAspectValueMap(aspect, element);
-            break;
-        case 'edgeCitations':
-        case 'nodeCitations':
-            this.addRelationToRelationAspect(aspect, element, 'citations');
-            break;
-        case 'edgeSupports':
-        case 'nodeSupports':
-            this.addRelationToRelationAspect(aspect, element, 'supports');
-            break;
-        case 'functionTerms':
-            aspect[element['po']] = element;
-            break;
-        default:
-            // opaque for now
-            if (!aspect.elements) {
-                aspect.elements = [];
-            }
-            aspect.elements.push(element);
+            case 'nodes':
+            case 'edges':
+            case 'citations':
+            case 'supports':
+                aspect[element['@id']] = element;
+                break;
+            case 'nodeAttributes':
+                this.addElementToAspectValueMap(aspect, element);
+                break;
+            case 'edgeAttributes':
+                this.addElementToAspectValueMap(aspect, element);
+                break;
+            case 'edgeCitations':
+            case 'nodeCitations':
+                this.addRelationToRelationAspect(aspect, element, 'citations');
+                break;
+            case 'edgeSupports':
+            case 'nodeSupports':
+                this.addRelationToRelationAspect(aspect, element, 'supports');
+                break;
+            case 'functionTerms':
+                aspect[element['po']] = element;
+                break;
+            default:
+                // opaque for now
+                if (!aspect.elements) {
+                    aspect.elements = [];
+                }
+                aspect.elements.push(element);
         }
     }
 
@@ -1964,72 +1983,72 @@ class CyNetworkUtils {
             pureFunctionName = arr[1];
 
         switch (pureFunctionName) {
-        case 'abundance':
-            return 'a';
-        case 'biologicalProcess':
-            return 'bp';
-        case 'catalyticActivity':
-            return 'cat';
-        case 'cellSecretion':
-            return 'sec';
-        case 'cellSurfaceExpression':
-            return 'surf';
-        case 'chaperoneActivity':
-            return 'chap';
-        case 'complexAbundance':
-            return 'complex';
-        case 'compositeAbundance':
-            return 'composite';
-        case 'degradation':
-            return 'deg';
-        case 'fusion':
-            return 'fus';
-        case 'geneAbundance':
-            return 'g';
-        case 'gtpBoundActivity':
-            return 'gtp';
-        case 'kinaseActivity':
-            return 'kin';
-        case 'microRNAAbundance':
-            return 'm';
-        case 'molecularActivity':
-            return 'act';
-        case 'pathology':
-            return 'path';
-        case 'peptidaseActivity':
-            return 'pep';
-        case 'phosphateActivity':
-            return 'phos';
-        case 'proteinAbundance':
-            return 'p';
-        case 'proteinModification':
-            return 'pmod';
-        case 'reaction':
-            return 'rxn';
-        case 'ribosylationActivity':
-            return 'ribo';
-        case 'rnaAbundance':
-            return 'r';
-        case 'substitution':
-            return 'sub';
-        case 'translocation':
-            return 'tloc';
-        case 'transcriptionalActivity':
-            return 'tscript';
-        case 'transportActivity':
-            return 'tport';
-        case 'truncation':
-            return 'trunc';
-        case 'increases':
-            return '->';
-        case 'decreases':
-            return '-|';
-        case 'directlyIncreases':
-            return '=>';
-        case 'directlyDecreases':
-            return '=|';
-        default:
-            return pureFunctionName;
+            case 'abundance':
+                return 'a';
+            case 'biologicalProcess':
+                return 'bp';
+            case 'catalyticActivity':
+                return 'cat';
+            case 'cellSecretion':
+                return 'sec';
+            case 'cellSurfaceExpression':
+                return 'surf';
+            case 'chaperoneActivity':
+                return 'chap';
+            case 'complexAbundance':
+                return 'complex';
+            case 'compositeAbundance':
+                return 'composite';
+            case 'degradation':
+                return 'deg';
+            case 'fusion':
+                return 'fus';
+            case 'geneAbundance':
+                return 'g';
+            case 'gtpBoundActivity':
+                return 'gtp';
+            case 'kinaseActivity':
+                return 'kin';
+            case 'microRNAAbundance':
+                return 'm';
+            case 'molecularActivity':
+                return 'act';
+            case 'pathology':
+                return 'path';
+            case 'peptidaseActivity':
+                return 'pep';
+            case 'phosphateActivity':
+                return 'phos';
+            case 'proteinAbundance':
+                return 'p';
+            case 'proteinModification':
+                return 'pmod';
+            case 'reaction':
+                return 'rxn';
+            case 'ribosylationActivity':
+                return 'ribo';
+            case 'rnaAbundance':
+                return 'r';
+            case 'substitution':
+                return 'sub';
+            case 'translocation':
+                return 'tloc';
+            case 'transcriptionalActivity':
+                return 'tscript';
+            case 'transportActivity':
+                return 'tport';
+            case 'truncation':
+                return 'trunc';
+            case 'increases':
+                return '->';
+            case 'decreases':
+                return '-|';
+            case 'directlyIncreases':
+                return '=>';
+            case 'directlyDecreases':
+                return '=|';
+            default:
+                return pureFunctionName;
         }
     }
 

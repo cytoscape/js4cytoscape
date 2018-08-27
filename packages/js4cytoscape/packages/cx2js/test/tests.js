@@ -486,4 +486,72 @@ describe('Example', function(){
     expect( result ).to.eql(jsPassthroughMappingStyle);
   });
 
+  it('cxToJs base cyZoomFromNiceCX', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "visualProperties": {
+        "elements": [
+          {
+            "properties_of": "network",
+            "properties": {
+              "NETWORK_CENTER_Z_LOCATION": "0.0",
+              "NETWORK_SCALE_FACTOR": "2.0",
+              "NETWORK_CENTER_Y_LOCATION": "0.0"
+            }
+          }
+          ]}};
+  
+    var result = cxToJs.cyZoomFromNiceCX(niceCX);
+
+    expect( result ).to.eql(2);
+  });
+
+  it('cxToJs base cyBackgroundColorFromNiceCX', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "visualProperties": {
+        "elements": [
+          {
+            "properties_of": "network",
+            "properties": {
+              "NETWORK_EDGE_SELECTION": "true",
+              "NETWORK_BACKGROUND_PAINT": "#CCCCCC",
+              "NETWORK_CENTER_X_LOCATION": "0.0"
+            }
+          }
+          ]}};
+  
+    var result = cxToJs.cyBackgroundColorFromNiceCX(niceCX);
+
+    expect( result ).to.eql('#CCCCCC');
+  });
+
+  it('cxToJs base cyPanFromNiceCX', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "visualProperties": {
+        "elements": [
+          {
+            "properties_of": "network",
+            "properties": {
+              "NETWORK_EDGE_SELECTION": "true",
+              "NETWORK_CENTER_X_LOCATION": "2.0", 
+              "NETWORK_CENTER_Y_LOCATION": "3.0",
+              "NETWORK_BACKGROUND_PAINT": "#CCCCCC",
+            }
+          }
+          ]}};
+  
+    var result = cxToJs.cyPanFromNiceCX(niceCX);
+    var pan = { x: 2, y:3};
+
+    expect( result ).to.eql(pan);
+  });
+
 });
