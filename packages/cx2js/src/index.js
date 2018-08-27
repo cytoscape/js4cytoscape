@@ -1,7 +1,7 @@
 'use strict';
 var _ = require('lodash');
 
-const DEF_LAYOUT = { name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9 };
+const DEF_LAYOUT = { name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9, fit: false };
 
 const DEF_VISUAL_STYLE = [
     {
