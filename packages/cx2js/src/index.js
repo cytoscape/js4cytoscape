@@ -801,8 +801,7 @@ class CxToJs {
                 return (fontFamilyValueMapped) ? fontFamilyValueMapped : fontFamilyValue;
 
             } else if (cyVisualAttributeType === 'labelPosition') {
-
-                return this.getNodeLabelPosition(visualAttributeValue);
+                return self.getNodeLabelPosition(visualAttributeValue);
             }
             // assume string
             return visualAttributeValue;
@@ -1565,7 +1564,14 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                            nodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                            
+                            if (vp === 'NODE_LABEL_POSITION') {
+                                var bypassNodeLabelPosition = getNodeLabelPosition(value);
+                                nodeProperties['text-valign'] = bypassNodeLabelPosition['text-valign'];
+                                nodeProperties['text-halign'] = bypassNodeLabelPosition['text-halign'];
+                            } else {
+                                nodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                            }
                         }
                     });
                     var nodeSelector = 'node[ id = \'' + nodeId + '\' ]';
