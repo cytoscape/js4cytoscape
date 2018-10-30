@@ -335,8 +335,6 @@ const visualPropertyMap = {
     'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' }
 };
 
-
-
 const FONT_FAMILY_MAP = {
     // https://www.cssfontstack.com/
 
@@ -405,37 +403,41 @@ const FONT_FAMILY_MAP = {
     // Script font stack
     'BrushScriptMT': 'Brush Script MT,cursive',
 
-    //The following are Java logical fonts.
-    //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts
+    
+    //Java Logical Font stack
+    //The following are Java logical fonts. 
+    //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts 
+    
     //Dialog
     'Dialog.plain': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    //'Dialog.bold':'',
-    //'Dialog.boldItalic':'',
-    //'Dialog.italic':'',
+    'Dialog.bold':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.boldItalic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.italic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
 
     //DialogInput
-    'DialogInput.plain': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    //'DialogInput.bold':'',
-    //'DialogInput.boldItalic':'',
-    //'DialogInput.italic':'',    
+    'DialogInput.plain':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.bold':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.boldItalic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.italic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',    
 
     //Monospaced
-    //'Monospaced.plain':'',
-    //'Monospaced.bold':'',
-    //'Monospaced.boldItalic':'',
-    //'Monospaced.italic':'',
+    'Monospaced.plain':'Consolas,monaco,monospace',
+    'Monospaced.bold':'Consolas,monaco,monospace',
+    'Monospaced.boldItalic':'Consolas,monaco,monospace',
+    'Monospaced.italic':'Consolas,monaco,monospace',
 
     //Serif
-    //'Serif.plain':'',
-    //'Serif.bold':'',
-    //'Serif.boldItalic':'',
-    //'Serif.italic':'',
+    'Serif.':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.plain':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.bold':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.boldItalic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.italic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
 
     //SansSerif
-    //'SansSerif.plain':'',
-    //'SansSerif.bold':'',
-    //'SansSerif.boldItalic':'',
-    //'SansSerif.italic':''
+    'SansSerif.plain':'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.bold':'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.boldItalic':'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.italic':'Arial,Helvetica Neue,Helvetica,sans-serif'
 };
 
 class CxToJs {
@@ -454,7 +456,6 @@ class CxToJs {
             'source': 'cx_source',
             'shared name': 'name',
             'shared interaction': 'interaction'
-
         };
 
         this.getCyAttributeName = function (attributeName, attributeNameMap) {
