@@ -1367,7 +1367,6 @@ class CxToJs {
                 if (elementType === 'nodes:default') {
 
                     var cyLabelPositionCoordinates = null;
-                    var nodeLabelFontFace = null;
                     var defaultNodeProperties = {};
                     var nodeSize = null;
 
@@ -1376,9 +1375,8 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             if (vp === 'NODE_LABEL_FONT_FACE') {
-                                nodeLabelFontFace = value;
-                                if (nodeLabelFontFace) {
-                                   expandFontProperties(nodeLabelFontFace, defaultNodeProperties);
+                                if (value) {
+                                   expandFontProperties(value, defaultNodeProperties);
                                 } else {
                                     defaultNodeProperties['font-family'] = 'sans-serif';
                                     defaultNodeProperties['font-weight'] = 'normal';
@@ -1525,6 +1523,14 @@ class CxToJs {
                                 }
                                 cyVisualAttribute = getCyVisualAttributeForVP(vp);
                                 if (cyVisualAttribute) {
+                                    if (vp === 'EDGE_LABEL_FONT_FACE') {
+                                        if (value) {
+                                           expandFontProperties(value, defaultEdgeProperties);
+                                        } else {
+                                            defaultEdgeProperties['font-family'] = 'sans-serif';
+                                            defaultEdgeProperties['font-weight'] = 'normal';
+                                        }
+                                    }
                                     cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                     defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                                 } else if (vp === 'EDGE_STROKE_SELECTED_PAINT') {
@@ -1610,9 +1616,8 @@ class CxToJs {
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                             if (vp === 'NODE_LABEL_FONT_FACE') {
-                                nodeLabelFontFace = value;
-                                if (nodeLabelFontFace) {
-                                    expandFontProperties(nodeLabelFontFace, nodeProperties);
+                                if (value) {
+                                    expandFontProperties(value, nodeProperties);
                                 }
                             }
                             if (vp === 'NODE_LABEL_POSITION') {
@@ -1636,6 +1641,11 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
+                            if (vp === 'EDGE_LABEL_FONT_FACE') {
+                                if (value) {
+                                   expandFontProperties(value, edgeProperties);
+                                }
+                            }
                             edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                         }
                     });
