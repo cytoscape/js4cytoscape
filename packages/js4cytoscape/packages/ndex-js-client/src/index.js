@@ -288,6 +288,16 @@ export class NDEx {
 
   }
 
+  getNetworkSummary(uuid, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters = {accesskey: accessKey};
+    }
+
+    return this._httpGetProtectedObj('network/' + uuid + '/summary', parameters);
+  }
+
   createNetworkFromRawCX(rawCX, parameters) {
     return new Promise((resolve, reject) =>{
       this._httpPostProtectedObj('network', parameters, rawCX).then(
@@ -309,26 +319,136 @@ export class NDEx {
   deleteNetwork(uuid) {
     return this._httpDeleteObj('network/' + uuid);
   }
+
   /* task functions */
 
   /* search functions */
+  searchUsers(searchTerms, start, size) {
+    let params = {};
+
+    if (start !== undefined) {
+      params.start = start;
+    }
+    if (size !== undefined) {
+      params.limit = size;
+    }
+    let data = {searchString: searchTerms};
+
+    return this._httpPostProtectedObj('search/user', params, data);
+
+  }
+
+  searchGroups(searchTerms, start, size) {
+    let params = {};
+
+    if (start !== undefined) {
+      params.start = start;
+    }
+    if (size !== undefined) {
+      params.limit = size;
+    }
+    let data = {searchString: searchTerms};
+
+    return this._httpPostProtectedObj('search/group', params, data);
+
+  }
+
+  searchNetworks(searchTerms, start, size, optionalParameters) {
+    let params = {};
+
+    if (start !== undefined) {
+      params.start = start;
+    }
+    if (size !== undefined) {
+      params.limit = size;
+    }
+
+    let data = {searchString: searchTerms};
+
+    if (optionalParameters !== undefined) {
+      if (optionalParameters.permission !== undefined) {
+        data.permission = optionalParameters.permission;
+      }
+      if (optionalParameters.includeGroups !== undefined) {
+        data.includeGroups = optionalParameters.includeGroups;
+      }
+      if (optionalParameters.accountName !== undefined) {
+        data.accountName = optionalParameters.accountName;
+      }
+    }
+
+    return this._httpPostProtectedObj('search/network', params, data);
+  }
+
+  neighborhoodQuery(uuid, searchTerms, saveResult, parameters) {
+    let params = {};
+
+    if (saveResult !== undefined && saveResult === true) {params.save = true;}
+
+    let data = {searchString: searchTerms,
+      searchDepth: 1};
+
+    if (parameters !== undefined) {
+      if (parameters.searchDepth !== undefined) {
+        data.searchDepth = parameters.searchDepth;
+      }
+      if (parameters.edgeLimit !== undefined) {
+        data.edgeLimit = parameters.edgeLimit;
+      }
+      if (parameters.errorWhenLimitIsOver !== undefined) {
+        data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+      }
+      if (parameters.directOnly !== undefined) {
+        data.directOnly = parameters.directOnly;
+      }
+    }
+    return this._httpPostProtectedObj('search/network/' + uuid + '/query', params, data);
+
+  }
+
+  interConnectQuery(uuid, searchTerms, saveResult, parameters) {
+    let params = {};
+
+    if (saveResult !== undefined && saveResult === true) {params.save = true;}
+
+    let data = {searchString: searchTerms};
+
+    if (parameters !== undefined) {
+      if (parameters.edgeLimit !== undefined) {
+        data.edgeLimit = parameters.edgeLimit;
+      }
+      if (parameters.errorWhenLimitIsOver !== undefined) {
+        data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+      }
+    }
+    return this._httpPostProtectedObj('search/network/' + uuid + '/interconnectquery', params, data);
+
+  }
 
   /* batch functions */
+  getUsersByUUIDs(uuidList) {
+    return this._httpPostProtectedObj('batch/user', undefined, uuidList);
+  }
+
+  getGroupsByUUIDs(uuidList) {
+    return this._httpPostProtectedObj('batch/group', undefined, uuidList);
+  }
+
+  getNetworkSummariesByUUIDs(uuidList, accessKey) {
+    let parameter = accessKey === undefined ? undefined :
+      {accesskey: accessKey};
+
+    return this._httpPostProtectedObj('batch/network/summary', parameter, uuidList);
+  }
+
+  getNetworkPermissionsByUUIDs(uuidList) {
+    return this._httpPostProtectedObj('batch/network/permission', undefined, uuidList);
+  }
+
+  exportNetworks(exportJob) {
+    return this._httpPostProtectedObj('batch/network/export', undefined, exportJob);
+  }
+  /* network set functions */
 
 }
 
-// local test
-/*
-let ndex = new NDEx();
-
-ndex.host = 'http://dev.ndexbio.org/v2';
-
-ndex.setBasicAuth('cj1', 'aaaaaaaaa');
-
-ndex.getSignedInUser().then((user) => {
-  console.log(user);
-  expect(user.username).to.equal('cj1');
-}, (err) => {
-  console.log(err);
-});
-*/
