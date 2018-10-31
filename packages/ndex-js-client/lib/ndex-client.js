@@ -2315,6 +2315,19 @@ function () {
       return this._httpGetProtectedObj('network/' + uuid, parameters);
     }
   }, {
+    key: "getNetworkSummary",
+    value: function getNetworkSummary(uuid, accessKey) {
+      var parameters = {};
+
+      if (accessKey !== undefined) {
+        parameters = {
+          accesskey: accessKey
+        };
+      }
+
+      return this._httpGetProtectedObj('network/' + uuid + '/summary', parameters);
+    }
+  }, {
     key: "createNetworkFromRawCX",
     value: function createNetworkFromRawCX(rawCX, parameters) {
       var _this4 = this;
@@ -2343,7 +2356,165 @@ function () {
 
     /* search functions */
 
+  }, {
+    key: "searchUsers",
+    value: function searchUsers(searchTerms, start, size) {
+      var params = {};
+
+      if (start !== undefined) {
+        params.start = start;
+      }
+
+      if (size !== undefined) {
+        params.limit = size;
+      }
+
+      var data = {
+        searchString: searchTerms
+      };
+      return this._httpPostProtectedObj('search/user', params, data);
+    }
+  }, {
+    key: "searchGroups",
+    value: function searchGroups(searchTerms, start, size) {
+      var params = {};
+
+      if (start !== undefined) {
+        params.start = start;
+      }
+
+      if (size !== undefined) {
+        params.limit = size;
+      }
+
+      var data = {
+        searchString: searchTerms
+      };
+      return this._httpPostProtectedObj('search/group', params, data);
+    }
+  }, {
+    key: "searchNetworks",
+    value: function searchNetworks(searchTerms, start, size, optionalParameters) {
+      var params = {};
+
+      if (start !== undefined) {
+        params.start = start;
+      }
+
+      if (size !== undefined) {
+        params.limit = size;
+      }
+
+      var data = {
+        searchString: searchTerms
+      };
+
+      if (optionalParameters !== undefined) {
+        if (optionalParameters.permission !== undefined) {
+          data.permission = optionalParameters.permission;
+        }
+
+        if (optionalParameters.includeGroups !== undefined) {
+          data.includeGroups = optionalParameters.includeGroups;
+        }
+
+        if (optionalParameters.accountName !== undefined) {
+          data.accountName = optionalParameters.accountName;
+        }
+      }
+
+      return this._httpPostProtectedObj('search/network', params, data);
+    }
+  }, {
+    key: "neighborhoodQuery",
+    value: function neighborhoodQuery(uuid, searchTerms, saveResult, parameters) {
+      var params = {};
+
+      if (saveResult !== undefined && saveResult === true) {
+        params.save = true;
+      }
+
+      var data = {
+        searchString: searchTerms,
+        searchDepth: 1
+      };
+
+      if (parameters !== undefined) {
+        if (parameters.searchDepth !== undefined) {
+          data.searchDepth = parameters.searchDepth;
+        }
+
+        if (parameters.edgeLimit !== undefined) {
+          data.edgeLimit = parameters.edgeLimit;
+        }
+
+        if (parameters.errorWhenLimitIsOver !== undefined) {
+          data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+        }
+
+        if (parameters.directOnly !== undefined) {
+          data.directOnly = parameters.directOnly;
+        }
+      }
+
+      return this._httpPostProtectedObj('search/network/' + uuid + '/query', params, data);
+    }
+  }, {
+    key: "interConnectQuery",
+    value: function interConnectQuery(uuid, searchTerms, saveResult, parameters) {
+      var params = {};
+
+      if (saveResult !== undefined && saveResult === true) {
+        params.save = true;
+      }
+
+      var data = {
+        searchString: searchTerms
+      };
+
+      if (parameters !== undefined) {
+        if (parameters.edgeLimit !== undefined) {
+          data.edgeLimit = parameters.edgeLimit;
+        }
+
+        if (parameters.errorWhenLimitIsOver !== undefined) {
+          data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+        }
+      }
+
+      return this._httpPostProtectedObj('search/network/' + uuid + '/interconnectquery', params, data);
+    }
     /* batch functions */
+
+  }, {
+    key: "getUsersByUUIDs",
+    value: function getUsersByUUIDs(uuidList) {
+      return this._httpPostProtectedObj('batch/user', undefined, uuidList);
+    }
+  }, {
+    key: "getGroupsByUUIDs",
+    value: function getGroupsByUUIDs(uuidList) {
+      return this._httpPostProtectedObj('batch/group', undefined, uuidList);
+    }
+  }, {
+    key: "getNetworkSummariesByUUIDs",
+    value: function getNetworkSummariesByUUIDs(uuidList, accessKey) {
+      var parameter = accessKey === undefined ? undefined : {
+        accesskey: accessKey
+      };
+      return this._httpPostProtectedObj('batch/network/summary', parameter, uuidList);
+    }
+  }, {
+    key: "getNetworkPermissionsByUUIDs",
+    value: function getNetworkPermissionsByUUIDs(uuidList) {
+      return this._httpPostProtectedObj('batch/network/permission', undefined, uuidList);
+    }
+  }, {
+    key: "exportNetworks",
+    value: function exportNetworks(exportJob) {
+      return this._httpPostProtectedObj('batch/network/export', undefined, exportJob);
+    }
+    /* network set functions */
 
   }, {
     key: "host",
@@ -2378,23 +2549,7 @@ function () {
   }]);
 
   return NDEx;
-}(); // local test
-
-/*
-let ndex = new NDEx();
-
-ndex.host = 'http://dev.ndexbio.org/v2';
-
-ndex.setBasicAuth('cj1', 'aaaaaaaaa');
-
-ndex.getSignedInUser().then((user) => {
-  console.log(user);
-  expect(user.username).to.equal('cj1');
-}, (err) => {
-  console.log(err);
-});
-*/
-
+}();
 
 exports.NDEx = NDEx;
 
