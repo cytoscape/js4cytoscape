@@ -335,6 +335,37 @@ const visualPropertyMap = {
     'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' }
 };
 
+const JAVA_LOGICAL_FONT_PROPERTIES_MAP = {
+    'Dialog.plain': {},
+    'Dialog.bold': {'font-weight': 'bold'},
+    'Dialog.bolditalic': {'font-weight': 'bold', 'font-style': 'italic'},
+    'Dialog.italic':{'font-style': 'italic'},
+
+    //DialogInput
+    'DialogInput.plain':{},
+    'DialogInput.bold':{'font-weight': 'bold'},
+    'DialogInput.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
+    'DialogInput.italic':{'font-style': 'italic'},    
+
+    //Monospaced
+    'Monospaced.plain':{},
+    'Monospaced.bold':{'font-weight': 'bold'},
+    'Monospaced.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
+    'Monospaced.italic':{'font-style': 'italic'},
+
+    //Serif
+    'Serif.plain':{},
+    'Serif.bold':{'font-weight': 'bold'},
+    'Serif.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
+    'Serif.italic':{'font-style': 'italic'},
+
+    //SansSerif
+    'SansSerif.plain':{},
+    'SansSerif.bold':{'font-weight': 'bold'},
+    'SansSerif.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
+    'SansSerif.italic':{'font-style': 'italic'}
+};
+
 const FONT_FAMILY_MAP = {
     // https://www.cssfontstack.com/
 
@@ -411,32 +442,31 @@ const FONT_FAMILY_MAP = {
     //Dialog
     'Dialog.plain': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
     'Dialog.bold':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.boldItalic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.bolditalic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
     'Dialog.italic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
 
     //DialogInput
     'DialogInput.plain':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
     'DialogInput.bold':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.boldItalic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.bolditalic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
     'DialogInput.italic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',    
 
     //Monospaced
     'Monospaced.plain':'Consolas,monaco,monospace',
     'Monospaced.bold':'Consolas,monaco,monospace',
-    'Monospaced.boldItalic':'Consolas,monaco,monospace',
+    'Monospaced.bolditalic':'Consolas,monaco,monospace',
     'Monospaced.italic':'Consolas,monaco,monospace',
 
     //Serif
-    'Serif.':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
     'Serif.plain':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
     'Serif.bold':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.boldItalic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.bolditalic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
     'Serif.italic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
 
     //SansSerif
     'SansSerif.plain':'Arial,Helvetica Neue,Helvetica,sans-serif',
     'SansSerif.bold':'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.boldItalic':'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.bolditalic':'Arial,Helvetica Neue,Helvetica,sans-serif',
     'SansSerif.italic':'Arial,Helvetica Neue,Helvetica,sans-serif'
 };
 
@@ -1013,7 +1043,22 @@ class CxToJs {
             }
         };
 
-        this.cyVisualPropertyFromNiceCX=  function(niceCX, type, vp) {
+        this.expandFontProperties = function(labelFontFace, objectProperties) {
+            var font = labelFontFace.split(',');
+            //defaultNodeProperties['font-family'] = font[0];
+                                       
+            if (font[0] in JAVA_LOGICAL_FONT_PROPERTIES_MAP) {
+                var logicalFontProperties = JAVA_LOGICAL_FONT_PROPERTIES_MAP[font[0]];
+                _.forEach(logicalFontProperties, function(propertyValue, propertyKey) {
+                    objectProperties[propertyKey] = propertyValue;
+                });
+            } else {
+                objectProperties['font-weight'] = font[1];
+            }
+            objectProperties['font-size'] = font[font.length- 1];
+        };
+
+        this.cyVisualPropertyFromNiceCX= function(niceCX, type, vp) {
             //console.log(niceCX);
             var result = null;
             var visualProps;
@@ -1310,6 +1355,7 @@ class CxToJs {
         // TODO handle cases with multiple views
 
         var getCyVisualAttributeForVP = this.getCyVisualAttributeForVP;
+        var expandFontProperties = this.expandFontProperties;
         var getCyVisualAttributeTypeForVp = this.getCyVisualAttributeTypeForVp;
         var getCyVisualAttributeValue = this.getCyVisualAttributeValue;
         var getNodeLabelPosition = this.getNodeLabelPosition;
@@ -1329,17 +1375,23 @@ class CxToJs {
                         //console.log('default node property ' + vp + ' = ' + value);
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
+                            if (vp === 'NODE_LABEL_FONT_FACE') {
+                                nodeLabelFontFace = value;
+                                if (nodeLabelFontFace) {
+                                   expandFontProperties(nodeLabelFontFace, defaultNodeProperties);
+                                } else {
+                                    defaultNodeProperties['font-family'] = 'sans-serif';
+                                    defaultNodeProperties['font-weight'] = 'normal';
+                                }
+                            }
                             if (vp === 'NODE_LABEL_POSITION') {
                                 cyLabelPositionCoordinates = value;
-
                             } else {
                                 var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                 defaultNodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }
                         } else {
-                            if (vp === 'NODE_LABEL_FONT_FACE') {
-                                nodeLabelFontFace = value;
-                            } else if (vp === 'NODE_SELECTED_PAINT') {
+                            if (vp === 'NODE_SELECTED_PAINT') {
                                 var selectedColor = getCyVisualAttributeValue(value, 'color');
                                 nodeSelectedStyles.push({ 'selector': 'node:selected', 'css': { 'background-color': selectedColor } });
 
@@ -1430,15 +1482,7 @@ class CxToJs {
 
                     defaultNodeProperties['text-valign'] = nodeLabelPosition['text-valign'];
                     defaultNodeProperties['text-halign'] = nodeLabelPosition['text-halign'];
-
-                    if (nodeLabelFontFace) {
-                        var font = nodeLabelFontFace.split(',');
-                        defaultNodeProperties['font-family'] = font[0];
-                        defaultNodeProperties['font-weight'] = font[1];
-                    } else {
-                        defaultNodeProperties['font-family'] = 'sans-serif';
-                        defaultNodeProperties['font-weight'] = 'normal';
-                    }
+                     
                     var defaultNodeStyle = { 'selector': 'node', 'css': defaultNodeProperties };
                     nodeDefaultStyles.push(defaultNodeStyle);
 
@@ -1565,7 +1609,12 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                            
+                            if (vp === 'NODE_LABEL_FONT_FACE') {
+                                nodeLabelFontFace = value;
+                                if (nodeLabelFontFace) {
+                                    expandFontProperties(nodeLabelFontFace, nodeProperties);
+                                }
+                            }
                             if (vp === 'NODE_LABEL_POSITION') {
                                 var bypassNodeLabelPosition = getNodeLabelPosition(value);
                                 nodeProperties['text-valign'] = bypassNodeLabelPosition['text-valign'];
