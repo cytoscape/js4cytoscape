@@ -1,4 +1,3 @@
-// import NDEx from './NDEx.js';
 const axios = require('axios');
 
 export class NDEx {
