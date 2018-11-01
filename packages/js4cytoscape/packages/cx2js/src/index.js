@@ -1387,7 +1387,7 @@ class CxToJs {
                             } else {
                                 var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                 defaultNodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
-                            }
+                            } 
                         } else {
                             if (vp === 'NODE_SELECTED_PAINT') {
                                 var selectedColor = getCyVisualAttributeValue(value, 'color');
@@ -1488,7 +1488,7 @@ class CxToJs {
                         //console.log(mapping);
                         //console.log('VP = ' + vp);
                         // need to check if the nodeSizedLocked is true for NODE_HEIGHT, NODE_WIDTH, and NODE_SIZE
-                        if (!((vp === 'NODE_HEIGHT' || vp === 'NODE_HEIGHT') &&
+                        if (!((vp === 'NODE_HEIGHT' || vp === 'NODE_WIDTH') &&
                             vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') &&
                             !(vp === 'NODE_SIZE' && (!vpElement.dependencies.nodeSizeLocked || (vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'false')))
                         ) {
