@@ -1556,8 +1556,17 @@ class CxToJs {
                             if (vp !== 'EDGE_UNSELECTED_PAINT') {
                                 cyVisualAttribute = getCyVisualAttributeForVP(vp);
                                 if (cyVisualAttribute) {
-                                    cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                                    defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                                    if (vp === 'EDGE_LABEL_FONT_FACE') {
+                                        if (value) {
+                                           expandFontProperties(value, defaultEdgeProperties);
+                                        } else {
+                                            defaultEdgeProperties['font-family'] = 'sans-serif';
+                                            defaultEdgeProperties['font-weight'] = 'normal';
+                                        }
+                                    } else {
+                                        cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);    
+                                        defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                                    }
                                 } else if (vp === 'EDGE_STROKE_SELECTED_PAINT') {
                                     selectedEdgeProperties['line-color'] = getCyVisualAttributeValue(value, 'color');
                                 } else if (vp === 'EDGE_SOURCE_ARROW_SELECTED_PAINT') {
@@ -1655,7 +1664,7 @@ class CxToJs {
                                    expandFontProperties(value, edgeProperties);
                                 }
                             } else {
-                            edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                                edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }
                         }
                     });
