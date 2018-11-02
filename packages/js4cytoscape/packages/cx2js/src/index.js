@@ -366,12 +366,20 @@ const JAVA_LOGICAL_FONT_PROPERTIES_MAP = {
     'SansSerif.italic':{'font-style': 'italic'}
 };
 
+const JAVA_FONT_STYLE_CSS_MAP = {
+    'PLAIN' : {},
+    'BOLD': {'font-weight': 'bold'},
+    'BOLDITALIC': {'font-weight': 'bold', 'font-style': 'italic'},
+    'ITALIC': {'font-style': 'italic'}
+};
+
 const FONT_FAMILY_MAP = {
     // https://www.cssfontstack.com/
 
     // Sans-serif font stack
     'Arial': 'Arial,Helvetica Neue,Helvetica,sans-serif',
     'Arial-Black': 'Arial Black,Arial Bold,Gadget,sans-serif',
+    'ArialMT':'Arial,Helvetica Neue,Helvetica,sans-serif',
     'ArialNarrow': 'Arial Narrow,Arial,sans-serif',
     'ArialRoundedMTBold': 'Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif',
 
@@ -1053,9 +1061,13 @@ class CxToJs {
                     objectProperties[propertyKey] = propertyValue;
                 });
             } else {
-                objectProperties['font-weight'] = font[1];
+                if (font[1].toUpperCase in JAVA_FONT_STYLE_CSS_MAP) {
+                    var fontProperties = JAVA_FONT_STYLE_CSS_MAP[font[1].toUpperCase];
+                    _.forEach(fontProperties, function(propertyValue, propertyKey) {
+                        objectProperties[propertyKey] = propertyValue;
+                    });}
             }
-            objectProperties['font-size'] = font[font.length- 1];
+            objectProperties['font-size'] = font[font.length-1];
         };
 
         this.cyVisualPropertyFromNiceCX= function(niceCX, type, vp) {
