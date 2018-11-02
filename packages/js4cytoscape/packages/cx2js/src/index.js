@@ -831,14 +831,6 @@ class CxToJs {
                 if (lineValue) {
                     return lineValue;
                 }
-            } else if (cyVisualAttributeType === 'fontFamily') {
-
-                var fontFamilyValue = visualAttributeValue.split(',').shift();
-
-                var fontFamilyValueMapped = FONT_FAMILY_MAP[fontFamilyValue];
-
-                return (fontFamilyValueMapped) ? fontFamilyValueMapped : fontFamilyValue;
-
             } else if (cyVisualAttributeType === 'labelPosition') {
                 return self.getNodeLabelPosition(visualAttributeValue);
             }
@@ -1066,6 +1058,12 @@ class CxToJs {
                     _.forEach(fontProperties, function(propertyValue, propertyKey) {
                         objectProperties[propertyKey] = propertyValue;
                     });}
+            }
+            if (font[0] in FONT_FAMILY_MAP) {
+                objectProperties['font-family'] = FONT_FAMILY_MAP[font[0]];
+            } else {
+                objectProperties['font-family'] = 'sans-serif';
+                objectProperties['font-weight'] = 'normal';
             }
             objectProperties['font-size'] = font[font.length-1];
         };
@@ -1393,8 +1391,7 @@ class CxToJs {
                                     defaultNodeProperties['font-family'] = 'sans-serif';
                                     defaultNodeProperties['font-weight'] = 'normal';
                                 }
-                            }
-                            if (vp === 'NODE_LABEL_POSITION') {
+                            } else if (vp === 'NODE_LABEL_POSITION') {
                                 cyLabelPositionCoordinates = value;
                             } else {
                                 var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
@@ -1542,9 +1539,10 @@ class CxToJs {
                                             defaultEdgeProperties['font-family'] = 'sans-serif';
                                             defaultEdgeProperties['font-weight'] = 'normal';
                                         }
+                                    } else {
+                                        cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
+                                        defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                                     }
-                                    cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                                    defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                                 } else if (vp === 'EDGE_STROKE_SELECTED_PAINT') {
                                     selectedEdgeProperties['line-color'] = getCyVisualAttributeValue(value, 'color');
                                 } else if (vp === 'EDGE_SOURCE_ARROW_SELECTED_PAINT') {
@@ -1631,8 +1629,7 @@ class CxToJs {
                                 if (value) {
                                     expandFontProperties(value, nodeProperties);
                                 }
-                            }
-                            if (vp === 'NODE_LABEL_POSITION') {
+                            } else if (vp === 'NODE_LABEL_POSITION') {
                                 var bypassNodeLabelPosition = getNodeLabelPosition(value);
                                 nodeProperties['text-valign'] = bypassNodeLabelPosition['text-valign'];
                                 nodeProperties['text-halign'] = bypassNodeLabelPosition['text-halign'];
@@ -1657,8 +1654,9 @@ class CxToJs {
                                 if (value) {
                                    expandFontProperties(value, edgeProperties);
                                 }
-                            }
+                            } else {
                             edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
+                            }
                         }
                     });
                     var edgeSelector = 'edge[ id = \'e' + edgeId + '\' ]';
