@@ -48,13 +48,13 @@ describe('Example', function(){
   it('niceCX end to end', function(){
    
     var utils = new CyNetworkUtils();
-    //fs.readFileSync('resources/small_graph.cx');
-    var content = fs.readFileSync('test_resources/small_graph.cx');
+    
+    var content = fs.readFileSync('test_resources/small_graph/small_graph.cx');
     var rawCX = JSON.parse(content);
 
     var niceCX = utils.rawCXtoNiceCX(rawCX);
 
-    var expectedContent = fs.readFileSync('test_resources/small_graph_nice.cx');
+    var expectedContent = fs.readFileSync('test_resources/small_graph/small_graph_nice.cx');
     var expectedNiceCX = JSON.parse(expectedContent);
 
     expect( niceCX ).to.eql( expectedNiceCX );
@@ -76,19 +76,19 @@ describe('Example', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var content = fs.readFileSync('test_resources/small_graph_nice.cx');
+    var content = fs.readFileSync('test_resources/small_graph/small_graph_nice.cx');
     var niceCX = JSON.parse(content);
 
     var attributeNameMap = {};
     var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
     
-    var expectedElementsContent = fs.readFileSync('test_resources/small_graph_elements.json');
+    var expectedElementsContent = fs.readFileSync('test_resources/small_graph/small_graph_elements.json');
     var expectedElementsJson = JSON.parse(expectedElementsContent);
     expect( elements ).to.eql( expectedElementsJson );
 
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
-    var expectedStyleContent = fs.readFileSync('test_resources/small_graph_style.json');
+    var expectedStyleContent = fs.readFileSync('test_resources/small_graph/small_graph_style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
     expect( style ).to.eql( expectedStyleJson );
   });
