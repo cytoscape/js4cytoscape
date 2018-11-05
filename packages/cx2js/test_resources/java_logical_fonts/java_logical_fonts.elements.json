@@ -1,0 +1,152 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": 62,
+        "name": "Node 1"
+      },
+      "position": {
+        "x": -267,
+        "y": -274
+      }
+    },
+    {
+      "data": {
+        "id": 63,
+        "name": "Node 2"
+      },
+      "position": {
+        "x": -303,
+        "y": -204
+      }
+    },
+    {
+      "data": {
+        "id": 64,
+        "name": "Node 3"
+      },
+      "position": {
+        "x": -298,
+        "y": -137
+      }
+    },
+    {
+      "data": {
+        "id": 65,
+        "name": "Node 4"
+      },
+      "position": {
+        "x": -295,
+        "y": -65
+      }
+    },
+    {
+      "data": {
+        "id": 66,
+        "name": "Node 5"
+      },
+      "position": {
+        "x": -133,
+        "y": -184
+      }
+    },
+    {
+      "data": {
+        "id": 67,
+        "name": "Node 6"
+      },
+      "position": {
+        "x": -135,
+        "y": -125
+      }
+    },
+    {
+      "data": {
+        "id": 68,
+        "name": "Node 7"
+      },
+      "position": {
+        "x": -134,
+        "y": -60
+      }
+    },
+    {
+      "data": {
+        "id": 69,
+        "name": "Node 8"
+      },
+      "position": {
+        "x": -161,
+        "y": 19
+      }
+    },
+    {
+      "data": {
+        "id": 103,
+        "name": "Node 1"
+      },
+      "position": {
+        "x": 14,
+        "y": -209
+      }
+    },
+    {
+      "data": {
+        "id": 105,
+        "name": "Node 2"
+      },
+      "position": {
+        "x": 38,
+        "y": -142
+      }
+    },
+    {
+      "data": {
+        "id": 107,
+        "name": "Node 3"
+      },
+      "position": {
+        "x": 67,
+        "y": -76
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "e70",
+        "source": 62,
+        "target": 66,
+        "interaction": "interacts with",
+        "name": "Node 1 (interacts with) Node 5"
+      }
+    },
+    {
+      "data": {
+        "id": "e71",
+        "source": 63,
+        "target": 67,
+        "interaction": "interacts with",
+        "name": "Node 2 (interacts with) Node 6"
+      }
+    },
+    {
+      "data": {
+        "id": "e72",
+        "source": 64,
+        "target": 68,
+        "interaction": "interacts with",
+        "name": "Node 3 (interacts with) Node 7"
+      }
+    },
+    {
+      "data": {
+        "id": "e73",
+        "source": 65,
+        "target": 69,
+        "interaction": "interacts with",
+        "name": "Node 4 (interacts with) Node 8"
+      }
+    }
+  ]
+}
