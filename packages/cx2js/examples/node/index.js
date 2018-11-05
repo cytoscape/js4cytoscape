@@ -1,7 +1,7 @@
 var fs = require('fs');
 var cxjs = require('cytoscape-cx2js');
 
-var content = fs.readFileSync('small_graph.cx');
+var content = fs.readFileSync('network.cx');
 
 var rawCX = JSON.parse(content);
 
