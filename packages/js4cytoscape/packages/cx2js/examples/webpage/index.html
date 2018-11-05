@@ -22,6 +22,14 @@
     <div id="cy"></div>
     <script>
 
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
         function loadJSON(file, callback) {
             var xobj = new XMLHttpRequest();
             xobj.overrideMimeType("application/json");
@@ -35,42 +43,48 @@
             xobj.send(null);
         }
 
-        loadJSON("network.cx", function (r1) {
-        var rawCX = JSON.parse(r1)
+        var fileName = getUrlVars()['networkFile'];
+        if (!fileName) {
+            fileName = "network.cx";
+        }
 
-        var utils = new cytoscapeCx2js.CyNetworkUtils()
+        loadJSON(fileName, function (r1) {
 
-        var niceCX = utils.rawCXtoNiceCX(rawCX);
+            var rawCX = JSON.parse(r1)
 
-        var cx2Js = new cytoscapeCx2js.CxToJs(utils);
+            var utils = new cytoscapeCx2js.CyNetworkUtils()
 
-        var attributeNameMap = {};
+            var niceCX = utils.rawCXtoNiceCX(rawCX);
 
-        var elements = cx2Js.cyElementsFromNiceCX(niceCX, attributeNameMap);
+            var cx2Js = new cytoscapeCx2js.CxToJs(utils);
 
-        var style = cx2Js.cyStyleFromNiceCX(niceCX, attributeNameMap);
+            var attributeNameMap = {};
 
-        var cyBackgroundColor = cx2Js.cyBackgroundColorFromNiceCX(niceCX);
+            var elements = cx2Js.cyElementsFromNiceCX(niceCX, attributeNameMap);
 
-        var layout = cx2Js.getDefaultLayout();
+            var style = cx2Js.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
-        var zoom = cx2Js.cyZoomFromNiceCX(niceCX);
+            var cyBackgroundColor = cx2Js.cyBackgroundColorFromNiceCX(niceCX);
 
-        var pan = cx2Js.cyPanFromNiceCX(niceCX);
+            var layout = cx2Js.getDefaultLayout();
 
-        document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
+            var zoom = cx2Js.cyZoomFromNiceCX(niceCX);
 
-        var cytoscapeJS = {
-            container: document.getElementById('cy'),
-            style: style,
-            elements: elements,
-            layout: layout,
-            zoom: zoom,
-            pan: pan
-        };
+            var pan = cx2Js.cyPanFromNiceCX(niceCX);
+
+            document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
+
+            var cytoscapeJS = {
+                container: document.getElementById('cy'),
+                style: style,
+                elements: elements,
+                layout: layout,
+                zoom: zoom,
+                pan: pan
+            };
 
 
-        var cy = cytoscape(cytoscapeJS);
+            var cy = cytoscape(cytoscapeJS);
         });
     </script>
 </body>
