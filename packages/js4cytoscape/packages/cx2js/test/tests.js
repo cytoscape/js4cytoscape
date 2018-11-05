@@ -72,7 +72,7 @@ describe('Example', function(){
     expect( niceCX ).to.eql( { edges : {}} );
   });
 
-  it('cxToJs end to end', function(){
+  it('small_graph end to end', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -89,6 +89,27 @@ describe('Example', function(){
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
     var expectedStyleContent = fs.readFileSync('test_resources/small_graph/small_graph_style.json');
+    var expectedStyleJson = JSON.parse(expectedStyleContent);
+    expect( style ).to.eql( expectedStyleJson );
+  });
+
+  it('java_logical_fonts end to end', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var content = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.nicecx.json');
+    var niceCX = JSON.parse(content);
+
+    var attributeNameMap = {};
+    var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
+    
+    var expectedElementsContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.elements.json');
+    var expectedElementsJson = JSON.parse(expectedElementsContent);
+    expect( elements ).to.eql( expectedElementsJson );
+
+    var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+    var expectedStyleContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
     expect( style ).to.eql( expectedStyleJson );
   });
@@ -326,6 +347,56 @@ describe('Example', function(){
     var result = cxToJs.getNodeLabelPosition(cxPosition);
 
     expect( result ).to.eql(jsPosition);
+  });
+
+  it('cxToJs Dialog.plain expandFontProperties', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var labelFontFace = "Dialog.plain,plain,15";
+    var objectProperties = {};
+    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+
+    var expandedFontProperties = {
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "15"
+    };
+
+    expect( objectProperties ).to.eql(expandedFontProperties);
+  });
+
+  it('cxToJs java.bolditalic expandFontProperties', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var labelFontFace = "Dialog.bolditalic,plain,15";
+    var objectProperties = {};
+    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+
+    var expandedFontProperties = {
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      'font-size': '15',
+      "font-style": "italic",
+      "font-weight": "bold"
+    };
+
+    expect( objectProperties ).to.eql(expandedFontProperties);
+  });
+
+  it('cxToJs ArialMT expandFontProperties', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var labelFontFace = "ArialMT,plain,10";
+    var objectProperties = {};
+    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+
+    var expandedFontProperties = {
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      'font-size': '10'
+    };
+
+    expect( objectProperties ).to.eql(expandedFontProperties);
   });
 
   it('cxToJs base getCyVisualAttributeForVP', function(){
