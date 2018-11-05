@@ -50,6 +50,9 @@
 
         loadJSON(fileName, function (r1) {
 
+            var date = new Date();
+            var startTime = date.getTime();
+
             var rawCX = JSON.parse(r1)
 
             var utils = new cytoscapeCx2js.CyNetworkUtils()
@@ -71,6 +74,13 @@
             var zoom = cx2Js.cyZoomFromNiceCX(niceCX);
 
             var pan = cx2Js.cyPanFromNiceCX(niceCX);
+            
+            date = new Date();
+            var endTime = date.getTime();
+
+            console.info('cx2js conversion time: ' + (endTime - startTime) + ' milliseconds');
+
+            startTime = endTime;
 
             document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
 
@@ -83,8 +93,11 @@
                 pan: pan
             };
 
-
             var cy = cytoscape(cytoscapeJS);
+            
+            date = new Date();
+            var endTime = date.getTime();
+            console.info('cytoscape js init time: '+ (endTime - startTime) + ' milliseconds');
         });
     </script>
 </body>
