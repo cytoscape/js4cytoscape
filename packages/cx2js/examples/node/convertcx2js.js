@@ -1,10 +1,9 @@
 var fs = require('fs');
-var path = require('path')
+var path = require('path');
 var cx2js = require('cytoscape-cx2js');
 
 var fileName = 'network.cx';
 if (process.argv[2]) {
-    console.log(process.argv[2]);
     fileName = process.argv[2];
 }
 
