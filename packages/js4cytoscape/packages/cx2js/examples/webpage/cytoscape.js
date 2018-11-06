@@ -1,8 +1,8 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
-	// else if(typeof define === 'function' && define.amd)
-	// 	define([], factory);
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
 	else if(typeof exports === 'object')
 		exports["cytoscape"] = factory();
 	else
@@ -14052,6 +14052,18 @@ function getEasedValue(type, start, end, percent, easingFn) {
   return val;
 }
 
+function getValue(prop, spec) {
+  if (prop.pfValue != null || prop.value != null) {
+    if (prop.pfValue != null && (spec == null || spec.type.units !== '%')) {
+      return prop.pfValue;
+    } else {
+      return prop.value;
+    }
+  } else {
+    return prop;
+  }
+}
+
 function ease(startProp, endProp, percent, easingFn, propSpec) {
   var type = propSpec != null ? propSpec.type : null;
 
@@ -14061,20 +14073,8 @@ function ease(startProp, endProp, percent, easingFn, propSpec) {
     percent = 1;
   }
 
-  var start = void 0,
-      end = void 0;
-
-  if (startProp.pfValue != null || startProp.value != null) {
-    start = startProp.pfValue != null ? startProp.pfValue : startProp.value;
-  } else {
-    start = startProp;
-  }
-
-  if (endProp.pfValue != null || endProp.value != null) {
-    end = endProp.pfValue != null ? endProp.pfValue : endProp.value;
-  } else {
-    end = endProp;
-  }
+  var start = getValue(startProp, propSpec);
+  var end = getValue(endProp, propSpec);
 
   if (is.number(start) && is.number(end)) {
     return getEasedValue(type, start, end, percent, easingFn);
@@ -16449,9 +16449,9 @@ styfn.parseImpl = function (name, value, propIsBypass, propIsFlat) {
   if (!property) {
     return null;
   } // return null on property of unknown name
-  if (value === undefined || value === null) {
+  if (value === undefined) {
     return null;
-  } // can't assign null
+  } // can't assign undefined
 
   // the property may be an alias
   if (property.alias) {
@@ -16623,7 +16623,9 @@ styfn.parseImpl = function (name, value, propIsBypass, propIsFlat) {
       name: name,
       value: valArr,
       pfValue: pfValArr,
-      strValue: valArr.join(' '),
+      strValue: valArr.map(function (val, i) {
+        return val + (unitsArr[i] || '');
+      }).join(' '),
       bypass: propIsBypass,
       units: unitsArr
     };
@@ -18699,6 +18701,9 @@ CoseLayout.prototype.run = function () {
     },
     stop: function stop() {
       return this;
+    },
+    stopped: function stopped() {
+      return true;
     }
   };
 
@@ -21032,7 +21037,7 @@ BRp.findNearestElements = function (x, y, interactiveElementsOnly, isTouch) {
       if (nearEdge) {
         // then replace existing edge
         // can replace only if same z-index
-        if (nearEdge.pstyle('z-index').value === ele.pstyle('z-index').value) {
+        if (nearEdge.pstyle('z-compound-depth').value === ele.pstyle('z-compound-depth').value && nearEdge.pstyle('z-compound-depth').value === ele.pstyle('z-compound-depth').value) {
           for (var i = 0; i < near.length; i++) {
             if (near[i].isEdge()) {
               near[i] = ele;
@@ -21646,6 +21651,8 @@ BRp.findEdgeControlPoints = function (edges) {
       var ctrlptDist = ctrlptDists ? ctrlptDists.pfValue[0] : undefined;
       var ctrlptWeight = ctrlptWs.value[0];
       var edgeDistances = edge.pstyle('edge-distances').value;
+      var srcDistFNode = edge.pstyle('source-distance-from-node').pfValue;
+      var tgtDistFNode = edge.pstyle('target-distance-from-node').pfValue;
       var segmentWs = edge.pstyle('segment-weights');
       var segmentDs = edge.pstyle('segment-distances');
       var segmentsN = Math.min(segmentWs.pfValue.length, segmentDs.pfValue.length);
@@ -21693,6 +21700,12 @@ BRp.findEdgeControlPoints = function (edges) {
       var edgeDistances1 = rs.lastEdgeDistances;
       var edgeDistances2 = edgeDistances;
 
+      var srcDistFNode1 = rs.lastSrcDistFNode;
+      var srcDistFNode2 = srcDistFNode;
+
+      var tgtDistFNode1 = rs.lastTgtDistFNode;
+      var tgtDistFNode2 = tgtDistFNode;
+
       var srcEndpt1 = rs.lastSrcEndpt;
       var srcEndpt2 = srcEndpt;
 
@@ -21719,7 +21732,7 @@ BRp.findEdgeControlPoints = function (edges) {
 
       var ptCacheHit;
 
-      if (srcX1 === srcX2 && srcY1 === srcY2 && srcW1 === srcW2 && srcH1 === srcH2 && tgtX1 === tgtX2 && tgtY1 === tgtY2 && tgtW1 === tgtW2 && tgtH1 === tgtH2 && curveStyle1 === curveStyle2 && ctrlptDists1 === ctrlptDists2 && ctrlptWs1 === ctrlptWs2 && segmentWs1 === segmentWs2 && segmentDs1 === segmentDs2 && stepSize1 === stepSize2 && loopDir1 === loopDir2 && loopSwp1 === loopSwp2 && edgeDistances1 === edgeDistances2 && srcEndpt1 === srcEndpt2 && tgtEndpt1 === tgtEndpt2 && srcArr1 === srcArr2 && tgtArr1 === tgtArr2 && lineW1 === lineW2 && arrScl1 === arrScl2 && (edgeIndex1 === edgeIndex2 && numEdges1 === numEdges2 || edgeIsUnbundled)) {
+      if (srcX1 === srcX2 && srcY1 === srcY2 && srcW1 === srcW2 && srcH1 === srcH2 && tgtX1 === tgtX2 && tgtY1 === tgtY2 && tgtW1 === tgtW2 && tgtH1 === tgtH2 && curveStyle1 === curveStyle2 && ctrlptDists1 === ctrlptDists2 && ctrlptWs1 === ctrlptWs2 && segmentWs1 === segmentWs2 && segmentDs1 === segmentDs2 && stepSize1 === stepSize2 && loopDir1 === loopDir2 && loopSwp1 === loopSwp2 && edgeDistances1 === edgeDistances2 && srcDistFNode1 === srcDistFNode2 && tgtDistFNode1 === tgtDistFNode2 && srcEndpt1 === srcEndpt2 && tgtEndpt1 === tgtEndpt2 && srcArr1 === srcArr2 && tgtArr1 === tgtArr2 && lineW1 === lineW2 && arrScl1 === arrScl2 && (edgeIndex1 === edgeIndex2 && numEdges1 === numEdges2 || edgeIsUnbundled)) {
         ptCacheHit = true; // then the control points haven't changed and we can skip calculating them
       } else {
         ptCacheHit = false;
@@ -21743,6 +21756,8 @@ BRp.findEdgeControlPoints = function (edges) {
         rs.lastLoopDir = loopDir2;
         rs.lastLoopSwp = loopSwp2;
         rs.lastEdgeDistances = edgeDistances2;
+        rs.lastSrcDistFNode = srcDistFNode2;
+        rs.lastTgtDistFNode = tgtDistFNode2;
         rs.lastSrcEndpt = srcEndpt2;
         rs.lastTgtEndpt = tgtEndpt2;
         rs.lastSrcArr = srcArr2;
@@ -22184,7 +22199,7 @@ BRp.getControlPoints = function (edge) {
   var rs = edge[0]._private.rscratch;
   var type = rs.edgeType;
 
-  if (type === 'bezier' || type === 'multibezier') {
+  if (type === 'bezier' || type === 'multibezier' || type === 'self' || type === 'compound') {
     return getPts(rs.ctrlpts);
   }
 };
@@ -22529,6 +22544,33 @@ BRp.recalculateNodeLabelProjection = function (node) {
   this.applyLabelDimensions(node);
 };
 
+var lineAngleFromDelta = function lineAngleFromDelta(dx, dy) {
+  var angle = Math.atan(dy / dx);
+
+  if (dx === 0 && angle < 0) {
+    angle = angle * -1;
+  }
+
+  return angle;
+};
+
+var lineAngle = function lineAngle(p0, p1) {
+  var dx = p1.x - p0.x;
+  var dy = p1.y - p0.y;
+
+  return lineAngleFromDelta(dx, dy);
+};
+
+var bezierAngle = function bezierAngle(p0, p1, p2, t) {
+  var t0 = math.bound(0, t - 0.001, 1);
+  var t1 = math.bound(0, t + 0.001, 1);
+
+  var lp0 = math.qbezierPtAt(p0, p1, p2, t0);
+  var lp1 = math.qbezierPtAt(p0, p1, p2, t1);
+
+  return lineAngle(lp0, lp1);
+};
+
 BRp.recalculateEdgeLabelProjections = function (edge) {
   var p;
   var _p = edge._private;
@@ -22560,6 +22602,9 @@ BRp.recalculateEdgeLabelProjections = function (edge) {
 
   setRs('labelX', null, p.x);
   setRs('labelY', null, p.y);
+
+  var midAngle = lineAngleFromDelta(rs.midDispX, rs.midDispY);
+  setRs('labelAutoAngle', null, midAngle);
 
   var createControlPointInfo = function createControlPointInfo() {
     if (createControlPointInfo.cache) {
@@ -22634,23 +22679,6 @@ BRp.recalculateEdgeLabelProjections = function (edge) {
     }
 
     var offset = edge.pstyle(prefix + '-text-offset').pfValue;
-
-    var lineAngle = function lineAngle(p0, p1) {
-      var dx = p1.x - p0.x;
-      var dy = p1.y - p0.y;
-
-      return Math.atan(dy / dx);
-    };
-
-    var bezierAngle = function bezierAngle(p0, p1, p2, t) {
-      var t0 = math.bound(0, t - 0.001, 1);
-      var t1 = math.bound(0, t + 0.001, 1);
-
-      var lp0 = math.qbezierPtAt(p0, p1, p2, t0);
-      var lp1 = math.qbezierPtAt(p0, p1, p2, t1);
-
-      return lineAngle(lp0, lp1);
-    };
 
     switch (rs.edgeType) {
       case 'self':
@@ -22779,6 +22807,11 @@ BRp.getLabelText = function (ele, prefix) {
       return util.getPrefixedProperty(_p.rscratch, propName, prefix);
     }
   };
+
+  // for empty text, skip all processing
+  if (!text) {
+    return '';
+  }
 
   if (textTransform == 'none') {
     // passthrough
@@ -22950,7 +22983,7 @@ BRp.calculateLabelAngles = function (ele) {
   if (rotStr === 'none') {
     rs.labelAngle = rs.sourceLabelAngle = rs.targetLabelAngle = 0;
   } else if (isEdge && rotStr === 'autorotate') {
-    rs.labelAngle = Math.atan(rs.midDispY / rs.midDispX);
+    rs.labelAngle = rs.labelAutoAngle;
     rs.sourceLabelAngle = rs.sourceLabelAutoAngle;
     rs.targetLabelAngle = rs.targetLabelAutoAngle;
   } else if (rotStr === 'autorotate') {
@@ -23596,6 +23629,12 @@ BRp.load = function () {
     }
   };
 
+  var blurActiveDomElement = function blurActiveDomElement() {
+    if (document.activeElement != null && document.activeElement.blur != null) {
+      document.activeElement.blur();
+    }
+  };
+
   var haveMutationsApi = typeof MutationObserver !== 'undefined';
 
   // watch for when the cy container is removed from the dom
@@ -23720,6 +23759,9 @@ BRp.load = function () {
     }
 
     e.preventDefault();
+
+    blurActiveDomElement();
+
     r.hoverData.capture = true;
     r.hoverData.which = e.which;
 
@@ -24446,6 +24488,8 @@ BRp.load = function () {
       return;
     }
 
+    blurActiveDomElement();
+
     r.touchData.capture = true;
     r.data.bgActivePosistion = undefined;
 
@@ -25050,8 +25094,14 @@ BRp.load = function () {
       earlier[j] = now[j];
     }
     //r.redraw();
-  }, false);
 
+    // the active bg indicator should be removed when making a swipe that is neither for dragging nodes or panning
+    if (capture && e.touches.length > 0 && !r.hoverData.draggingEles && !r.swipePanning && r.data.bgActivePosistion != null) {
+      r.data.bgActivePosistion = undefined;
+      r.redrawHint('select', true);
+      r.redraw();
+    }
+  }, false);
   var touchcancelHandler;
   r.registerBinding(window, 'touchcancel', touchcancelHandler = function touchcancelHandler(e) {
     // eslint-disable-line no-undef
@@ -25072,7 +25122,9 @@ BRp.load = function () {
     var capture = r.touchData.capture;
 
     if (capture) {
-      r.touchData.capture = false;
+      if (e.touches.length === 0) {
+        r.touchData.capture = false;
+      }
 
       e.preventDefault();
     } else {
@@ -27619,13 +27671,13 @@ CRp.drawEdge = function (context, edge, shiftToOriginWithBb, drawLabel) {
   var rs = edge._private.rscratch;
   var usePaths = r.usePaths();
 
-  // if bezier ctrl pts can not be calculated, then die
-  if (rs.badLine || isNaN(rs.allpts[0])) {
-    // isNaN in case edge is impossible and browser bugs (e.g. safari)
+  if (!edge.visible()) {
     return;
   }
 
-  if (!edge.visible()) {
+  // if bezier ctrl pts can not be calculated, then die
+  if (rs.badLine || rs.allpts == null || isNaN(rs.allpts[0])) {
+    // isNaN in case edge is impossible and browser bugs (e.g. safari)
     return;
   }
 
@@ -28258,7 +28310,7 @@ CRp.drawText = function (context, ele, prefix) {
     textX += marginX;
     textY += marginY;
 
-    var rotation = ele.pstyle('text-rotation');
+    var rotation = ele.pstyle(pdash + 'text-rotation');
     var theta;
 
     if (rotation.strValue === 'autorotate') {
@@ -29847,7 +29899,7 @@ module.exports = Stylesheet;
 "use strict";
 
 
-module.exports = "3.2.11";
+module.exports = "3.2.19";
 
 /***/ })
 /******/ ]);
