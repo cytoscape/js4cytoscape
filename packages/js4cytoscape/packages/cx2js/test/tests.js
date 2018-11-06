@@ -365,6 +365,8 @@ describe('Example', function(){
     expect( objectProperties ).to.eql(expandedFontProperties);
   });
 
+
+
   it('cxToJs java.bolditalic expandFontProperties', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
@@ -397,6 +399,40 @@ describe('Example', function(){
     };
 
     expect( objectProperties ).to.eql(expandedFontProperties);
+  });
+
+  it('cxToJs base expandLabelPosition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cyLabelPosition = "C,C,c,0.00,0.00"; 
+    var objectProperties = {};
+
+    cxToJs.expandLabelPosition(cyLabelPosition, objectProperties);
+
+    var expandedLabelPosition = {
+      "text-halign": "center",
+      "text-valign": "center",
+    };
+
+    expect( objectProperties ).to.eql(expandedLabelPosition);
+  });
+
+  it('cxToJs NWCc expandLabelPosition', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cyLabelPosition = "NW,C,c,0.00,0.00"; 
+    var objectProperties = {};
+
+    cxToJs.expandLabelPosition(cyLabelPosition, objectProperties);
+
+    var expandedLabelPosition = {
+      "text-halign": "left",
+      "text-valign": "top",
+    };
+
+    expect( objectProperties ).to.eql(expandedLabelPosition);
   });
 
   it('cxToJs base getCyVisualAttributeForVP', function(){

@@ -1043,6 +1043,13 @@ class CxToJs {
             }
         };
 
+        this.expandLabelPosition = function(cyLabelPosition, objectProperties) {
+            var labelPosition = self.getNodeLabelPosition(cyLabelPosition);
+
+            objectProperties['text-valign'] = labelPosition['text-valign'];
+            objectProperties['text-halign'] = labelPosition['text-halign']; 
+        };
+
         this.expandFontProperties = function(labelFontFace, objectProperties) {
             var font = labelFontFace.split(',');
             //defaultNodeProperties['font-family'] = font[0];
@@ -1368,7 +1375,7 @@ class CxToJs {
         var expandFontProperties = this.expandFontProperties;
         var getCyVisualAttributeTypeForVp = this.getCyVisualAttributeTypeForVp;
         var getCyVisualAttributeValue = this.getCyVisualAttributeValue;
-        var getNodeLabelPosition = this.getNodeLabelPosition;
+        var expandLabelPosition = this.expandLabelPosition;
         var mappingStyle = this.mappingStyle;
         _.forEach(visualProperties, function (vpAspectElement) {
             _.forEach(vpAspectElement, function (vpElement) {
@@ -1485,11 +1492,8 @@ class CxToJs {
                         defaultNodeProperties.width = nodeSize;
                     }
 
-                    var nodeLabelPosition = getNodeLabelPosition(cyLabelPositionCoordinates);
-
-                    defaultNodeProperties['text-valign'] = nodeLabelPosition['text-valign'];
-                    defaultNodeProperties['text-halign'] = nodeLabelPosition['text-halign'];
-                     
+                    expandLabelPosition(cyLabelPositionCoordinates, defaultNodeProperties);
+                    
                     var defaultNodeStyle = { 'selector': 'node', 'css': defaultNodeProperties };
                     nodeDefaultStyles.push(defaultNodeStyle);
 
@@ -1639,9 +1643,7 @@ class CxToJs {
                                     expandFontProperties(value, nodeProperties);
                                 }
                             } else if (vp === 'NODE_LABEL_POSITION') {
-                                var bypassNodeLabelPosition = getNodeLabelPosition(value);
-                                nodeProperties['text-valign'] = bypassNodeLabelPosition['text-valign'];
-                                nodeProperties['text-halign'] = bypassNodeLabelPosition['text-halign'];
+                                expandLabelPosition(value, nodeProperties);
                             } else {
                                 nodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }

@@ -1,0 +1,419 @@
+[ {
+  "numberVerification" : [ {
+    "longNumber" : 281474976710655
+  } ]
+}, {
+  "metaData" : [ {
+    "consistencyGroup" : 1,
+    "elementCount" : 3,
+    "idCounter" : 70,
+    "name" : "nodes",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "elementCount" : 0,
+    "idCounter" : 70,
+    "name" : "edges",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyTableColumn",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "networkAttributes",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyHiddenAttributes",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "nodeAttributes",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "edgeAttributes",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cartesianLayout",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyVisualProperties",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cySubNetworks",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyViews",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyGroups",
+    "properties" : [ ],
+    "version" : "1.0"
+  }, {
+    "consistencyGroup" : 1,
+    "name" : "cyNetworkRelations",
+    "properties" : [ ],
+    "version" : "1.0"
+  } ]
+}, {
+  "nodes" : [ {
+    "@id" : 68,
+    "n" : "Node 3"
+  }, {
+    "@id" : 66,
+    "n" : "Node 2"
+  }, {
+    "@id" : 64,
+    "n" : "Node 1"
+  } ]
+}, {
+  "cyTableColumn" : [ {
+    "s" : 52,
+    "applies_to" : "node_table",
+    "n" : "shared name"
+  }, {
+    "s" : 52,
+    "applies_to" : "node_table",
+    "n" : "name"
+  }, {
+    "s" : 52,
+    "applies_to" : "node_table",
+    "n" : "selected",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "applies_to" : "edge_table",
+    "n" : "shared name"
+  }, {
+    "s" : 52,
+    "applies_to" : "edge_table",
+    "n" : "shared interaction"
+  }, {
+    "s" : 52,
+    "applies_to" : "edge_table",
+    "n" : "name"
+  }, {
+    "s" : 52,
+    "applies_to" : "edge_table",
+    "n" : "selected",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "applies_to" : "edge_table",
+    "n" : "interaction"
+  }, {
+    "s" : 52,
+    "applies_to" : "network_table",
+    "n" : "shared name"
+  }, {
+    "s" : 52,
+    "applies_to" : "network_table",
+    "n" : "name"
+  }, {
+    "s" : 52,
+    "applies_to" : "network_table",
+    "n" : "selected",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "applies_to" : "network_table",
+    "n" : "__Annotations",
+    "d" : "list_of_string"
+  } ]
+}, {
+  "networkAttributes" : [ {
+    "n" : "name",
+    "v" : "Network"
+  }, {
+    "n" : "selected",
+    "v" : "false",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "n" : "name",
+    "v" : "Network"
+  }, {
+    "s" : 52,
+    "n" : "selected",
+    "v" : "true",
+    "d" : "boolean"
+  } ]
+}, {
+  "nodeAttributes" : [ {
+    "s" : 52,
+    "po" : 68,
+    "n" : "name",
+    "v" : "Node 3"
+  }, {
+    "s" : 52,
+    "po" : 68,
+    "n" : "selected",
+    "v" : "true",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "po" : 66,
+    "n" : "name",
+    "v" : "Node 2"
+  }, {
+    "s" : 52,
+    "po" : 66,
+    "n" : "selected",
+    "v" : "false",
+    "d" : "boolean"
+  }, {
+    "s" : 52,
+    "po" : 64,
+    "n" : "name",
+    "v" : "Node 1"
+  }, {
+    "s" : 52,
+    "po" : 64,
+    "n" : "selected",
+    "v" : "false",
+    "d" : "boolean"
+  } ]
+}, {
+  "cartesianLayout" : [ {
+    "node" : 68,
+    "view" : 62,
+    "x" : -49.0,
+    "y" : -18.0
+  }, {
+    "node" : 66,
+    "view" : 62,
+    "x" : -185.0,
+    "y" : -69.0
+  }, {
+    "node" : 64,
+    "view" : 62,
+    "x" : -305.0,
+    "y" : -112.0
+  } ]
+}, {
+  "cyVisualProperties" : [ {
+    "properties_of" : "network",
+    "applies_to" : 62,
+    "view" : 62,
+    "properties" : {
+      "NETWORK_ANNOTATION_SELECTION" : "false",
+      "NETWORK_BACKGROUND_PAINT" : "#FFFFFF",
+      "NETWORK_CENTER_X_LOCATION" : "0.0",
+      "NETWORK_CENTER_Y_LOCATION" : "0.0",
+      "NETWORK_CENTER_Z_LOCATION" : "0.0",
+      "NETWORK_DEPTH" : "0.0",
+      "NETWORK_EDGE_SELECTION" : "true",
+      "NETWORK_HEIGHT" : "400.0",
+      "NETWORK_NODE_SELECTION" : "true",
+      "NETWORK_SCALE_FACTOR" : "1.0",
+      "NETWORK_SIZE" : "550.0",
+      "NETWORK_WIDTH" : "550.0"
+    }
+  }, {
+    "properties_of" : "nodes:default",
+    "applies_to" : 62,
+    "view" : 62,
+    "properties" : {
+      "COMPOUND_NODE_PADDING" : "10.0",
+      "COMPOUND_NODE_SHAPE" : "ROUND_RECTANGLE",
+      "NODE_BORDER_PAINT" : "#CCCCCC",
+      "NODE_BORDER_STROKE" : "SOLID",
+      "NODE_BORDER_TRANSPARENCY" : "255",
+      "NODE_BORDER_WIDTH" : "0.0",
+      "NODE_CUSTOMGRAPHICS_1" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_2" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_3" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_4" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_5" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_6" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_7" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_8" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_9" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+      "NODE_CUSTOMGRAPHICS_POSITION_1" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_2" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_3" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_4" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_5" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_6" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_7" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_8" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_POSITION_9" : "C,C,c,0.00,0.00",
+      "NODE_CUSTOMGRAPHICS_SIZE_1" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_2" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_3" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_4" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_5" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_6" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_7" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_8" : "50.0",
+      "NODE_CUSTOMGRAPHICS_SIZE_9" : "50.0",
+      "NODE_CUSTOMPAINT_1" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_1, name=Node Custom Paint 1)",
+      "NODE_CUSTOMPAINT_2" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_2, name=Node Custom Paint 2)",
+      "NODE_CUSTOMPAINT_3" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_3, name=Node Custom Paint 3)",
+      "NODE_CUSTOMPAINT_4" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_4, name=Node Custom Paint 4)",
+      "NODE_CUSTOMPAINT_5" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_5, name=Node Custom Paint 5)",
+      "NODE_CUSTOMPAINT_6" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_6, name=Node Custom Paint 6)",
+      "NODE_CUSTOMPAINT_7" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_7, name=Node Custom Paint 7)",
+      "NODE_CUSTOMPAINT_8" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_8, name=Node Custom Paint 8)",
+      "NODE_CUSTOMPAINT_9" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_9, name=Node Custom Paint 9)",
+      "NODE_DEPTH" : "0.0",
+      "NODE_FILL_COLOR" : "#89D0F5",
+      "NODE_HEIGHT" : "35.0",
+      "NODE_LABEL_COLOR" : "#000000",
+      "NODE_LABEL_FONT_FACE" : "SansSerif.plain,plain,12",
+      "NODE_LABEL_FONT_SIZE" : "12",
+      "NODE_LABEL_POSITION" : "NW,C,c,0.00,0.00",
+      "NODE_LABEL_TRANSPARENCY" : "255",
+      "NODE_LABEL_WIDTH" : "200.0",
+      "NODE_NESTED_NETWORK_IMAGE_VISIBLE" : "true",
+      "NODE_PAINT" : "#1E90FF",
+      "NODE_SELECTED" : "false",
+      "NODE_SELECTED_PAINT" : "#FFFF00",
+      "NODE_SHAPE" : "ROUND_RECTANGLE",
+      "NODE_SIZE" : "35.0",
+      "NODE_TRANSPARENCY" : "255",
+      "NODE_VISIBLE" : "true",
+      "NODE_WIDTH" : "75.0",
+      "NODE_X_LOCATION" : "0.0",
+      "NODE_Y_LOCATION" : "0.0",
+      "NODE_Z_LOCATION" : "0.0"
+    },
+    "dependencies" : {
+      "nodeCustomGraphicsSizeSync" : "true",
+      "nodeSizeLocked" : "false"
+    },
+    "mappings" : {
+      "NODE_LABEL" : {
+        "type" : "PASSTHROUGH",
+        "definition" : "COL=name,T=string"
+      }
+    }
+  }, {
+    "properties_of" : "edges:default",
+    "applies_to" : 62,
+    "view" : 62,
+    "properties" : {
+      "EDGE_CURVED" : "true",
+      "EDGE_LABEL_COLOR" : "#000000",
+      "EDGE_LABEL_FONT_FACE" : "Dialog.plain,plain,10",
+      "EDGE_LABEL_FONT_SIZE" : "10",
+      "EDGE_LABEL_TRANSPARENCY" : "255",
+      "EDGE_LABEL_WIDTH" : "200.0",
+      "EDGE_LINE_TYPE" : "SOLID",
+      "EDGE_PAINT" : "#323232",
+      "EDGE_SELECTED" : "false",
+      "EDGE_SELECTED_PAINT" : "#FF0000",
+      "EDGE_SOURCE_ARROW_SELECTED_PAINT" : "#FFFF00",
+      "EDGE_SOURCE_ARROW_SHAPE" : "NONE",
+      "EDGE_SOURCE_ARROW_SIZE" : "6.0",
+      "EDGE_SOURCE_ARROW_UNSELECTED_PAINT" : "#000000",
+      "EDGE_STROKE_SELECTED_PAINT" : "#FF0000",
+      "EDGE_STROKE_UNSELECTED_PAINT" : "#848484",
+      "EDGE_TARGET_ARROW_SELECTED_PAINT" : "#FFFF00",
+      "EDGE_TARGET_ARROW_SHAPE" : "NONE",
+      "EDGE_TARGET_ARROW_SIZE" : "6.0",
+      "EDGE_TARGET_ARROW_UNSELECTED_PAINT" : "#000000",
+      "EDGE_TRANSPARENCY" : "255",
+      "EDGE_UNSELECTED_PAINT" : "#404040",
+      "EDGE_VISIBLE" : "true",
+      "EDGE_WIDTH" : "2.0"
+    },
+    "dependencies" : {
+      "arrowColorMatchesEdge" : "false"
+    }
+  }, {
+    "properties_of" : "nodes",
+    "applies_to" : 68,
+    "view" : 62,
+    "properties" : {
+      "NODE_LABEL_POSITION" : "C,C,c,0.00,0.00"
+    }
+  }, {
+    "properties_of" : "nodes",
+    "applies_to" : 66,
+    "view" : 62,
+    "properties" : {
+      "NODE_LABEL_POSITION" : "SE,C,c,0.00,0.00"
+    }
+  } ]
+}, {
+  "cySubNetworks" : [ {
+    "@id" : 52,
+    "nodes" : [ 68, 66, 64 ],
+    "edges" : [ ]
+  } ]
+}, {
+  "cyViews" : [ {
+    "@id" : 62,
+    "s" : 52
+  } ]
+}, {
+  "cyNetworkRelations" : [ {
+    "p" : 52,
+    "c" : 62,
+    "r" : "view",
+    "name" : "Network view"
+  }, {
+    "c" : 52,
+    "r" : "subnetwork",
+    "name" : "Network"
+  } ]
+}, {
+  "metaData" : [ {
+    "elementCount" : 12,
+    "name" : "cyTableColumn"
+  }, {
+    "elementCount" : 4,
+    "name" : "networkAttributes"
+  }, {
+    "elementCount" : 0,
+    "name" : "cyHiddenAttributes"
+  }, {
+    "elementCount" : 6,
+    "name" : "nodeAttributes"
+  }, {
+    "elementCount" : 0,
+    "name" : "edgeAttributes"
+  }, {
+    "elementCount" : 3,
+    "name" : "cartesianLayout"
+  }, {
+    "elementCount" : 5,
+    "name" : "cyVisualProperties"
+  }, {
+    "elementCount" : 1,
+    "name" : "cySubNetworks"
+  }, {
+    "elementCount" : 1,
+    "name" : "cyViews"
+  }, {
+    "elementCount" : 0,
+    "name" : "cyGroups"
+  }, {
+    "elementCount" : 2,
+    "name" : "cyNetworkRelations"
+  } ]
+}, {
+  "status" : [ {
+    "error" : "",
+    "success" : true
+  } ]
+} ]
