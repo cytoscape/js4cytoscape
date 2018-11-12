@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "cytoscape-canvas": "3.0.1"
   },
   "devDependencies": {
     "cross-env": "^5.0.0",
