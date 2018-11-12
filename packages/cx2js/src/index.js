@@ -1,5 +1,6 @@
 'use strict';
 var _ = require('lodash');
+var cyCanvas = require('cytoscape-canvas');
 
 const DEF_LAYOUT = { name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9, fit: false };
 
@@ -1701,6 +1702,98 @@ class CxToJs {
         } else {
             return false;
         }
+    }
+
+    drawAnnotationsFromNiceCX(cytoscape, cy, niceCX) {
+        //register extension
+        cyCanvas(cytoscape); 
+        //console.log("setting up annotations");
+        const bottomLayer = cy.cyCanvas({
+            zIndex: -1
+        });
+
+        const topLayer = cy.cyCanvas({
+            zIndex: 1
+        });
+
+        const bottomCanvas = bottomLayer.getCanvas();
+        const bottomCtx = bottomCanvas.getContext("2d");
+
+        const topCanvas = topLayer.getCanvas();
+        const topCtx = topCanvas.getContext("2d");
+
+        cy.on("render cyCanvas.resize", evt => {
+            //console.log("render cyCanvas.resize event");
+            bottomLayer.resetTransform(bottomCtx);
+            bottomLayer.clear(bottomCtx);
+            bottomLayer.setTransform(bottomCtx);
+            
+            bottomCtx.save();
+
+            topLayer.resetTransform(topCtx);
+            topLayer.clear(topCtx);
+            topLayer.setTransform(topCtx);
+            
+            topCtx.save();
+
+            _.forEach(niceCX['networkAttributes']['elements'], function (element) {
+                if (element['n'] == '__Annotations') {
+                    _.forEach(element['v'], function(annotation) {
+                        var annotationKVList = annotation.split("|");
+                        var annotationMap = {};
+                        _.forEach(annotationKVList, function(annotationKV) {
+                            var kvPair = annotationKV.split("=");
+                            annotationMap[kvPair[0]] = kvPair[1];
+                        });
+                        
+                        var ctx;
+                        if (annotationMap['canvas'] == 'foreground') {
+                            ctx = topCtx;
+                        } else {
+                            ctx = bottomCtx;
+                        }
+
+
+                        if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.TextAnnotation') {
+                            var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
+                            
+                            ctx.font = fontSize + "px Helvetica";
+                            
+                            var yPos = parseFloat(annotationMap['y']) + fontSize;
+                            ctx.fillText(annotationMap['text'], annotationMap['x'], yPos);
+                        } else if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type']=='org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                            ctx.beginPath();
+                            
+                            var width = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
+                            var height = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
+                            ctx.rect(annotationMap['x'],annotationMap['y'],width,height);
+                            //ctx.fill();
+                            ctx.stroke();
+                        }
+                    });
+                }
+            });
+            // Draw text that follows the model
+           
+
+            // Draw arc
+            /*
+            ctx.beginPath();
+            ctx.arc(95, 50, 400, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.stroke();
+            */
+            //edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|zoom=0.6561000000000001|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=436a8823-366f-4800-9a28-d3ecb940d9e6|shapeType=ELLIPSE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 1|x=-189.06721536351156|width=192.2372796298035|y=-105.5486968449931|z=0|height=91.85399026680032
+            //edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|zoom=0.81|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=436a8823-366f-4800-9a28-d3ecb940d9e6|shapeType=ELLIPSE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 1|x=-189.13580246913577|width=237.3299874258043|y=-106.23456790123454|z=0|height=113.39999399185189
+            /*
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.rect(200,200,250,250);
+            ctx.fill();
+            ctx.stroke();
+            */
+            bottomCtx.restore();
+        });
     }
 
     /*
