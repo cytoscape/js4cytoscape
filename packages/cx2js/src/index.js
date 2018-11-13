@@ -1107,7 +1107,18 @@ class CxToJs {
 
             return result;
         };
+
+        this._colorFromInt= function (num) {
+            num >>>= 0;
+            var b = num & 0xFF,
+                g = (num & 0xFF00) >>> 8,
+                r = (num & 0xFF0000) >>> 16;
+              
+            return "rgb(" + r + "," + g + "," +b +")";
+        };
     }
+
+    
 
     // Public API here: the factory object will be returned
 
@@ -1723,6 +1734,8 @@ class CxToJs {
         const topCtx = topCanvas.getContext("2d");
 
         cy.on("render cyCanvas.resize", evt => {
+            
+            var colorFromInt = this._colorFromInt;
             //console.log("render cyCanvas.resize event");
             bottomLayer.resetTransform(bottomCtx);
             bottomLayer.clear(bottomCtx);
@@ -1752,23 +1765,33 @@ class CxToJs {
                         } else {
                             ctx = bottomCtx;
                         }
-
+                        
 
                         if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.TextAnnotation') {
                             var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
-                            
                             ctx.font = fontSize + "px Helvetica";
-                            
-                            var yPos = parseFloat(annotationMap['y']) + fontSize;
-                            ctx.fillText(annotationMap['text'], annotationMap['x'], yPos);
+                            ctx.textBaseline="top"; 
+                         
+                            if (annotationMap['color']) {
+                                let fillColor = colorFromInt(annotationMap['fillColor']);
+                                ctx.fillStyle = fillColor;
+                            }
+                            ctx.fillText(annotationMap['text'], annotationMap['x'], annotationMap['y']);
                         } else if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type']=='org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                             ctx.beginPath();
                             
+                            ctx.lineWidth = annotationMap['edgeThickness'];
+
                             var width = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
                             var height = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
                             ctx.rect(annotationMap['x'],annotationMap['y'],width,height);
-                            //ctx.fill();
+                            if (annotationMap['fillColor']) {
+                                let fillColor = colorFromInt(annotationMap['fillColor']);
+                                ctx.fillStyle = fillColor;
+                                ctx.fill();
+                            }
                             ctx.stroke();
+
                         }
                     });
                 }
