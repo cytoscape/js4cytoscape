@@ -497,8 +497,54 @@ class CxToJs {
             'shared interaction': 'interaction'
         };
 
-        this._regularPolygonShapeFunction = function (shapeMap, sideCount, ctx){
+        this._epsilon = function(v) {
+            if (Math.abs(v) < 1.0E-10) return 0.0;
+            return v;
+        };
 
+        this._circleX = function(sides,angle, rot) {
+            var coeff = angle/sides;
+            if (rot && (sides%2 == 0)) {
+                if (sides == 8) {
+                    coeff += 0.5/sides;
+                }
+                return this._epsilon(Math.cos(2*coeff*Math.PI));
+            } else
+                return this._epsilon(Math.cos(2*coeff*Math.PI-Math.PI/2));
+        };
+
+       this._circleY = function(sides, angle, rot) {
+            var coeff = angle/sides;
+            if (rot && (sides%2 == 0)) {
+                if (sides == 8) {
+                    coeff += 0.5/sides;
+                }
+                return this._epsilon(Math.sin(2*coeff*Math.PI));
+            } else
+                return this._epsilon(Math.sin(2*coeff*Math.PI-Math.PI/2));
+        };
+    
+             
+        this._regularPolygonShapeFunction = function (shapeMap, sides, ctx){
+            ctx.beginPath();
+            var width = parseFloat(shapeMap['width']) / 2;
+            var height = parseFloat(shapeMap['height']) / 2;
+           
+            var x = parseFloat(shapeMap['x']) + width;
+            var y = parseFloat(shapeMap['y']) + height;
+          
+            var points = [];
+            for (let i = 0; i < sides; i++) {
+                let x1 = this._circleX(sides, i, true) * width + x;
+                let y1 = this._circleY(sides, i, true) * height + y;
+                points.push({ 'x': x1, 'y': y1 });
+            }
+            // Now, add the points
+            ctx.moveTo(points[0]['x'], points[0]['y']);
+            for (let i = 1; i < sides; i++) {
+                ctx.lineTo(points[i]['x'], points[i]['y']);
+            }
+            ctx.closePath();
         };
 
         this._starShapeFunction = function(shapeMap, pointCount, ctx) {
@@ -545,7 +591,7 @@ class CxToJs {
                 this._starShapeFunction(shapeMap, 5, ctx);
             },
             'TRIANGLE' : function (shapeMap, ctx) {
-                this._regularPolygonShapeFunction(shapeMap, 3, ctx);
+                self._regularPolygonShapeFunction(shapeMap, 3, ctx);
             },
             'PENTAGON' : function (shapeMap, ctx) {
                 this._regularPolygonShapeFunction(shapeMap, 5, ctx);
