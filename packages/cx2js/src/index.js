@@ -509,7 +509,26 @@ class CxToJs {
             'RECTANGLE' : function (shapeMap, ctx) {
                 ctx.rect(shapeMap['x'],shapeMap['y'],shapeMap['width'],shapeMap['height']);               
             },
-            'ROUNDEDRECTANGLE' : function (shapeMap, ctx) {},
+            'ROUNDEDRECTANGLE' : function (shapeMap, ctx) 
+            {
+                var width = parseFloat(shapeMap['width']);
+                var height = parseFloat(shapeMap['height']);
+                var tenthWidth = width * 0.1;
+                var x = parseFloat(shapeMap['x']);
+                var y = parseFloat(shapeMap['y']);
+                ctx.beginPath();
+              
+                ctx.moveTo(x + tenthWidth, y);
+                ctx.lineTo(x + width - tenthWidth, y);
+                ctx.quadraticCurveTo(x+width, y, x + width, y+tenthWidth);
+                ctx.lineTo(x + width, y + height - tenthWidth);
+                ctx.quadraticCurveTo(x + width, y + height, x + width - tenthWidth, y + height);
+                ctx.lineTo(x + tenthWidth, y + height);
+                ctx.quadraticCurveTo(x, y + height, x, y + height - tenthWidth);
+                ctx.lineTo(x, y + tenthWidth);
+                ctx.quadraticCurveTo(x, y, x + tenthWidth, y);
+                ctx.closePath();
+            },
             'ELLIPSE' : function (shapeMap, ctx) {
                 var halfWidth = parseFloat(shapeMap['width']) / 2;
                 var halfHeight = parseFloat(shapeMap['height']) / 2;
@@ -537,7 +556,19 @@ class CxToJs {
             'OCTAGON' : function (shapeMap, ctx) {
                 this._regularPolygonShapeFunction(shapeMap, 8, ctx);
             },
-            'PARALLELOGRAM' : function (shapeMap, ctx) {},
+            'PARALLELOGRAM' : function (shapeMap, ctx) {
+                var x = parseFloat(shapeMap['x']);
+                var y = parseFloat(shapeMap['y']);
+                
+                var xMax = x + parseFloat(shapeMap['width']);
+                var yMax = y + parseFloat(shapeMap['height']);
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(((2.0 * xMax) + x) / 3.0, y);
+                ctx.lineTo(xMax, yMax);
+                ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax); 
+                ctx.closePath();
+            },
             'CUSTOM' : function (shapeMap, ctx) {}
         };
 
