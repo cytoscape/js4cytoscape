@@ -1114,13 +1114,14 @@ class CxToJs {
             return result;
         };
 
-        this._colorFromInt= function (num) {
+        this._colorFromInt= function (num, alpha) {
             num >>>= 0;
             var b = num & 0xFF,
                 g = (num & 0xFF00) >>> 8,
-                r = (num & 0xFF0000) >>> 16;
+                r = (num & 0xFF0000) >>> 16,
+                a = parseFloat(alpha) / 100;
               
-            return "rgb(" + r + "," + g + "," +b +")";
+            return "rgb(" + r + "," + g + "," +b +"," + a + ")";
         };
     }
 
@@ -1773,8 +1774,6 @@ class CxToJs {
                             ctx = bottomCtx;
                         }
                        
-                       
-                        
                         if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type']=='org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                             ctx.beginPath();
                             
@@ -1785,10 +1784,12 @@ class CxToJs {
                             if (shapeFunctions[annotationMap['shapeType']]) {
                                 shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
                                 if (annotationMap['fillColor']) {
-                                    let fillColor = colorFromInt(annotationMap['fillColor']);
+                                    let fillColor = colorFromInt(annotationMap['fillColor'], annotationMap['fillOpacity']);
+                                    
                                     ctx.fillStyle = fillColor;
                                     ctx.fill();
                                 }
+                                ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
                                 ctx.stroke();
                             } else {
                                 console.warn("Invalid shape type: " + annotationMap['shapeType']);
@@ -1820,7 +1821,7 @@ class CxToJs {
                             ctx.font = fontSize + "px Helvetica";
                          
                             if (annotationMap['color']) {
-                                let fillColor = colorFromInt(annotationMap['fillColor']);
+                                let fillColor = colorFromInt(annotationMap['fillColor'], '100');
                                 ctx.fillStyle = fillColor;
                             }
                             ctx.fillText(text, textX, textY);
