@@ -497,10 +497,48 @@ class CxToJs {
             'shared interaction': 'interaction'
         };
 
-        this.shapeFunctions = {
+        this._regularPolygonShapeFunction = function (shapeMap, sideCount, ctx){
+
+        };
+
+        this._starShapeFunction = function(shapeMap, pointCount, ctx) {
+
+        };
+
+        this._shapeFunctions = {
             'RECTANGLE' : function (shapeMap, ctx) {
                 ctx.rect(shapeMap['x'],shapeMap['y'],shapeMap['width'],shapeMap['height']);               
-            }
+            },
+            'ROUNDEDRECTANGLE' : function (shapeMap, ctx) {},
+            'ELLIPSE' : function (shapeMap, ctx) {
+                var halfWidth = parseFloat(shapeMap['width']) / 2;
+                var halfHeight = parseFloat(shapeMap['height']) / 2;
+                var x = parseFloat(shapeMap['x']) + halfWidth;
+                var y = parseFloat(shapeMap['y']) + halfHeight;
+                ctx.beginPath();
+                ctx.ellipse(x, y, halfWidth, halfHeight, 0, 0, 2 * Math.PI);
+                ctx.closePath();
+            },
+            'STAR5' : function (shapeMap, ctx) {
+                this._starShapeFunction(shapeMap, 5, ctx);
+            },
+            'STAR6' : function (shapeMap, ctx) {
+                this._starShapeFunction(shapeMap, 5, ctx);
+            },
+            'TRIANGLE' : function (shapeMap, ctx) {
+                this._regularPolygonShapeFunction(shapeMap, 3, ctx);
+            },
+            'PENTAGON' : function (shapeMap, ctx) {
+                this._regularPolygonShapeFunction(shapeMap, 5, ctx);
+            },
+            'HEXAGON' : function (shapeMap, ctx) {
+                this._regularPolygonShapeFunction(shapeMap, 6, ctx);
+            },
+            'OCTAGON' : function (shapeMap, ctx) {
+                this._regularPolygonShapeFunction(shapeMap, 8, ctx);
+            },
+            'PARALLELOGRAM' : function (shapeMap, ctx) {},
+            'CUSTOM' : function (shapeMap, ctx) {}
         };
 
         this.getCyAttributeName = function (attributeName, attributeNameMap) {
@@ -1743,7 +1781,7 @@ class CxToJs {
         cy.on("render cyCanvas.resize", evt => {
             
             var colorFromInt = this._colorFromInt;
-            var shapeFunctions = this.shapeFunctions;
+            var shapeFunctions = this._shapeFunctions;
             //console.log("render cyCanvas.resize event");
             bottomLayer.resetTransform(bottomCtx);
             bottomLayer.clear(bottomCtx);
