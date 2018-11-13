@@ -338,40 +338,40 @@ const visualPropertyMap = {
 
 const JAVA_LOGICAL_FONT_PROPERTIES_MAP = {
     'Dialog.plain': {},
-    'Dialog.bold': {'font-weight': 'bold'},
-    'Dialog.bolditalic': {'font-weight': 'bold', 'font-style': 'italic'},
-    'Dialog.italic':{'font-style': 'italic'},
+    'Dialog.bold': { 'font-weight': 'bold' },
+    'Dialog.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'Dialog.italic': { 'font-style': 'italic' },
 
     //DialogInput
-    'DialogInput.plain':{},
-    'DialogInput.bold':{'font-weight': 'bold'},
-    'DialogInput.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
-    'DialogInput.italic':{'font-style': 'italic'},    
+    'DialogInput.plain': {},
+    'DialogInput.bold': { 'font-weight': 'bold' },
+    'DialogInput.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'DialogInput.italic': { 'font-style': 'italic' },
 
     //Monospaced
-    'Monospaced.plain':{},
-    'Monospaced.bold':{'font-weight': 'bold'},
-    'Monospaced.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
-    'Monospaced.italic':{'font-style': 'italic'},
+    'Monospaced.plain': {},
+    'Monospaced.bold': { 'font-weight': 'bold' },
+    'Monospaced.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'Monospaced.italic': { 'font-style': 'italic' },
 
     //Serif
-    'Serif.plain':{},
-    'Serif.bold':{'font-weight': 'bold'},
-    'Serif.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
-    'Serif.italic':{'font-style': 'italic'},
+    'Serif.plain': {},
+    'Serif.bold': { 'font-weight': 'bold' },
+    'Serif.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'Serif.italic': { 'font-style': 'italic' },
 
     //SansSerif
-    'SansSerif.plain':{},
-    'SansSerif.bold':{'font-weight': 'bold'},
-    'SansSerif.bolditalic':{'font-weight': 'bold', 'font-style': 'italic'},
-    'SansSerif.italic':{'font-style': 'italic'}
+    'SansSerif.plain': {},
+    'SansSerif.bold': { 'font-weight': 'bold' },
+    'SansSerif.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'SansSerif.italic': { 'font-style': 'italic' }
 };
 
 const JAVA_FONT_STYLE_CSS_MAP = {
-    'PLAIN' : {},
-    'BOLD': {'font-weight': 'bold'},
-    'BOLDITALIC': {'font-weight': 'bold', 'font-style': 'italic'},
-    'ITALIC': {'font-style': 'italic'}
+    'PLAIN': {},
+    'BOLD': { 'font-weight': 'bold' },
+    'BOLDITALIC': { 'font-weight': 'bold', 'font-style': 'italic' },
+    'ITALIC': { 'font-style': 'italic' }
 };
 
 const FONT_FAMILY_MAP = {
@@ -380,7 +380,7 @@ const FONT_FAMILY_MAP = {
     // Sans-serif font stack
     'Arial': 'Arial,Helvetica Neue,Helvetica,sans-serif',
     'Arial-Black': 'Arial Black,Arial Bold,Gadget,sans-serif',
-    'ArialMT':'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'ArialMT': 'Arial,Helvetica Neue,Helvetica,sans-serif',
     'ArialNarrow': 'Arial Narrow,Arial,sans-serif',
     'ArialRoundedMTBold': 'Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif',
 
@@ -443,40 +443,40 @@ const FONT_FAMILY_MAP = {
     // Script font stack
     'BrushScriptMT': 'Brush Script MT,cursive',
 
-    
+
     //Java Logical Font stack
     //The following are Java logical fonts. 
     //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts 
-    
+
     //Dialog
     'Dialog.plain': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.bold':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.bolditalic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.italic':'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.bold': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.bolditalic': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+    'Dialog.italic': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
 
     //DialogInput
-    'DialogInput.plain':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.bold':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.bolditalic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.italic':'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',    
+    'DialogInput.plain': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.bold': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.bolditalic': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
+    'DialogInput.italic': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
 
     //Monospaced
-    'Monospaced.plain':'Consolas,monaco,monospace',
-    'Monospaced.bold':'Consolas,monaco,monospace',
-    'Monospaced.bolditalic':'Consolas,monaco,monospace',
-    'Monospaced.italic':'Consolas,monaco,monospace',
+    'Monospaced.plain': 'Consolas,monaco,monospace',
+    'Monospaced.bold': 'Consolas,monaco,monospace',
+    'Monospaced.bolditalic': 'Consolas,monaco,monospace',
+    'Monospaced.italic': 'Consolas,monaco,monospace',
 
     //Serif
-    'Serif.plain':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.bold':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.bolditalic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.italic':'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.plain': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.bold': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.bolditalic': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
+    'Serif.italic': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
 
     //SansSerif
-    'SansSerif.plain':'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.bold':'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.bolditalic':'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.italic':'Arial,Helvetica Neue,Helvetica,sans-serif'
+    'SansSerif.plain': 'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.bold': 'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.bolditalic': 'Arial,Helvetica Neue,Helvetica,sans-serif',
+    'SansSerif.italic': 'Arial,Helvetica Neue,Helvetica,sans-serif'
 };
 
 class CxToJs {
@@ -497,42 +497,55 @@ class CxToJs {
             'shared interaction': 'interaction'
         };
 
-        this._epsilon = function(v) {
+        this._findIntersection = function (p1, p2, p3, p4) {
+
+            var denominator = (p4['y'] - p3['y']) * (p2['x'] - p1['x']) -
+                (p4['x'] - p3['x']) * (p2['y'] - p1['y']);
+
+            var ua = ((p4['x'] - p3['x']) * (p1['y'] - p3['y']) -
+                (p4['y'] - p3['y']) * (p1['x'] - p3['x'])) / denominator;
+
+            var x = this._epsilon(p1['x'] + ua * (p2['x'] - p1['x']));
+            var y = this._epsilon(p1['y'] + ua * (p2['y'] - p1['y']));
+            return { 'x': x, 'y': y };
+        };
+
+        this._epsilon = function (v) {
             if (Math.abs(v) < 1.0E-10) return 0.0;
             return v;
         };
 
-        this._circleX = function(sides,angle, rot) {
-            var coeff = angle/sides;
-            if (rot && (sides%2 == 0)) {
+        this._circleX = function (sides, angle, rot) {
+            var coeff = angle / sides;
+            if (rot && (sides % 2 == 0)) {
                 if (sides == 8) {
-                    coeff += 0.5/sides;
+                    coeff += 0.5 / sides;
                 }
-                return this._epsilon(Math.cos(2*coeff*Math.PI));
+                return this._epsilon(Math.cos(2 * coeff * Math.PI));
             } else
-                return this._epsilon(Math.cos(2*coeff*Math.PI-Math.PI/2));
+                return this._epsilon(Math.cos(2 * coeff * Math.PI - Math.PI / 2));
         };
 
-       this._circleY = function(sides, angle, rot) {
-            var coeff = angle/sides;
-            if (rot && (sides%2 == 0)) {
+        this._circleY = function (sides, angle, rot) {
+            var coeff = angle / sides;
+            if (rot && (sides % 2 == 0)) {
                 if (sides == 8) {
-                    coeff += 0.5/sides;
+                    coeff += 0.5 / sides;
                 }
-                return this._epsilon(Math.sin(2*coeff*Math.PI));
+                return this._epsilon(Math.sin(2 * coeff * Math.PI));
             } else
-                return this._epsilon(Math.sin(2*coeff*Math.PI-Math.PI/2));
+                return this._epsilon(Math.sin(2 * coeff * Math.PI - Math.PI / 2));
         };
-    
-             
-        this._regularPolygonShapeFunction = function (shapeMap, sides, ctx){
+
+
+        this._regularPolygonShapeFunction = function (shapeMap, sides, ctx) {
             ctx.beginPath();
             var width = parseFloat(shapeMap['width']) / 2;
             var height = parseFloat(shapeMap['height']) / 2;
-           
+
             var x = parseFloat(shapeMap['x']) + width;
             var y = parseFloat(shapeMap['y']) + height;
-          
+
             var points = [];
             for (let i = 0; i < sides; i++) {
                 let x1 = this._circleX(sides, i, true) * width + x;
@@ -547,26 +560,62 @@ class CxToJs {
             ctx.closePath();
         };
 
-        this._starShapeFunction = function(shapeMap, pointCount, ctx) {
+        this._starShapeFunction = function (shapeMap, sides, ctx) {
+            ctx.beginPath();
+            var width = parseFloat(shapeMap['width']) / 2;
+            var height = parseFloat(shapeMap['height']) / 2;
 
+            var x = parseFloat(shapeMap['x']) + width;
+            var y = parseFloat(shapeMap['y']) + height;
+
+            let nPoints = sides * 2;
+            var points = [];
+            for (let i = 0; i < nPoints; i++) {
+                points.push({});
+            }
+            for (let i = 0; i < sides; i++) {
+                let x1 = this._circleX(sides, i, false) * width + x;
+                let y1 = this._circleY(sides, i, false) * height + y;
+                let x2 = this._circleX(sides, (i + 2) % sides, false) * width + x;
+                let y2 = this._circleY(sides, (i + 2) % sides, false) * height + y;
+                points[i * 2] = { 'x': x1, 'y': y1 };
+                points[(i * 2 + 4) % nPoints] = { 'x': x2, 'y': y2 };
+            }
+
+            // Fill in the intersection points
+            for (let i = 0; i < nPoints; i = i + 2) {
+                let p1 = i;
+                let p2 = (i + 4) % nPoints;
+                let p3 = (i + 2) % nPoints;
+                let p4 = (p3 + nPoints - 4) % nPoints;
+
+                points[(i + 1) % nPoints] = this._findIntersection(points[p1], points[p2],
+                    points[p3], points[p4]);
+            }
+
+            // Now, add the points
+            ctx.moveTo(points[0]['x'], points[0]['y']);
+            for (let i = 1; i < nPoints; i++) {
+                ctx.lineTo(points[i]['x'], points[i]['y']);
+            }
+            ctx.closePath();
         };
 
         this._shapeFunctions = {
-            'RECTANGLE' : function (shapeMap, ctx) {
-                ctx.rect(shapeMap['x'],shapeMap['y'],shapeMap['width'],shapeMap['height']);               
+            'RECTANGLE': function (shapeMap, ctx) {
+                ctx.rect(shapeMap['x'], shapeMap['y'], shapeMap['width'], shapeMap['height']);
             },
-            'ROUNDEDRECTANGLE' : function (shapeMap, ctx) 
-            {
+            'ROUNDEDRECTANGLE': function (shapeMap, ctx) {
                 var width = parseFloat(shapeMap['width']);
                 var height = parseFloat(shapeMap['height']);
                 var tenthWidth = width * 0.1;
                 var x = parseFloat(shapeMap['x']);
                 var y = parseFloat(shapeMap['y']);
                 ctx.beginPath();
-              
+
                 ctx.moveTo(x + tenthWidth, y);
                 ctx.lineTo(x + width - tenthWidth, y);
-                ctx.quadraticCurveTo(x+width, y, x + width, y+tenthWidth);
+                ctx.quadraticCurveTo(x + width, y, x + width, y + tenthWidth);
                 ctx.lineTo(x + width, y + height - tenthWidth);
                 ctx.quadraticCurveTo(x + width, y + height, x + width - tenthWidth, y + height);
                 ctx.lineTo(x + tenthWidth, y + height);
@@ -575,7 +624,7 @@ class CxToJs {
                 ctx.quadraticCurveTo(x, y, x + tenthWidth, y);
                 ctx.closePath();
             },
-            'ELLIPSE' : function (shapeMap, ctx) {
+            'ELLIPSE': function (shapeMap, ctx) {
                 var halfWidth = parseFloat(shapeMap['width']) / 2;
                 var halfHeight = parseFloat(shapeMap['height']) / 2;
                 var x = parseFloat(shapeMap['x']) + halfWidth;
@@ -584,38 +633,38 @@ class CxToJs {
                 ctx.ellipse(x, y, halfWidth, halfHeight, 0, 0, 2 * Math.PI);
                 ctx.closePath();
             },
-            'STAR5' : function (shapeMap, ctx) {
-                this._starShapeFunction(shapeMap, 5, ctx);
+            'STAR5': function (shapeMap, ctx) {
+                self._starShapeFunction(shapeMap, 5, ctx);
             },
-            'STAR6' : function (shapeMap, ctx) {
-                this._starShapeFunction(shapeMap, 5, ctx);
+            'STAR6': function (shapeMap, ctx) {
+                self._starShapeFunction(shapeMap, 5, ctx);
             },
-            'TRIANGLE' : function (shapeMap, ctx) {
+            'TRIANGLE': function (shapeMap, ctx) {
                 self._regularPolygonShapeFunction(shapeMap, 3, ctx);
             },
-            'PENTAGON' : function (shapeMap, ctx) {
-                this._regularPolygonShapeFunction(shapeMap, 5, ctx);
+            'PENTAGON': function (shapeMap, ctx) {
+                self._regularPolygonShapeFunction(shapeMap, 5, ctx);
             },
-            'HEXAGON' : function (shapeMap, ctx) {
-                this._regularPolygonShapeFunction(shapeMap, 6, ctx);
+            'HEXAGON': function (shapeMap, ctx) {
+                self._regularPolygonShapeFunction(shapeMap, 6, ctx);
             },
-            'OCTAGON' : function (shapeMap, ctx) {
-                this._regularPolygonShapeFunction(shapeMap, 8, ctx);
+            'OCTAGON': function (shapeMap, ctx) {
+                self._regularPolygonShapeFunction(shapeMap, 8, ctx);
             },
-            'PARALLELOGRAM' : function (shapeMap, ctx) {
+            'PARALLELOGRAM': function (shapeMap, ctx) {
                 var x = parseFloat(shapeMap['x']);
                 var y = parseFloat(shapeMap['y']);
-                
+
                 var xMax = x + parseFloat(shapeMap['width']);
                 var yMax = y + parseFloat(shapeMap['height']);
                 ctx.beginPath();
                 ctx.moveTo(x, y);
                 ctx.lineTo(((2.0 * xMax) + x) / 3.0, y);
                 ctx.lineTo(xMax, yMax);
-                ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax); 
+                ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax);
                 ctx.closePath();
             },
-            'CUSTOM' : function (shapeMap, ctx) {}
+            'CUSTOM': function (shapeMap, ctx) { }
         };
 
         this.getCyAttributeName = function (attributeName, attributeNameMap) {
@@ -1165,28 +1214,29 @@ class CxToJs {
             }
         };
 
-        this.expandLabelPosition = function(cyLabelPosition, objectProperties) {
+        this.expandLabelPosition = function (cyLabelPosition, objectProperties) {
             var labelPosition = self.getNodeLabelPosition(cyLabelPosition);
 
             objectProperties['text-valign'] = labelPosition['text-valign'];
-            objectProperties['text-halign'] = labelPosition['text-halign']; 
+            objectProperties['text-halign'] = labelPosition['text-halign'];
         };
 
-        this.expandFontProperties = function(labelFontFace, objectProperties) {
+        this.expandFontProperties = function (labelFontFace, objectProperties) {
             var font = labelFontFace.split(',');
             //defaultNodeProperties['font-family'] = font[0];
-                                       
+
             if (font[0] in JAVA_LOGICAL_FONT_PROPERTIES_MAP) {
                 var logicalFontProperties = JAVA_LOGICAL_FONT_PROPERTIES_MAP[font[0]];
-                _.forEach(logicalFontProperties, function(propertyValue, propertyKey) {
+                _.forEach(logicalFontProperties, function (propertyValue, propertyKey) {
                     objectProperties[propertyKey] = propertyValue;
                 });
             } else {
                 if (font[1].toUpperCase in JAVA_FONT_STYLE_CSS_MAP) {
                     var fontProperties = JAVA_FONT_STYLE_CSS_MAP[font[1].toUpperCase];
-                    _.forEach(fontProperties, function(propertyValue, propertyKey) {
+                    _.forEach(fontProperties, function (propertyValue, propertyKey) {
                         objectProperties[propertyKey] = propertyValue;
-                    });}
+                    });
+                }
             }
             if (font[0] in FONT_FAMILY_MAP) {
                 objectProperties['font-family'] = FONT_FAMILY_MAP[font[0]];
@@ -1194,10 +1244,10 @@ class CxToJs {
                 objectProperties['font-family'] = 'sans-serif';
                 objectProperties['font-weight'] = 'normal';
             }
-            objectProperties['font-size'] = font[font.length-1];
+            objectProperties['font-size'] = font[font.length - 1];
         };
 
-        this.cyVisualPropertyFromNiceCX= function(niceCX, type, vp) {
+        this.cyVisualPropertyFromNiceCX = function (niceCX, type, vp) {
             //console.log(niceCX);
             var result = null;
             var visualProps;
@@ -1229,18 +1279,18 @@ class CxToJs {
             return result;
         };
 
-        this._colorFromInt= function (num, alpha) {
+        this._colorFromInt = function (num, alpha) {
             num >>>= 0;
             var b = num & 0xFF,
                 g = (num & 0xFF00) >>> 8,
                 r = (num & 0xFF0000) >>> 16,
                 a = parseFloat(alpha) / 100;
-              
-            return "rgb(" + r + "," + g + "," +b +"," + a + ")";
+
+            return "rgb(" + r + "," + g + "," + b + "," + a + ")";
         };
     }
 
-    
+
 
     // Public API here: the factory object will be returned
 
@@ -1527,7 +1577,7 @@ class CxToJs {
                         if (cyVisualAttribute) {
                             if (vp === 'NODE_LABEL_FONT_FACE') {
                                 if (value) {
-                                   expandFontProperties(value, defaultNodeProperties);
+                                    expandFontProperties(value, defaultNodeProperties);
                                 } else {
                                     defaultNodeProperties['font-family'] = 'sans-serif';
                                     defaultNodeProperties['font-weight'] = 'normal';
@@ -1537,7 +1587,7 @@ class CxToJs {
                             } else {
                                 var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                 defaultNodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
-                            } 
+                            }
                         } else {
                             if (vp === 'NODE_SELECTED_PAINT') {
                                 var selectedColor = getCyVisualAttributeValue(value, 'color');
@@ -1627,7 +1677,7 @@ class CxToJs {
                     }
 
                     expandLabelPosition(cyLabelPositionCoordinates, defaultNodeProperties);
-                    
+
                     var defaultNodeStyle = { 'selector': 'node', 'css': defaultNodeProperties };
                     nodeDefaultStyles.push(defaultNodeStyle);
 
@@ -1672,7 +1722,7 @@ class CxToJs {
                                 if (cyVisualAttribute) {
                                     if (vp === 'EDGE_LABEL_FONT_FACE') {
                                         if (value) {
-                                           expandFontProperties(value, defaultEdgeProperties);
+                                            expandFontProperties(value, defaultEdgeProperties);
                                         } else {
                                             defaultEdgeProperties['font-family'] = 'sans-serif';
                                             defaultEdgeProperties['font-weight'] = 'normal';
@@ -1696,13 +1746,13 @@ class CxToJs {
                                 if (cyVisualAttribute) {
                                     if (vp === 'EDGE_LABEL_FONT_FACE') {
                                         if (value) {
-                                           expandFontProperties(value, defaultEdgeProperties);
+                                            expandFontProperties(value, defaultEdgeProperties);
                                         } else {
                                             defaultEdgeProperties['font-family'] = 'sans-serif';
                                             defaultEdgeProperties['font-weight'] = 'normal';
                                         }
                                     } else {
-                                        cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);    
+                                        cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                         defaultEdgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                                     }
                                 } else if (vp === 'EDGE_STROKE_SELECTED_PAINT') {
@@ -1797,7 +1847,7 @@ class CxToJs {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                             if (vp === 'EDGE_LABEL_FONT_FACE') {
                                 if (value) {
-                                   expandFontProperties(value, edgeProperties);
+                                    expandFontProperties(value, edgeProperties);
                                 }
                             } else {
                                 edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
@@ -1830,7 +1880,7 @@ class CxToJs {
         let cyX = this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_CENTER_X_LOCATION');
         let cyY = this.cyVisualPropertyFromNiceCX(niceCX, 'network', 'NETWORK_CENTER_Y_LOCATION');
         if (cyX && cyY) {
-            let result = { x : parseFloat(cyX), y: parseFloat(cyY)};
+            let result = { x: parseFloat(cyX), y: parseFloat(cyY) };
             return result;
         } else {
             return false;
@@ -1839,7 +1889,7 @@ class CxToJs {
 
     drawAnnotationsFromNiceCX(cytoscape, cy, niceCX) {
         //register extension
-        cyCanvas(cytoscape); 
+        cyCanvas(cytoscape);
         //console.log("setting up annotations");
         const bottomLayer = cy.cyCanvas({
             zIndex: -1
@@ -1856,42 +1906,42 @@ class CxToJs {
         const topCtx = topCanvas.getContext("2d");
 
         cy.on("render cyCanvas.resize", evt => {
-            
+
             var colorFromInt = this._colorFromInt;
             var shapeFunctions = this._shapeFunctions;
             //console.log("render cyCanvas.resize event");
             bottomLayer.resetTransform(bottomCtx);
             bottomLayer.clear(bottomCtx);
             bottomLayer.setTransform(bottomCtx);
-            
+
             bottomCtx.save();
 
             topLayer.resetTransform(topCtx);
             topLayer.clear(topCtx);
             topLayer.setTransform(topCtx);
-            
+
             topCtx.save();
 
             _.forEach(niceCX['networkAttributes']['elements'], function (element) {
                 if (element['n'] == '__Annotations') {
-                    _.forEach(element['v'], function(annotation) {
+                    _.forEach(element['v'], function (annotation) {
                         var annotationKVList = annotation.split("|");
                         var annotationMap = {};
-                        _.forEach(annotationKVList, function(annotationKV) {
+                        _.forEach(annotationKVList, function (annotationKV) {
                             var kvPair = annotationKV.split("=");
                             annotationMap[kvPair[0]] = kvPair[1];
                         });
-                        
+
                         var ctx;
                         if (annotationMap['canvas'] == 'foreground') {
                             ctx = topCtx;
                         } else {
                             ctx = bottomCtx;
                         }
-                       
-                        if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type']=='org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+
+                        if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                             ctx.beginPath();
-                            
+
                             ctx.lineWidth = annotationMap['edgeThickness'];
 
                             annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
@@ -1900,7 +1950,7 @@ class CxToJs {
                                 shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
                                 if (annotationMap['fillColor']) {
                                     let fillColor = colorFromInt(annotationMap['fillColor'], annotationMap['fillOpacity']);
-                                    
+
                                     ctx.fillStyle = fillColor;
                                     ctx.fill();
                                 }
@@ -1915,37 +1965,37 @@ class CxToJs {
                         var textX;
                         var textY;
 
-                        if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.TextAnnotation') {
+                        if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.TextAnnotation') {
                             text = annotationMap['text'];
-                            ctx.textBaseline="top"; 
-                            ctx.textAlign="left";
+                            ctx.textBaseline = "top";
+                            ctx.textAlign = "left";
                             textX = annotationMap['x'];
                             textY = annotationMap['y'];
-                        } else if (annotationMap['type']=='org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                        } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                             text = annotationMap['text'];
-                            
-                            ctx.textBaseline="middle"; 
-                            ctx.textAlign="center";
-                            
-                            textX = parseFloat(annotationMap['x']) + annotationMap['width']/2;
-                            textY = parseFloat(annotationMap['y']) + annotationMap['height']/2;
-                        } 
+
+                            ctx.textBaseline = "middle";
+                            ctx.textAlign = "center";
+
+                            textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
+                            textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
+                        }
 
                         if (text && textX && textY) {
                             var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
                             ctx.font = fontSize + "px Helvetica";
-                         
+
                             if (annotationMap['color']) {
                                 let fillColor = colorFromInt(annotationMap['fillColor'], '100');
                                 ctx.fillStyle = fillColor;
                             }
                             ctx.fillText(text, textX, textY);
-                        }  
+                        }
                     });
                 }
             });
             // Draw text that follows the model
-           
+
 
             // Draw arc
             /*
