@@ -97,7 +97,9 @@
 
             var cy = cytoscape(cytoscapeJS);
 
-            cx2Js.drawAnnotationsFromNiceCX(cytoscape, cy, niceCX);
+            var cx2canvas = new cytoscapeCx2js.CxToCyCanvas();
+
+            cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cy, niceCX);
 
             date = new Date();
             var endTime = date.getTime();
