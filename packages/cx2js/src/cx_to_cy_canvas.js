@@ -4,7 +4,7 @@ class CxToCyCanvas {
 
     constructor() {
         var self = this;
-        
+
         this._findIntersection = function (p1, p2, p3, p4) {
 
             var denominator = (p4['y'] - p3['y']) * (p2['x'] - p1['x']) -
@@ -174,7 +174,7 @@ class CxToCyCanvas {
             },
             'CUSTOM': function (shapeMap, ctx) { }
         };
-        
+
         this._colorFromInt = function (num, alpha) {
             num >>>= 0;
             var b = num & 0xFF,
@@ -220,99 +220,82 @@ class CxToCyCanvas {
             topLayer.setTransform(topCtx);
 
             topCtx.save();
+            if (niceCX['networkAttributes']) {
+                _.forEach(niceCX['networkAttributes']['elements'], function (element) {
+                    if (element['n'] == '__Annotations') {
+                        _.forEach(element['v'], function (annotation) {
+                            var annotationKVList = annotation.split("|");
+                            var annotationMap = {};
+                            _.forEach(annotationKVList, function (annotationKV) {
+                                var kvPair = annotationKV.split("=");
+                                annotationMap[kvPair[0]] = kvPair[1];
+                            });
 
-            _.forEach(niceCX['networkAttributes']['elements'], function (element) {
-                if (element['n'] == '__Annotations') {
-                    _.forEach(element['v'], function (annotation) {
-                        var annotationKVList = annotation.split("|");
-                        var annotationMap = {};
-                        _.forEach(annotationKVList, function (annotationKV) {
-                            var kvPair = annotationKV.split("=");
-                            annotationMap[kvPair[0]] = kvPair[1];
-                        });
-
-                        var ctx;
-                        if (annotationMap['canvas'] == 'foreground') {
-                            ctx = topCtx;
-                        } else {
-                            ctx = bottomCtx;
-                        }
-
-                        if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
-                            ctx.beginPath();
-
-                            ctx.lineWidth = annotationMap['edgeThickness'];
-
-                            annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
-                            annotationMap['height'] = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
-                            if (shapeFunctions[annotationMap['shapeType']]) {
-                                shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
-                                if (annotationMap['fillColor']) {
-                                    let fillColor = colorFromInt(annotationMap['fillColor'], annotationMap['fillOpacity']);
-
-                                    ctx.fillStyle = fillColor;
-                                    ctx.fill();
-                                }
-                                ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
-                                ctx.stroke();
+                            var ctx;
+                            if (annotationMap['canvas'] == 'foreground') {
+                                ctx = topCtx;
                             } else {
-                                console.warn("Invalid shape type: " + annotationMap['shapeType']);
+                                ctx = bottomCtx;
                             }
-                        }
 
-                        var text;
-                        var textX;
-                        var textY;
+                            if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                                ctx.beginPath();
 
-                        if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.TextAnnotation') {
-                            text = annotationMap['text'];
-                            ctx.textBaseline = "top";
-                            ctx.textAlign = "left";
-                            textX = annotationMap['x'];
-                            textY = annotationMap['y'];
-                        } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
-                            text = annotationMap['text'];
+                                ctx.lineWidth = annotationMap['edgeThickness'];
 
-                            ctx.textBaseline = "middle";
-                            ctx.textAlign = "center";
+                                annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
+                                annotationMap['height'] = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
+                                if (shapeFunctions[annotationMap['shapeType']]) {
+                                    shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
+                                    if (annotationMap['fillColor']) {
+                                        let fillColor = colorFromInt(annotationMap['fillColor'], annotationMap['fillOpacity']);
 
-                            textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
-                            textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
-                        }
-
-                        if (text && textX && textY) {
-                            var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
-                            ctx.font = fontSize + "px Helvetica";
-
-                            if (annotationMap['color']) {
-                                let fillColor = colorFromInt(annotationMap['fillColor'], '100');
-                                ctx.fillStyle = fillColor;
+                                        ctx.fillStyle = fillColor;
+                                        ctx.fill();
+                                    }
+                                    ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
+                                    ctx.stroke();
+                                } else {
+                                    console.warn("Invalid shape type: " + annotationMap['shapeType']);
+                                }
                             }
-                            ctx.fillText(text, textX, textY);
-                        }
-                    });
-                }
-            });
-              // Draw text that follows the model
 
+                            var text;
+                            var textX;
+                            var textY;
 
-            // Draw arc
-            /*
-            ctx.beginPath();
-            ctx.arc(95, 50, 400, 0, 2 * Math.PI);
-            ctx.closePath();
-            ctx.stroke();
-            */
-            //edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|zoom=0.6561000000000001|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=436a8823-366f-4800-9a28-d3ecb940d9e6|shapeType=ELLIPSE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 1|x=-189.06721536351156|width=192.2372796298035|y=-105.5486968449931|z=0|height=91.85399026680032
-            //edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|zoom=0.81|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=436a8823-366f-4800-9a28-d3ecb940d9e6|shapeType=ELLIPSE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 1|x=-189.13580246913577|width=237.3299874258043|y=-106.23456790123454|z=0|height=113.39999399185189
-            /*
-            ctx.fillStyle = "red";
-            ctx.beginPath();
-            ctx.rect(200,200,250,250);
-            ctx.fill();
-            ctx.stroke();
-            */
-           bottomCtx.restore();
+                            if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.TextAnnotation') {
+                                text = annotationMap['text'];
+                                ctx.textBaseline = "top";
+                                ctx.textAlign = "left";
+                                textX = annotationMap['x'];
+                                textY = annotationMap['y'];
+                            } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                                text = annotationMap['text'];
+
+                                ctx.textBaseline = "middle";
+                                ctx.textAlign = "center";
+
+                                textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
+                                textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
+                            }
+
+                            if (text && textX && textY) {
+                                var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
+                                ctx.font = fontSize + "px Helvetica";
+
+                                if (annotationMap['color']) {
+                                    let fillColor = colorFromInt(annotationMap['fillColor'], '100');
+                                    ctx.fillStyle = fillColor;
+                                }
+                                ctx.fillText(text, textX, textY);
+                            }
+                        });
+                    }
+                });
+            }
+            
+            bottomCtx.restore();
         });
     }
 }
