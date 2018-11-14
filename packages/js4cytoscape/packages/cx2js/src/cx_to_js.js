@@ -1489,7 +1489,7 @@ class CxToJs {
                     });
 
                     /** @namespace vpElement.dependencies.nodeSizeLocked **/
-                    if (nodeSize && vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') {
+                    if (nodeSize && vpElement['dependencies'] && vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') {
                         defaultNodeProperties.height = nodeSize;
                         defaultNodeProperties.width = nodeSize;
                     }
@@ -1525,7 +1525,7 @@ class CxToJs {
                         //console.log('default node property ' + vp + ' = ' + value);
                         //special cases for locked edge color
                         /** @namespace vpElement.dependencies.arrowColorMatchesEdge **/
-                        if (vpElement.dependencies.arrowColorMatchesEdge.toLowerCase() === 'true') {
+                        if (vpElement['dependencies'] && vpElement.dependencies.arrowColorMatchesEdge.toLowerCase() === 'true') {
                             if (vp !== 'EDGE_STROKE_UNSELECTED_PAINT' && vp !== 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT' &&
                                 vp !== 'EDGE_TARGET_ARROW_UNSELECTED_PAINT') {
                                 if (vp === 'EDGE_UNSELECTED_PAINT') {   // add extra handling since the color is locked
