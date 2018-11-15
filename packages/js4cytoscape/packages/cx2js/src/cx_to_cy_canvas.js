@@ -1,4 +1,5 @@
 var cyCanvas = require('cytoscape-canvas');
+let _ = require('lodash');
 
 class CxToCyCanvas {
 
@@ -223,6 +224,10 @@ class CxToCyCanvas {
             if (niceCX['networkAttributes']) {
                 _.forEach(niceCX['networkAttributes']['elements'], function (element) {
                     if (element['n'] == '__Annotations') {
+                        var indexedAnnotations = {};
+                        var topAnnotations = [];
+                        var bottomAnnotations = [];
+                        
                         _.forEach(element['v'], function (annotation) {
                             var annotationKVList = annotation.split("|");
                             var annotationMap = {};
@@ -231,16 +236,33 @@ class CxToCyCanvas {
                                 annotationMap[kvPair[0]] = kvPair[1];
                             });
 
-                            var ctx;
+                            indexedAnnotations[annotationMap['uuid']] = annotationMap;
+
                             if (annotationMap['canvas'] == 'foreground') {
-                                ctx = topCtx;
+                                topAnnotations.push(annotationMap['uuid']);
                             } else {
-                                ctx = bottomCtx;
+                                bottomAnnotations.push(annotationMap['uuid']);
                             }
+                        });
 
-                            if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                        var zOrderCompare = function(a, b){
+                            let annotationA = indexedAnnotations[a];
+                            let annotationB = indexedAnnotations[b];
+                            return parseInt(annotationB['z']) - parseInt(annotationA['z']);
+                        };
+
+                        topAnnotations.sort(zOrderCompare);
+                        bottomAnnotations.sort(zOrderCompare);
+
+                        var contextAnnotationMap = [ 
+                            {context : topCtx, annotations : topAnnotations}, 
+                            {context: bottomCtx, annotations: bottomAnnotations}];
+                        _.forEach(contextAnnotationMap, function(contextAnnotationPair) {
+                            let ctx = contextAnnotationPair.context;
+                            _.forEach(contextAnnotationPair.annotations, function(annotationUUID) {
+                                let annotationMap = indexedAnnotations[annotationUUID];
+                                if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                                 ctx.beginPath();
-
                                 ctx.lineWidth = annotationMap['edgeThickness'];
 
                                 annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
@@ -258,6 +280,8 @@ class CxToCyCanvas {
                                 } else {
                                     console.warn("Invalid shape type: " + annotationMap['shapeType']);
                                 }
+                            } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ArrowAnnotation') {
+                               
                             }
 
                             var text;
@@ -278,23 +302,25 @@ class CxToCyCanvas {
 
                                 textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
                                 textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
-                            }
-
+                            } 
                             if (text && textX && textY) {
                                 var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
                                 ctx.font = fontSize + "px Helvetica";
 
                                 if (annotationMap['color']) {
-                                    let fillColor = colorFromInt(annotationMap['fillColor'], '100');
+                                    let fillColor = colorFromInt(annotationMap['color'], '100');
                                     ctx.fillStyle = fillColor;
                                 }
-                                ctx.fillText(text, textX, textY);
+                                ctx.fillText(text.toString(), textX, textY);
                             }
                         });
+                    });
+                        
                     }
                 });
+
             }
-            
+            topCtx.restore();
             bottomCtx.restore();
         });
     }
