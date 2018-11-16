@@ -43,7 +43,7 @@ const DEFAULT_STYLE = [
   ];
 
 
-describe('Example', function(){
+describe('CX to JS', function(){
   
   it('niceCX end to end', function(){
    

@@ -281,7 +281,24 @@ class CxToCyCanvas {
                                     console.warn("Invalid shape type: " + annotationMap['shapeType']);
                                 }
                             } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ArrowAnnotation') {
-                               
+                               if (annotationMap['targetAnnotation'] && annotationMap['sourceAnnotation']) {
+                                let sourceAnnotation = indexedAnnotations[annotationMap['sourceAnnotation']];
+                                let targetAnnotation = indexedAnnotations[annotationMap['targetAnnotation']];
+                                ctx.beginPath();
+                                
+                                let sourceX = sourceAnnotation['x'];
+                                let sourceY = sourceAnnotation['y'];
+
+                                let targetX = targetAnnotation['x'];
+                                let targetY = targetAnnotation['y'];
+
+                                ctx.moveTo(sourceX, sourceY);
+                                ctx.lineTo(targetX, targetY);
+
+                                ctx.closePath();
+                                //ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
+                                    ctx.stroke();
+                               }
                             }
 
                             var text;
