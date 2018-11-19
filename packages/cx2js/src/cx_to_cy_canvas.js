@@ -187,15 +187,15 @@ class CxToCyCanvas {
         };
     }
 
-    drawAnnotationsFromNiceCX(cytoscape, cy, niceCX) {
+    drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX) {
         //register extension
         cyCanvas(cytoscape);
         //console.log("setting up annotations");
-        const bottomLayer = cy.cyCanvas({
+        const bottomLayer = cytoscapeInstance.cyCanvas({
             zIndex: -1
         });
 
-        const topLayer = cy.cyCanvas({
+        const topLayer = cytoscapeInstance.cyCanvas({
             zIndex: 1
         });
 
@@ -205,7 +205,7 @@ class CxToCyCanvas {
         const topCanvas = topLayer.getCanvas();
         const topCtx = topCanvas.getContext("2d");
 
-        cy.on("render cyCanvas.resize", evt => {
+        cytoscapeInstance.on("render cyCanvas.resize", evt => {
 
             var colorFromInt = this._colorFromInt;
             var shapeFunctions = this._shapeFunctions;
