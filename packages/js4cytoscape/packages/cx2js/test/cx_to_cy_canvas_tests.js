@@ -2,56 +2,107 @@ const { expect, assert } = require('chai');
 const { CxToCyCanvas } = require('../src');
 const sinon = require("sinon");
 
-describe('CX to Cytoscape JS Canvas', function(){
-  
-  it('empty CX', function(){
-    var cx2canvas = new CxToCyCanvas();
+describe('CX to Cytoscape JS Canvas', function () {
 
-    let cytoscape  = sinon.spy();
+    var cx2canvas;
 
-    let ctxSpy = {
-        save : sinon.spy(),
-        restore : sinon.spy()
-    };
+    var cytoscape;
 
-    var canvasSpy = {
-        getContext : function(){}
-    };
+    var topCtxSpy;
 
-    sinon.stub(canvasSpy, "getContext").returns(ctxSpy);
+    var topCanvasSpy;
+    var topLayerSpy;
 
-    var layerSpy = {
-        getCanvas: function(){},
-        resetTransform : sinon.spy(),
-        setTransform: sinon.spy(),
-        clear: sinon.spy()
-    };
+    var bottomCtxSpy;
+    var bottomCanvasSpy;
+    var bottomLayerSpy;
+    var resizeFunction;
+    var cytoscapeInstance;
 
-    sinon.stub(layerSpy, "getCanvas").returns(canvasSpy);
+    beforeEach(function () {
+        cx2canvas = new CxToCyCanvas();
 
-    var resizeFunction = {};
+        cytoscape = sinon.spy();
 
-    let cytoscapeInstance = {
-        cyCanvas: function(){},
-        on: function(eventName, f) { console.log(eventName); resizeFunction = f;}
-    };
-    sinon.stub(cytoscapeInstance, "cyCanvas").returns(layerSpy);
-   
+        topCtxSpy = {
+            save: sinon.spy(),
+            restore: sinon.spy()
+        };
 
-    let niceCX = {
+        topCanvasSpy = {
+            getContext: function () { }
+        };
 
-    };
+        sinon.stub(topCanvasSpy, "getContext").returns(topCtxSpy);
 
-    cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
-    
-    resizeFunction();
-    
-    expect( cytoscape.called ).to.eql( true );
+        topLayerSpy = {
+            getCanvas: function () { },
+            resetTransform: sinon.spy(),
+            setTransform: sinon.spy(),
+            clear: sinon.spy()
+        };
 
-    console.log(layerSpy.resetTransform);
+        sinon.stub(topLayerSpy, "getCanvas").returns(topCanvasSpy);
 
-  });
-  
-  
+        bottomCtxSpy = {
+            save: sinon.spy(),
+            restore: sinon.spy()
+        };
+
+        bottomCanvasSpy = {
+            getContext: function () { }
+        };
+
+        sinon.stub(bottomCanvasSpy, "getContext").returns(bottomCtxSpy);
+
+        bottomLayerSpy = {
+            getCanvas: function () { },
+            resetTransform: sinon.spy(),
+            setTransform: sinon.spy(),
+            clear: sinon.spy()
+        };
+
+        sinon.stub(bottomLayerSpy, "getCanvas").returns(bottomCanvasSpy);
+
+        resizeFunction = {};
+
+        cytoscapeInstance = {
+            cyCanvas: function (params) {
+                if (params.zIndex == 1) {
+                    return topLayerSpy;
+                }
+                else if (params.zIndex == -1) {
+                    return bottomLayerSpy;
+                }
+            },
+            on: function (eventName, f) { resizeFunction = f; }
+        };
+    });
+
+    it('empty CX', function () {
+
+        let niceCX = {
+
+        };
+
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+
+        resizeFunction();
+
+        expect(cytoscape.callCount).to.eql(1);
+        expect(topLayerSpy.resetTransform.callCount).to.eql(1);
+        expect(topLayerSpy.clear.callCount).to.eql(1);
+        expect(topLayerSpy.setTransform.callCount).to.eql(1);
+
+        expect(topCtxSpy.save.callCount).to.eql(1);
+        expect(topCtxSpy.restore.callCount).to.eql(1);
+
+        expect(bottomLayerSpy.resetTransform.callCount).to.eql(1);
+        expect(bottomLayerSpy.clear.callCount).to.eql(1);
+        expect(bottomLayerSpy.setTransform.callCount).to.eql(1);
+
+        expect(bottomCtxSpy.save.callCount).to.eql(1);
+        expect(bottomCtxSpy.restore.callCount).to.eql(1);
+    });
 
 });
