@@ -188,12 +188,49 @@ describe('CX to Cytoscape JS Canvas', function () {
         resizeFunction();
 
         expect(topCtxSpy.rect.args).to.eql([["44.088963266363095",
-        "-30.839164241532043",
-        45.46873375131503,
-        116.67183460460876]]);
+            "-30.839164241532043",
+            45.46873375131503,
+            116.67183460460876]]);
         expect(topCtxSpy.fill.callCount).to.eql(1);
         expect(topCtxSpy.stroke.callCount).to.eql(1);
         expect(topCtxSpy.fillStyle).to.eql("rgb(255,0,51,1)");
+        expect(topCtxSpy.strokeStyle).to.eql("rgb(0,0,0,1)");
+    });
+
+    it('bounded text test', function () {
+        let niceCX =
+        {
+            "networkAttributes": {
+                elements: [{
+                    "s": 80,
+                    "n": "__Annotations",
+                    "v": ["edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|color=-16777216|zoom=0.8763423511944345|type=org.cytoscape.view.presentation.annotations.BoundedTextAnnotation|fontStyle=0|uuid=1ad96822-3bde-43bd-b222-3356d0d2739f|fillColor=-6750055|shapeType=RECTANGLE|edgeColor=-16777216|fontFamily=Dialog|edgeOpacity=100.0|name=2|x=226.66601181585256|width=106.24731529761114|y=-73.06010671860147|z=1|fontSize=12|text=2|height=87.24731529761114"],
+                    "d": "list_of_string"
+                }
+                ]
+            }
+        };
+
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+
+        resizeFunction();
+
+        expect(topCtxSpy.rect.args).to.eql([["226.66601181585256",
+            "-73.06010671860147",
+            121.23950777090539,
+            99.55848325565351
+        ]]);
+        expect(topCtxSpy.fill.callCount).to.eql(1);
+        expect(topCtxSpy.stroke.callCount).to.eql(1);
+
+        expect(topCtxSpy.fillText.args).to.eql([[ "2",
+            287.28576570130525,
+            -23.280865090774718]]);
+
+        expect(topCtxSpy.textBaseline).to.eql("middle");
+        expect(topCtxSpy.textAlign).to.eql("center");
+
+        expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
         expect(topCtxSpy.strokeStyle).to.eql("rgb(0,0,0,1)");
     });
 });
