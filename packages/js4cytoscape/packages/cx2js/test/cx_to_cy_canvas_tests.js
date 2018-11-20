@@ -26,7 +26,8 @@ describe('CX to Cytoscape JS Canvas', function () {
 
         topCtxSpy = {
             save: sinon.spy(),
-            restore: sinon.spy()
+            restore: sinon.spy(),
+            fillText: sinon.spy()
         };
 
         topCanvasSpy = {
@@ -46,7 +47,8 @@ describe('CX to Cytoscape JS Canvas', function () {
 
         bottomCtxSpy = {
             save: sinon.spy(),
-            restore: sinon.spy()
+            restore: sinon.spy(),
+            fillText: sinon.spy()
         };
 
         bottomCanvasSpy = {
@@ -103,6 +105,37 @@ describe('CX to Cytoscape JS Canvas', function () {
 
         expect(bottomCtxSpy.save.callCount).to.eql(1);
         expect(bottomCtxSpy.restore.callCount).to.eql(1);
+    });
+
+    it('target layer test', function () {
+
+        let niceCX = 
+            {
+                "networkAttributes" : {elements : [ {
+                  "s" : 80,
+                  "n" : "__Annotations",
+                  "v" : ["canvas=foreground|color=-16777216|zoom=0.8726824225841895|type=org.cytoscape.view.presentation.annotations.TextAnnotation|fontStyle=0|uuid=top|fontFamily=Dialog|name=Foreground Text|x=-252.53260026937016|y=-53.39435123657143|z=9|fontSize=10|text=Foreground Text",
+                        "canvas=background|color=-16777216|zoom=0.8726824225841895|type=org.cytoscape.view.presentation.annotations.TextAnnotation|fontStyle=0|uuid=bottom|fontFamily=Dialog|name=Background Text|x=-252.53260026937016|y=-53.39435123657143|z=9|fontSize=10|text=Background Text" ],
+                  "d" : "list_of_string"
+                }
+                ]
+                }
+            };
+
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+
+        resizeFunction();
+
+       
+            expect(topCtxSpy.fillText.args).to.eql([ [ 'Foreground Text',
+            '-252.53260026937016',
+            '-53.39435123657143' ]]);
+       
+            expect(bottomCtxSpy.fillText.args).to.eql([ [ 'Background Text',
+            '-252.53260026937016',
+            '-53.39435123657143' ]]);
+        expect(topCtxSpy.fillText.callCount).to.eql(1);
+        expect(bottomCtxSpy.fillText.callCount).to.eql(1);
     });
 
 });
