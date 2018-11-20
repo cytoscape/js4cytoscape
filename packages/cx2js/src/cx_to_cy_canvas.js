@@ -284,6 +284,11 @@ class CxToCyCanvas {
                                if (annotationMap['targetAnnotation'] && annotationMap['sourceAnnotation']) {
                                 let sourceAnnotation = indexedAnnotations[annotationMap['sourceAnnotation']];
                                 let targetAnnotation = indexedAnnotations[annotationMap['targetAnnotation']];
+                                
+                                // The following is a start to implementing arrow annotations. To follow Cytoscape's 
+                                // implementation, it would take a great deal of math and special cases, so has been 
+                                // left for later work.
+                                /*
                                 ctx.beginPath();
                                 
                                 let sourceX = sourceAnnotation['x'];
@@ -296,8 +301,8 @@ class CxToCyCanvas {
                                 ctx.lineTo(targetX, targetY);
 
                                 ctx.closePath();
-                                //ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
-                                    ctx.stroke();
+                               */
+                                ctx.stroke();
                                }
                             }
 
