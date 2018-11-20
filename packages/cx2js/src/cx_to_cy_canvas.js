@@ -275,7 +275,7 @@ class CxToCyCanvas {
                                         ctx.fillStyle = fillColor;
                                         ctx.fill();
                                     }
-                                    ctx.fillStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
+                                    ctx.strokeStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
                                     ctx.stroke();
                                 } else {
                                     console.warn("Invalid shape type: " + annotationMap['shapeType']);

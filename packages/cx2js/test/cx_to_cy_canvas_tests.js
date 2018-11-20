@@ -27,7 +27,11 @@ describe('CX to Cytoscape JS Canvas', function () {
         topCtxSpy = {
             save: sinon.spy(),
             restore: sinon.spy(),
-            fillText: sinon.spy()
+            fillText: sinon.spy(),
+            beginPath: sinon.spy(),
+            rect: sinon.spy(),
+            fill: sinon.spy(),
+            stroke: sinon.spy()
         };
 
         topCanvasSpy = {
@@ -165,5 +169,31 @@ describe('CX to Cytoscape JS Canvas', function () {
         expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
     });
 
+    it('shape test', function () {
+        let niceCX =
+        {
+            "networkAttributes": {
+                elements: [{
+                    "s": 80,
+                    "n": "__Annotations",
+                    "v": ["edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|zoom=0.8763423511944345|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=90451f53-fbdb-453c-9877-c33bb0322609|fillColor=-65485|shapeType=RECTANGLE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 2|x=44.088963266363095|width=39.846177041461154|y=-30.839164241532043|z=10|height=102.24446985557103"],
+                    "d": "list_of_string"
+                }
+                ]
+            }
+        };
 
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+
+        resizeFunction();
+
+        expect(topCtxSpy.rect.args).to.eql([["44.088963266363095",
+        "-30.839164241532043",
+        45.46873375131503,
+        116.67183460460876]]);
+        expect(topCtxSpy.fill.callCount).to.eql(1);
+        expect(topCtxSpy.stroke.callCount).to.eql(1);
+        expect(topCtxSpy.fillStyle).to.eql("rgb(255,0,51,1)");
+        expect(topCtxSpy.strokeStyle).to.eql("rgb(0,0,0,1)");
+    });
 });
