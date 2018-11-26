@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NDEx JS Library webpage</title>
+  <script src="../lib/ndexClient.min.js"></script>
+
+</head>
+<body>
+<div id="content"></div>
+
+<!--Add buttons to initiate auth sequence and sign out-->
+<button id="authorize-button" style="display: none;">Authorize</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+<button id="get-summary-button" style="display: none;">Get Network Summary</button>
+
+<script type="text/javascript">
+
+  var ndex = new ndexClient('http://dev.ndexbio.org/v2');
+
+  ndex.getStatus().then( (response) => {
+    var p = document.createElement('p');
+    p.appendChild(document.createTextNode('Status: ' + response.message));
+    document.getElementById('content').appendChild(p);
+  });
+
+  ndex.getNetworkSummary('9025e42a-9e3f-11e7-8676-06832d634f41',
+    'a93fa15fae6a6c087ec1e2b562deaac930c083ea4cb110110247f5e40f88d46a').then( (response) => {
+    var p = document.createElement('p2');
+    p.appendChild(document.createTextNode('Network Summary: ' + JSON.stringify(response)));
+    document.getElementById('content').appendChild(p);
+  });
+
+</script>
+</body>
+</html>

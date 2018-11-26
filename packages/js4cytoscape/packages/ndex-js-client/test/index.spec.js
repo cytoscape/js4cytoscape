@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 const {expect } = require('chai');
-const {NDEx} = require('../lib/ndex-client.js');
+const NDEx = require('../lib/ndexClient.js');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -96,7 +96,7 @@ describe('testing client', () => {
       // console.log(networkList);
       expect(groupid.length).to.equal(36);
 
-      ndex.getGroup(groupid).then((groupObj)=>{
+      return ndex.getGroup(groupid).then((groupObj)=>{
         expect(groupObj.groupName).to.equal('Melanoma Group 1');
 
         groupObj.description = 'This group is for testing only.';
@@ -194,35 +194,34 @@ describe('Authticated network test', () =>{
         network.splice(0, 1);
         network.splice(1, 2);
 
-        ndexclient.createNetworkFromRawCX(network).then(
-          (networkId) =>{
-            sleep(3000).then(()=>{
-              ndexclient.getRawNetwork(networkId)
-                .then((newNet)=>{
-                  expect(newNet[7].edges.length).to.equal(37);
-                  newNet[9].networkAttributes[0] = {n: 'name', v: 'my updated network'};
-                  return ndexclient.updateNetworkFromRawCX(networkId, newNet)
-                    .then((res)=> {
-                      sleep(3000).then(()=>{
-                        return ndexclient.getRawNetwork(networkId)
-                          .then((updatedNet)=>{
-                            expect(updatedNet[7].edges.length).to.equal(37);
-                            expect(updatedNet[9].networkAttributes[0].v).to.equal('my updated network');
+        return ndexclient.createNetworkFromRawCX(network);
+      }, errorPrinter)
+      .then(
+        (networkId) =>{
+          sleep(3000).then(()=>{
+            ndexclient.getRawNetwork(networkId)
+              .then((newNet)=>{
+                expect(newNet[7].edges.length).to.equal(37);
+                newNet[9].networkAttributes[0] = {n: 'name', v: 'my updated network'};
+                return ndexclient.updateNetworkFromRawCX(networkId, newNet);
+              }, errorPrinter)
+              .then((res)=> {
+                sleep(3000).then(()=>{
+                  return ndexclient.getRawNetwork(networkId);
+                }, errorPrinter)
+                  .then((updatedNet)=>{
+                    expect(updatedNet[7].edges.length).to.equal(37);
+                    expect(updatedNet[9].networkAttributes[0].v).to.equal('my updated network');
 
-                            return ndexclient.deleteNetwork(networkId).then(
-                              (response) => {
-                                expect(response).to.equal('');
-                              }, errorPrinter
-                            );
-
-                          }, errorPrinter);
-                      });
+                    return ndexclient.deleteNetwork(networkId);
+                  }, errorPrinter)
+                  .then(
+                    (response) => {
+                      expect(response).to.equal('');
                     }, errorPrinter);
-                }, errorPrinter);
-            });
+              }, errorPrinter);
           }, errorPrinter);
-
-      });
+        }, errorPrinter);
   });
 
 });
@@ -267,7 +266,7 @@ describe('Search function test', () =>{
 
   it('neighborhood query on network', ()=>{
     return ndexclient.neighborhoodQuery('86fbe77b-a799-11e7-b522-06832d634f41', 'tpx2').then((r)=> {
-      expect(r.length).to.equal(11);
+      expect(r.length).to.equal(12);
     }, errorPrinter
     );
 
@@ -275,7 +274,7 @@ describe('Search function test', () =>{
 
   it('interconnect query on network', ()=>{
     return ndexclient.interConnectQuery('86fbe77b-a799-11e7-b522-06832d634f41', 'tpx2 aurka git1').then((r)=> {
-      expect(r.length).to.equal(10);
+      expect(r.length).to.equal(11);
     }, errorPrinter
     );
 
