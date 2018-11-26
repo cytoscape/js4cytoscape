@@ -34,7 +34,7 @@ ES6 source files
   * Run `npm install` to get the project's dependencies
   * Run `npm run build` to produce minified version of your library.
 2. Development mode
-  * Having all the dependencies installed run `yarn dev` or `npm run dev`. This command will generate an non-minified version of your library and will run a watcher so you get the compilation on file change.
+  * Having all the dependencies installed run `npm run dev`. This command will generate an non-minified version of your library and will run a watcher so you get the compilation on file change.
 3. Running the tests
   * Run `npm run test`
 

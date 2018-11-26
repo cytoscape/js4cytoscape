@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export class NDEx {
+export default class NDEx {
   constructor(hostprefix) {
     if (hostprefix === undefined || hostprefix === null || hostprefix === '') {
       throw new Error('NDEx server endpoint base URL is required in client constructor.');
@@ -14,9 +14,11 @@ export class NDEx {
     return this._googleAuth;
   }
 
-  set googleAuth(googleAuthObj) {
-    this._googleAuth = googleAuthObj;
-    this._authType = 'g'; // valid values are 'g','b' or undefined
+  SetGoogleAuth(googleAuthObj) {
+    if (googleAuthObj !== undefined) {
+      this._googleAuth = googleAuthObj;
+      this._authType = 'g'; // valid values are 'g','b' or undefined
+    }
   }
 
   get authenticationType() {
@@ -65,6 +67,18 @@ export class NDEx {
 
   // access endpoints that supports authentication
 
+  _setAuthHeader(config) {
+    if (this._authType === 'b') {
+      config ['auth'] = { username: this.username,
+        password: this.password};
+    } else if (this.authenticationType === 'g') {
+      let idToken = this.googleAuth.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+
+      if (config['headers'] === undefined) {config['headers'] = {};}
+      config['headers']['Authorization'] = 'Bearer ' + idToken;
+    }
+  }
+
   _httpGetProtectedObj(URL, parameters) {
 
     let config = {
@@ -73,10 +87,7 @@ export class NDEx {
       baseURL: this.host
     };
 
-    if (this._authType === 'b') {
-      config ['auth'] = { username: this.username,
-        password: this.password};
-    }
+    this._setAuthHeader(config);
 
     if (parameters !== undefined) {
       config['params'] = parameters;
@@ -103,10 +114,7 @@ export class NDEx {
       baseURL: this.host
     };
 
-    if (this._authType === 'b') {
-      config ['auth'] = { username: this.username,
-        password: this.password};
-    }
+    this._setAuthHeader(config);
 
     if (parameters !== undefined) {
       config['params'] = parameters;
@@ -135,10 +143,7 @@ export class NDEx {
       baseURL: this.host
     };
 
-    if (this._authType === 'b') {
-      config ['auth'] = { username: this.username,
-        password: this.password};
-    }
+    this._setAuthHeader(config);
 
     if (parameters !== undefined) {
       config['params'] = parameters;
@@ -166,10 +171,7 @@ export class NDEx {
       baseURL: this.host
     };
 
-    if (this._authType === 'b') {
-      config ['auth'] = { username: this.username,
-        password: this.password};
-    }
+    this._setAuthHeader(config);
 
     if (parameters !== undefined) {
       config['params'] = parameters;
@@ -448,7 +450,10 @@ export class NDEx {
   exportNetworks(exportJob) {
     return this._httpPostProtectedObj('batch/network/export', undefined, exportJob);
   }
+
   /* network set functions */
+
+  /* undocumented functions. Might be changed ... */
 
 }
 
