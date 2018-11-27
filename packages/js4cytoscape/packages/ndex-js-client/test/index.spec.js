@@ -2,6 +2,7 @@
 
 const {expect } = require('chai');
 const NDEx = require('../lib/ndexClient.js');
+const {testAccount} = require('./testconfig.js');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -44,7 +45,7 @@ describe('testing client', () => {
   // test all the autheticated functions here.
   let ndex = new NDEx('http://dev.ndexbio.org/v2');
 
-  ndex.setBasicAuth('cj1', 'aaaaaaaaa');
+  ndex.setBasicAuth(testAccount.username, testAccount.password);
 
   it('get signed in user', () => {
     return ndex.getSignedInUser().then((user) => {
@@ -174,7 +175,7 @@ describe('Anonymous test', () =>{
 describe('Authticated network test', () =>{
   let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
 
-  ndexclient.setBasicAuth('cj1', 'aaaaaaaaa');
+  ndexclient.setBasicAuth(testAccount.username, testAccount.password);
 
   it('get private network', ()=> {
     return ndexclient.getRawNetwork('2977ee7f-1d34-11e7-8145-06832d634f41')
@@ -229,7 +230,7 @@ describe('Authticated network test', () =>{
 describe('Search function test', () =>{
   let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
 
-  ndexclient.setBasicAuth('cj1', 'aaaaaaaaa');
+  ndexclient.setBasicAuth(testAccount.username, testAccount.password);
 
   it('search users', ()=>{
     return ndexclient.searchUsers('ccbb').then((result)=>{

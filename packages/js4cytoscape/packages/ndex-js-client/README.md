@@ -31,6 +31,7 @@ ES6 source files
 ## Getting started
 
 1. Build your library
+  * Modify the testconfig.js file with the credentials of test account.
   * Run `npm install` to get the project's dependencies
   * Run `npm run build` to produce minified version of your library.
 2. Development mode
