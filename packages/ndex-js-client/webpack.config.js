@@ -2,14 +2,19 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const env = require('yargs').argv.env; // use --env with webpack 2
+const env2 = require('yargs').argv.env; // use --env with webpack 2
+const { env } = require('process');
 const pkg = require('./package.json');
+const isProd = env.NODE_ENV === 'production';
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const isNonNil = x => x != null;
 
+const minify = env.MINIFY === 'true';
 let libraryName = pkg.name;
 
 let outputFile, mode;
 
-if (env === 'build') {
+if (env2 === 'build') {
   mode = 'production';
   outputFile = libraryName + '.min.js';
 } else {
@@ -20,7 +25,7 @@ if (env === 'build') {
 const config = {
   mode: mode,
   entry: __dirname + '/src/index.js',
-  devtool: 'source-map',
+  devtool: isProd ? false : 'inline-source-map',
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
@@ -45,7 +50,11 @@ const config = {
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js']
-  }
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    minify ? new UglifyJSPlugin() : null
+  ].filter(isNonNil)
 };
 
 module.exports = config;
