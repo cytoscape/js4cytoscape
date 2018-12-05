@@ -133,6 +133,12 @@ describe('CX to JS', function(){
     expect( style ).to.eql( expectedStyleJson );
   });
 
+  it('java_logical_fonts identification', function() {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+    expect( cxToJs.isJavaLogicalFont('Dialog.plain') ).to.eql( true );
+  });
+
   it('java_logical_fonts end to end', function(){
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);

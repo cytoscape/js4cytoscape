@@ -165,7 +165,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             '-53.39435123657143']]);
         expect(topCtxSpy.textBaseline).to.eql("top");
         expect(topCtxSpy.textAlign).to.eql("left");
-        expect(topCtxSpy.font).to.eql("11.458922216386545px Helvetica");
+        expect(topCtxSpy.font).to.eql("11.458922216386545px Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif");
         expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
     });
 
