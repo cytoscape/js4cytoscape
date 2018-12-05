@@ -1,5 +1,8 @@
 let _ = require('lodash');
 
+const JavaLogicalFontConstants =require('./java_logical_font_constants.js');
+const CommonOSFontConstants =require('./common_os_font_constants.js');
+
 const DEF_LAYOUT = { name: 'preset', animate: false, numIter: 50, coolingFactor: 0.9, fit: false };
 
 const DEF_VISUAL_STYLE = [
@@ -332,149 +335,6 @@ const visualPropertyMap = {
     'EDGE_TARGET_ARROW_SHAPE': { 'att': 'target-arrow-shape', 'type': 'arrow' },
     'EDGE_TARGET_ARROW_UNSELECTED_PAINT': { 'att': 'target-arrow-color', 'type': 'color' },
     'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' }
-};
-
-const JAVA_LOGICAL_FONT_PROPERTIES_MAP = {
-    'Dialog.plain': {},
-    'Dialog.bold': { 'font-weight': 'bold' },
-    'Dialog.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'Dialog.italic': { 'font-style': 'italic' },
-
-    //DialogInput
-    'DialogInput.plain': {},
-    'DialogInput.bold': { 'font-weight': 'bold' },
-    'DialogInput.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'DialogInput.italic': { 'font-style': 'italic' },
-
-    //Monospaced
-    'Monospaced.plain': {},
-    'Monospaced.bold': { 'font-weight': 'bold' },
-    'Monospaced.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'Monospaced.italic': { 'font-style': 'italic' },
-
-    //Serif
-    'Serif.plain': {},
-    'Serif.bold': { 'font-weight': 'bold' },
-    'Serif.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'Serif.italic': { 'font-style': 'italic' },
-
-    //SansSerif
-    'SansSerif.plain': {},
-    'SansSerif.bold': { 'font-weight': 'bold' },
-    'SansSerif.bolditalic': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'SansSerif.italic': { 'font-style': 'italic' }
-};
-
-const JAVA_FONT_STYLE_CSS_MAP = {
-    'PLAIN': {},
-    'BOLD': { 'font-weight': 'bold' },
-    'BOLDITALIC': { 'font-weight': 'bold', 'font-style': 'italic' },
-    'ITALIC': { 'font-style': 'italic' }
-};
-
-const FONT_FAMILY_MAP = {
-    // https://www.cssfontstack.com/
-
-    // Sans-serif font stack
-    'Arial': 'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'Arial-Black': 'Arial Black,Arial Bold,Gadget,sans-serif',
-    'ArialMT': 'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'ArialNarrow': 'Arial Narrow,Arial,sans-serif',
-    'ArialRoundedMTBold': 'Arial Rounded MT Bold,Helvetica Rounded,Arial,sans-serif',
-
-    'AvantGarde': 'Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif',
-    'Calibri': 'Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif',
-    'Candara': 'Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif',
-    'CenturyGothic': 'Century Gothic,CenturyGothic,AppleGothic,sans-serif',
-
-    'FranklinGothic-Medium': 'Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic,Arial,sans-serif',
-    'Futura': 'Futura,Trebuchet MS,Arial,sans-serif',
-    'Geneva': 'Geneva,Tahoma,Verdana,sans-serifcxToJs',
-    'GillSans': 'Gill Sans,Gill Sans MT,Calibri,sans-serif',
-
-    'HelveticaNeue': 'Helvetica Neue,Helvetica,Arial,sans-serif',
-    'Impact': 'Impact,Haettenschweiler,Franklin Gothic Bold,Charcoal,Helvetica Inserat,Bitstream Vera Sans Bold,Arial Black,sans-serif',
-    'LucidaGrande': 'Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif',
-    'Optima': 'Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif',
-
-    'Segoe UI': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'SegoeUI': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Tahoma': 'Tahoma,Verdana,Segoe,sans-serif',
-    'TrebuchetMS': 'Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif',
-    'Verdana': 'Verdana,Geneva,sans-serif',
-
-    // Serif font stack
-    'BigCaslon': 'Big Caslon,Book Antiqua,Palatino Linotype,Georgia,serif',
-    'BodoniMT': 'Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif',
-    'BookAntiqua': 'Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif',
-    'CalistoMT': 'Calisto MT,Bookman Old Style,Bookman,Goudy Old Style,Garamond,Hoefler Text,Bitstream Charter,Georgia,serif',
-
-    'Cambria': 'Cambria,Georgia,serif',
-    'Didot': 'Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif',
-    'Garamond': 'Garamond,Baskerville,Baskerville Old Face,Hoefler Text,Times New Roman,serif',
-    'Georgia': 'Georgia,Times,Times New Roman,serif',
-
-    'GoudyOldStyle': 'Goudy Old Style,Garamond,Big Caslon,Times New Roman,serif',
-    'HoeflerText': 'Hoefler Text,Baskerville Old Face,Garamond,Times New Roman,serif',
-    'LucidaBright': 'Lucida Bright,Georgia,serif',
-    'Palatino': 'Palatino,Palatino Linotype,Palatino LT STD,Book Antiqua,Georgia,serif',
-
-    'Perpetua': 'Perpetua,Baskerville,Big Caslon,Palatino Linotype,Palatino,URW Palladio L,Nimbus Roman No9 L,serif',
-    'Rockwell': 'Rockwell,Courier Bold,Courier,Georgia,Times,Times New Roman,serif',
-    'Rockwell-ExtraBold': 'Rockwell Extra Bold,Rockwell Bold,monospace,serif',
-    'Baskerville': 'Baskerville,Baskerville Old Face,Hoefler Text,Garamond,Times New Roman,serif',
-
-    'TimesNewRoman': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-
-    // Monospaced font stack
-    'Consolas': 'Consolas,monaco,monospace',
-    'CourierNew': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'LucidaConsole': 'Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace',
-    'LucidaSans-Typewriter': 'Lucida Sans Typewriter,Lucida Console,monaco,Bitstream Vera Sans Mono,monospace',
-    'Monaco': 'monaco,Consolas,Lucida Console,monospace',
-    'AndaleMono': 'Andale Mono,AndaleMono,monospace',
-
-    // Fantasy font stack
-    'Copperplate': 'Copperplate,Copperplate Gothic Light,fantasy',
-    'Papyrus': 'Papyrus,fantasy',
-
-    // Script font stack
-    'BrushScriptMT': 'Brush Script MT,cursive',
-
-
-    //Java Logical Font stack
-    //The following are Java logical fonts. 
-    //https://docs.oracle.com/javase/tutorial/2d/text/fonts.html#logical-fonts 
-
-    //Dialog
-    'Dialog.plain': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.bold': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.bolditalic': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-    'Dialog.italic': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-
-    //DialogInput
-    'DialogInput.plain': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.bold': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.bolditalic': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-    'DialogInput.italic': 'Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace',
-
-    //Monospaced
-    'Monospaced.plain': 'Consolas,monaco,monospace',
-    'Monospaced.bold': 'Consolas,monaco,monospace',
-    'Monospaced.bolditalic': 'Consolas,monaco,monospace',
-    'Monospaced.italic': 'Consolas,monaco,monospace',
-
-    //Serif
-    'Serif.plain': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.bold': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.bolditalic': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-    'Serif.italic': 'TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif',
-
-    //SansSerif
-    'SansSerif.plain': 'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.bold': 'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.bolditalic': 'Arial,Helvetica Neue,Helvetica,sans-serif',
-    'SansSerif.italic': 'Arial,Helvetica Neue,Helvetica,sans-serif'
 };
 
 class CxToJs {
@@ -1049,25 +909,40 @@ class CxToJs {
             objectProperties['text-halign'] = labelPosition['text-halign'];
         };
 
+        this.isJavaLogicalFont = function(labelFontFace) {
+            var cyFontCol = labelFontFace.split('.');
+            if (cyFontCol.length == 2) {
+                return  JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(cyFontCol[0]) && cyFontCol[1].toLowerCase() in JavaLogicalFontConstants.FONT_PROPERTIES_MAP;  
+            } else {
+                return false;
+            }
+        };
+
         this.expandFontProperties = function (labelFontFace, objectProperties) {
             var font = labelFontFace.split(',');
             //defaultNodeProperties['font-family'] = font[0];
-
-            if (font[0] in JAVA_LOGICAL_FONT_PROPERTIES_MAP) {
-                var logicalFontProperties = JAVA_LOGICAL_FONT_PROPERTIES_MAP[font[0]];
+            var isJavaLogicalFont = self.isJavaLogicalFont;
+            var fontStack;
+            if (isJavaLogicalFont(font[0])) {
+                let javaFont = font[0].split('.');
+                fontStack = JavaLogicalFontConstants.FONT_STACK_MAP[javaFont[0]];
+                var logicalFontProperties = JavaLogicalFontConstants.FONT_PROPERTIES_MAP[javaFont[1].toLowerCase()];
                 _.forEach(logicalFontProperties, function (propertyValue, propertyKey) {
                     objectProperties[propertyKey] = propertyValue;
                 });
             } else {
-                if (font[1].toUpperCase in JAVA_FONT_STYLE_CSS_MAP) {
-                    var fontProperties = JAVA_FONT_STYLE_CSS_MAP[font[1].toUpperCase];
+               
+                fontStack= CommonOSFontConstants.FONT_STACK_MAP[font[0]];
+                
+                if (font[1].toLowerCase in JavaLogicalFontConstants.FONT_PROPERTIES_MAP) {
+                    var fontProperties = JavaLogicalFontConstants.FONT_PROPERTIES_MAP[font[1].toUpperCase];
                     _.forEach(fontProperties, function (propertyValue, propertyKey) {
                         objectProperties[propertyKey] = propertyValue;
                     });
                 }
             }
-            if (font[0] in FONT_FAMILY_MAP) {
-                objectProperties['font-family'] = FONT_FAMILY_MAP[font[0]];
+            if (fontStack) {
+                objectProperties['font-family'] = fontStack;
             } else {
                 objectProperties['font-family'] = 'sans-serif';
                 objectProperties['font-weight'] = 'normal';
@@ -1123,6 +998,14 @@ class CxToJs {
 
     getDefaultStyle() {
         return DEF_VISUAL_STYLE;
+    }
+
+    getFont(cyFont) {
+        if (FONT_STACK_MAP[cyFont]) {
+            return FONT_STACK_MAP[cyFont];
+        } else {
+            return 'sans-serif';
+        }
     }
 
     cyElementsFromNiceCX(niceCX, attributeNameMap) {

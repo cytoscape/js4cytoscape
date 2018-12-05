@@ -1,6 +1,9 @@
 var cyCanvas = require('cytoscape-canvas');
 let _ = require('lodash');
 
+const JavaLogicalFontConstants =require('./java_logical_font_constants.js');
+const CommonOSFontConstants =require('./common_os_font_constants.js');
+
 class CxToCyCanvas {
 
     constructor() {
@@ -327,7 +330,18 @@ class CxToCyCanvas {
                             } 
                             if (text && textX && textY) {
                                 var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
-                                ctx.font = fontSize + "px Helvetica";
+                                var fontFamily;
+                                
+                                if (annotationMap['fontFamily'])  {
+                                    if (JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(annotationMap['fontFamily'])) {
+                                        fontFamily = JavaLogicalFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                                    } else if (CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']]) {
+                                        fontFamily = CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                                    } else {
+                                        fontFamily = 'sans-serif';
+                                    }
+                                }
+                                ctx.font = fontSize + "px " + fontFamily;
 
                                 if (annotationMap['color']) {
                                     let fillColor = colorFromInt(annotationMap['color'], '100');
