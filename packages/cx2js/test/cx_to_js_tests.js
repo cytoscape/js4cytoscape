@@ -401,7 +401,7 @@ describe('CX to JS', function(){
 
     var labelFontFace = "Dialog.plain,plain,15";
     var objectProperties = {};
-    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
@@ -419,7 +419,7 @@ describe('CX to JS', function(){
 
     var labelFontFace = "Dialog.bolditalic,plain,15";
     var objectProperties = {};
-    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
@@ -437,7 +437,7 @@ describe('CX to JS', function(){
 
     var labelFontFace = "ArialMT,plain,10";
     var objectProperties = {};
-    cxToJs.expandFontProperties(labelFontFace, objectProperties);
+    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
@@ -445,6 +445,21 @@ describe('CX to JS', function(){
     };
 
     expect( objectProperties ).to.eql(expandedFontProperties);
+  });
+
+  it('cxToJs expandDefaultProperties', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var objectProperties = {};
+    cxToJs.expandDefaultProperties('NODE_LABEL_FONT_FACE', objectProperties);
+
+    var expandedProperties = {
+      'font-family': 'sans-serif',
+      'font-weight': 'normal'
+    };
+
+    expect( objectProperties ).to.eql(expandedProperties);
   });
 
   it('cxToJs base expandLabelPosition', function(){
