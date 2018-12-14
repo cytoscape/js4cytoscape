@@ -122,6 +122,13 @@ const LINE_STYLE_MAP = {
     'ZIGZAG': 'solid'
 };
 
+const DEFAULT_EXPANDED_PROPERTIES = {
+    'NODE_LABEL_FONT_FACE' : {'font-family' : 'sans-serif',
+        'font-weight': 'normal' },
+    'EDGE_LABEL_FONT_FACE' : {'font-family' : 'sans-serif',
+        'font-weight': 'normal' }
+};
+
 const VALID_NODE_LABEL_POSITIONS = {
     'NW': 0,
     'N': 1,
@@ -301,6 +308,8 @@ const CYTOSCAPE_TO_JS_NODE_LABEL_COORDINATES = {
     }
 };
 
+
+
 const visualPropertyMap = {
 
     'NODE_FILL_COLOR': { 'att': 'background-color', 'type': 'color' },
@@ -321,6 +330,8 @@ const visualPropertyMap = {
     'NODE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
     'NODE_LABEL_POSITION': { 'att': 'labelPosition', 'type': 'labelPosition' },
 
+    'EDGE_BEND' : { 'att': 'curve-style', 'type':'curve-style' },
+
     'EDGE_WIDTH': { 'att': 'width', 'type': 'number' },
     'EDGE_LABEL': { 'att': 'label', 'type': 'string' },
     'EDGE_LABEL_COLOR': { 'att': 'color', 'type': 'color' },
@@ -328,6 +339,7 @@ const visualPropertyMap = {
     'EDGE_LABEL_FONT_FACE': { 'att': 'font-family', 'type': 'fontFamily' },
     'EDGE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
     'EDGE_LINE_TYPE': { 'att': 'line-style', 'type': 'line' },
+    
     'EDGE_STROKE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
     'EDGE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
     'EDGE_TRANSPARENCY': { 'att': 'opacity', 'type': 'opacity' },
@@ -692,6 +704,8 @@ class CxToJs {
                 }
             } else if (cyVisualAttributeType === 'labelPosition') {
                 return self.getNodeLabelPosition(visualAttributeValue);
+            } else if (cyVisualAttributeType === 'curve-style') {
+                return 'unbundled-bezier';
             }
             // assume string
             return visualAttributeValue;
@@ -904,7 +918,6 @@ class CxToJs {
 
         this.expandLabelPosition = function (cyLabelPosition, objectProperties) {
             var labelPosition = self.getNodeLabelPosition(cyLabelPosition);
-
             objectProperties['text-valign'] = labelPosition['text-valign'];
             objectProperties['text-halign'] = labelPosition['text-halign'];
         };
@@ -918,9 +931,9 @@ class CxToJs {
             }
         };
 
-        this.expandFontProperties = function (labelFontFace, objectProperties) {
-            var font = labelFontFace.split(',');
-            //defaultNodeProperties['font-family'] = font[0];
+        this.expandFontFaceProperties = function(value, objectProperties) {
+            var font = value.split(',');
+           
             var isJavaLogicalFont = self.isJavaLogicalFont;
             var fontStack;
             if (isJavaLogicalFont(font[0])) {
@@ -948,6 +961,25 @@ class CxToJs {
                 objectProperties['font-weight'] = 'normal';
             }
             objectProperties['font-size'] = font[font.length - 1];
+        };
+
+        this.EXPANDED_PROPERTY_FUNCTION_MAP = {
+            'NODE_LABEL_FONT_FACE' : self.expandFontFaceProperties,
+            'EDGE_LABEL_FONT_FACE' : self.expandFontFaceProperties
+        };
+
+        this.expandProperties = function (vp, value, objectProperties) {
+            if (self.EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
+                self.EXPANDED_PROPERTY_FUNCTION_MAP[vp](value, objectProperties);
+            }
+        };
+
+        this.expandDefaultProperties = function (vp, objectProperties) {
+            if (DEFAULT_EXPANDED_PROPERTIES[vp]) {
+                _.forEach(DEFAULT_EXPANDED_PROPERTIES[vp], function (propertyValue, propertyKey) {
+                    objectProperties[propertyKey] = propertyValue;
+                });
+            }
         };
 
         this.cyVisualPropertyFromNiceCX = function (niceCX, type, vp) {
@@ -998,14 +1030,6 @@ class CxToJs {
 
     getDefaultStyle() {
         return DEF_VISUAL_STYLE;
-    }
-
-    getFont(cyFont) {
-        if (FONT_STACK_MAP[cyFont]) {
-            return FONT_STACK_MAP[cyFont];
-        } else {
-            return 'sans-serif';
-        }
     }
 
     cyElementsFromNiceCX(niceCX, attributeNameMap) {
@@ -1257,7 +1281,7 @@ class CxToJs {
         // TODO handle cases with multiple views
 
         var getCyVisualAttributeForVP = this.getCyVisualAttributeForVP;
-        var expandFontProperties = this.expandFontProperties;
+        var expandProperties = this.expandProperties;
         var getCyVisualAttributeTypeForVp = this.getCyVisualAttributeTypeForVp;
         var getCyVisualAttributeValue = this.getCyVisualAttributeValue;
         var expandLabelPosition = this.expandLabelPosition;
@@ -1278,7 +1302,7 @@ class CxToJs {
                         if (cyVisualAttribute) {
                             if (vp === 'NODE_LABEL_FONT_FACE') {
                                 if (value) {
-                                    expandFontProperties(value, defaultNodeProperties);
+                                    expandProperties(vp, value, defaultNodeProperties);
                                 } else {
                                     defaultNodeProperties['font-family'] = 'sans-serif';
                                     defaultNodeProperties['font-weight'] = 'normal';
@@ -1423,7 +1447,7 @@ class CxToJs {
                                 if (cyVisualAttribute) {
                                     if (vp === 'EDGE_LABEL_FONT_FACE') {
                                         if (value) {
-                                            expandFontProperties(value, defaultEdgeProperties);
+                                            expandProperties(vp, value, defaultEdgeProperties);
                                         } else {
                                             defaultEdgeProperties['font-family'] = 'sans-serif';
                                             defaultEdgeProperties['font-weight'] = 'normal';
@@ -1447,7 +1471,7 @@ class CxToJs {
                                 if (cyVisualAttribute) {
                                     if (vp === 'EDGE_LABEL_FONT_FACE') {
                                         if (value) {
-                                            expandFontProperties(value, defaultEdgeProperties);
+                                            expandProperties(vp, value, defaultEdgeProperties);
                                         } else {
                                             defaultEdgeProperties['font-family'] = 'sans-serif';
                                             defaultEdgeProperties['font-weight'] = 'normal';
@@ -1525,7 +1549,7 @@ class CxToJs {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                             if (vp === 'NODE_LABEL_FONT_FACE') {
                                 if (value) {
-                                    expandFontProperties(value, nodeProperties);
+                                    expandProperties(vp, value, nodeProperties);
                                 }
                             } else if (vp === 'NODE_LABEL_POSITION') {
                                 expandLabelPosition(value, nodeProperties);
@@ -1548,8 +1572,10 @@ class CxToJs {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                             if (vp === 'EDGE_LABEL_FONT_FACE') {
                                 if (value) {
-                                    expandFontProperties(value, edgeProperties);
+                                    expandProperties(vp, value, edgeProperties);
                                 }
+                            } else if (vp === 'EDGE_BEND') {
+                                console.log("EDGE_BEND" + value);
                             } else {
                                 edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }
