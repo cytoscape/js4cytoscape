@@ -97,10 +97,6 @@
 
             var cy = cytoscape(cytoscapeJS);
 
-            var cx2canvas = new cytoscapeCx2js.CxToCyCanvas();
-
-            cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cy, niceCX);
-
             date = new Date();
             var endTime = date.getTime();
             console.info('cytoscape js init time: '+ (endTime - startTime) + ' milliseconds');
