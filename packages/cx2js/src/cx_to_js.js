@@ -127,6 +127,8 @@ const DEFAULT_EXPANDED_PROPERTIES = {
         'font-weight': 'normal' },
     'EDGE_LABEL_FONT_FACE' : {'font-family' : 'sans-serif',
         'font-weight': 'normal' }
+    //'NODE_LABEL_POSITION' : {}
+
 };
 
 const VALID_NODE_LABEL_POSITIONS = {
@@ -916,12 +918,6 @@ class CxToJs {
             }
         };
 
-        this.expandLabelPosition = function (cyLabelPosition, objectProperties) {
-            var labelPosition = self.getNodeLabelPosition(cyLabelPosition);
-            objectProperties['text-valign'] = labelPosition['text-valign'];
-            objectProperties['text-halign'] = labelPosition['text-halign'];
-        };
-
         this.isJavaLogicalFont = function(labelFontFace) {
             var cyFontCol = labelFontFace.split('.');
             if (cyFontCol.length == 2) {
@@ -965,7 +961,15 @@ class CxToJs {
 
         this.EXPANDED_PROPERTY_FUNCTION_MAP = {
             'NODE_LABEL_FONT_FACE' : self.expandFontFaceProperties,
-            'EDGE_LABEL_FONT_FACE' : self.expandFontFaceProperties
+            'EDGE_LABEL_FONT_FACE' : self.expandFontFaceProperties,
+            'NODE_LABEL_POSITION' : function (cyLabelPosition, objectProperties) {
+                var labelPosition = self.getNodeLabelPosition(cyLabelPosition);
+                objectProperties['text-valign'] = labelPosition['text-valign'];
+                objectProperties['text-halign'] = labelPosition['text-halign'];
+            },
+            'EDGE_BEND' : function (cyEdgeBend, objectProperties) {
+                console.log("EDGE_BEND: " + cyEdgeBend);
+            }
         };
 
         this.expandProperties = function (vp, value, objectProperties) {
@@ -1281,10 +1285,11 @@ class CxToJs {
         // TODO handle cases with multiple views
 
         var getCyVisualAttributeForVP = this.getCyVisualAttributeForVP;
+        var EXPANDED_PROPERTY_FUNCTION_MAP = this.EXPANDED_PROPERTY_FUNCTION_MAP;
         var expandProperties = this.expandProperties;
+        var expandDefaultProperties = this.expandDefaultProperties;
         var getCyVisualAttributeTypeForVp = this.getCyVisualAttributeTypeForVp;
         var getCyVisualAttributeValue = this.getCyVisualAttributeValue;
-        var expandLabelPosition = this.expandLabelPosition;
         var mappingStyle = this.mappingStyle;
         _.forEach(visualProperties, function (vpAspectElement) {
             _.forEach(vpAspectElement, function (vpElement) {
@@ -1292,7 +1297,6 @@ class CxToJs {
                 var elementType = vpElement.properties_of;
                 if (elementType === 'nodes:default') {
 
-                    var cyLabelPositionCoordinates = null;
                     var defaultNodeProperties = {};
                     var nodeSize = null;
 
@@ -1300,15 +1304,12 @@ class CxToJs {
                         //console.log('default node property ' + vp + ' = ' + value);
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
-                            if (vp === 'NODE_LABEL_FONT_FACE') {
+                            if (EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
                                 if (value) {
                                     expandProperties(vp, value, defaultNodeProperties);
                                 } else {
-                                    defaultNodeProperties['font-family'] = 'sans-serif';
-                                    defaultNodeProperties['font-weight'] = 'normal';
+                                    expandDefaultProperties(vp, defaultNodeProperties);
                                 }
-                            } else if (vp === 'NODE_LABEL_POSITION') {
-                                cyLabelPositionCoordinates = value;
                             } else {
                                 var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
                                 defaultNodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
@@ -1401,7 +1402,7 @@ class CxToJs {
                         defaultNodeProperties.width = nodeSize;
                     }
 
-                    expandLabelPosition(cyLabelPositionCoordinates, defaultNodeProperties);
+                    
 
                     var defaultNodeStyle = { 'selector': 'node', 'css': defaultNodeProperties };
                     nodeDefaultStyles.push(defaultNodeStyle);
@@ -1445,12 +1446,11 @@ class CxToJs {
                                 }
                                 cyVisualAttribute = getCyVisualAttributeForVP(vp);
                                 if (cyVisualAttribute) {
-                                    if (vp === 'EDGE_LABEL_FONT_FACE') {
+                                    if (EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
                                         if (value) {
                                             expandProperties(vp, value, defaultEdgeProperties);
                                         } else {
-                                            defaultEdgeProperties['font-family'] = 'sans-serif';
-                                            defaultEdgeProperties['font-weight'] = 'normal';
+                                            expandDefaultProperties(vp, defaultEdgeProperties);
                                         }
                                     } else {
                                         cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
@@ -1469,12 +1469,11 @@ class CxToJs {
                             if (vp !== 'EDGE_UNSELECTED_PAINT') {
                                 cyVisualAttribute = getCyVisualAttributeForVP(vp);
                                 if (cyVisualAttribute) {
-                                    if (vp === 'EDGE_LABEL_FONT_FACE') {
+                                    if (EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
                                         if (value) {
                                             expandProperties(vp, value, defaultEdgeProperties);
                                         } else {
-                                            defaultEdgeProperties['font-family'] = 'sans-serif';
-                                            defaultEdgeProperties['font-weight'] = 'normal';
+                                            expandDefaultProperties(vp, defaultEdgeProperties);
                                         }
                                     } else {
                                         cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
@@ -1547,12 +1546,10 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                            if (vp === 'NODE_LABEL_FONT_FACE') {
+                            if (EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
                                 if (value) {
                                     expandProperties(vp, value, nodeProperties);
-                                }
-                            } else if (vp === 'NODE_LABEL_POSITION') {
-                                expandLabelPosition(value, nodeProperties);
+                                } 
                             } else {
                                 nodeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }
@@ -1570,12 +1567,10 @@ class CxToJs {
                         var cyVisualAttribute = getCyVisualAttributeForVP(vp);
                         if (cyVisualAttribute) {
                             var cyVisualAttributeType = getCyVisualAttributeTypeForVp(vp);
-                            if (vp === 'EDGE_LABEL_FONT_FACE') {
+                            if (EXPANDED_PROPERTY_FUNCTION_MAP[vp]) {
                                 if (value) {
                                     expandProperties(vp, value, edgeProperties);
                                 }
-                            } else if (vp === 'EDGE_BEND') {
-                                console.log("EDGE_BEND" + value);
                             } else {
                                 edgeProperties[cyVisualAttribute] = getCyVisualAttributeValue(value, cyVisualAttributeType);
                             }
