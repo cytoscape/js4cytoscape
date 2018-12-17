@@ -469,7 +469,7 @@ describe('CX to JS', function(){
     var cyLabelPosition = "C,C,c,0.00,0.00"; 
     var objectProperties = {};
 
-    cxToJs.expandLabelPosition(cyLabelPosition, objectProperties);
+    cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
 
     var expandedLabelPosition = {
       "text-halign": "center",
@@ -486,7 +486,7 @@ describe('CX to JS', function(){
     var cyLabelPosition = "NW,C,c,0.00,0.00"; 
     var objectProperties = {};
 
-    cxToJs.expandLabelPosition(cyLabelPosition, objectProperties);
+    cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
 
     var expandedLabelPosition = {
       "text-halign": "left",
