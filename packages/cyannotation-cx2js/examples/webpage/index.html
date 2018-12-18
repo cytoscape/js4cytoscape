@@ -4,8 +4,9 @@
 
 <head>
     <title>CX to JS in a webpage</title>
-    <script src="bundle.js"></script>
-    <script src="cytoscape.min.js"></script>
+    <script src="https://unpkg.com/cytoscape-cx2js@0.4.0/build/bundle.js"></script>
+    <script src="../../build/bundle.js"></script>
+    <script src="https://unpkg.com/cytoscape@3.3.1/dist/cytoscape.min.js"></script>
 </head>
 
 <style>
@@ -97,7 +98,7 @@
 
             var cy = cytoscape(cytoscapeJS);
 
-            var cx2canvas = new cytoscapeCx2js.CxToCyCanvas();
+            var cx2canvas = new cyannotationCx2js.CxToCyCanvas();
 
             cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cy, niceCX);
 
