@@ -1,0 +1,111 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>CX to JS in a webpage</title>
+    <script src="bundle.js"></script>
+    <script src="cytoscape.min.js"></script>
+</head>
+
+<style>
+    #cy {
+      background-color: white;
+        width: 100%;
+        height: 600px;
+        top: 0px;
+        left: 0px;
+        z-index: 0;
+        letter-spacing: 1px;
+    }
+</style>
+
+<body>
+    <div id="cy"></div>
+    <script>
+
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        function loadJSON(file, callback) {
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+            xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+            xobj.onreadystatechange = function () {
+                if (xobj.readyState == 4 && xobj.status == "200") {
+                    // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                    callback(xobj.responseText);
+                }
+            };
+            xobj.send(null);
+        }
+
+        var fileName = getUrlVars()['networkFile'];
+        if (!fileName) {
+            fileName = "network.cx";
+        }
+
+        loadJSON(fileName, function (r1) {
+
+            var date = new Date();
+            var startTime = date.getTime();
+
+            var rawCX = JSON.parse(r1)
+
+            var utils = new cytoscapeCx2js.CyNetworkUtils()
+
+            var niceCX = utils.rawCXtoNiceCX(rawCX);
+
+            var cx2Js = new cytoscapeCx2js.CxToJs(utils);
+
+            var attributeNameMap = {};
+
+            var elements = cx2Js.cyElementsFromNiceCX(niceCX, attributeNameMap);
+
+            var style = cx2Js.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+            var cyBackgroundColor = cx2Js.cyBackgroundColorFromNiceCX(niceCX);
+
+            var layout = cx2Js.getDefaultLayout();
+
+            var zoom = cx2Js.cyZoomFromNiceCX(niceCX);
+
+            var pan = cx2Js.cyPanFromNiceCX(niceCX);
+
+            date = new Date();
+            var endTime = date.getTime();
+
+            console.info('cx2js conversion time: ' + (endTime - startTime) + ' milliseconds');
+
+            startTime = endTime;
+
+            document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
+
+            var cytoscapeJS = {
+                container: document.getElementById('cy'),
+                style: style,
+                elements: elements,
+                layout: layout,
+                zoom: zoom,
+                pan: pan
+            };
+
+            var cy = cytoscape(cytoscapeJS);
+
+            var cx2canvas = new cytoscapeCx2js.CxToCyCanvas();
+
+            cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cy, niceCX);
+
+            date = new Date();
+            var endTime = date.getTime();
+            console.info('cytoscape js init time: '+ (endTime - startTime) + ' milliseconds');
+        });
+    </script>
+</body>
+
+</html>
