@@ -1,0 +1,48 @@
+{
+  "name": "cytoscape-cx2js",
+  "license": "MIT",
+  "description": "Cytoscape CX to Cytoscape JS converter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cytoscape/cx2js.git"
+  },
+  "authors": [
+    {
+      "name": "David Otasek",
+      "email": "dotasek.dev@gmail.com"
+    }
+  ],
+  "keywords": [
+    "graph",
+    "graph-theory",
+    "network",
+    "node",
+    "edge",
+    "vertex",
+    "link",
+    "analysis",
+    "visualisation",
+    "visualization",
+    "requirejs",
+    "amd",
+    "commonjs",
+    "node",
+    "npm",
+    "nodejs",
+    "bower",
+    "jquery"
+  ],
+  "main": "build/bundle.js",
+  "ignore": [
+    "examples",
+    "node_modules",
+    "src",
+    "test",
+    "test_resources",
+    "browser-sync.config.js",
+    "demo.html",
+    "package-lock.json",
+    "README.md",
+    "webpack.config.js"
+  ]
+}

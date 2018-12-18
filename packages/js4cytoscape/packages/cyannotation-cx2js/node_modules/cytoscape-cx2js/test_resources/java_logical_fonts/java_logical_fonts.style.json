@@ -1,0 +1,187 @@
+[
+  {
+    "selector": "node",
+    "css": {
+      "border-color": "rgb(204,204,204)",
+      "border-opacity": 1,
+      "border-width": 0,
+      "background-color": "rgb(137,208,245)",
+      "height": 35,
+      "color": "rgb(0,0,0)",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": 12,
+      "text-opacity": 1,
+      "text-wrap": "wrap",
+      "text-max-width": "200.0",
+      "shape": "roundrectangle",
+      "background-opacity": 1,
+      "width": 75,
+      "text-valign": "center",
+      "text-halign": "center"
+    }
+  },
+  {
+    "selector": "node[name]",
+    "css": {
+      "content": "data(name)"
+    }
+  },
+  {
+    "selector": "node[ id = '107' ]",
+    "css": {
+      "font-family": "sans-serif",
+      "font-weight": "normal",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '105' ]",
+    "css": {
+      "font-family": "sans-serif",
+      "font-weight": "normal",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '103' ]",
+    "css": {
+      "font-family": "sans-serif",
+      "font-weight": "normal",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '69' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '68' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '67' ]",
+    "css": {
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '66' ]",
+    "css": {
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '65' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-style": "italic",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '64' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '63' ]",
+    "css": {
+      "font-style": "italic",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '62' ]",
+    "css": {
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "edge",
+    "css": {
+      "color": "rgb(0,0,0)",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": 10,
+      "text-opacity": 1,
+      "line-style": "solid",
+      "source-arrow-shape": "none",
+      "source-arrow-color": "rgb(0,0,0)",
+      "line-color": "rgb(132,132,132)",
+      "target-arrow-shape": "none",
+      "target-arrow-color": "rgb(0,0,0)",
+      "opacity": 1,
+      "width": 2,
+      "curve-style": "bezier"
+    }
+  },
+  {
+    "selector": "edge[interaction]",
+    "css": {
+      "label": "data(interaction)"
+    }
+  },
+  {
+    "selector": "edge[ id = 'e73' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "edge[ id = 'e72' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "edge[ id = 'e71' ]",
+    "css": {
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "edge[ id = 'e70' ]",
+    "css": {
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node:selected",
+    "css": {
+      "background-color": "rgb(255,255,0)"
+    }
+  },
+  {
+    "selector": "edge:selected",
+    "css": {
+      "source-arrow-color": "rgb(255,255,0)",
+      "line-color": "rgb(255,0,0)",
+      "target-arrow-color": "rgb(255,255,0)"
+    }
+  }
+]
