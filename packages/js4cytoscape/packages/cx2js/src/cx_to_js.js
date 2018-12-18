@@ -968,7 +968,21 @@ class CxToJs {
                 objectProperties['text-halign'] = labelPosition['text-halign'];
             },
             'EDGE_BEND' : function (cyEdgeBend, objectProperties) {
-                console.log("EDGE_BEND: " + cyEdgeBend);
+                var bendPoints = cyEdgeBend.split("|");
+                var controlPointDistances = [];
+                var controlPointWeights = [];
+                
+                _.forEach(bendPoints, function(bendPoint) {
+                    var pointFields = bendPoint.split(",");
+                    let cos = Number(pointFields[0]);
+                    let sin = Number(pointFields[1]);
+                    let ratio = Number(pointFields[2]);
+                    //console.log("Cos: " + cos + " Sin: " + sin + " Ratio: " + ratio);
+                    controlPointDistances.push(10);
+                    controlPointWeights.push(ratio);
+                });
+                objectProperties['control-point-distances'] = controlPointDistances;
+                objectProperties['control-point-weights'] = controlPointWeights;
             }
         };
 
