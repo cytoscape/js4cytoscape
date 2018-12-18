@@ -1,0 +1,256 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": 0,
+        "name": "CCND1",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:Q6LEF0"
+      },
+      "position": {
+        "x": 348.17616056343695,
+        "y": 100.62595551558343
+      }
+    },
+    {
+      "data": {
+        "id": 1,
+        "name": "MAPK12",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:Q14260"
+      },
+      "position": {
+        "x": 217.7672989998943,
+        "y": -55.82853123523774
+      }
+    },
+    {
+      "data": {
+        "id": 2,
+        "name": "-",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:Q53SX1"
+      },
+      "position": {
+        "x": -90.06411524115094,
+        "y": -9.515238343886558
+      }
+    },
+    {
+      "data": {
+        "id": 3,
+        "name": "STMN1",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:B2R4E7"
+      },
+      "position": {
+        "x": 386.694740034269,
+        "y": 190.4707133527814
+      }
+    },
+    {
+      "data": {
+        "id": 4,
+        "name": "MAPK13",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:O15124"
+      },
+      "position": {
+        "x": 219.679197700205,
+        "y": 205.2075107148193
+      }
+    },
+    {
+      "data": {
+        "id": 5,
+        "name": "MAP2K3",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:P46734"
+      },
+      "position": {
+        "x": 40.54315818460304,
+        "y": 184.43313023691582
+      }
+    },
+    {
+      "data": {
+        "id": 6,
+        "name": "SNTA1",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:B4DX40"
+      },
+      "position": {
+        "x": 244.20107869971073,
+        "y": -165.34365258008995
+      }
+    },
+    {
+      "data": {
+        "id": 7,
+        "name": "PKN1",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:B2R9R4"
+      },
+      "position": {
+        "x": -69.27741400194543,
+        "y": 140.88771308677477
+      }
+    },
+    {
+      "data": {
+        "id": 8,
+        "name": "MAPT",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:P18518"
+      },
+      "position": {
+        "x": 272.27387914948224,
+        "y": 120.34858055704409
+      }
+    },
+    {
+      "data": {
+        "id": 9,
+        "name": "MAP2K6",
+        "type": "Protein"
+      },
+      "position": {
+        "x": 47.04217198028658,
+        "y": -94.31448516885423
+      }
+    },
+    {
+      "data": {
+        "id": 10,
+        "name": "EEF2K",
+        "type": "Protein",
+        "alias": "uniprot knowledgebase:Q8N588"
+      },
+      "position": {
+        "x": 329.3307513798512,
+        "y": 203.885015306524
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "e0",
+        "source": 0,
+        "target": 1,
+        "interaction": "neighbor-of",
+        "directed": "false",
+        "citation": "pubmed:10438538"
+      }
+    },
+    {
+      "data": {
+        "id": "e2",
+        "source": 1,
+        "target": 0,
+        "interaction": "controls-state-change-of",
+        "directed": "true",
+        "citation": "pubmed:10438538"
+      }
+    },
+    {
+      "data": {
+        "id": "e3",
+        "source": 1,
+        "target": 4,
+        "interaction": "neighbor-of",
+        "directed": "false",
+        "citation": "pubmed:9199504"
+      }
+    },
+    {
+      "data": {
+        "id": "e5",
+        "source": 1,
+        "target": 6,
+        "interaction": "in-complex-with",
+        "directed": "false"
+      }
+    },
+    {
+      "data": {
+        "id": "e7",
+        "source": 1,
+        "target": 8,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:9199504"
+      }
+    },
+    {
+      "data": {
+        "id": "e10",
+        "source": 4,
+        "target": 10,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:11500363"
+      }
+    },
+    {
+      "data": {
+        "id": "e13",
+        "source": 4,
+        "target": 3,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:9731215"
+      }
+    },
+    {
+      "data": {
+        "id": "e16",
+        "source": 4,
+        "target": 8,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:9199504"
+      }
+    },
+    {
+      "data": {
+        "id": "e19",
+        "source": 2,
+        "target": 9,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:10882101"
+      }
+    },
+    {
+      "data": {
+        "id": "e23",
+        "source": 5,
+        "target": 4,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:9790884"
+      }
+    },
+    {
+      "data": {
+        "id": "e25",
+        "source": 9,
+        "target": 1,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:11238375"
+      }
+    },
+    {
+      "data": {
+        "id": "e27",
+        "source": 7,
+        "target": 2,
+        "interaction": "controls-phosphorylation-of",
+        "directed": "true",
+        "citation": "pubmed:12761180"
+      }
+    }
+  ]
+}
