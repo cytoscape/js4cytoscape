@@ -2,14 +2,11 @@ let _ = require('lodash');
 
 class CxToCyCanvas {
 
-    constructor(cx2js, cyCanvas) {
-        
-        
+    constructor(cx2js) {
         var self = this;
 
-        this.cx2js = cx2js;
-        this.cyCanvas = cyCanvas;
-
+        self.cx2js = cx2js;
+       
         this._findIntersection = function (p1, p2, p3, p4) {
 
             var denominator = (p4['y'] - p3['y']) * (p2['x'] - p1['x']) -
@@ -191,9 +188,8 @@ class CxToCyCanvas {
         };
     }
 
-    drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX) {
-        //register extension
-        this.cyCanvas(cytoscape);
+    drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX) {
+        var cx2js = this.cx2js;
         //console.log("setting up annotations");
         const bottomLayer = cytoscapeInstance.cyCanvas({
             zIndex: -1
@@ -225,8 +221,6 @@ class CxToCyCanvas {
             topLayer.setTransform(topCtx);
 
             topCtx.save();
-
-            var cx2js = this.cx2js;
 
             if (niceCX['networkAttributes']) {
                 _.forEach(niceCX['networkAttributes']['elements'], function (element) {

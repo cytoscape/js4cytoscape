@@ -22,9 +22,11 @@ describe('CX to Cytoscape JS Canvas', function () {
     beforeEach(function () {
         var cx2js = require('cytoscape-cx2js'); 
         var cyCanvas = require('cytoscape-canvas');
-        cx2canvas = new CxToCyCanvas(cx2js, cyCanvas);
-
+        cx2canvas = new CxToCyCanvas(cx2js);
+       
         cytoscape = sinon.spy();
+
+        cyCanvas(cytoscape);
 
         topCtxSpy = {
             save: sinon.spy(),
@@ -93,7 +95,7 @@ describe('CX to Cytoscape JS Canvas', function () {
 
         };
 
-        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
 
         resizeFunction();
 
@@ -129,7 +131,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             }
         };
 
-        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
 
         resizeFunction();
 
@@ -158,7 +160,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             }
         };
 
-        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
 
         resizeFunction();
 
@@ -185,7 +187,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             }
         };
 
-        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
 
         resizeFunction();
 
@@ -213,7 +215,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             }
         };
 
-        cx2canvas.drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX);
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
 
         resizeFunction();
 
