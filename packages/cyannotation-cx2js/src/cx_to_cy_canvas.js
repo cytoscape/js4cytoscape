@@ -1,15 +1,14 @@
-var cyCanvas = require('cytoscape-canvas');
-var cx2js = require('cytoscape-cx2js');
-
 let _ = require('lodash');
-
-const JavaLogicalFontConstants =cx2js.JavaLogicalFontConstants;
-const CommonOSFontConstants =cx2js.CommonOSFontConstants;
 
 class CxToCyCanvas {
 
-    constructor() {
+    constructor(cx2js, cyCanvas) {
+        
+        
         var self = this;
+
+        this.cx2js = cx2js;
+        this.cyCanvas = cyCanvas;
 
         this._findIntersection = function (p1, p2, p3, p4) {
 
@@ -194,7 +193,7 @@ class CxToCyCanvas {
 
     drawAnnotationsFromNiceCX(cytoscape, cytoscapeInstance, niceCX) {
         //register extension
-        cyCanvas(cytoscape);
+        this.cyCanvas(cytoscape);
         //console.log("setting up annotations");
         const bottomLayer = cytoscapeInstance.cyCanvas({
             zIndex: -1
@@ -226,6 +225,9 @@ class CxToCyCanvas {
             topLayer.setTransform(topCtx);
 
             topCtx.save();
+
+            var cx2js = this.cx2js;
+
             if (niceCX['networkAttributes']) {
                 _.forEach(niceCX['networkAttributes']['elements'], function (element) {
                     if (element['n'] == '__Annotations') {
@@ -335,10 +337,10 @@ class CxToCyCanvas {
                                 var fontFamily;
                                 
                                 if (annotationMap['fontFamily'])  {
-                                    if (JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(annotationMap['fontFamily'])) {
-                                        fontFamily = JavaLogicalFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
-                                    } else if (CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']]) {
-                                        fontFamily = CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                                    if (cx2js.JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(annotationMap['fontFamily'])) {
+                                        fontFamily = cx2js.JavaLogicalFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                                    } else if (cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']]) {
+                                        fontFamily = cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
                                     } else {
                                         fontFamily = 'sans-serif';
                                     }

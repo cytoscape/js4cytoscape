@@ -20,7 +20,9 @@ describe('CX to Cytoscape JS Canvas', function () {
     var cytoscapeInstance;
 
     beforeEach(function () {
-        cx2canvas = new CxToCyCanvas();
+        var cx2js = require('cytoscape-cx2js'); 
+        var cyCanvas = require('cytoscape-canvas');
+        cx2canvas = new CxToCyCanvas(cx2js, cyCanvas);
 
         cytoscape = sinon.spy();
 
