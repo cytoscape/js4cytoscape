@@ -111,6 +111,40 @@ class CxToCyCanvas {
             ctx.closePath();
         };
 
+
+        this._updateMin = function(currentMin, value) {
+            if (currentMin) {
+                if (value < currentMin)
+                {
+                    return value;
+                } else 
+                {
+                    return currentMin;
+                }
+            } else {
+                return value;
+            }
+        };
+
+        this._updateMax = function(currentMax, value) {
+            if (currentMax) {
+                if (value > currentMax)
+                {
+                    return value;
+                } else 
+                {
+                    return currentMax;
+                }
+            } else {
+                return value;
+            }
+        };
+
+        this._scaleCustomPoint = function(value, min, max, scale) {
+            console.log("scale: " + (min + value) / (max - min));
+            return scale * (min + value) / (max - min);
+        };
+
         this._shapeFunctions = {
             'RECTANGLE': function (shapeMap, ctx) {
                 ctx.rect(shapeMap['x'], shapeMap['y'], shapeMap['width'], shapeMap['height']);
@@ -174,7 +208,135 @@ class CxToCyCanvas {
                 ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax);
                 ctx.closePath();
             },
-            'CUSTOM': function (shapeMap, ctx) { }
+            'CUSTOM': function (shapeMap, ctx) {
+                var x = parseFloat(shapeMap['x']);
+                var y = parseFloat(shapeMap['y']);
+
+                var width = parseFloat(shapeMap['width']);
+                var height = parseFloat(shapeMap['height']);
+
+                //ctx.moveTo(x, y);
+
+                var customShape = shapeMap['customShape'];
+                var shapeArgs = customShape.split(" ");
+
+                let minX = Number.MAX_VALUE;
+                let minY = Number.MAX_VALUE;
+
+                let maxX = Number.MIN_VALUE;
+                let maxY = Number.MIN_VALUE;
+
+                for (let i = 0; i < shapeArgs.length; i++) {
+                    if (shapeArgs[i] == 'M') {
+                        let mx = parseFloat(shapeArgs[i + 1]);
+                        let my = parseFloat(shapeArgs[i + 2]);
+                        minX = self._updateMin(minX, mx);
+                        minY = self._updateMin(minY, my);
+                        maxX = self._updateMax(maxX, mx);
+                        maxY = self._updateMax(maxY, my);
+                        i += 2;
+                    } else if (shapeArgs[i] == 'L') {
+                        let lx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let ly = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        minX = self._updateMin(minX,lx);
+                        minY = self._updateMin(minY,ly);
+                        minX = self._updateMin(minX,lx);
+                        minY = self._updateMin(minY,ly);
+                        i += 2;
+                    } else if (shapeArgs[i] == 'Q') {
+                        let q1 = parseFloat(shapeArgs[i + 1]);
+                        let q2 = parseFloat(shapeArgs[i + 2]);
+                        let q3 = parseFloat(shapeArgs[i + 3]);
+                        let q4 = parseFloat(shapeArgs[i + 4]);
+
+                        minX = self._updateMin(minX, q1);
+                        minY = self._updateMin(minY, q2);
+                        maxX = self._updateMax(maxX, q1);
+                        maxY = self._updateMax(maxY, q2);
+
+                        minX = self._updateMin(minX, q3);
+                        minY = self._updateMin(minY, q4);
+                        maxX = self._updateMax(maxX, q3);
+                        maxY = self._updateMax(maxY, q4);
+
+                        i += 4;
+                    } else if (shapeArgs[i] == 'C') {
+                        let c1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let c2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        let c3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
+                        let c4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
+                        let c5 = baseX + scaleX * parseFloat(shapeArgs[i + 5]);
+                        let c6 = baseY + scaleY * parseFloat(shapeArgs[i + 6]);
+                       
+                        minX = self._updateMin(minX, c1);
+                        minY = self._updateMin(minY, c2);
+                        maxX = self._updateMax(maxX, c1);
+                        maxY = self._updateMax(maxY, c2);
+
+                        minX = self._updateMin(minX, c3);
+                        minY = self._updateMin(minY, c4);
+                        maxX = self._updateMax(maxX, c3);
+                        maxY = self._updateMax(maxY, c4);
+
+                        minX = self._updateMin(minX, c5);
+                        minY = self._updateMin(minY, c6);
+                        maxX = self._updateMax(maxX, c5);
+                        maxY = self._updateMax(maxY, c6);
+
+                        i += 6;
+                    }
+                }
+               
+
+                let scaleX = width / (maxX - minX);
+                let scaleY = height / (maxY - minY);
+
+                let baseX = x - scaleX * (minX); 
+                let baseY = y - scaleY * (minY);
+
+                for (let i = 0; i < shapeArgs.length; i++) {
+                    if (shapeArgs[i] == 'NZ') { 
+                        ctx.beginPath();
+                        ctx.mozFillRule = 'nonzero';
+                    } else if (shapeArgs[i] == 'EO') {
+                        ctx.beginPath();
+                        ctx.mozFillRule = 'evenodd';
+                    } else if (shapeArgs[i] == 'M') {
+                        let mx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let my = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        ctx.moveTo(mx, my);
+                        i += 2;
+                    }
+                    else if (shapeArgs[i] == 'L') {
+                        let lx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let ly = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        ctx.lineTo(lx, ly);
+                        i += 2;
+                    }
+                    else if (shapeArgs[i] == 'Q') {
+                        let q1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let q2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        let q3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
+                        let q4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
+                        ctx.quadraticCurveTo(q1, q2, q3, q4);
+                        i += 4;
+                    }
+                    else if (shapeArgs[i] == 'C') {
+                        let c1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+                        let c2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+                        let c3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
+                        let c4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
+                        let c5 = baseX + scaleX * parseFloat(shapeArgs[i + 5]);
+                        let c6 = baseY + scaleY * parseFloat(shapeArgs[i + 6]);
+                        ctx.bezierCurveTo(c1, c2, c3, c4, c5, c6);
+                        i += 6;
+                    }
+                    else if (shapeArgs[i] == 'Z') {
+                        ctx.closePath();
+                    }
+                }
+              
+             }
         };
 
         this._colorFromInt = function (num, alpha) {
