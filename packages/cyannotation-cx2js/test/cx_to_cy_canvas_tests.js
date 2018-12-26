@@ -33,6 +33,7 @@ describe('CX to Cytoscape JS Canvas', function () {
             restore: sinon.spy(),
             fillText: sinon.spy(),
             beginPath: sinon.spy(),
+            closePath: sinon.spy(),
             rect: sinon.spy(),
             fill: sinon.spy(),
             stroke: sinon.spy()
