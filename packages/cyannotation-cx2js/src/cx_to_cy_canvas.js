@@ -68,6 +68,7 @@ class CxToCyCanvas {
                 ctx.lineTo(points[i]['x'], points[i]['y']);
             }
             ctx.closePath();
+            ctx.stroke();
         };
 
         this._starShapeFunction = function (shapeMap, sides, ctx) {
@@ -109,6 +110,7 @@ class CxToCyCanvas {
                 ctx.lineTo(points[i]['x'], points[i]['y']);
             }
             ctx.closePath();
+            ctx.stroke();
         };
 
 
@@ -147,7 +149,10 @@ class CxToCyCanvas {
 
         this._shapeFunctions = {
             'RECTANGLE': function (shapeMap, ctx) {
+                ctx.beginPath();
                 ctx.rect(shapeMap['x'], shapeMap['y'], shapeMap['width'], shapeMap['height']);
+                ctx.closePath();
+                ctx.stroke();
             },
             'ROUNDEDRECTANGLE': function (shapeMap, ctx) {
                 var width = parseFloat(shapeMap['width']);
@@ -167,6 +172,7 @@ class CxToCyCanvas {
                 ctx.lineTo(x, y + tenthWidth);
                 ctx.quadraticCurveTo(x, y, x + tenthWidth, y);
                 ctx.closePath();
+                ctx.stroke();
             },
             'ELLIPSE': function (shapeMap, ctx) {
                 var halfWidth = parseFloat(shapeMap['width']) / 2;
@@ -176,6 +182,7 @@ class CxToCyCanvas {
                 ctx.beginPath();
                 ctx.ellipse(x, y, halfWidth, halfHeight, 0, 0, 2 * Math.PI);
                 ctx.closePath();
+                ctx.stroke();
             },
             'STAR5': function (shapeMap, ctx) {
                 self._starShapeFunction(shapeMap, 5, ctx);
@@ -261,22 +268,22 @@ class CxToCyCanvas {
 
                         i += 4;
                     } else if (shapeArgs[i] == 'C') {
-                        let c1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-                        let c2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-                        let c3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
-                        let c4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
-                        let c5 = baseX + scaleX * parseFloat(shapeArgs[i + 5]);
-                        let c6 = baseY + scaleY * parseFloat(shapeArgs[i + 6]);
+                        let c1 = parseFloat(shapeArgs[i + 1]);
+                        let c2 = parseFloat(shapeArgs[i + 2]);
+                        let c3 = parseFloat(shapeArgs[i + 3]);
+                        let c4 = parseFloat(shapeArgs[i + 4]);
+                        let c5 = parseFloat(shapeArgs[i + 5]);
+                        let c6 = parseFloat(shapeArgs[i + 6]);
                        
                         minX = self._updateMin(minX, c1);
                         minY = self._updateMin(minY, c2);
                         maxX = self._updateMax(maxX, c1);
                         maxY = self._updateMax(maxY, c2);
 
-                        minX = self._updateMin(minX, c3);
-                        minY = self._updateMin(minY, c4);
-                        maxX = self._updateMax(maxX, c3);
-                        maxY = self._updateMax(maxY, c4);
+                       minX = self._updateMin(minX, c3);
+                       minY = self._updateMin(minY, c4);
+                       maxX = self._updateMax(maxX, c3);
+                       maxY = self._updateMax(maxY, c4);
 
                         minX = self._updateMin(minX, c5);
                         minY = self._updateMin(minY, c6);
@@ -293,7 +300,7 @@ class CxToCyCanvas {
 
                 let baseX = x - scaleX * (minX); 
                 let baseY = y - scaleY * (minY);
-
+                
                 for (let i = 0; i < shapeArgs.length; i++) {
                     if (shapeArgs[i] == 'NZ') { 
                         ctx.beginPath();
@@ -333,9 +340,11 @@ class CxToCyCanvas {
                     }
                     else if (shapeArgs[i] == 'Z') {
                         ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath;
                     }
                 }
-              
+                
              }
         };
 
@@ -430,7 +439,7 @@ class CxToCyCanvas {
                 _.forEach(contextAnnotationPair.annotations, function(annotationUUID) {
                     let annotationMap = indexedAnnotations[annotationUUID];
                     if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
-                    ctx.beginPath();
+                    //ctx.beginPath();
                     ctx.lineWidth = annotationMap['edgeThickness'];
 
                     annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
@@ -444,7 +453,7 @@ class CxToCyCanvas {
                             ctx.fill();
                         }
                         ctx.strokeStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
-                        ctx.stroke();
+                        //ctx.stroke();
                     } else {
                         console.warn("Invalid shape type: " + annotationMap['shapeType']);
                     }
