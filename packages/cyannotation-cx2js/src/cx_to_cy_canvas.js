@@ -6,7 +6,7 @@ class CxToCyCanvas {
         var self = this;
 
         self.cx2js = cx2js;
-       
+
         this._findIntersection = function (p1, p2, p3, p4) {
 
             var denominator = (p4['y'] - p3['y']) * (p2['x'] - p1['x']) -
@@ -68,7 +68,12 @@ class CxToCyCanvas {
                 ctx.lineTo(points[i]['x'], points[i]['y']);
             }
             ctx.closePath();
-            ctx.stroke();
+            if (shapeMap['fillColor']) {
+                let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                ctx.fillStyle = fillColor;
+                ctx.fill();
+            }
+            ctx.stroke(); 
         };
 
         this._starShapeFunction = function (shapeMap, sides, ctx) {
@@ -110,17 +115,22 @@ class CxToCyCanvas {
                 ctx.lineTo(points[i]['x'], points[i]['y']);
             }
             ctx.closePath();
+    
+            if (shapeMap['fillColor']) {
+                let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                ctx.fillStyle = fillColor;
+                ctx.fill();
+            }
             ctx.stroke();
+
         };
 
 
-        this._updateMin = function(currentMin, value) {
+        this._updateMin = function (currentMin, value) {
             if (currentMin) {
-                if (value < currentMin)
-                {
+                if (value < currentMin) {
                     return value;
-                } else 
-                {
+                } else {
                     return currentMin;
                 }
             } else {
@@ -128,13 +138,11 @@ class CxToCyCanvas {
             }
         };
 
-        this._updateMax = function(currentMax, value) {
+        this._updateMax = function (currentMax, value) {
             if (currentMax) {
-                if (value > currentMax)
-                {
+                if (value > currentMax) {
                     return value;
-                } else 
-                {
+                } else {
                     return currentMax;
                 }
             } else {
@@ -142,9 +150,122 @@ class CxToCyCanvas {
             }
         };
 
-        this._scaleCustomPoint = function(value, min, max, scale) {
+        this._scaleCustomPoint = function (value, min, max, scale) {
             console.log("scale: " + (min + value) / (max - min));
             return scale * (min + value) / (max - min);
+        };
+
+        this._quadraticCurveBoundingBox = function (x1, y1, x2, y2, x3, y3) {
+            var brx, bx, x, bry, by, y, px, py;
+
+            // solve quadratic for bounds by BM67 normalizing equation
+            brx = x3 - x1; // get x range
+            bx = x2 - x1; // get x control point offset
+            x = bx / brx; // normalise control point which is used to check if maxima is in range
+
+            // do the same for the y points
+            bry = y3 - y1;
+            by = y2 - y1;
+            y = by / bry;
+
+            px = x1; // set defaults in case maximas outside range
+            py = y1;
+
+            // find top/left, top/right, bottom/left, or bottom/right
+            if (x < 0 || x > 1) { // check if x maxima is on the curve
+                px = bx * bx / (2 * bx - brx) + x1; // get the x maxima
+            }
+            if (y < 0 || y > 1) { // same as x
+                py = by * by / (2 * by - bry) + y1;
+            }
+
+            let extent = {};
+            extent.left = Math.min(x1, x3, px);
+            extent.top = Math.min(y1, y3, py);
+            extent.right = Math.max(x1, x3, px);
+            extent.bottom = Math.max(y1, y3, py);
+
+            extent.width = extent.right - extent.left;
+            extent.height = extent.bottom - extent.top;
+
+            console.log(" quad ");
+            console.log(extent);
+            return extent;
+        };
+
+        this._evalBez = function (p0, p1, p2, p3, t) {
+            var p = p0 * (1 - t) * (1 - t) * (1 - t) + 3 * p1 * t * (1 - t) * (1 - t) + 3 * p2 * t * t * (1 - t) + p3 * t * t * t;
+            return p;
+        };
+
+        this._bezierCurveBoundingBox = function (px0, py0, px1, py1, px2, py2, px3, py3) {
+            var a = 3 * px3 - 9 * px2 + 9 * px1 - 3 * px0;
+            var b = 6 * px0 - 12 * px1 + 6 * px2;
+            var c = 3 * px1 - 3 * px0;
+            //alert("a "+a+" "+b+" "+c);
+            var disc = b * b - 4 * a * c;
+            var xl = px0;
+            var xh = px0;
+            if (px3 < xl) xl = px3;
+            if (px3 > xh) xh = px3;
+            if (disc >= 0) {
+                let t1 = (-b + Math.sqrt(disc)) / (2 * a);
+                //alert("t1 " + t1);
+                if (t1 > 0 && t1 < 1) {
+                    var x1 = self._evalBez(px0, px1, px2, px3, t1);
+                    if (x1 < xl) xl = x1;
+                    if (x1 > xh) xh = x1;
+                }
+
+                let t2 = (-b - Math.sqrt(disc)) / (2 * a);
+                //alert("t2 " + t2);
+                if (t2 > 0 && t2 < 1) {
+                    var x2 = self._evalBez(px0, px1, px2, px3, t2);
+                    if (x2 < xl) xl = x2;
+                    if (x2 > xh) xh = x2;
+                }
+            }
+
+            a = 3 * py3 - 9 * py2 + 9 * py1 - 3 * py0;
+            b = 6 * py0 - 12 * py1 + 6 * py2;
+            c = 3 * py1 - 3 * py0;
+            disc = b * b - 4 * a * c;
+            var yl = py0;
+            var yh = py0;
+            if (py3 < yl) yl = py3;
+            if (py3 > yh) yh = py3;
+            if (disc >= 0) {
+                let t1 = (-b + Math.sqrt(disc)) / (2 * a);
+                //alert("t3 " + t1);
+
+                if (t1 > 0 && t1 < 1) {
+                    var y1 = self._evalBez(py0, py1, py2, py3, t1);
+                    if (y1 < yl) yl = y1;
+                    if (y1 > yh) yh = y1;
+                }
+
+                let t2 = (-b - Math.sqrt(disc)) / (2 * a);
+                //alert("t4 " + t2);
+
+                if (t2 > 0 && t2 < 1) {
+                    var y2 = self._evalBez(py0, py1, py2, py3, t2);
+                    if (y2 < yl) yl = y2;
+                    if (y2 > yh) yh = y2;
+                }
+            }
+
+            let extent = {};
+            extent.left = xl;
+            extent.top = yl;
+            extent.right = xh;
+            extent.bottom = yh;
+
+            extent.width = extent.right - extent.left;
+            extent.height = extent.bottom - extent.top;
+
+            console.log(" bezier ");
+            console.log(extent);
+            return extent;
         };
 
         this._shapeFunctions = {
@@ -152,6 +273,11 @@ class CxToCyCanvas {
                 ctx.beginPath();
                 ctx.rect(shapeMap['x'], shapeMap['y'], shapeMap['width'], shapeMap['height']);
                 ctx.closePath();
+                if (shapeMap['fillColor']) {
+                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    ctx.fillStyle = fillColor;
+                    ctx.fill();
+                }
                 ctx.stroke();
             },
             'ROUNDEDRECTANGLE': function (shapeMap, ctx) {
@@ -172,7 +298,12 @@ class CxToCyCanvas {
                 ctx.lineTo(x, y + tenthWidth);
                 ctx.quadraticCurveTo(x, y, x + tenthWidth, y);
                 ctx.closePath();
-                ctx.stroke();
+                if (shapeMap['fillColor']) {
+                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    ctx.fillStyle = fillColor;
+                    ctx.fill();
+                }
+                ctx.stroke(); 
             },
             'ELLIPSE': function (shapeMap, ctx) {
                 var halfWidth = parseFloat(shapeMap['width']) / 2;
@@ -182,7 +313,13 @@ class CxToCyCanvas {
                 ctx.beginPath();
                 ctx.ellipse(x, y, halfWidth, halfHeight, 0, 0, 2 * Math.PI);
                 ctx.closePath();
+                if (shapeMap['fillColor']) {
+                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    ctx.fillStyle = fillColor;
+                    ctx.fill();
+                }
                 ctx.stroke();
+
             },
             'STAR5': function (shapeMap, ctx) {
                 self._starShapeFunction(shapeMap, 5, ctx);
@@ -214,6 +351,11 @@ class CxToCyCanvas {
                 ctx.lineTo(xMax, yMax);
                 ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax);
                 ctx.closePath();
+                if (shapeMap['fillColor']) {
+                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    ctx.fillStyle = fillColor;
+                    ctx.fill();
+                }
             },
             'CUSTOM': function (shapeMap, ctx) {
                 var x = parseFloat(shapeMap['x']);
@@ -221,8 +363,6 @@ class CxToCyCanvas {
 
                 var width = parseFloat(shapeMap['width']);
                 var height = parseFloat(shapeMap['height']);
-
-                //ctx.moveTo(x, y);
 
                 var customShape = shapeMap['customShape'];
                 var shapeArgs = customShape.split(" ");
@@ -233,6 +373,9 @@ class CxToCyCanvas {
                 let maxX = Number.MIN_VALUE;
                 let maxY = Number.MIN_VALUE;
 
+                let lastX;
+                let lastY;
+
                 for (let i = 0; i < shapeArgs.length; i++) {
                     if (shapeArgs[i] == 'M') {
                         let mx = parseFloat(shapeArgs[i + 1]);
@@ -241,14 +384,18 @@ class CxToCyCanvas {
                         minY = self._updateMin(minY, my);
                         maxX = self._updateMax(maxX, mx);
                         maxY = self._updateMax(maxY, my);
+                        lastX = mx;
+                        lastY = my;
                         i += 2;
                     } else if (shapeArgs[i] == 'L') {
-                        let lx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-                        let ly = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-                        minX = self._updateMin(minX,lx);
-                        minY = self._updateMin(minY,ly);
-                        minX = self._updateMin(minX,lx);
-                        minY = self._updateMin(minY,ly);
+                        let lx = parseFloat(shapeArgs[i + 1]);
+                        let ly = parseFloat(shapeArgs[i + 2]);
+                        minX = self._updateMin(minX, lx);
+                        minY = self._updateMin(minY, ly);
+                        minX = self._updateMin(minX, lx);
+                        minY = self._updateMin(minY, ly);
+                        lastX = lx;
+                        lastY = ly;
                         i += 2;
                     } else if (shapeArgs[i] == 'Q') {
                         let q1 = parseFloat(shapeArgs[i + 1]);
@@ -256,15 +403,22 @@ class CxToCyCanvas {
                         let q3 = parseFloat(shapeArgs[i + 3]);
                         let q4 = parseFloat(shapeArgs[i + 4]);
 
-                        minX = self._updateMin(minX, q1);
-                        minY = self._updateMin(minY, q2);
-                        maxX = self._updateMax(maxX, q1);
-                        maxY = self._updateMax(maxY, q2);
+                        let extent = self._quadraticCurveBoundingBox(lastX, lastY, q1, q2, q3, q4);
 
-                        minX = self._updateMin(minX, q3);
-                        minY = self._updateMin(minY, q4);
-                        maxX = self._updateMax(maxX, q3);
-                        maxY = self._updateMax(maxY, q4);
+                        minX = self._updateMin(minX, extent.left);
+                        minX = self._updateMin(minX, extent.right);
+
+                        minY = self._updateMin(minY, extent.bottom);
+                        minY = self._updateMin(minY, extent.top);
+
+                        maxX = self._updateMax(maxX, extent.left);
+                        maxX = self._updateMax(maxX, extent.right);
+
+                        maxY = self._updateMax(maxY, extent.bottom);
+                        maxY = self._updateMax(maxY, extent.top);
+
+                        lastX = q3;
+                        lastY = q4;
 
                         i += 4;
                     } else if (shapeArgs[i] == 'C') {
@@ -274,35 +428,37 @@ class CxToCyCanvas {
                         let c4 = parseFloat(shapeArgs[i + 4]);
                         let c5 = parseFloat(shapeArgs[i + 5]);
                         let c6 = parseFloat(shapeArgs[i + 6]);
-                       
-                        minX = self._updateMin(minX, c1);
-                        minY = self._updateMin(minY, c2);
-                        maxX = self._updateMax(maxX, c1);
-                        maxY = self._updateMax(maxY, c2);
 
-                       minX = self._updateMin(minX, c3);
-                       minY = self._updateMin(minY, c4);
-                       maxX = self._updateMax(maxX, c3);
-                       maxY = self._updateMax(maxY, c4);
+                        let extent = self._bezierCurveBoundingBox(lastX, lastY, c1, c2, c3, c4, c5, c6);
 
-                        minX = self._updateMin(minX, c5);
-                        minY = self._updateMin(minY, c6);
-                        maxX = self._updateMax(maxX, c5);
-                        maxY = self._updateMax(maxY, c6);
+                        minX = self._updateMin(minX, extent.left);
+                        minX = self._updateMin(minX, extent.right);
+
+                        minY = self._updateMin(minY, extent.bottom);
+                        minY = self._updateMin(minY, extent.top);
+
+                        maxX = self._updateMax(maxX, extent.left);
+                        maxX = self._updateMax(maxX, extent.right);
+
+                        maxY = self._updateMax(maxY, extent.bottom);
+                        maxY = self._updateMax(maxY, extent.top);
+
+                        lastX = c5;
+                        lastY = c6;
 
                         i += 6;
                     }
                 }
-               
+
 
                 let scaleX = width / (maxX - minX);
                 let scaleY = height / (maxY - minY);
 
-                let baseX = x - scaleX * (minX); 
+                let baseX = x - scaleX * (minX);
                 let baseY = y - scaleY * (minY);
-                
+
                 for (let i = 0; i < shapeArgs.length; i++) {
-                    if (shapeArgs[i] == 'NZ') { 
+                    if (shapeArgs[i] == 'NZ') {
                         ctx.beginPath();
                         ctx.mozFillRule = 'nonzero';
                     } else if (shapeArgs[i] == 'EO') {
@@ -340,12 +496,16 @@ class CxToCyCanvas {
                     }
                     else if (shapeArgs[i] == 'Z') {
                         ctx.closePath();
+                        if (shapeMap['fillColor']) {
+                            let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                            ctx.fillStyle = fillColor;
+                            ctx.fill();
+                        }
                         ctx.stroke();
-                        ctx.beginPath;
+                        ctx.beginPath();
                     }
                 }
-                
-             }
+            }
         };
 
         this._colorFromInt = function (num, alpha) {
@@ -400,7 +560,7 @@ class CxToCyCanvas {
             if (niceCX['networkAttributes']) {
                 _.forEach(niceCX['networkAttributes']['elements'], function (element) {
                     if (element['n'] == '__Annotations') {
-                       
+
                         _.forEach(element['v'], function (annotation) {
                             var annotationKVList = annotation.split("|");
                             var annotationMap = {};
@@ -422,7 +582,7 @@ class CxToCyCanvas {
 
             }
 
-            var zOrderCompare = function(a, b){
+            var zOrderCompare = function (a, b) {
                 let annotationA = indexedAnnotations[a];
                 let annotationB = indexedAnnotations[b];
                 return parseInt(annotationB['z']) - parseInt(annotationA['z']);
@@ -431,100 +591,95 @@ class CxToCyCanvas {
             topAnnotations.sort(zOrderCompare);
             bottomAnnotations.sort(zOrderCompare);
 
-            var contextAnnotationMap = [ 
-                {context : topCtx, annotations : topAnnotations}, 
-                {context: bottomCtx, annotations: bottomAnnotations}];
-            _.forEach(contextAnnotationMap, function(contextAnnotationPair) {
+            var contextAnnotationMap = [
+                { context: topCtx, annotations: topAnnotations },
+                { context: bottomCtx, annotations: bottomAnnotations }];
+            _.forEach(contextAnnotationMap, function (contextAnnotationPair) {
                 let ctx = contextAnnotationPair.context;
-                _.forEach(contextAnnotationPair.annotations, function(annotationUUID) {
+                _.forEach(contextAnnotationPair.annotations, function (annotationUUID) {
                     let annotationMap = indexedAnnotations[annotationUUID];
                     if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
-                    //ctx.beginPath();
-                    ctx.lineWidth = annotationMap['edgeThickness'];
+                        //ctx.beginPath();
+                        ctx.lineWidth = annotationMap['edgeThickness'];
 
-                    annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
-                    annotationMap['height'] = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
-                    if (shapeFunctions[annotationMap['shapeType']]) {
-                        shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
-                        if (annotationMap['fillColor']) {
-                            let fillColor = colorFromInt(annotationMap['fillColor'], annotationMap['fillOpacity']);
-
-                            ctx.fillStyle = fillColor;
-                            ctx.fill();
-                        }
-                        ctx.strokeStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
-                        //ctx.stroke();
-                    } else {
-                        console.warn("Invalid shape type: " + annotationMap['shapeType']);
-                    }
-                } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ArrowAnnotation') {
-                   if (annotationMap['targetAnnotation'] && annotationMap['sourceAnnotation']) {
-                    let sourceAnnotation = indexedAnnotations[annotationMap['sourceAnnotation']];
-                    let targetAnnotation = indexedAnnotations[annotationMap['targetAnnotation']];
-                    
-                    // The following is a start to implementing arrow annotations. To follow Cytoscape's 
-                    // implementation, it would take a great deal of math and special cases, so has been 
-                    // left for later work.
-                    /*
-                    ctx.beginPath();
-                    
-                    let sourceX = sourceAnnotation['x'];
-                    let sourceY = sourceAnnotation['y'];
-
-                    let targetX = targetAnnotation['x'];
-                    let targetY = targetAnnotation['y'];
-
-                    ctx.moveTo(sourceX, sourceY);
-                    ctx.lineTo(targetX, targetY);
-
-                    ctx.closePath();
-                   */
-                    ctx.stroke();
-                   }
-                }
-
-                var text;
-                var textX;
-                var textY;
-
-                if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.TextAnnotation') {
-                    text = annotationMap['text'];
-                    ctx.textBaseline = "top";
-                    ctx.textAlign = "left";
-                    textX = annotationMap['x'];
-                    textY = annotationMap['y'];
-                } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
-                    text = annotationMap['text'];
-
-                    ctx.textBaseline = "middle";
-                    ctx.textAlign = "center";
-
-                    textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
-                    textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
-                } 
-                if (text && textX && textY) {
-                    var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
-                    var fontFamily;
-                    
-                    if (annotationMap['fontFamily'])  {
-                        if (cx2js.JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(annotationMap['fontFamily'])) {
-                            fontFamily = cx2js.JavaLogicalFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
-                        } else if (cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']]) {
-                            fontFamily = cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                        annotationMap['width'] = parseFloat(annotationMap['width']) / parseFloat(annotationMap['zoom']);
+                        annotationMap['height'] = parseFloat(annotationMap['height']) / parseFloat(annotationMap['zoom']);
+                        if (shapeFunctions[annotationMap['shapeType']]) {
+                            ctx.strokeStyle = colorFromInt(annotationMap['edgeColor'], annotationMap['edgeOpacity']);
+                            shapeFunctions[annotationMap['shapeType']](annotationMap, ctx);
+                            
+                            //ctx.stroke();
                         } else {
-                            fontFamily = 'sans-serif';
+                            console.warn("Invalid shape type: " + annotationMap['shapeType']);
+                        }
+                    } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ArrowAnnotation') {
+                        if (annotationMap['targetAnnotation'] && annotationMap['sourceAnnotation']) {
+                            let sourceAnnotation = indexedAnnotations[annotationMap['sourceAnnotation']];
+                            let targetAnnotation = indexedAnnotations[annotationMap['targetAnnotation']];
+
+                            // The following is a start to implementing arrow annotations. To follow Cytoscape's 
+                            // implementation, it would take a great deal of math and special cases, so has been 
+                            // left for later work.
+                            /*
+                            ctx.beginPath();
+                            
+                            let sourceX = sourceAnnotation['x'];
+                            let sourceY = sourceAnnotation['y'];
+        
+                            let targetX = targetAnnotation['x'];
+                            let targetY = targetAnnotation['y'];
+        
+                            ctx.moveTo(sourceX, sourceY);
+                            ctx.lineTo(targetX, targetY);
+        
+                            ctx.closePath();
+                           */
+                            ctx.stroke();
                         }
                     }
-                    ctx.font = fontSize + "px " + fontFamily;
 
-                    if (annotationMap['color']) {
-                        let fillColor = colorFromInt(annotationMap['color'], '100');
-                        ctx.fillStyle = fillColor;
+                    var text;
+                    var textX;
+                    var textY;
+
+                    if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.TextAnnotation') {
+                        text = annotationMap['text'];
+                        ctx.textBaseline = "top";
+                        ctx.textAlign = "left";
+                        textX = annotationMap['x'];
+                        textY = annotationMap['y'];
+                    } else if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
+                        text = annotationMap['text'];
+
+                        ctx.textBaseline = "middle";
+                        ctx.textAlign = "center";
+
+                        textX = parseFloat(annotationMap['x']) + annotationMap['width'] / 2;
+                        textY = parseFloat(annotationMap['y']) + annotationMap['height'] / 2;
                     }
-                    ctx.fillText(text.toString(), textX, textY);
-                }
+                    if (text && textX && textY) {
+                        var fontSize = parseFloat(annotationMap['fontSize']) / parseFloat(annotationMap['zoom']);
+                        var fontFamily;
+
+                        if (annotationMap['fontFamily']) {
+                            if (cx2js.JavaLogicalFontConstants.FONT_FAMILY_LIST.includes(annotationMap['fontFamily'])) {
+                                fontFamily = cx2js.JavaLogicalFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                            } else if (cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']]) {
+                                fontFamily = cx2js.CommonOSFontConstants.FONT_STACK_MAP[annotationMap['fontFamily']];
+                            } else {
+                                fontFamily = 'sans-serif';
+                            }
+                        }
+                        ctx.font = fontSize + "px " + fontFamily;
+
+                        if (annotationMap['color']) {
+                            let fillColor = colorFromInt(annotationMap['color'], '100');
+                            ctx.fillStyle = fillColor;
+                        }
+                        ctx.fillText(text.toString(), textX, textY);
+                    }
+                });
             });
-        });
 
             topCtx.restore();
             bottomCtx.restore();
