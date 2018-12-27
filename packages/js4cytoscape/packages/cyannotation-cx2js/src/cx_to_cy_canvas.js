@@ -126,7 +126,6 @@ class CxToCyCanvas {
         };
 
         this._scaleCustomPoint = function (value, min, max, scale) {
-            console.log("scale: " + (min + value) / (max - min));
             return scale * (min + value) / (max - min);
         };
 
@@ -163,8 +162,6 @@ class CxToCyCanvas {
             extent.width = extent.right - extent.left;
             extent.height = extent.bottom - extent.top;
 
-            console.log(" quad ");
-            console.log(extent);
             return extent;
         };
 
@@ -238,8 +235,6 @@ class CxToCyCanvas {
             extent.width = extent.right - extent.left;
             extent.height = extent.bottom - extent.top;
 
-            console.log(" bezier from " + px0 + "," + py0 + " " + px1 + "," + py1 + " " + px2 + "," + py2 + " " + px3 + "," + py3);
-            console.log(extent);
             return extent;
         };
 
@@ -424,8 +419,6 @@ class CxToCyCanvas {
                         i += 6;
                     }
                 }
-
-                console.log("minmax: " + minX + "," + minY + " " + maxX + "," + maxY);
 
 
                 let scaleX = width / (maxX - minX);
