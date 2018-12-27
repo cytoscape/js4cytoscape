@@ -125,31 +125,6 @@ class CxToCyCanvas {
 
         };
 
-
-        this._updateMin = function (currentMin, value) {
-            if (currentMin) {
-                if (value < currentMin) {
-                    return value;
-                } else {
-                    return currentMin;
-                }
-            } else {
-                return value;
-            }
-        };
-
-        this._updateMax = function (currentMax, value) {
-            if (currentMax) {
-                if (value > currentMax) {
-                    return value;
-                } else {
-                    return currentMax;
-                }
-            } else {
-                return value;
-            }
-        };
-
         this._scaleCustomPoint = function (value, min, max, scale) {
             console.log("scale: " + (min + value) / (max - min));
             return scale * (min + value) / (max - min);
@@ -263,7 +238,7 @@ class CxToCyCanvas {
             extent.width = extent.right - extent.left;
             extent.height = extent.bottom - extent.top;
 
-            console.log(" bezier ");
+            console.log(" bezier from " + px0 + "," + py0 + " " + px1 + "," + py1 + " " + px2 + "," + py2 + " " + px3 + "," + py3);
             console.log(extent);
             return extent;
         };
@@ -274,7 +249,7 @@ class CxToCyCanvas {
                 ctx.rect(shapeMap['x'], shapeMap['y'], shapeMap['width'], shapeMap['height']);
                 ctx.closePath();
                 if (shapeMap['fillColor']) {
-                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                     ctx.fillStyle = fillColor;
                     ctx.fill();
                 }
@@ -380,20 +355,20 @@ class CxToCyCanvas {
                     if (shapeArgs[i] == 'M') {
                         let mx = parseFloat(shapeArgs[i + 1]);
                         let my = parseFloat(shapeArgs[i + 2]);
-                        minX = self._updateMin(minX, mx);
-                        minY = self._updateMin(minY, my);
-                        maxX = self._updateMax(maxX, mx);
-                        maxY = self._updateMax(maxY, my);
+                        minX = Math.min(minX, mx);
+                        minY = Math.min(minY, my);
+                        maxX = Math.max(maxX, mx);
+                        maxY = Math.max(maxY, my);
                         lastX = mx;
                         lastY = my;
                         i += 2;
                     } else if (shapeArgs[i] == 'L') {
                         let lx = parseFloat(shapeArgs[i + 1]);
                         let ly = parseFloat(shapeArgs[i + 2]);
-                        minX = self._updateMin(minX, lx);
-                        minY = self._updateMin(minY, ly);
-                        minX = self._updateMin(minX, lx);
-                        minY = self._updateMin(minY, ly);
+                        minX = Math.min(minX, lx);
+                        minY = Math.min(minY, ly);
+                        maxX = Math.max(maxX, lx);
+                        maxY = Math.max(maxY, ly);
                         lastX = lx;
                         lastY = ly;
                         i += 2;
@@ -405,17 +380,17 @@ class CxToCyCanvas {
 
                         let extent = self._quadraticCurveBoundingBox(lastX, lastY, q1, q2, q3, q4);
 
-                        minX = self._updateMin(minX, extent.left);
-                        minX = self._updateMin(minX, extent.right);
+                        minX = Math.min(minX, extent.left);
+                        minX = Math.min(minX, extent.right);
 
-                        minY = self._updateMin(minY, extent.bottom);
-                        minY = self._updateMin(minY, extent.top);
+                        minY = Math.min(minY, extent.bottom);
+                        minY = Math.min(minY, extent.top);
 
-                        maxX = self._updateMax(maxX, extent.left);
-                        maxX = self._updateMax(maxX, extent.right);
+                        maxX = Math.max(maxX, extent.left);
+                        maxX = Math.max(maxX, extent.right);
 
-                        maxY = self._updateMax(maxY, extent.bottom);
-                        maxY = self._updateMax(maxY, extent.top);
+                        maxY = Math.max(maxY, extent.bottom);
+                        maxY = Math.max(maxY, extent.top);
 
                         lastX = q3;
                         lastY = q4;
@@ -431,17 +406,17 @@ class CxToCyCanvas {
 
                         let extent = self._bezierCurveBoundingBox(lastX, lastY, c1, c2, c3, c4, c5, c6);
 
-                        minX = self._updateMin(minX, extent.left);
-                        minX = self._updateMin(minX, extent.right);
+                        minX = Math.min(minX, extent.left);
+                        minX = Math.min(minX, extent.right);
 
-                        minY = self._updateMin(minY, extent.bottom);
-                        minY = self._updateMin(minY, extent.top);
+                        minY = Math.min(minY, extent.bottom);
+                        minY = Math.min(minY, extent.top);
 
-                        maxX = self._updateMax(maxX, extent.left);
-                        maxX = self._updateMax(maxX, extent.right);
+                        maxX = Math.max(maxX, extent.left);
+                        maxX = Math.max(maxX, extent.right);
 
-                        maxY = self._updateMax(maxY, extent.bottom);
-                        maxY = self._updateMax(maxY, extent.top);
+                        maxY = Math.max(maxY, extent.bottom);
+                        maxY = Math.max(maxY, extent.top);
 
                         lastX = c5;
                         lastY = c6;
@@ -450,6 +425,8 @@ class CxToCyCanvas {
                     }
                 }
 
+                console.log("minmax: " + minX + "," + minY + " " + maxX + "," + maxY);
+
 
                 let scaleX = width / (maxX - minX);
                 let scaleY = height / (maxY - minY);
@@ -457,11 +434,15 @@ class CxToCyCanvas {
                 let baseX = x - scaleX * (minX);
                 let baseY = y - scaleY * (minY);
 
+                ctx.beginPath();
+
                 for (let i = 0; i < shapeArgs.length; i++) {
                     if (shapeArgs[i] == 'NZ') {
+                        ctx.closePath();
                         ctx.beginPath();
                         ctx.mozFillRule = 'nonzero';
                     } else if (shapeArgs[i] == 'EO') {
+                        ctx.closePath();
                         ctx.beginPath();
                         ctx.mozFillRule = 'evenodd';
                     } else if (shapeArgs[i] == 'M') {
@@ -495,16 +476,18 @@ class CxToCyCanvas {
                         i += 6;
                     }
                     else if (shapeArgs[i] == 'Z') {
-                        ctx.closePath();
+                        
+                       
+                        //ctx.beginPath();
+                    }
+                }
+                ctx.closePath();
                         if (shapeMap['fillColor']) {
                             let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                             ctx.fillStyle = fillColor;
                             ctx.fill();
                         }
-                        ctx.stroke();
-                        ctx.beginPath();
-                    }
-                }
+                ctx.stroke();
             }
         };
 
