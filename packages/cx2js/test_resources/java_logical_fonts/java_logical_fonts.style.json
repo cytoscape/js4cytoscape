@@ -129,7 +129,7 @@
       "target-arrow-color": "rgb(0,0,0)",
       "opacity": 1,
       "width": 2,
-      "curve-style": "bezier"
+      "curve-style": "unbundled-bezier"
     }
   },
   {
