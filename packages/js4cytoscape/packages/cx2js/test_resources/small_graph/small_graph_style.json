@@ -67,7 +67,7 @@
     "selector": "edge",
     "css": {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "curve-style": "bezier",
+      "curve-style": "unbundled-bezier",
       "line-style": "dashed",
       "target-arrow-shape": "none",
       "color": "rgb(0,0,0)",

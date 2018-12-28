@@ -332,7 +332,8 @@ const visualPropertyMap = {
     'NODE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
     'NODE_LABEL_POSITION': { 'att': 'labelPosition', 'type': 'labelPosition' },
 
-    'EDGE_BEND' : { 'att': 'curve-style', 'type':'curve-style' },
+    'EDGE_CURVED' : { 'att': 'curve-style', 'type':'curveStyle' },
+    'EDGE_BEND' : { 'att' : 'curve-style', 'type': 'edgeBend'},
 
     'EDGE_WIDTH': { 'att': 'width', 'type': 'number' },
     'EDGE_LABEL': { 'att': 'label', 'type': 'string' },
@@ -706,8 +707,13 @@ class CxToJs {
                 }
             } else if (cyVisualAttributeType === 'labelPosition') {
                 return self.getNodeLabelPosition(visualAttributeValue);
-            } else if (cyVisualAttributeType === 'curve-style') {
-                return 'unbundled-bezier';
+            } else if (cyVisualAttributeType === 'curveStyle') {
+                if (!visualAttributeValue || visualAttributeValue === 'false') {
+                    return 'segments';
+                } else 
+                {
+                    return 'unbundled-bezier';
+                }
             }
             // assume string
             return visualAttributeValue;
@@ -968,6 +974,7 @@ class CxToJs {
                 objectProperties['text-halign'] = labelPosition['text-halign'];
             },
             'EDGE_BEND' : function (cyEdgeBend, objectProperties) {
+                
                 var bendPoints = cyEdgeBend.split("|");
                 var controlPointDistances = [];
                 var controlPointWeights = [];
@@ -977,9 +984,10 @@ class CxToJs {
                     let cos = Number(pointFields[0]);
                     let sin = Number(pointFields[1]);
                     let ratio = Number(pointFields[2]);
-                    //console.log("Cos: " + cos + " Sin: " + sin + " Ratio: " + ratio);
-                    controlPointDistances.push(10);
-                    controlPointWeights.push(ratio);
+                    console.log("Cos: " + cos + " Sin: " + sin + " Ratio: " + ratio);
+                    
+                    controlPointDistances.push(100 * sin);
+                    controlPointWeights.push(cos * ratio);
                 });
                 objectProperties['control-point-distances'] = controlPointDistances;
                 objectProperties['control-point-weights'] = controlPointWeights;
