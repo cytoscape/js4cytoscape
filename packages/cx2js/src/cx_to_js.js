@@ -989,8 +989,8 @@ class CxToJs {
                     controlPointDistances.push(100 * sin);
                     controlPointWeights.push(cos * ratio);
                 });
-                objectProperties['control-point-distances'] = controlPointDistances;
-                objectProperties['control-point-weights'] = controlPointWeights;
+                objectProperties['bend-point-distances'] = controlPointDistances;
+                objectProperties['bend-point-weights'] = controlPointWeights;
             }
         };
 
@@ -1006,6 +1006,16 @@ class CxToJs {
                     objectProperties[propertyKey] = propertyValue;
                 });
             }
+        };
+
+        this.postProcessNodeProperties = function(vpElement, postProcessParams, nodeProperties) {
+            /** @namespace vpElement.dependencies.nodeSizeLocked **/
+                    if (postProcessParams.nodeSize && vpElement['dependencies'] && vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') {
+                        nodeProperties.height = postProcessParams.nodeSize;
+                        nodeProperties.width = postProcessParams.nodeSize;
+                    }
+
+                   
         };
 
         this.cyVisualPropertyFromNiceCX = function (niceCX, type, vp) {
@@ -1294,7 +1304,6 @@ class CxToJs {
         var nodeSelectedStyles = [];
         var edgeSelectedStyles = [];
 
-
         var visualProperties;
         if (niceCX.cyVisualProperties) {
             visualProperties = niceCX.cyVisualProperties;
@@ -1312,6 +1321,8 @@ class CxToJs {
         var expandDefaultProperties = this.expandDefaultProperties;
         var getCyVisualAttributeTypeForVp = this.getCyVisualAttributeTypeForVp;
         var getCyVisualAttributeValue = this.getCyVisualAttributeValue;
+        var postProcessNodeProperties = this.postProcessNodeProperties;
+        var postProcessEdgeProperties = this.postProcessEdgeProperties;
         var mappingStyle = this.mappingStyle;
         _.forEach(visualProperties, function (vpAspectElement) {
             _.forEach(vpAspectElement, function (vpElement) {
@@ -1320,7 +1331,9 @@ class CxToJs {
                 if (elementType === 'nodes:default') {
 
                     var defaultNodeProperties = {};
-                    var nodeSize = null;
+                    
+                    var postProcessNodeParams = {};
+                    postProcessNodeParams.nodeSize = null;
 
                     _.forEach(vpElement.properties, function (value, vp) {
                         //console.log('default node property ' + vp + ' = ' + value);
@@ -1342,7 +1355,7 @@ class CxToJs {
                                 nodeSelectedStyles.push({ 'selector': 'node:selected', 'css': { 'background-color': selectedColor } });
 
                             } else if (vp === 'NODE_SIZE') {
-                                nodeSize = value;
+                                postProcessNodeParams.nodeSize = value;
 
                             } else if (vp === 'NODE_LABEL_WIDTH') {
                                 defaultNodeProperties['text-wrap'] = 'wrap';
@@ -1411,20 +1424,12 @@ class CxToJs {
                                         j++;
                                     });
                                 }
-
                                 defaultNodeProperties['pie-size'] = '80%';
                             }
-
                         }
                     });
 
-                    /** @namespace vpElement.dependencies.nodeSizeLocked **/
-                    if (nodeSize && vpElement['dependencies'] && vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') {
-                        defaultNodeProperties.height = nodeSize;
-                        defaultNodeProperties.width = nodeSize;
-                    }
-
-                    
+                    postProcessNodeProperties(vpElement, postProcessNodeParams, defaultNodeProperties);
 
                     var defaultNodeStyle = { 'selector': 'node', 'css': defaultNodeProperties };
                     nodeDefaultStyles.push(defaultNodeStyle);
@@ -1445,9 +1450,7 @@ class CxToJs {
                     });
 
                 } else if (elementType === 'edges:default') {
-
                     var defaultEdgeProperties = {};
-
                     var selectedEdgeProperties = {};
                     _.forEach(vpElement.properties, function (value, vp) {
                         var cyVisualAttribute = null;
@@ -1510,9 +1513,10 @@ class CxToJs {
                                 }
                             }
                         }
-
-
                     });
+
+                   
+
                     if (_.keys(selectedEdgeProperties).length > 0) {
                         edgeSelectedStyles.push({ 'selector': 'edge:selected', 'css': selectedEdgeProperties });
                     }
@@ -1542,8 +1546,8 @@ class CxToJs {
                             styles = mappingStyle(elementType, vp, mapping.type, mapping.definition, attributeNameMap);
                             edgeDefaultMappings = edgeDefaultMappings.concat(styles);
                         }
-                    });
 
+                    });
                     /*   _.forEach(vpElement.dependencies, function(value, vp) {
                            if ( vp === 'arrowColorMatchesEdge') {
                                defaultEdgeProperties['source-arrow-color'] = defaultEdgeProperties['line-color'];
@@ -1598,11 +1602,56 @@ class CxToJs {
                             }
                         }
                     });
+                    
                     var edgeSelector = 'edge[ id = \'e' + edgeId + '\' ]';
                     var edgeStyle = { 'selector': edgeSelector, 'css': edgeProperties };
                     edgeSpecificStyles.push(edgeStyle);
                 }
             });
+        });
+
+        // Handle edge curvature
+
+        _.forEach(edgeSpecificStyles, function (edgeStyle) {
+            let distance_element_name = "segment-distances";
+            let weight_element_name = "segment-weights"; 
+    
+            console.log(edgeStyle);
+
+                if (edgeStyle['css']) {
+                    let css = edgeStyle['css'];
+                   
+                    if (css["curve-style"]) {
+                        console.log("bypass");
+                        if (css["curve-style"] !== "segments") {
+                        distance_element_name = "control-point-distances";
+                        weight_element_name = "control-point-weights";
+                        }
+                    } else {
+                        console.log("default");
+                        _.forEach(edgeDefaultStyles, function (edgeDefaultStyle) {
+                        if (edgeDefaultStyle['css']) {
+                            let defaultCss = edgeDefaultStyle['css'];
+                            console.log(defaultCss);
+                            if (defaultCss["curve-style"]) {
+                                if (defaultCss["curve-style"] !== "segments") {
+                                    distance_element_name = "control-point-distances";
+                                    weight_element_name = "control-point-weights";
+                                }
+                            }
+                        }
+                        });
+                    }
+                    if (css['bend-point-weights']) {
+                       css[weight_element_name] =css['bend-point-weights'];
+                        delete css['bend-point-weights'];
+                    }
+                    if (css['bend-point-distances']) { 
+                        css[distance_element_name] = css['bend-point-distances'];
+                        delete css['bend-point-distances'];
+                    }
+
+                }         
         });
 
         return nodeDefaultStyles.concat(
