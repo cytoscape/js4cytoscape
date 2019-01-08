@@ -777,7 +777,7 @@ class CyNetworkUtils {
                 return this.stringifyFunctionTerm(functionTerm);
             }
         }
-        return nodeElement['@id'];
+        return null;//nodeElement['@id'];
     }
 
 }
