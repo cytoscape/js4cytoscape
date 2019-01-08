@@ -1564,8 +1564,8 @@ class CxToJs {
                     for arrows and curvatures.
                     */
                     if (!defaultEdgeProperties['curve-style']) {
-                        defaultEdgeProperties['curve-style'] = 'bezier';
-                    }
+                        defaultEdgeProperties['curve-style'] = 'unbundled-bezier';
+                   }
                     defaultEdgeProperties['edge-distances'] = 'node-position';
                 } else if (elementType === 'nodes') {
                     // 'bypass' setting node specific properties
@@ -1630,6 +1630,24 @@ class CxToJs {
         });
 
         // Handle edge curvature
+        let defaultCurveStyle = "straight";
+        _.forEach(edgeDefaultStyles, function (edgeDefaultStyle) {
+            if (edgeDefaultStyle['css']) {
+                let defaultCss = edgeDefaultStyle['css'];
+                defaultCurveStyle = defaultCss["curve-style"];
+                if (defaultCurveStyle !== "segments") {
+                    if (!defaultCss['control-point-distances'] || !defaultCss['control-point-weights']) {
+                        defaultCss['control-point-distances'] = [0];
+                        defaultCss['control-point-weights'] = [.5];
+                    }
+                } else {
+                    if (!defaultCss['segment-distances'] || !defaultCss['segment-weights']) {
+                        defaultCss['segment-distances'] = [0];
+                        defaultCss['segment-weights'] = [.5];
+                    }
+                }
+            }
+        });
         _.forEach(edgeSpecificStyles, function (edgeStyle, edgeId) {
             let distance_element_name = "segment-distances";
             let weight_element_name = "segment-weights";
@@ -1644,18 +1662,13 @@ class CxToJs {
                     }
                 } else {
                     
-                    _.forEach(edgeDefaultStyles, function (edgeDefaultStyle) {
-                        if (edgeDefaultStyle['css']) {
-                            let defaultCss = edgeDefaultStyle['css'];
-                            if (defaultCss["curve-style"]) {
-                                if (defaultCss["curve-style"] !== "segments") {
-                                    distance_element_name = "control-point-distances";
-                                    weight_element_name = "control-point-weights";
-                                }
-                            }
-                        }
-                    });
+                    
+                    if (defaultCurveStyle !== "segments") {
+                        distance_element_name = "control-point-distances";
+                        weight_element_name = "control-point-weights";
+                    }
                 }
+                       
                 if (css['bend-point-weights']) {
                     css[weight_element_name] = css['bend-point-weights'];
                     delete css['bend-point-weights'];
@@ -1679,7 +1692,7 @@ class CxToJs {
                     let dy = ty - sy;
                     let edgeLength = Math.sqrt(dx*dx + dy*dy);
                     css[distance_element_name] = [];
-                    console.log(" s: " + sx + "," + sy + " t: " + tx + "," + ty + " dst: " + edgeLength);
+                    //console.log(" s: " + sx + "," + sy + " t: " + tx + "," + ty + " dst: " + edgeLength);
                     for (let i = 0; i <  css['bend-point-distances'].length; i++) {
                         css[distance_element_name].push(css['bend-point-distances'][i] * edgeLength);
                     }

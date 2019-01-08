@@ -124,13 +124,14 @@ describe('CX to JS', function(){
     
     var expectedElementsContent = fs.readFileSync('test_resources/small_graph/small_graph_elements.json');
     var expectedElementsJson = JSON.parse(expectedElementsContent);
-    expect( elements ).to.eql( expectedElementsJson );
+    expect( elements.nodes ).to.have.deep.members( expectedElementsJson.nodes );
+    expect( elements.edges ).to.have.deep.members( expectedElementsJson.edges );
 
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
     var expectedStyleContent = fs.readFileSync('test_resources/small_graph/small_graph_style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
-    expect( style ).to.eql( expectedStyleJson );
+    expect( style ).to.have.deep.members( expectedStyleJson );
   });
 
   it('java_logical_fonts identification', function() {
@@ -151,13 +152,13 @@ describe('CX to JS', function(){
     
     var expectedElementsContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.elements.json');
     var expectedElementsJson = JSON.parse(expectedElementsContent);
-    expect( elements ).to.eql( expectedElementsJson );
-
+    expect( elements.nodes ).to.have.deep.members( expectedElementsJson.nodes );
+    expect( elements.edges ).to.have.deep.members( expectedElementsJson.edges );
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
     var expectedStyleContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
-    expect( style ).to.eql( expectedStyleJson );
+    expect( style ).to.have.deep.members( expectedStyleJson );
   });
 
   it('cxToJs defaultStyle', function(){

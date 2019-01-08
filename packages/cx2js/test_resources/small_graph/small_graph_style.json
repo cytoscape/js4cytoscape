@@ -68,6 +68,13 @@
     "css": {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "curve-style": "unbundled-bezier",
+      "control-point-distances": [
+        0
+      ],
+      "control-point-weights": [
+        0.5
+      ],
+      "edge-distances": "node-position",
       "line-style": "dashed",
       "target-arrow-shape": "none",
       "color": "rgb(0,0,0)",
