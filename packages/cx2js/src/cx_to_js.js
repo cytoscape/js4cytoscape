@@ -724,7 +724,7 @@ class CxToJs {
 
         //var getCyVisualAttributeForVP = self.getCyVisualAttributeForVP
         this.discreteMappingStyle = function (elementType, vp, def, attributeNameMap) {
-          
+
             // def is the discreteMappingStyle definition
             var elements = [];
             var cyVisualAttribute = self.getCyVisualAttributeForVP(vp);
@@ -1527,7 +1527,7 @@ class CxToJs {
                     edgeDefaultStyles.push(defaultEdgeStyle);
 
                     _.forEach(vpElement.mappings, function (mapping, vp) {
-                      
+
                         //console.log('VP = ' + vp);
                         elementType = 'edge';
                         var styles = null;
@@ -1564,9 +1564,9 @@ class CxToJs {
                     for arrows and curvatures.
                     */
                     if (!defaultEdgeProperties['curve-style']) {
-                        defaultEdgeProperties['curve-style'] = 'unbundled-bezier';
-                   }
-                    defaultEdgeProperties['edge-distances'] = 'node-position';
+                        defaultEdgeProperties['curve-style'] = 'bezier';
+                    }
+
                 } else if (elementType === 'nodes') {
                     // 'bypass' setting node specific properties
                     /** @namespace vpElement.applies_to **/
@@ -1585,16 +1585,17 @@ class CxToJs {
                             }
                         }
                     });
-                    
+
                     if (nodeSpecificStyles[nodeId]) {
                         if (!nodeSpecificStyles[nodeId]['css'])
                             nodeSpecificStyles[nodeId]['css'] = {};
                         _.forEach(nodeProperties, function (value, key) {
-                            nodeSpecificStyles[nodeId].css[key] = value; });
+                            nodeSpecificStyles[nodeId].css[key] = value;
+                        });
                     } else {
-                    var nodeSelector = 'node[ id = \'' + nodeId + '\' ]';
-                    var nodeStyle = { 'selector': nodeSelector, 'css': nodeProperties };
-                    nodeSpecificStyles[nodeId] = nodeStyle;
+                        var nodeSelector = 'node[ id = \'' + nodeId + '\' ]';
+                        var nodeStyle = { 'selector': nodeSelector, 'css': nodeProperties };
+                        nodeSpecificStyles[nodeId] = nodeStyle;
                     }
                 } else if (elementType === 'edges') {
                     // 'bypass' setting edge specific properties
@@ -1618,13 +1619,14 @@ class CxToJs {
                         if (!edgeSpecificStyles[edgeId]['css'])
                             edgeSpecificStyles[edgeId]['css'] = {};
                         _.forEach(edgeProperties, function (value, key) {
-                            edgeSpecificStyles[edgeId].css[key] = value; });
+                            edgeSpecificStyles[edgeId].css[key] = value;
+                        });
                     } else {
                         var edgeSelector = 'edge[ id = \'e' + edgeId + '\' ]';
                         var edgeStyle = { 'selector': edgeSelector, 'css': edgeProperties };
                         edgeSpecificStyles[edgeId] = edgeStyle;
                     }
-                
+
                 }
             });
         });
@@ -1637,13 +1639,15 @@ class CxToJs {
                 defaultCurveStyle = defaultCss["curve-style"];
                 if (defaultCurveStyle !== "segments") {
                     if (!defaultCss['control-point-distances'] || !defaultCss['control-point-weights']) {
-                        defaultCss['control-point-distances'] = [0];
-                        defaultCss['control-point-weights'] = [.5];
+                        defaultCss["curve-style"] = 'bezier';
+                    } else {
+                        defaultCss['edge-distances'] = 'node-position';
                     }
                 } else {
                     if (!defaultCss['segment-distances'] || !defaultCss['segment-weights']) {
-                        defaultCss['segment-distances'] = [0];
-                        defaultCss['segment-weights'] = [.5];
+                        defaultCss["curve-style"] = 'straight';
+                    } else {
+                        defaultCss['edge-distances'] = 'node-position';
                     }
                 }
             }
@@ -1654,50 +1658,56 @@ class CxToJs {
 
             if (edgeStyle['css']) {
                 let css = edgeStyle['css'];
-
+                let curveStyle = null;
                 if (css["curve-style"]) {
                     if (css["curve-style"] !== "segments") {
                         distance_element_name = "control-point-distances";
                         weight_element_name = "control-point-weights";
                     }
                 } else {
-                    
-                    
                     if (defaultCurveStyle !== "segments") {
+                        curveStyle = "unbundled-bezier";
                         distance_element_name = "control-point-distances";
                         weight_element_name = "control-point-weights";
+                    } else {
+                        curveStyle = "segments";
                     }
                 }
-                       
-                if (css['bend-point-weights']) {
-                    css[weight_element_name] = css['bend-point-weights'];
-                    delete css['bend-point-weights'];
-                }
-                if (css['bend-point-distances']) {
-                    let edge = niceCX['edges'][edgeId];
-                    let s = edge['s'];
-                    let t = edge['t'];
-                    let sx, sy, tx, ty;
-                    for (let i = 0; i < niceCX['cartesianLayout']['elements'].length; i++) {
-                        if (niceCX['cartesianLayout']['elements'][i]['node'] == s){
-                            sx = niceCX['cartesianLayout']['elements'][i]['x'];
-                            sy = niceCX['cartesianLayout']['elements'][i]['y'];
-                        }
-                        if (niceCX['cartesianLayout']['elements'][i]['node'] == t){
-                            tx = niceCX['cartesianLayout']['elements'][i]['x'];
-                            ty = niceCX['cartesianLayout']['elements'][i]['y'];
-                        }
+                if (css['bend-point-weights'] || css['bend-point-distances']) {
+                    if (curveStyle) {
+                        css['curve-style'] = curveStyle;
                     }
-                    let dx = tx - sx;
-                    let dy = ty - sy;
-                    let edgeLength = Math.sqrt(dx*dx + dy*dy);
-                    css[distance_element_name] = [];
-                    //console.log(" s: " + sx + "," + sy + " t: " + tx + "," + ty + " dst: " + edgeLength);
-                    for (let i = 0; i <  css['bend-point-distances'].length; i++) {
-                        css[distance_element_name].push(css['bend-point-distances'][i] * edgeLength);
+                    css['edge-distances'] = 'node-position';
+                    if (css['bend-point-weights']) {
+                        css[weight_element_name] = css['bend-point-weights'];
+                        delete css['bend-point-weights'];
                     }
-                    
-                    delete css['bend-point-distances'];
+                    if (css['bend-point-distances']) {
+                        let edge = niceCX['edges'][edgeId];
+                        let s = edge['s'];
+                        let t = edge['t'];
+                        let sx, sy, tx, ty;
+                        for (let i = 0; i < niceCX['cartesianLayout']['elements'].length; i++) {
+                            if (niceCX['cartesianLayout']['elements'][i]['node'] == s) {
+                                sx = niceCX['cartesianLayout']['elements'][i]['x'];
+                                sy = niceCX['cartesianLayout']['elements'][i]['y'];
+                            }
+                            if (niceCX['cartesianLayout']['elements'][i]['node'] == t) {
+                                tx = niceCX['cartesianLayout']['elements'][i]['x'];
+                                ty = niceCX['cartesianLayout']['elements'][i]['y'];
+                            }
+                        }
+                        let dx = tx - sx;
+                        let dy = ty - sy;
+                        let edgeLength = Math.sqrt(dx * dx + dy * dy);
+                        css[distance_element_name] = [];
+                        //console.log(" s: " + sx + "," + sy + " t: " + tx + "," + ty + " dst: " + edgeLength);
+                        for (let i = 0; i < css['bend-point-distances'].length; i++) {
+                            css[distance_element_name].push(css['bend-point-distances'][i] * edgeLength);
+                        }
+
+                        delete css['bend-point-distances'];
+                    }
                 }
             }
         });

@@ -117,7 +117,7 @@
   {
     "selector": "edge",
     "css": {
-      "curve-style": "unbundled-bezier",
+      "curve-style": "bezier",
       "color": "rgb(0,0,0)",
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "font-size": 10,
@@ -129,14 +129,7 @@
       "target-arrow-shape": "none",
       "target-arrow-color": "rgb(0,0,0)",
       "opacity": 1,
-      "width": 2,
-      "edge-distances": "node-position",
-      "control-point-distances": [
-        0
-      ],
-      "control-point-weights": [
-        0.5
-      ]
+      "width": 2
     }
   },
   {
