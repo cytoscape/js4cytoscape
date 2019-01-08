@@ -10,14 +10,14 @@
       "color": "rgb(0,0,0)",
       "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
       "font-size": 12,
+      "text-valign": "center",
+      "text-halign": "center",
       "text-opacity": 1,
       "text-wrap": "wrap",
       "text-max-width": "200.0",
       "shape": "roundrectangle",
       "background-opacity": 1,
-      "width": 75,
-      "text-valign": "center",
-      "text-halign": "center"
+      "width": 75
     }
   },
   {
@@ -27,7 +27,71 @@
     }
   },
   {
-    "selector": "node[ id = '107' ]",
+    "selector": "node[ id = '62' ]",
+    "css": {
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '63' ]",
+    "css": {
+      "font-style": "italic",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '64' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '65' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-style": "italic",
+      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '66' ]",
+    "css": {
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '67' ]",
+    "css": {
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '68' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '69' ]",
+    "css": {
+      "font-weight": "bold",
+      "font-style": "italic",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "node[ id = '103' ]",
     "css": {
       "font-family": "sans-serif",
       "font-weight": "normal",
@@ -43,7 +107,7 @@
     }
   },
   {
-    "selector": "node[ id = '103' ]",
+    "selector": "node[ id = '107' ]",
     "css": {
       "font-family": "sans-serif",
       "font-weight": "normal",
@@ -51,72 +115,9 @@
     }
   },
   {
-    "selector": "node[ id = '69' ]",
-    "css": {
-      "font-weight": "bold",
-      "font-style": "italic",
-      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '68' ]",
-    "css": {
-      "font-weight": "bold",
-      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '67' ]",
-    "css": {
-      "font-style": "italic",
-      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '66' ]",
-    "css": {
-      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '65' ]",
-    "css": {
-      "font-weight": "bold",
-      "font-style": "italic",
-      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '64' ]",
-    "css": {
-      "font-weight": "bold",
-      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '63' ]",
-    "css": {
-      "font-style": "italic",
-      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "node[ id = '62' ]",
-    "css": {
-      "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
     "selector": "edge",
     "css": {
+      "curve-style": "unbundled-bezier",
       "color": "rgb(0,0,0)",
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "font-size": 10,
@@ -129,7 +130,13 @@
       "target-arrow-color": "rgb(0,0,0)",
       "opacity": 1,
       "width": 2,
-      "curve-style": "unbundled-bezier"
+      "edge-distances": "node-position",
+      "control-point-distances": [
+        0
+      ],
+      "control-point-weights": [
+        0.5
+      ]
     }
   },
   {
@@ -139,9 +146,15 @@
     }
   },
   {
-    "selector": "edge[ id = 'e73' ]",
+    "selector": "edge[ id = 'e70' ]",
     "css": {
-      "font-weight": "bold",
+      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+      "font-size": "12"
+    }
+  },
+  {
+    "selector": "edge[ id = 'e71' ]",
+    "css": {
       "font-style": "italic",
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "font-size": "12"
@@ -156,16 +169,10 @@
     }
   },
   {
-    "selector": "edge[ id = 'e71' ]",
+    "selector": "edge[ id = 'e73' ]",
     "css": {
+      "font-weight": "bold",
       "font-style": "italic",
-      "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-      "font-size": "12"
-    }
-  },
-  {
-    "selector": "edge[ id = 'e70' ]",
-    "css": {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "font-size": "12"
     }
