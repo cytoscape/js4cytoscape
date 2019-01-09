@@ -659,7 +659,284 @@ describe('CX to JS', function () {
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
 
-  it('cxToJs postProcessEdgeBends', function () {
+  it('cxToJs expand EDGE_BEND', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var objectProperties = {};
+    let angle = Math.PI / 3;
+    let sin = Math.sin(angle);
+    let cos = Math.cos(angle);
+    let ratio = 0.5;
+    var bendValue = cos + "," + sin + "," + ratio;
+    cxToJs.expandProperties('EDGE_BEND', bendValue, objectProperties);
+
+    var expectedBendDistance = sin * ratio;
+    var expectedBendWeight = cos * ratio;
+
+    var expandedBendProperties = {
+      "bend-point-distances": [
+        expectedBendDistance
+      ],
+      "bend-point-weights": [
+        expectedBendWeight
+      ]
+    };
+
+    expect(objectProperties).to.eql(expandedBendProperties);
+  });
+
+  it('cxToJs postProcessEdgeBends curved is true', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "edges": {
+        "e147": {
+          "@id": 147,
+          "s": 143,
+          "t": 141
+        }
+      },
+      "cartesianLayout": {
+        "elements": [
+          {
+            "node": 143,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "node": 141,
+            "x": 2,
+            "y": 0
+          }
+        ]
+      }
+    };
+
+    var edgeDefaultStyles = [
+      {
+        "selector": "edge",
+        "css": {
+          "curve-style": "unbundled-bezier"
+        }
+      }
+    ];
+
+    let angle = Math.PI / 3;
+    let sin = Math.sin(angle);
+    let cos = Math.cos(angle);
+    let ratio = 0.5;
+   
+    var bendDistance = sin * ratio;
+    var bendWeight = cos * ratio;
+
+    var edgeSpecificStyles = {
+      'e147': {
+        "selector": "edge[ id = 'e147' ]",
+        "css": {
+          "bend-point-weights": [
+            bendWeight
+          ],
+          "bend-point-distances": [
+            bendDistance
+          ]
+        }
+      }
+    };
+
+    var expectedEdgeSpecificStyles = {
+      e147:
+      {
+        selector: 'edge[ id = \'e147\' ]',
+        css:
+        {
+          'curve-style': 'unbundled-bezier',
+          'edge-distances': 'node-position',
+          'control-point-weights': [bendWeight],
+          'control-point-distances': [bendDistance * 2]
+        }
+      }
+    };
+
+    cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
+    expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
+  });
+
+  it('cxToJs postProcessEdgeBends curved is false', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "edges": {
+        "e147": {
+          "@id": 147,
+          "s": 143,
+          "t": 141
+        }
+      },
+      "cartesianLayout": {
+        "elements": [
+          {
+            "node": 143,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "node": 141,
+            "x": 2,
+            "y": 0
+          }
+        ]
+      }
+    };
+
+    var edgeDefaultStyles = [
+      {
+        "selector": "edge",
+        "css": {
+          "curve-style": "segments"
+        }
+      }
+    ];
+
+    let angle = Math.PI / 3;
+    let sin = Math.sin(angle);
+    let cos = Math.cos(angle);
+    let ratio = 0.5;
+   
+    var bendDistance = sin * ratio;
+    var bendWeight = cos * ratio;
+
+    var edgeSpecificStyles = {
+      'e147': {
+        "selector": "edge[ id = 'e147' ]",
+        "css": {
+          "bend-point-weights": [
+            bendWeight
+          ],
+          "bend-point-distances": [
+            bendDistance
+          ]
+        }
+      }
+    };
+
+    var expectedEdgeSpecificStyles = {
+      e147:
+      {
+        selector: 'edge[ id = \'e147\' ]',
+        css:
+        {
+          'curve-style': 'segments',
+          'edge-distances': 'node-position',
+          'segment-weights': [bendWeight],
+          'segment-distances': [bendDistance * 2]
+        }
+      }
+    };
+
+    cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
+    
+    var expectedEdgeDefaultStyles = [{
+      selector: 'edge',
+      css: {
+        'curve-style': 'straight',
+      }
+    }];
+    
+    expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
+    expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
+  });
+
+  it('cxToJs postProcessEdgeBends math', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "edges": {
+        "e147": {
+          "@id": 147,
+          "s": 143,
+          "t": 141
+        }
+      },
+      "cartesianLayout": {
+        "elements": [
+          {
+            "node": 143,
+            "x": 0,
+            "y": 0
+          },
+          {
+            "node": 141,
+            "x": 2,
+            "y": 0
+          }
+        ]
+      }
+    };
+
+    var edgeDefaultStyles = [
+      {
+        "selector": "edge",
+        "css": {
+          "curve-style": "unbundled-bezier"
+        }
+      }
+    ];
+
+    let angle = Math.PI / 3;
+    let sin = Math.sin(angle);
+    let cos = Math.cos(angle);
+    let ratio = 0.5;
+   
+    var bendDistance = sin * ratio;
+    var bendWeight = cos * ratio;
+
+    var edgeSpecificStyles = {
+      'e147': {
+        "selector": "edge[ id = 'e147' ]",
+        "css": {
+          "curve-style": "segments",
+          "bend-point-weights": [
+            bendWeight
+          ],
+          "bend-point-distances": [
+            bendDistance
+          ]
+        }
+      }
+    };
+
+    var expectedEdgeSpecificStyles = {
+      e147:
+      {
+        selector: 'edge[ id = \'e147\' ]',
+        css:
+        {
+          'curve-style': 'segments',
+          'edge-distances': 'node-position',
+          'segment-weights': [bendWeight],
+          'segment-distances': [bendDistance * 2]
+        }
+      }
+    };
+
+    cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
+    
+    var expectedEdgeDefaultStyles = [{
+      selector: 'edge',
+      css: {
+        'curve-style': 'bezier',
+      }
+    }];
+    
+    expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
+    expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
+  });
+
+  it('cxToJs postProcessEdgeBends multiple', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -668,14 +945,12 @@ describe('CX to JS', function () {
         "e145": {
           "@id": 145,
           "s": 139,
-          "t": 141,
-          "i": "interacts with"
+          "t": 141
         },
         "e147": {
           "@id": 147,
           "s": 143,
-          "t": 141,
-          "i": "interacts with"
+          "t": 141
         }
       },
       "cartesianLayout": {
@@ -703,25 +978,13 @@ describe('CX to JS', function () {
       {
         "selector": "edge",
         "css": {
-          "curve-style": "unbundled-bezier",
-          "color": "rgb(0,0,0)",
-          "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
-          "font-size": 10,
-          "text-opacity": 1,
-          "line-style": "solid",
-          "source-arrow-shape": "none",
-          "source-arrow-color": "rgb(0,0,0)",
-          "line-color": "rgb(132,132,132)",
-          "target-arrow-shape": "none",
-          "target-arrow-color": "rgb(0,0,0)",
-          "opacity": 1,
-          "width": 2
+          "curve-style": "unbundled-bezier"
         }
       }
     ];
 
     var edgeSpecificStyles = {
-      'e147':{
+      'e147': {
         "selector": "edge[ id = 'e147' ]",
         "css": {
           "curve-style": "segments",
@@ -733,7 +996,7 @@ describe('CX to JS', function () {
           ]
         }
       },
-      'e145' : {
+      'e145': {
         "selector": "edge[ id = 'e145' ]",
         "css": {
           "bend-point-weights": [
@@ -746,43 +1009,43 @@ describe('CX to JS', function () {
       }
     };
 
-    var expectedEdgeSpecificStyles = { e147: 
-      { selector: 'edge[ id = \'e147\' ]',
-        css: 
-         { 'curve-style': 'segments',
-           'edge-distances': 'node-position',
-           'segment-weights': [-0.04840381846583039],
-           'segment-distances': [13580.881964856446] } },
-     e145: 
-      { selector: 'edge[ id = \'e145\' ]',
-        css: 
-         { 'curve-style': 'unbundled-bezier',
-           'edge-distances': 'node-position',
-           'control-point-weights': [-0.013547149312127105],
-           'control-point-distances': [-16049.981126461222] } } };
-   
-    var expectedEdgeDefaultStyles = [ { selector: 'edge',
-    css: 
-     { 'curve-style': 'bezier',
-       color: 'rgb(0,0,0)',
-       'font-family': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
-       'font-size': 10,
-       'text-opacity': 1,
-       'line-style': 'solid',
-       'source-arrow-shape': 'none',
-       'source-arrow-color': 'rgb(0,0,0)',
-       'line-color': 'rgb(132,132,132)',
-       'target-arrow-shape': 'none',
-       'target-arrow-color': 'rgb(0,0,0)',
-       opacity: 1,
-       width: 2 } } ]
-    ;
+    var expectedEdgeSpecificStyles = {
+      e147:
+      {
+        selector: 'edge[ id = \'e147\' ]',
+        css:
+        {
+          'curve-style': 'segments',
+          'edge-distances': 'node-position',
+          'segment-weights': [-0.04840381846583039],
+          'segment-distances': [13580.881964856446]
+        }
+      },
+      e145:
+      {
+        selector: 'edge[ id = \'e145\' ]',
+        css:
+        {
+          'curve-style': 'unbundled-bezier',
+          'edge-distances': 'node-position',
+          'control-point-weights': [-0.013547149312127105],
+          'control-point-distances': [-16049.981126461222]
+        }
+      }
+    };
+
+    var expectedEdgeDefaultStyles = [{
+      selector: 'edge',
+      css: {
+        'curve-style': 'bezier',
+      }
+    }];
 
     cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
 
     expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
     expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
-    
+
   });
 
   it('cxToJs base cyZoomFromNiceCX', function () {
