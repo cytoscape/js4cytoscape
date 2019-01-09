@@ -1,54 +1,54 @@
 const { expect, assert } = require('chai');
 const { CxToJs, CyNetworkUtils } = require('../src');
-const fs  = require('fs-extra');
+const fs = require('fs-extra');
 
 const DEFAULT_STYLE = [
-    {
-      'selector': 'node',
-      'style': {
-        'background-color': '#f6eecb',
-        'background-opacity': 0.8,
-        'font-family': 'Roboto, sans-serif',
-        'height': '40px',
-        'label': 'data(name)',
-        'width': '40px',
-      }
-    },
-    {
-      'selector': 'edge',
-      'style': {
-        'curve-style': 'bezier',
-        'font-family': "Roboto, sans-serif",
-        'line-color': "#75736c",
-        'text-opacity': 0.8,
-        'width': '2px'
-      }
-    },
-    {
-      'selector': 'node:selected',
-      'style': {
-       'background-color': 'yellow',
-        'color': '#fb1605'
-      }
-    },
-    {
-      'selector': 'edge:selected',
-      'style': {
-        'color': '#fb1605',
-        'label': 'data(interaction)',
-        'line-color': 'yellow',
-        'width': 6
-      }
+  {
+    'selector': 'node',
+    'style': {
+      'background-color': '#f6eecb',
+      'background-opacity': 0.8,
+      'font-family': 'Roboto, sans-serif',
+      'height': '40px',
+      'label': 'data(name)',
+      'width': '40px',
     }
-  ];
+  },
+  {
+    'selector': 'edge',
+    'style': {
+      'curve-style': 'bezier',
+      'font-family': "Roboto, sans-serif",
+      'line-color': "#75736c",
+      'text-opacity': 0.8,
+      'width': '2px'
+    }
+  },
+  {
+    'selector': 'node:selected',
+    'style': {
+      'background-color': 'yellow',
+      'color': '#fb1605'
+    }
+  },
+  {
+    'selector': 'edge:selected',
+    'style': {
+      'color': '#fb1605',
+      'label': 'data(interaction)',
+      'line-color': 'yellow',
+      'width': 6
+    }
+  }
+];
 
 
-describe('CX to JS', function(){
-  
-  it('niceCX end to end small_graph', function(){
-   
+describe('CX to JS', function () {
+
+  it('niceCX end to end small_graph', function () {
+
     var utils = new CyNetworkUtils();
-    
+
     var content = fs.readFileSync('test_resources/small_graph/small_graph.cx');
     var rawCX = JSON.parse(content);
 
@@ -57,15 +57,15 @@ describe('CX to JS', function(){
     var expectedContent = fs.readFileSync('test_resources/small_graph/small_graph_nice.cx');
     var expectedNiceCX = JSON.parse(expectedContent);
 
-    expect( niceCX ).to.eql( expectedNiceCX );
+    expect(niceCX).to.eql(expectedNiceCX);
   });
-  
-  it('niceCX end to end hiview', function(){
-   
+
+  it('niceCX end to end hiview', function () {
+
     this.timeout(15000);
 
     var utils = new CyNetworkUtils();
-    
+
     var content = fs.readFileSync('test_resources/hiview/hiview.cx');
     var rawCX = JSON.parse(content);
 
@@ -74,14 +74,14 @@ describe('CX to JS', function(){
     var cxToJs = new CxToJs(utils);
 
     var attributeNameMap = {};
-    var elements = cxToJs.cyElementsFromNiceCX(niceCX,  attributeNameMap);
+    var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
 
     var expectedContent = fs.readFileSync('test_resources/hiview/hiview.json');
     var expectedJSON = JSON.parse(expectedContent);
 
-    expect( elements['nodes'].length ).to.eql( expectedJSON['elements']['nodes'].length );
-    expect( elements['edges'].length ).to.eql( expectedJSON['elements']['edges'].length );
-    
+    expect(elements['nodes'].length).to.eql(expectedJSON['elements']['nodes'].length);
+    expect(elements['edges'].length).to.eql(expectedJSON['elements']['edges'].length);
+
     var actualNodeElement;
     var expectedNodeElement;
     for (let i = 0; i < elements['nodes'].length; i++) {
@@ -100,19 +100,19 @@ describe('CX to JS', function(){
     //expect(actualNodeElement).to.eql(expectedNodeElement);
   });
 
-  it('niceCX empty', function(){
-   
+  it('niceCX empty', function () {
+
     var utils = new CyNetworkUtils();
-    
+
     var rawCX = {
 
     };
     var niceCX = utils.rawCXtoNiceCX(rawCX);
 
-    expect( niceCX ).to.eql( { edges : {}} );
+    expect(niceCX).to.eql({ edges: {} });
   });
 
-  it('small_graph end to end', function(){
+  it('small_graph end to end', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -121,26 +121,26 @@ describe('CX to JS', function(){
 
     var attributeNameMap = {};
     var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
-    
+
     var expectedElementsContent = fs.readFileSync('test_resources/small_graph/small_graph_elements.json');
     var expectedElementsJson = JSON.parse(expectedElementsContent);
-    expect( elements.nodes ).to.have.deep.members( expectedElementsJson.nodes );
-    expect( elements.edges ).to.have.deep.members( expectedElementsJson.edges );
+    expect(elements.nodes).to.have.deep.members(expectedElementsJson.nodes);
+    expect(elements.edges).to.have.deep.members(expectedElementsJson.edges);
 
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
     var expectedStyleContent = fs.readFileSync('test_resources/small_graph/small_graph_style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
-    expect( style ).to.have.deep.members( expectedStyleJson );
+    expect(style).to.have.deep.members(expectedStyleJson);
   });
 
-  it('java_logical_fonts identification', function() {
+  it('java_logical_fonts identification', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
-    expect( cxToJs.isJavaLogicalFont('Dialog.plain') ).to.eql( true );
+    expect(cxToJs.isJavaLogicalFont('Dialog.plain')).to.eql(true);
   });
 
-  it('java_logical_fonts end to end', function(){
+  it('java_logical_fonts end to end', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -149,127 +149,127 @@ describe('CX to JS', function(){
 
     var attributeNameMap = {};
     var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
-    
+
     var expectedElementsContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.elements.json');
     var expectedElementsJson = JSON.parse(expectedElementsContent);
-    expect( elements.nodes ).to.have.deep.members( expectedElementsJson.nodes );
-    expect( elements.edges ).to.have.deep.members( expectedElementsJson.edges );
+    expect(elements.nodes).to.have.deep.members(expectedElementsJson.nodes);
+    expect(elements.edges).to.have.deep.members(expectedElementsJson.edges);
     var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
     var expectedStyleContent = fs.readFileSync('test_resources/java_logical_fonts/java_logical_fonts.style.json');
     var expectedStyleJson = JSON.parse(expectedStyleContent);
-    expect( style ).to.have.deep.members( expectedStyleJson );
+    expect(style).to.have.deep.members(expectedStyleJson);
   });
 
-  it('cxToJs defaultStyle', function(){
+  it('cxToJs defaultStyle', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var defaultStyle = cxToJs.getDefaultStyle();
 
-    expect( defaultStyle ).to.eql( DEFAULT_STYLE );
+    expect(defaultStyle).to.eql(DEFAULT_STYLE);
   });
 
-  it('cxToJs getCyAttributeName', function(){
+  it('cxToJs getCyAttributeName', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'};
+    var attributeNameMap = { 'foo': 'bar' };
 
     var attributeName = cxToJs.getCyAttributeName('foo', attributeNameMap);
 
-    expect( attributeName ).to.equal( 'bar' );
+    expect(attributeName).to.equal('bar');
   });
 
-  it('cxToJs specialCase getCyAttributeName', function(){
+  it('cxToJs specialCase getCyAttributeName', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'};
+    var attributeNameMap = { 'foo': 'bar' };
 
     var attributeName = cxToJs.getCyAttributeName('id', attributeNameMap);
 
-    expect( attributeName ).to.equal( 'cx_id' );
+    expect(attributeName).to.equal('cx_id');
   });
 
-  it('cxToJs direct getCyAttributeName', function(){
+  it('cxToJs direct getCyAttributeName', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'bar'};
+    var attributeNameMap = { 'foo': 'bar' };
 
     var attributeName = cxToJs.getCyAttributeName('hodor', attributeNameMap);
 
-    expect( attributeName ).to.equal( 'hodor' );
+    expect(attributeName).to.equal('hodor');
   });
 
-  it('cxToJs invalidChar sanitizeAttributeNameMap', function(){
+  it('cxToJs invalidChar sanitizeAttributeNameMap', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'$id' : '$id'};
+    var attributeNameMap = { '$id': '$id' };
 
     cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
-    expect( attributeNameMap ).to.eql({'$id' : '_id_u1'});
+    expect(attributeNameMap).to.eql({ '$id': '_id_u1' });
   });
 
-  it('cxToJs sanitizeAttributeNameMap', function(){
+  it('cxToJs sanitizeAttributeNameMap', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'foo' : 'foo'};
+    var attributeNameMap = { 'foo': 'foo' };
 
     cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
-    expect( attributeNameMap ).to.eql({'foo' : 'foo'});
+    expect(attributeNameMap).to.eql({ 'foo': 'foo' });
   });
 
-  it('cxToJs specialCase sanitizeAttributeNameMap', function(){
+  it('cxToJs specialCase sanitizeAttributeNameMap', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var attributeNameMap = {'shared name' : 'replace me'};
+    var attributeNameMap = { 'shared name': 'replace me' };
 
     cxToJs.sanitizeAttributeNameMap(attributeNameMap);
 
-    expect( attributeNameMap ).to.eql({'shared name' : 'name'});
+    expect(attributeNameMap).to.eql({ 'shared name': 'name' });
   });
 
-  it('cxToJs list_of_string getFirstElementFromList', function(){
+  it('cxToJs list_of_string getFirstElementFromList', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_string','v' : ['element the first', 'element the second']};
+    var list = { 'd': 'list_of_string', 'v': ['element the first', 'element the second'] };
 
     var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal('element the first');
+    expect(firstElement).to.equal('element the first');
   });
 
-  it('cxToJs list_of_boolean getFirstElementFromList', function(){
+  it('cxToJs list_of_boolean getFirstElementFromList', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_boolean','v' : [true, false]};
+    var list = { 'd': 'list_of_boolean', 'v': [true, false] };
 
     var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal(true);
+    expect(firstElement).to.equal(true);
   });
 
-  it('cxToJs list_of_numbers getFirstElementFromList', function(){
+  it('cxToJs list_of_numbers getFirstElementFromList', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var list = {'d' : 'list_of_numbers','v' : [1, 2]};
+    var list = { 'd': 'list_of_numbers', 'v': [1, 2] };
 
     var firstElement = cxToJs.getFirstElementFromList(list);
 
-    expect( firstElement ).to.equal(1);
+    expect(firstElement).to.equal(1);
   });
 
-  it('cxToJs cyColorFromCX', function(){
+  it('cxToJs cyColorFromCX', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -277,10 +277,10 @@ describe('CX to JS', function(){
 
     var cyColor = cxToJs.cyColorFromCX(cxColor);
 
-    expect( cyColor ).to.equal('rgb(0,136,255)');
+    expect(cyColor).to.equal('rgb(0,136,255)');
   });
 
-  it('cxToJs cyNumberFromString', function(){
+  it('cxToJs cyNumberFromString', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -288,10 +288,10 @@ describe('CX to JS', function(){
 
     var cyNumber = cxToJs.cyNumberFromString(cxNumber);
 
-    expect( cyNumber ).to.equal(1000000);
+    expect(cyNumber).to.equal(1000000);
   });
 
-  it('cxToJs cyOpacityFromCX', function(){
+  it('cxToJs cyOpacityFromCX', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -299,10 +299,10 @@ describe('CX to JS', function(){
 
     var cyOpacity = cxToJs.cyOpacityFromCX(cxOpacity);
 
-    expect( cyOpacity ).to.equal(128/255);
+    expect(cyOpacity).to.equal(128 / 255);
   });
 
-  it('cxToJs base commaDelimitedListStringToStringList2', function(){
+  it('cxToJs base commaDelimitedListStringToStringList2', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -317,71 +317,71 @@ describe('CX to JS', function(){
     ];
     var list = cxToJs.commaDelimitedListStringToStringList2(commaDelimitedList);
 
-    expect( list ).to.eql(expectedList);
+    expect(list).to.eql(expectedList);
   });
 
-  it('cxToJs discreet parseMappingDefinition', function(){
+  it('cxToJs discreet parseMappingDefinition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var definition = "COL=directed,T=boolean,K=0=true,V=0=DELTA";
 
-    let expectedList = { 
+    let expectedList = {
       m: { '0': { K: 'true', V: 'DELTA' } },
       COL: 'directed',
-      T: 'boolean' 
+      T: 'boolean'
     };
     var result = cxToJs.parseMappingDefinition(definition);
 
-    expect( result ).to.eql(expectedList);
+    expect(result).to.eql(expectedList);
   });
 
-  it('cxToJs continuous parseMappingDefinition', function(){
+  it('cxToJs continuous parseMappingDefinition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var definition = "COL=Degree,T=integer,L=0=1,E=0=10,G=0=10,OV=0=1.0,L=1=40,E=1=40,G=1=1,OV=1=18.0";
 
-    let expectedList = { 
+    let expectedList = {
       'COL': 'Degree',
       'T': 'integer',
-         'm': {
-           '0': {
-            'E': '10',
-            'G': '10',
-            'L': '1',
-            'OV': '1.0'
-           },
-          '1': {
-            'E': '40',
-            'G': '1',
-            'L': '40',
-            'OV': '18.0'
-          }
-         }
+      'm': {
+        '0': {
+          'E': '10',
+          'G': '10',
+          'L': '1',
+          'OV': '1.0'
+        },
+        '1': {
+          'E': '40',
+          'G': '1',
+          'L': '40',
+          'OV': '18.0'
+        }
+      }
     };
     var result = cxToJs.parseMappingDefinition(definition);
 
-    expect( result ).to.eql(expectedList);
+    expect(result).to.eql(expectedList);
   });
 
-  it('cxToJs passthrough parseMappingDefinition', function(){
+  it('cxToJs passthrough parseMappingDefinition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var definition = 'COL=COMMON,T=string';
 
-    let expectedList = { 
+    let expectedList = {
       'COL': 'COMMON',
       'T': 'string',
       'm': {}
     };
     var result = cxToJs.parseMappingDefinition(definition);
 
-    expect( result ).to.eql(expectedList);
+    expect(result).to.eql(expectedList);
   });
 
-  it('cxToJs base getNodeLabelPosition', function(){
+  it('cxToJs base getNodeLabelPosition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -393,10 +393,10 @@ describe('CX to JS', function(){
     };
     var result = cxToJs.getNodeLabelPosition(cxPosition);
 
-    expect( result ).to.eql(jsPosition);
+    expect(result).to.eql(jsPosition);
   });
 
-  it('cxToJs Dialog.plain expandFontProperties', function(){
+  it('cxToJs Dialog.plain expandFontProperties', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -409,12 +409,12 @@ describe('CX to JS', function(){
       "font-size": "15"
     };
 
-    expect( objectProperties ).to.eql(expandedFontProperties);
+    expect(objectProperties).to.eql(expandedFontProperties);
   });
 
 
 
-  it('cxToJs java.bolditalic expandFontProperties', function(){
+  it('cxToJs java.bolditalic expandFontProperties', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -429,10 +429,10 @@ describe('CX to JS', function(){
       "font-weight": "bold"
     };
 
-    expect( objectProperties ).to.eql(expandedFontProperties);
+    expect(objectProperties).to.eql(expandedFontProperties);
   });
 
-  it('cxToJs ArialMT expandFontProperties', function(){
+  it('cxToJs ArialMT expandFontProperties', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -445,10 +445,10 @@ describe('CX to JS', function(){
       'font-size': '10'
     };
 
-    expect( objectProperties ).to.eql(expandedFontProperties);
+    expect(objectProperties).to.eql(expandedFontProperties);
   });
 
-  it('cxToJs expandDefaultProperties', function(){
+  it('cxToJs expandDefaultProperties', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -460,14 +460,14 @@ describe('CX to JS', function(){
       'font-weight': 'normal'
     };
 
-    expect( objectProperties ).to.eql(expandedProperties);
+    expect(objectProperties).to.eql(expandedProperties);
   });
 
-  it('cxToJs base expandLabelPosition', function(){
+  it('cxToJs base expandLabelPosition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var cyLabelPosition = "C,C,c,0.00,0.00"; 
+    var cyLabelPosition = "C,C,c,0.00,0.00";
     var objectProperties = {};
 
     cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
@@ -477,14 +477,14 @@ describe('CX to JS', function(){
       "text-valign": "center",
     };
 
-    expect( objectProperties ).to.eql(expandedLabelPosition);
+    expect(objectProperties).to.eql(expandedLabelPosition);
   });
 
-  it('cxToJs NWCc expandLabelPosition', function(){
+  it('cxToJs NWCc expandLabelPosition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
-    var cyLabelPosition = "NW,C,c,0.00,0.00"; 
+    var cyLabelPosition = "NW,C,c,0.00,0.00";
     var objectProperties = {};
 
     cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
@@ -494,10 +494,10 @@ describe('CX to JS', function(){
       "text-valign": "top",
     };
 
-    expect( objectProperties ).to.eql(expandedLabelPosition);
+    expect(objectProperties).to.eql(expandedLabelPosition);
   });
 
-  it('cxToJs base getCyVisualAttributeForVP', function(){
+  it('cxToJs base getCyVisualAttributeForVP', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -506,10 +506,10 @@ describe('CX to JS', function(){
     let jsVisualAttribute = "background-color";
     var result = cxToJs.getCyVisualAttributeForVP(cxVP);
 
-    expect( result ).to.equal(jsVisualAttribute);
+    expect(result).to.equal(jsVisualAttribute);
   });
 
-  it('cxToJs base getCyVisualAttributeObjForVP', function(){
+  it('cxToJs base getCyVisualAttributeObjForVP', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -519,143 +519,273 @@ describe('CX to JS', function(){
 
     var result = cxToJs.getCyVisualAttributeObjForVP(cxVP);
 
-    expect( result ).to.eql(jsVisualAttribute);
+    expect(result).to.eql(jsVisualAttribute);
   });
 
-  it('cxToJs base getCyVisualAttributeTypeForVp', function(){
+  it('cxToJs base getCyVisualAttributeTypeForVp', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var cxVP = "NODE_FILL_COLOR";
 
-    let jsVisualAttributeType = 'color' ;
+    let jsVisualAttributeType = 'color';
 
     var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP);
 
-    expect( result ).to.equal(jsVisualAttributeType);
+    expect(result).to.equal(jsVisualAttributeType);
   });
 
-  it('cxToJs base getCyVisualAttributeValue', function(){
+  it('cxToJs base getCyVisualAttributeValue', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var cxVPValue = "#0088FF";
     var cxVPType = 'color';
 
-    let jsVisualAttributeValue = 'rgb(0,136,255)' ;
+    let jsVisualAttributeValue = 'rgb(0,136,255)';
 
     var result = cxToJs.getCyVisualAttributeValue(cxVPValue, cxVPType);
 
-    expect( result ).to.equal(jsVisualAttributeValue);
+    expect(result).to.equal(jsVisualAttributeValue);
   });
 
-  it('cxToJs base discreteMappingStyle', function(){
+  it('cxToJs base discreteMappingStyle', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var cxVP = "EDGE_TARGET_ARROW_SHAPE";
     var cxElementType = "edge";
-   
-    var cxDef = { 
+
+    var cxDef = {
       m: { '0': { K: 'true', V: 'DELTA' } },
       COL: 'directed',
-      T: 'boolean' 
+      T: 'boolean'
     };
 
-    let jsDiscreetMappingStyle = [ { selector: 'edge[directed = \'true\']',
-    css: { 'target-arrow-shape': 'triangle' } } ];
+    let jsDiscreetMappingStyle = [{
+      selector: 'edge[directed = \'true\']',
+      css: { 'target-arrow-shape': 'triangle' }
+    }];
 
     var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {});
 
-    expect( result ).to.eql(jsDiscreetMappingStyle);
+    expect(result).to.eql(jsDiscreetMappingStyle);
   });
 
-  it('cxToJs base continuousMappingStyle', function(){
+  it('cxToJs base continuousMappingStyle', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var cxVP = "NODE_LABEL_FONT_SIZE";
     var cxElementType = "node";
-   
-    var cxDef = { 
+
+    var cxDef = {
       'COL': 'Degree',
       'T': 'integer',
-         'm': {
-           '0': {
-            'E': '10',
-            'G': '10',
-            'L': '1',
-            'OV': '1.0'
-           },
-          '1': {
-            'E': '40',
-            'G': '1',
-            'L': '40',
-            'OV': '18.0'
-          }
-         }
+      'm': {
+        '0': {
+          'E': '10',
+          'G': '10',
+          'L': '1',
+          'OV': '1.0'
+        },
+        '1': {
+          'E': '40',
+          'G': '1',
+          'L': '40',
+          'OV': '18.0'
+        }
+      }
     };
 
-    let jsContinuousMappingStyle = [ 
-      { selector: 'node[Degree < 1]',
-        css: { 'font-size': 1 } },
+    let jsContinuousMappingStyle = [
       {
-          "css": {
-            "font-size": 10
-          },
-          "selector": "node[Degree = 1]"
+        selector: 'node[Degree < 1]',
+        css: { 'font-size': 1 }
+      },
+      {
+        "css": {
+          "font-size": 10
         },
-        {
-          "css": {
-            "font-size": "mapData(Degree,1,18,10,40)"
-          },
-          "selector": "node[Degree > 1][Degree < 18]"
+        "selector": "node[Degree = 1]"
+      },
+      {
+        "css": {
+          "font-size": "mapData(Degree,1,18,10,40)"
         },
-        {
-          "css": {
-            "font-size": 40
-          },
-          "selector": "node[Degree = 18]"
+        "selector": "node[Degree > 1][Degree < 18]"
+      },
+      {
+        "css": {
+          "font-size": 40
         },
-        {
-          "css": {
-            "font-size": 40
-          },
-          "selector": "node[Degree > 18]"
-        } ];
+        "selector": "node[Degree = 18]"
+      },
+      {
+        "css": {
+          "font-size": 40
+        },
+        "selector": "node[Degree > 18]"
+      }];
 
     var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {});
 
-    expect( result ).to.eql(jsContinuousMappingStyle);
+    expect(result).to.eql(jsContinuousMappingStyle);
   });
 
-  it('cxToJs base passthroughMappingStyle', function(){
+  it('cxToJs base passthroughMappingStyle', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
     var cxVP = "NODE_LABEL";
     var cxElementType = "node";
-   
-    var cxDef = { 
+
+    var cxDef = {
       'COL': 'COMMON',
       'T': 'string',
       'm': {}
     };
 
-    let jsPassthroughMappingStyle = [ 
-      { 
-          "css": {
-            "content": "data(COMMON)"
-          },
-          "selector": "node[COMMON]"
-      } ];
+    let jsPassthroughMappingStyle = [
+      {
+        "css": {
+          "content": "data(COMMON)"
+        },
+        "selector": "node[COMMON]"
+      }];
 
     var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {});
 
-    expect( result ).to.eql(jsPassthroughMappingStyle);
+    expect(result).to.eql(jsPassthroughMappingStyle);
   });
 
-  it('cxToJs base cyZoomFromNiceCX', function(){
+  it('cxToJs postProcessEdgeBends', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "edges": {
+        "e145": {
+          "@id": 145,
+          "s": 139,
+          "t": 141,
+          "i": "interacts with"
+        },
+        "e147": {
+          "@id": 147,
+          "s": 143,
+          "t": 141,
+          "i": "interacts with"
+        }
+      },
+      "cartesianLayout": {
+        "elements": [
+          {
+            "node": 143,
+            "x": -118.94376881726248,
+            "y": 33.01054382324219
+          },
+          {
+            "node": 141,
+            "x": -131.49737548828125,
+            "y": -102.6236089051531
+          },
+          {
+            "node": 139,
+            "x": -292,
+            "y": -106
+          }
+        ]
+      }
+    };
+
+    var edgeDefaultStyles = [
+      {
+        "selector": "edge",
+        "css": {
+          "curve-style": "unbundled-bezier",
+          "color": "rgb(0,0,0)",
+          "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
+          "font-size": 10,
+          "text-opacity": 1,
+          "line-style": "solid",
+          "source-arrow-shape": "none",
+          "source-arrow-color": "rgb(0,0,0)",
+          "line-color": "rgb(132,132,132)",
+          "target-arrow-shape": "none",
+          "target-arrow-color": "rgb(0,0,0)",
+          "opacity": 1,
+          "width": 2
+        }
+      }
+    ];
+
+    var edgeSpecificStyles = {
+      'e147':{
+        "selector": "edge[ id = 'e147' ]",
+        "css": {
+          "curve-style": "segments",
+          "bend-point-weights": [
+            -0.04840381846583039
+          ],
+          "bend-point-distances": [
+            99.70264173408412
+          ]
+        }
+      },
+      'e145' : {
+        "selector": "edge[ id = 'e145' ]",
+        "css": {
+          "bend-point-weights": [
+            -0.013547149312127105
+          ],
+          "bend-point-distances": [
+            -99.97612853192109
+          ]
+        }
+      }
+    };
+
+    var expectedEdgeSpecificStyles = { e147: 
+      { selector: 'edge[ id = \'e147\' ]',
+        css: 
+         { 'curve-style': 'segments',
+           'edge-distances': 'node-position',
+           'segment-weights': [-0.04840381846583039],
+           'segment-distances': [13580.881964856446] } },
+     e145: 
+      { selector: 'edge[ id = \'e145\' ]',
+        css: 
+         { 'curve-style': 'unbundled-bezier',
+           'edge-distances': 'node-position',
+           'control-point-weights': [-0.013547149312127105],
+           'control-point-distances': [-16049.981126461222] } } };
+   
+    var expectedEdgeDefaultStyles = [ { selector: 'edge',
+    css: 
+     { 'curve-style': 'bezier',
+       color: 'rgb(0,0,0)',
+       'font-family': 'Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif',
+       'font-size': 10,
+       'text-opacity': 1,
+       'line-style': 'solid',
+       'source-arrow-shape': 'none',
+       'source-arrow-color': 'rgb(0,0,0)',
+       'line-color': 'rgb(132,132,132)',
+       'target-arrow-shape': 'none',
+       'target-arrow-color': 'rgb(0,0,0)',
+       opacity: 1,
+       width: 2 } } ]
+    ;
+
+    cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
+
+    expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
+    expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
+    
+  });
+
+  it('cxToJs base cyZoomFromNiceCX', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -670,14 +800,16 @@ describe('CX to JS', function(){
               "NETWORK_CENTER_Y_LOCATION": "0.0"
             }
           }
-          ]}};
-  
+        ]
+      }
+    };
+
     var result = cxToJs.cyZoomFromNiceCX(niceCX);
 
-    expect( result ).to.eql(2);
+    expect(result).to.eql(2);
   });
 
-  it('cxToJs base cyBackgroundColorFromNiceCX', function(){
+  it('cxToJs base cyBackgroundColorFromNiceCX', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -692,14 +824,16 @@ describe('CX to JS', function(){
               "NETWORK_CENTER_X_LOCATION": "0.0"
             }
           }
-          ]}};
-  
+        ]
+      }
+    };
+
     var result = cxToJs.cyBackgroundColorFromNiceCX(niceCX);
 
-    expect( result ).to.eql('#CCCCCC');
+    expect(result).to.eql('#CCCCCC');
   });
 
-  it('cxToJs base cyPanFromNiceCX', function(){
+  it('cxToJs base cyPanFromNiceCX', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -710,17 +844,19 @@ describe('CX to JS', function(){
             "properties_of": "network",
             "properties": {
               "NETWORK_EDGE_SELECTION": "true",
-              "NETWORK_CENTER_X_LOCATION": "2.0", 
+              "NETWORK_CENTER_X_LOCATION": "2.0",
               "NETWORK_CENTER_Y_LOCATION": "3.0",
               "NETWORK_BACKGROUND_PAINT": "#CCCCCC",
             }
           }
-          ]}};
-  
-    var result = cxToJs.cyPanFromNiceCX(niceCX);
-    var pan = { x: 2, y:3};
+        ]
+      }
+    };
 
-    expect( result ).to.eql(pan);
+    var result = cxToJs.cyPanFromNiceCX(niceCX);
+    var pan = { x: 2, y: 3 };
+
+    expect(result).to.eql(pan);
   });
 
 });
