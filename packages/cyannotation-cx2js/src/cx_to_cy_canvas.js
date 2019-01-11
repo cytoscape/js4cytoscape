@@ -295,7 +295,7 @@ class CxToCyCanvas {
                 self._starShapeFunction(shapeMap, 5, ctx);
             },
             'STAR6': function (shapeMap, ctx) {
-                self._starShapeFunction(shapeMap, 5, ctx);
+                self._starShapeFunction(shapeMap, 6, ctx);
             },
             'TRIANGLE': function (shapeMap, ctx) {
                 self._regularPolygonShapeFunction(shapeMap, 3, ctx);
