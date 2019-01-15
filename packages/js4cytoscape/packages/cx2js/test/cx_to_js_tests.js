@@ -112,6 +112,60 @@ describe('CX to JS', function () {
     expect(niceCX).to.eql({ edges: {} });
   });
 
+  it('niceCX stringifyFunctionTerm', function () {
+
+    var utils = new CyNetworkUtils();
+   
+    var functionTerm = {
+      
+        "po": 105590984,
+        "f": "bel:biologicalProcess",
+        "args": [
+          "GO:cell proliferation"
+        ]
+      
+    };
+    var string = utils.stringifyFunctionTerm(functionTerm);
+
+    expect(string).to.eql("bp(GO:cell proliferation)");
+  });
+
+
+  it('niceCX stringifyFunctionTerm recursion', function () {
+
+    var utils = new CyNetworkUtils();
+   
+    var functionTerm = {
+      "po": 105590995,
+      "f": "bel:peptidaseActivity",
+      "args": [
+        {
+          "po": null,
+          "f": "bel:complexAbundance",
+          "args": [
+            {
+              "po": null,
+              "f": "bel:proteinAbundance",
+              "args": [
+                "HGNC:F3"
+              ]
+            },
+            {
+              "po": null,
+              "f": "bel:proteinAbundance",
+              "args": [
+                "HGNC:F7"
+              ]
+            }
+          ]
+        }
+      ]
+    };
+    var string = utils.stringifyFunctionTerm(functionTerm);
+
+    expect(string).to.eql("pep(complex(p(HGNC:F3), p(HGNC:F7)))");
+  });
+
   it('small_graph end to end', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
