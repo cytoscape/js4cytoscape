@@ -1,6 +1,6 @@
 {
   "name": "cyannotation-cx2js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Renders Cytoscape Desktop annotations from CX files via cytoscape.js-canvas",
   "repository": {
     "type": "git",
