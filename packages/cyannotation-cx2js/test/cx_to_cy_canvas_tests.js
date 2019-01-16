@@ -36,7 +36,8 @@ describe('CX to Cytoscape JS Canvas', function () {
             closePath: sinon.spy(),
             rect: sinon.spy(),
             fill: sinon.spy(),
-            stroke: sinon.spy()
+            stroke: sinon.spy(),
+            ellipse: sinon.spy()
         };
 
         topCanvasSpy = {
@@ -57,7 +58,13 @@ describe('CX to Cytoscape JS Canvas', function () {
         bottomCtxSpy = {
             save: sinon.spy(),
             restore: sinon.spy(),
-            fillText: sinon.spy()
+            fillText: sinon.spy(),
+            beginPath: sinon.spy(),
+            closePath: sinon.spy(),
+            rect: sinon.spy(),
+            fill: sinon.spy(),
+            stroke: sinon.spy(),
+            ellipse: sinon.spy()
         };
 
         bottomCanvasSpy = {
@@ -174,7 +181,7 @@ describe('CX to Cytoscape JS Canvas', function () {
         expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
     });
 
-    it('shape test', function () {
+    it('rectangle test', function () {
         let niceCX =
         {
             "networkAttributes": {
@@ -200,6 +207,37 @@ describe('CX to Cytoscape JS Canvas', function () {
         expect(topCtxSpy.stroke.callCount).to.eql(1);
         expect(topCtxSpy.fillStyle).to.eql("rgb(255,0,51,1)");
         expect(topCtxSpy.strokeStyle).to.eql("rgb(0,0,0,1)");
+    });
+
+    it('ellipse test', function () {
+        let niceCX =
+        {
+            "networkAttributes": {
+                elements: [{
+                    "s": 80,
+                    "n": "__Annotations",
+                    "v": ["edgeThickness=4.0|canvas=foreground|fillOpacity=20.0|zoom=0.15537945824768293|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=d7628a18-012d-42b1-bb2f-e07da38969f0|fillColor=-60|shapeType=ELLIPSE|edgeColor=-12566464|edgeOpacity=100.0|name=AutoAnnotate: yel041w yhr115c yor215c|x=2392.055691229587|width=46.146693511796144|y=3636.7598926599653|z=0|height=50.380875503088454"],
+                    "d": "list_of_string"
+                }
+                ]
+            }
+        };
+
+        cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
+
+        resizeFunction();
+
+        expect(topCtxSpy.ellipse.args).to.eql([[2540.5524553199725,
+                3798.8819520083084,
+                148.49676409038548,
+                162.12205934834296,
+                0,
+                0,
+                6.283185307179586]]);
+        expect(topCtxSpy.fill.callCount).to.eql(1);
+        expect(topCtxSpy.stroke.callCount).to.eql(1);
+        expect(topCtxSpy.fillStyle).to.eql("rgb(255,255,196,0.2)");
+        expect(topCtxSpy.strokeStyle).to.eql("rgb(64,64,64,1)");
     });
 
     it('bounded text test', function () {

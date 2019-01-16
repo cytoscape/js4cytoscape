@@ -69,7 +69,7 @@ class CxToCyCanvas {
             }
             ctx.closePath();
             if (shapeMap['fillColor']) {
-                let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                 ctx.fillStyle = fillColor;
                 ctx.fill();
             }
@@ -117,7 +117,7 @@ class CxToCyCanvas {
             ctx.closePath();
     
             if (shapeMap['fillColor']) {
-                let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                 ctx.fillStyle = fillColor;
                 ctx.fill();
             }
@@ -269,7 +269,7 @@ class CxToCyCanvas {
                 ctx.quadraticCurveTo(x, y, x + tenthWidth, y);
                 ctx.closePath();
                 if (shapeMap['fillColor']) {
-                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                     ctx.fillStyle = fillColor;
                     ctx.fill();
                 }
@@ -284,7 +284,7 @@ class CxToCyCanvas {
                 ctx.ellipse(x, y, halfWidth, halfHeight, 0, 0, 2 * Math.PI);
                 ctx.closePath();
                 if (shapeMap['fillColor']) {
-                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                     ctx.fillStyle = fillColor;
                     ctx.fill();
                 }
@@ -322,7 +322,7 @@ class CxToCyCanvas {
                 ctx.lineTo(((2.0 * x) + xMax) / 3.0, yMax);
                 ctx.closePath();
                 if (shapeMap['fillColor']) {
-                    let fillColor = self.colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
+                    let fillColor = self._colorFromInt(shapeMap['fillColor'], shapeMap['fillOpacity']);
                     ctx.fillStyle = fillColor;
                     ctx.fill();
                 }
