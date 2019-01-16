@@ -4,12 +4,12 @@
   "description": "Renders Cytoscape Desktop annotations from CX files via cytoscape.js-canvas",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cytoscape/cx-annotation2js.git"
+    "url": "https://github.com/cytoscape/cyannotation-cx2js.git"
   },
   "bugs": {
-    "url": "https://github.com/cytoscape/cx-annotation2js/issues"
+    "url": "https://github.com/cytoscape/cyannotation-cx2js/issues"
   },
-  "homepage": "https://github.com/cytoscape/cx-annotation2js/",
+  "homepage": "https://github.com/cytoscape/cyannotation-cx2js/",
   "main": "./build/bundle.js",
   "scripts": {
     "prepublish": "run-s build",
