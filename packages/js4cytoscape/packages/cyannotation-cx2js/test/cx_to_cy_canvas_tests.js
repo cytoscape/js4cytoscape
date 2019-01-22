@@ -1,4 +1,4 @@
-const { expect, assert } = require('chai');
+const { expect } = require('chai');
 const { CxToCyCanvas } = require('../src');
 const sinon = require("sinon");
 
