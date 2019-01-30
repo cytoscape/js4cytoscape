@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-cx2js",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A cx to Cytoscape JS utility",
   "repository": {
     "type": "git",
