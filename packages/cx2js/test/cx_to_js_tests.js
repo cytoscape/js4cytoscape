@@ -435,6 +435,83 @@ describe('CX to JS', function () {
     expect(result).to.eql(expectedList);
   });
 
+  it('postProcessNodeProperties', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var vpElement = {
+      dependencies : { 
+        
+      }
+    }; 
+    var postProcessParams = { nodeSize : 45 }; 
+    var nodeProperties = { width : 30, height : 40};
+    cxToJs.postProcessNodeProperties(vpElement, postProcessParams, nodeProperties);
+
+    let expectedNodeProperties = {
+      width: 30,
+      height: 40
+    };
+
+    expect(nodeProperties).to.eql(expectedNodeProperties);
+  });
+
+  it('postProcessNodeProperties locked', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var vpElement = {
+      dependencies : { 
+        nodeSizeLocked : 'true'
+      }
+    }; 
+    var postProcessParams = { nodeSize : 45 }; 
+    var nodeProperties = {};
+    cxToJs.postProcessNodeProperties(vpElement, postProcessParams, nodeProperties);
+
+    let expectedNodeProperties = {
+      width: 45,
+      height: 45
+    };
+
+    expect(nodeProperties).to.eql(expectedNodeProperties);
+  });
+
+  it ('cxToJs style calls postProcessNodeProperties', function() {
+      var utils = new CyNetworkUtils();
+      var cxToJs = new CxToJs(utils);
+  
+      var niceCX = {
+        "visualProperties": {
+          "elements": [
+            {
+              "properties_of": "nodes:default",
+              "properties": {
+                "NODE_SIZE": "80.0",
+                "NODE_WIDTH" : "40",
+                "NODE_HEIGHT" : "50"
+              }
+            }
+          ]
+        }
+      };
+  
+      var result = cxToJs.cyStyleFromNiceCX(niceCX);
+  
+      var expectedResult = [
+          {
+            "css": {
+              width: 40,
+              height: 50
+            },
+            "selector": "node"
+          }
+  ];
+
+      expect(result).to.eql(expectedResult);
+   
+  });
+
   it('cxToJs base getNodeLabelPosition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
