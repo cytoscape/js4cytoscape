@@ -764,6 +764,72 @@ describe('CX to JS', function () {
     expect(result).to.eql(jsContinuousMappingStyle);
   });
 
+  it('cxToJs nodeSize continuousMappingStyle', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_SIZE";
+    var cxElementType = "node";
+
+    var cxDef = {
+      'COL': 'Degree',
+      'T': 'integer',
+      'm': {
+        '0': {
+          'E': '10',
+          'G': '10',
+          'L': '1',
+          'OV': '1.0'
+        },
+        '1': {
+          'E': '40',
+          'G': '1',
+          'L': '40',
+          'OV': '18.0'
+        }
+      }
+    };
+
+    let jsContinuousMappingStyle = [
+      {
+        selector: 'node[Degree < 1]',
+        css: { 'height': 1, 'width':1 }
+      },
+      {
+        "css": {
+          "height": 10,
+          "width": 10,
+        },
+        "selector": "node[Degree = 1]"
+      },
+      {
+        "css": {
+          "height": "mapData(Degree,1,18,10,40)",
+          "width": "mapData(Degree,1,18,10,40)"
+        },
+        "selector": "node[Degree > 1][Degree < 18]"
+      },
+      {
+        "css": {
+          "height": 40,
+          "width": 40
+        },
+        "selector": "node[Degree = 18]"
+      },
+      {
+        "css": {
+          "height": 40,
+          "width": 40
+        },
+        "selector": "node[Degree > 18]"
+      }];
+
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {});
+
+    expect(result).to.eql(jsContinuousMappingStyle);
+  });
+  
+
   it('cxToJs base passthroughMappingStyle', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
