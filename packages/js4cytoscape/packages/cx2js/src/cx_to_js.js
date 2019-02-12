@@ -810,16 +810,25 @@ class CxToJs {
 
                 var i = parseInt(index);
 
+                var expandContinuousProperties = function(cyVisualAttribute, value, properties) {
+                    if (cyVisualAttribute == 'node-size') {
+                        properties['width'] = value;
+                        properties['height'] = value;
+                    } else {
+                        properties[cyVisualAttribute] = value;
+                    }
+                };
+
                 if (i === 0) {
                     // first Continuous Mapping point in sequence
                     // output a style for values less than the point
                     lesserSelector = elementType + '[' + cyDataAttribute + ' < ' + translatedPoint.mappedDataValue + ']';
-                    lesserCSS[cyVisualAttribute] = translatedPoint.lesserValue;
+                    expandContinuousProperties(cyVisualAttribute, translatedPoint.lesserValue, lesserCSS);//lesserCSS[cyVisualAttribute] = translatedPoint.lesserValue;
                     elements.push({ 'selector': lesserSelector, 'css': lesserCSS });
 
                     // output a style for values equal to the point
                     equalSelector = elementType + '[' + cyDataAttribute + ' = ' + translatedPoint.mappedDataValue + ']';
-                    equalCSS[cyVisualAttribute] = translatedPoint.equalValue;
+                    expandContinuousProperties(cyVisualAttribute, translatedPoint.equalValue, equalCSS);//equalCSS[cyVisualAttribute] = translatedPoint.equalValue;
                     elements.push({ 'selector': equalSelector, 'css': equalCSS });
 
                     // set the previous point values to use when processing the next point
@@ -842,24 +851,25 @@ class CxToJs {
                         // this is a workaround to resolve https://ndexbio.atlassian.net/browse/NWA-267
                         // Translation of continuous mapping style problems.
 
-                        middleCSS[cyVisualAttribute] = previousTranslatedPoint.equalValue;
+                        expandContinuousProperties(cyVisualAttribute, previousTranslatedPoint.equalValue, middleCSS);//middleCSS[cyVisualAttribute] = previousTranslatedPoint.equalValue;
                     } else {
-                        middleCSS[cyVisualAttribute] = 'mapData(' + cyDataAttribute + ',' +
-                            previousTranslatedPoint.mappedDataValue + ',' + translatedPoint.mappedDataValue + ',' +
-                            previousTranslatedPoint.equalValue + ',' + translatedPoint.equalValue + ')';
+                        var mapData = 'mapData(' + cyDataAttribute + ',' +
+                        previousTranslatedPoint.mappedDataValue + ',' + translatedPoint.mappedDataValue + ',' +
+                        previousTranslatedPoint.equalValue + ',' + translatedPoint.equalValue + ')';
+                        expandContinuousProperties(cyVisualAttribute, mapData, middleCSS);
                     }
                     elements.push({ 'selector': middleSelector, 'css': middleCSS });
 
                     // output a style for values equal to this point
                     equalSelector = elementType + '[' + cyDataAttribute + ' = ' + translatedPoint.mappedDataValue + ']';
-                    equalCSS[cyVisualAttribute] = translatedPoint.equalValue;
+                    expandContinuousProperties(cyVisualAttribute, translatedPoint.equalValue, equalCSS);//equalCSS[cyVisualAttribute] = translatedPoint.equalValue;
                     elements.push({ 'selector': equalSelector, 'css': equalCSS });
 
                     // if this is the last point, output a style for values greater than this point
                     if (i === lastPointIndex) {
 
                         greaterSelector = elementType + '[' + cyDataAttribute + ' > ' + translatedPoint.mappedDataValue + ']';
-                        greaterCSS[cyVisualAttribute] = translatedPoint.equalValue;
+                        expandContinuousProperties(cyVisualAttribute, translatedPoint.equalValue, greaterCSS);//greaterCSS[cyVisualAttribute] = translatedPoint.equalValue;
                         elements.push({ 'selector': greaterSelector, 'css': greaterCSS });
                     }
 
