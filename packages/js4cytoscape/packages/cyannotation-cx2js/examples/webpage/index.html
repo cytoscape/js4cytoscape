@@ -87,8 +87,6 @@
 
             startTime = endTime;
 
-            document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
-
             var cytoscapeJS = {
                 container: document.getElementById('cy'),
                 style: style,
@@ -104,6 +102,7 @@
             var cx2canvas = new cyannotationCx2js.CxToCyCanvas(cx2Js);
 
             cx2canvas.drawAnnotationsFromNiceCX(cy, niceCX);
+            cx2canvas.drawBackgroundFromNiceCX(cy, niceCX);
 
             date = new Date();
             var endTime = date.getTime();

@@ -495,6 +495,22 @@ class CxToCyCanvas {
         };
     }
 
+    drawBackgroundFromNiceCX(cytoscapeInstance, niceCX) {
+        const cx2js = this.cx2js;
+        const backgroundLayer = cytoscapeInstance.cyCanvas({
+            zIndex: -2
+        });
+        const cxBGColor = cx2js.cyBackgroundColorFromNiceCX(niceCX);
+
+        const backgroundCanvas = backgroundLayer.getCanvas();
+        const backgroundCtx = backgroundCanvas.getContext("2d");
+
+        cytoscapeInstance.on("render cyCanvas.resize", evt => {
+            backgroundCtx.fillStyle = cxBGColor;
+            backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
+        });
+    }
+
     drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX) {
         var cx2js = this.cx2js;
         //console.log("setting up annotations");
