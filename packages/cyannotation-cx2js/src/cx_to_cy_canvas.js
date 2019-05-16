@@ -1,11 +1,9 @@
-let _ = require('lodash');
-
 class CxToCyCanvas {
 
     constructor(cx2js) {
         var self = this;
 
-        self.cx2js = cx2js;
+        self.cx2js = cx2js; 
 
         this._findIntersection = function (p1, p2, p3, p4) {
 
@@ -555,13 +553,13 @@ class CxToCyCanvas {
             var bottomAnnotations = [];
 
             if (niceCX['networkAttributes']) {
-                _.forEach(niceCX['networkAttributes']['elements'], function (element) {
+                niceCX['networkAttributes']['elements'].forEach( function (element) {
                     if (element['n'] == '__Annotations') {
 
-                        _.forEach(element['v'], function (annotation) {
+                        element['v'].forEach(function (annotation) {
                             var annotationKVList = annotation.split("|");
                             var annotationMap = {};
-                            _.forEach(annotationKVList, function (annotationKV) {
+                            annotationKVList.forEach(function (annotationKV) {
                                 var kvPair = annotationKV.split("=");
                                 annotationMap[kvPair[0]] = kvPair[1];
                             });
@@ -591,9 +589,9 @@ class CxToCyCanvas {
             var contextAnnotationMap = [
                 { context: topCtx, annotations: topAnnotations },
                 { context: bottomCtx, annotations: bottomAnnotations }];
-            _.forEach(contextAnnotationMap, function (contextAnnotationPair) {
+                contextAnnotationMap.forEach(function (contextAnnotationPair) {
                 let ctx = contextAnnotationPair.context;
-                _.forEach(contextAnnotationPair.annotations, function (annotationUUID) {
+                contextAnnotationPair.annotations.forEach(function (annotationUUID) {
                     let annotationMap = indexedAnnotations[annotationUUID];
                     if (annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.ShapeAnnotation' || annotationMap['type'] == 'org.cytoscape.view.presentation.annotations.BoundedTextAnnotation') {
                         //ctx.beginPath();
