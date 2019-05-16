@@ -5,7 +5,7 @@
 <head>
     <title>CX to JS in a webpage</title>
     <script src="../../build/bundle.js"></script>
-    <script src="cytoscape.min.js"></script>
+    <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>
 </head>
 
 <style>
@@ -96,7 +96,7 @@
             };
 
             var cy = cytoscape(cytoscapeJS);
-
+            cy.fit()
             date = new Date();
             var endTime = date.getTime();
             console.info('cytoscape js init time: '+ (endTime - startTime) + ' milliseconds');
