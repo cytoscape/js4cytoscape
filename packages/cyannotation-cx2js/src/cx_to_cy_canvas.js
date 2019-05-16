@@ -495,12 +495,17 @@ class CxToCyCanvas {
         };
     }
 
-    drawBackgroundFromNiceCX(cytoscapeInstance, niceCX) {
+    drawBackgroundFromNiceCX(cytoscapeInstance, niceCX) { 
         const cx2js = this.cx2js;
+        const cxBGColor = cx2js.cyBackgroundColorFromNiceCX(niceCX); 
+        this.drawBackground(cytoscapeInstance, cxBGColor);
+    }
+
+    drawBackground(cytoscapeInstance, cxBGColor) {
+        
         const backgroundLayer = cytoscapeInstance.cyCanvas({
             zIndex: -2
         });
-        const cxBGColor = cx2js.cyBackgroundColorFromNiceCX(niceCX);
 
         const backgroundCanvas = backgroundLayer.getCanvas();
         const backgroundCtx = backgroundCanvas.getContext("2d");
