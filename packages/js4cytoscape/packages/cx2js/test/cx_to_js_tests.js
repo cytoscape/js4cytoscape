@@ -856,6 +856,32 @@ describe('CX to JS', function () {
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
 
+  it('cxToJs boolean passthroughMappingStyle', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_LABEL";
+    var cxElementType = "node";
+
+    var cxDef = {
+      'COL': 'COMMON',
+      'T': 'boolean',
+      'm': {}
+    };
+
+    let jsPassthroughMappingStyle = [
+      {
+        "css": {
+          "content": "data(COMMON)"
+        },
+        "selector": "node[COMMON]"
+      }];
+
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {});
+
+    expect(result).to.eql(jsPassthroughMappingStyle);
+  });
+
   it('cxToJs expand EDGE_BEND', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
