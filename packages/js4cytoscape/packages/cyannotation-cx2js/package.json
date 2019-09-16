@@ -10,7 +10,7 @@
     "url": "https://github.com/cytoscape/cyannotation-cx2js/issues"
   },
   "homepage": "https://github.com/cytoscape/cyannotation-cx2js/",
-  "main": "./build/bundle.js",
+  "main": "./dist/build/bundle.js",
   "scripts": {
     "prepublish": "run-s build",
     "lint:js": "eslint ./src",
