@@ -742,9 +742,9 @@ class CxToCyCanvas {
               parseFloat(annotationMap["y"]) + annotationMap["height"] / 2;
           }
           if (text && textX && textY) {
-            var fontSize =
-              parseFloat(annotationMap["fontSize"]) /
-              parseFloat(annotationMap["zoom"]);
+            const zoom = annotationMap["zoom"] ? parseFloat(annotationMap["zoom"]) : 1;
+            const fontSize =
+              parseFloat(annotationMap["fontSize"]) / zoom;
             var fontFamily;
 
             if (annotationMap["fontFamily"]) {
