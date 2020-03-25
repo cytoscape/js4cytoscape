@@ -217,6 +217,37 @@ describe("CX to Cytoscape JS Canvas", function() {
     expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
   });
 
+  it("text nozoom test", function() {
+    let niceCX = {
+      networkAttributes: {
+        elements: [
+          {
+            s: 80,
+            n: "__Annotations",
+            v: [
+              "canvas=foreground|color=-16777216|type=org.cytoscape.view.presentation.annotations.TextAnnotation|fontStyle=0|uuid=top|fontFamily=Dialog|name=Foreground Text|x=-252.53260026937016|y=-53.39435123657143|z=9|fontSize=10|text=Foreground Text"
+            ],
+            d: "list_of_string"
+          }
+        ]
+      }
+    };
+
+    cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
+
+    resizeFunction();
+
+    expect(topCtxSpy.fillText.args).to.eql([
+      ["Foreground Text", "-252.53260026937016", "-53.39435123657143"]
+    ]);
+    expect(topCtxSpy.textBaseline).to.eql("top");
+    expect(topCtxSpy.textAlign).to.eql("left");
+    expect(topCtxSpy.font).to.eql(
+      "10px Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif"
+    );
+    expect(topCtxSpy.fillStyle).to.eql("rgb(0,0,0,1)");
+  });
+
   it("rectangle test", function() {
     let niceCX = {
       networkAttributes: {
@@ -243,6 +274,40 @@ describe("CX to Cytoscape JS Canvas", function() {
         "-30.839164241532043",
         45.46873375131503,
         116.67183460460876
+      ]
+    ]);
+    expect(topCtxSpy.fill.callCount).to.eql(1);
+    expect(topCtxSpy.stroke.callCount).to.eql(1);
+    expect(topCtxSpy.fillStyle).to.eql("rgb(255,0,51,1)");
+    expect(topCtxSpy.strokeStyle).to.eql("rgb(0,0,0,1)");
+  });
+
+  it("rectangle nozoom test", function() {
+    let niceCX = {
+      networkAttributes: {
+        elements: [
+          {
+            s: 80,
+            n: "__Annotations",
+            v: [
+              "edgeThickness=1.0|canvas=foreground|fillOpacity=100.0|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=90451f53-fbdb-453c-9877-c33bb0322609|fillColor=-65485|shapeType=RECTANGLE|edgeColor=-16777216|edgeOpacity=100.0|name=Shape 2|x=44.088963266363095|width=39.846177041461154|y=-30.839164241532043|z=10|height=102.24446985557103"
+            ],
+            d: "list_of_string"
+          }
+        ]
+      }
+    };
+
+    cx2canvas.drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX);
+
+    resizeFunction();
+
+    expect(topCtxSpy.rect.args).to.eql([
+      [
+        "44.088963266363095",
+        "-30.839164241532043",
+        39.846177041461154,
+        102.24446985557103
       ]
     ]);
     expect(topCtxSpy.fill.callCount).to.eql(1);
