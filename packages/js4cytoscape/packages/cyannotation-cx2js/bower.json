@@ -1,7 +1,7 @@
 {
   "name": "cyannotation-cx2js",
   "description": "Renders Cytoscape Desktop annotations from CX files via cytoscape.js-canvas",
-  "main": "./build/bundle.js",
+  "main": "./dist/build/bundle.js",
   "authors": [
     "David Otasek"
   ],
