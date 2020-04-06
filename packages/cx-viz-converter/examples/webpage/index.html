@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>CX to X</title>
+    <script src="../../build/bundle.js"></script>
+    <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>
+</head>
+
+<style>
+    #cy {
+        background-color: white;
+        width: 100%;
+        height: 600px;
+        top: 0px;
+        left: 0px;
+        z-index: 0;
+        letter-spacing: 1px;
+    }
+</style>
+
+<body>
+    <div id="cy"></div>
+    <script>
+
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        function loadJSON(file, callback) {
+            var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+            xobj.open('GET', file, true); // Replace 'my_data' with the path to your file
+            xobj.onreadystatechange = function () {
+                if (xobj.readyState == 4 && xobj.status == "200") {
+                    // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                    callback(xobj.responseText);
+                }
+            };
+            xobj.send(null);
+        }
+
+        var fileName = getUrlVars()['networkFile'];
+        if (!fileName) {
+            fileName = "../../test/resources/example_1.cx";
+        }
+
+        loadJSON(fileName, function (r1) {
+
+            const date = new Date();
+            const startTime = date.getTime();
+
+            const rawCX = JSON.parse(r1);
+            const cytoscapeData = cxVizConverter.convert(rawCX, 'cytoscapeJS')
+            console.info(JSON.stringify(cytoscapeData));
+
+            var endTime = date.getTime();
+
+            //document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
+
+            var cytoscapeJS = {
+                container: document.getElementById('cy'),
+                style: cytoscapeData.style,
+                elements: cytoscapeData.elements,
+                layout: {
+                    "name": "preset",
+                    "animate": false,
+                    "numIter": 50,
+                    "coolingFactor": 0.9
+                }
+            };
+
+            var cy = cytoscape(cytoscapeJS);
+            cy.fit()
+
+            console.info('cytoscape js init time: ' + (endTime - startTime) + ' milliseconds');
+        });
+
+
+    </script>
+</body>
+
+</html>
