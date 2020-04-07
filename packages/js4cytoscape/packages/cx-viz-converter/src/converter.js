@@ -1,7 +1,7 @@
 
 const cxConstants = require('./cxConstants.js');
-const largeNetwork = require ('./largeNetwork.js'); 
-const cytoscapeJS = require ('./cytoscapeJS.js');
+const largeNetwork = require ('./largeNetwork/largeNetwork.js'); 
+const cytoscapeJS = require ('./cytoscapeJS/cytoscapeJS.js');
 const cxUtil = require('./cxUtil.js');
 
 function verifyVersion(cx) {

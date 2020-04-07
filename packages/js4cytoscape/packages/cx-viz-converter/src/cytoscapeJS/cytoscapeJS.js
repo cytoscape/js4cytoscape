@@ -1,6 +1,6 @@
 
-const cxConstants = require('./cxConstants.js');
-const cxUtil = require('./cxUtil.js');
+const cxConstants = require('../cxConstants.js');
+const cxUtil = require('../cxUtil.js');
 
 function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
     const targetStyleEntry = new Map();
