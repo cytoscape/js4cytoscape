@@ -1,5 +1,6 @@
 
 const cxConstants = require('../cxConstants.js');
+const jsConstants = require('./cytoscapeJSConstants.js');
 const cxUtil = require('../cxUtil.js');
 
 function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
@@ -10,18 +11,18 @@ function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
 
 const defaultPropertyConvert = {
     'node': {
-        'shape': (portablePropertyValue) => simpleDefaultPropertyConvert('shape', portablePropertyValue),
-        'width': (portablePropertyValue) => simpleDefaultPropertyConvert('width', portablePropertyValue),
-        'height': (portablePropertyValue) => simpleDefaultPropertyConvert('height', portablePropertyValue),
-        'background-color': (portablePropertyValue) => simpleDefaultPropertyConvert('background-color', portablePropertyValue),
-        'background-opacity': (portablePropertyValue) => simpleDefaultPropertyConvert('background-opacity', portablePropertyValue),
-        'label': (portablePropertyValue) => simpleDefaultPropertyConvert('label', portablePropertyValue),
-        'label-color': (portablePropertyValue) => simpleDefaultPropertyConvert('label-color', portablePropertyValue)
+        'shape': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.shape, portablePropertyValue),
+        'width': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
+        'height': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.height, portablePropertyValue),
+        'background-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_color, portablePropertyValue),
+        'background-opacity': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
+        'label': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
+        'label-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue)
     },
     'edge': {
-        'width': (portablePropertyValue) => simpleDefaultPropertyConvert('width', portablePropertyValue),
-        'opacity': (portablePropertyValue) => simpleDefaultPropertyConvert('opacity', portablePropertyValue),
-        'line-color': (portablePropertyValue) => simpleDefaultPropertyConvert('line-color', portablePropertyValue)
+        'width': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
+        'opacity': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
+        'line-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue)
     },
 }
 
@@ -144,11 +145,10 @@ function getCSSMappingEntries(
                 output.push(getPassthroughMappingCSSEntry(key, cxMappingEntry.definition, entityType));
                 break;
             }
-            case 'discrete':
-                {
-                    getDiscreteMappingCSSEntry(key, cxMappingEntry.definition, entityType);
-                    break;
-                }
+            case 'discrete': {
+                getDiscreteMappingCSSEntry(key, cxMappingEntry.definition, entityType);
+                break;
+            }
         }
 
     });
@@ -198,6 +198,7 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
     output.style.push(getStyleElement(EDGE_SELECTOR, defaultCSSEdgeStyle));
 
     output.style.push.apply(output.style, mappingCSSNodeStyle);
+    output.style.push.apply(output.style, mappingCSSEdgeStyle);
 
     output['background-color'] = cssNetworkBackgroundColor;
 
