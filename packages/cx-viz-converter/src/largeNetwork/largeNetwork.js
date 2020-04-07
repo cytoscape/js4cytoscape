@@ -1,6 +1,6 @@
 
-const cxConstants = require('./cxConstants.js');
-const cxUtil = require('./cxUtil.js');
+const cxConstants = require('../cxConstants.js');
+const cxUtil = require('../cxUtil.js');
 
 function lnvConvert(cx) {
     let output = {};
