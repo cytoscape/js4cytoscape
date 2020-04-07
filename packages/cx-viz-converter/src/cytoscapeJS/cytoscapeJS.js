@@ -48,6 +48,34 @@ const passthroughMappingConvert = {
         'line-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName)
     },
 }
+function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
+    let output = {};
+    output[targetStyleField] = 'mapData(' + attributeName 
+    + ', ' + minValue 
+    + ', ' + maxValue 
+    + ', ' + minVP 
+    + ', ' + maxVP
+    + ')';
+    return output;
+}
+
+const mapDataPropertyConvert = {
+    'node': {
+        'shape': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.shape, attributeName, minValue, maxValue, minVP, maxVP),
+        'width': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
+        'height': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.height, attributeName, minValue, maxValue, minVP, maxVP),
+        'background-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_color, attributeName, minValue, maxValue, minVP, maxVP),
+        'background-opacity': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'label': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
+        'label-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP)
+    },
+    'edge': {
+        'width': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
+        'opacity': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'line-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP)
+    },
+}
+
 
 function getCSSStyleEntries(cxStyleEntries, entityType) {
     let output = {};
@@ -74,8 +102,34 @@ function getStyleElement(selector, css) {
     return { 'selector': selector, 'style': css };
 }
 
-function getContinuousMappingCSSEntry(portablePropertyKey, cxMappingDefinition, entityType) {
-    return {};
+function getContinuousSelector(entityType, attributeName, minValue, maxValue, includeMin, includeMax) {
+    const minCondition = includeMin ? '>=' : '>';
+    const maxCondition = includeMax ? '<=' : '<';
+
+    return entityType + '['+attributeName+' '  + minCondition + ' '+minValue+']['+attributeName+' ' + maxCondition + ' '+maxValue+']'
+}
+
+function getContinuousStyle(entityType, portablePropertyKey, attributeName, minValue, maxValue, minVP, maxVP) {
+    let output = {};
+    if (mapDataPropertyConvert[entityType][portablePropertyKey]) {
+        return mapDataPropertyConvert[entityType][portablePropertyKey](attributeName, minValue, maxValue, minVP, maxVP);
+    }
+    return output;
+}
+
+function getContinuousMappingCSSEntries(portablePropertyKey, cxMappingDefinition, entityType, attributeTypeMap) {
+    let output = [];
+    const attributeName = cxMappingDefinition['attribute'];
+    const rangeMaps = cxMappingDefinition['map'];
+    console.log('continuous mapping for ' + attributeName + ': ' + JSON.stringify(rangeMaps, null, 2));
+    
+    rangeMaps.forEach((range)=> {
+        const selector = getContinuousSelector(entityType, attributeName, range.min, range.max, range.includeMin, range.includeMax);
+        const style = getContinuousStyle(entityType, portablePropertyKey, attributeName, range.min, range.max, range.minVPValue, range.maxVPValue);
+        
+        output.push(getStyleElement(selector, style));
+    });
+    return output;
 }
 
 function getPassthroughMappingCSSEntry(portablePropertyKey, cxMappingDefinition, entityType) {
@@ -101,14 +155,13 @@ function getDiscreteSelector(entityType, attributeName, attributeDataType, attri
     }
 }
 
-
-function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, entityType) {
+function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, entityType, attributeTypeMap) {
     let output = [];
     const atttributeToValueMap = cxMappingDefinition['map'];
     const attributeName = cxMappingDefinition['attribute'];
-    const attributeDataType = 'string';
+    const attributeDataType = attributeTypeMap.get(attributeName);
     atttributeToValueMap.forEach((discreteMap) => {
-        console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' -> ' + discreteMap.vp);
+        console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' (' + attributeName + '<' +attributeDataType +'>) -> ' + discreteMap.vp);
 
         const selector = getDiscreteSelector(entityType, attributeName, attributeDataType, discreteMap.v);
        
@@ -140,7 +193,10 @@ function getCSSMappingEntries(
         console.log(" mapping type: " + cxMappingEntry.type);
         switch (cxMappingEntry.type) {
             case 'continuous': {
-
+                const continousMappings = getContinuousMappingCSSEntries(key, cxMappingEntry.definition, entityType, attributeTypeMap);
+                continousMappings.forEach((continousMapping) => {
+                    output.push(continousMapping);
+                })
                 break;
             }
             case 'passthrough': {
@@ -148,7 +204,7 @@ function getCSSMappingEntries(
                 break;
             }
             case 'discrete': {
-                const discreteMappings = getDiscreteMappingCSSEntries(key, cxMappingEntry.definition, entityType);
+                const discreteMappings = getDiscreteMappingCSSEntries(key, cxMappingEntry.definition, entityType, attributeTypeMap);
                 discreteMappings.forEach((discreteMapping) => {
                     output.push(discreteMapping);
                 })
@@ -341,11 +397,11 @@ const converter = {
         });
 
         nodeAttributeTypeMap.forEach((inferredType, attributeName) => {
-            console.log('inferred attribute type for node.' + attributeName + ': ' + inferredType);
+            console.log('inferred attribute type for node: ' + attributeName + ': ' + inferredType);
         });
 
         edgeAttributeTypeMap.forEach((inferredType, attributeName) => {
-            console.log('inferred attribute type for edge.' + attributeName + ': ' + inferredType);
+            console.log('inferred attribute type for edge: ' + attributeName + ': ' + inferredType);
         });
 
         //Add nodes
@@ -374,7 +430,7 @@ const converter = {
             output.elements.edges.push(element)
         });
 
-        const style = getVisualProperties(cxVisualProperties, cxAttributeDeclarations);
+        const style = getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
         output.style = style.style;
         output['background-color'] = style['background-color'];
