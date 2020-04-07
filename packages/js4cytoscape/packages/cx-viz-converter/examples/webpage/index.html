@@ -63,7 +63,6 @@
             
             console.info(JSON.stringify(cytoscapeData));
 
-            var endTime = new Date().getTime();
 
             //document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
 
@@ -81,8 +80,6 @@
 
             var cy = cytoscape(cytoscapeJS);
             cy.fit()
-
-            console.info('cytoscape js init time: ' + (endTime - startTime) + ' milliseconds');
         });
 
 
