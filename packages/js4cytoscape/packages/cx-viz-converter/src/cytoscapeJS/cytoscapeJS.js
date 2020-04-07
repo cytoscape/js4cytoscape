@@ -34,18 +34,18 @@ function simplePassthroughMappingConvert(targetStyleField, attributeName) {
 
 const passthroughMappingConvert = {
     'node': {
-        'shape': (attributeName) => simplePassthroughMappingConvert('shape', attributeName),
-        'width': (attributeName) => simplePassthroughMappingConvert('width', attributeName),
-        'height': (attributeName) => simplePassthroughMappingConvert('height', attributeName),
-        'background-color': (attributeName) => simplePassthroughMappingConvert('background-color', attributeName),
-        'background-opacity': (attributeName) => simplePassthroughMappingConvert('background-opacity', attributeName),
-        'label': (attributeName) => simplePassthroughMappingConvert('label', attributeName),
-        'label-color': (attributeName) => simplePassthroughMappingConvert('label-color', attributeName)
+        'shape': (attributeName) => simplePassthroughMappingConvert(jsConstants.shape, attributeName),
+        'width': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
+        'height': (attributeName) => simplePassthroughMappingConvert(jsConstants.height, attributeName),
+        'background-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_color, attributeName),
+        'background-opacity': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_opacity, attributeName),
+        'label': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
+        'label-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName)
     },
     'edge': {
-        'width': (attributeName) => simplePassthroughMappingConvert('width', attributeName),
-        'opacity': (attributeName) => simplePassthroughMappingConvert('opacity', attributeName),
-        'line-color': (attributeName) => simplePassthroughMappingConvert('line-color', attributeName)
+        'width': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
+        'opacity': (attributeName) => simplePassthroughMappingConvert(jsConstants.opacity, attributeName),
+        'line-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName)
     },
 }
 
@@ -102,7 +102,8 @@ function getDiscreteSelector(entityType, attributeName, attributeDataType, attri
 }
 
 
-function getDiscreteMappingCSSEntry(portablePropertyKey, cxMappingDefinition, entityType) {
+function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, entityType) {
+    let output = [];
     const atttributeToValueMap = cxMappingDefinition['map'];
     const attributeName = cxMappingDefinition['attribute'];
     const attributeDataType = 'string';
@@ -110,19 +111,20 @@ function getDiscreteMappingCSSEntry(portablePropertyKey, cxMappingDefinition, en
         console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' -> ' + discreteMap.vp);
 
         const selector = getDiscreteSelector(entityType, attributeName, attributeDataType, discreteMap.v);
-        console.log('  selector: ' + selector);
+       
         if (defaultPropertyConvert[entityType][portablePropertyKey]) {
             const styleMap = defaultPropertyConvert[entityType][portablePropertyKey](discreteMap.vp);
             const css = {};
             styleMap.forEach((value, key) => {
                 css[key] = value;
             });
-            console.log('   style: ' + JSON.stringify(css));
+            output.push(getStyleElement(selector, css));
+            //console.log('   style: ' + JSON.stringify(css));
         }
     });
 
 
-    return null; //getStyleElement(selector, css);
+    return output; //getStyleElement(selector, css);
 }
 
 /** 
@@ -146,7 +148,10 @@ function getCSSMappingEntries(
                 break;
             }
             case 'discrete': {
-                getDiscreteMappingCSSEntry(key, cxMappingEntry.definition, entityType);
+                const discreteMappings = getDiscreteMappingCSSEntries(key, cxMappingEntry.definition, entityType);
+                discreteMappings.forEach((discreteMapping) => {
+                    output.push(discreteMapping);
+                })
                 break;
             }
         }
