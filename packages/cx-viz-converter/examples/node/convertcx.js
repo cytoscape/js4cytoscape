@@ -25,8 +25,6 @@ const loadEndTime = new Date().getTime();
 
 console.info('loaded in: ' + (loadEndTime - loadStartTime) + ' milliseconds');
 
-
-
 const convertStartTime = new Date().getTime();
 
 var converted = converter.convert(rawCX, targetFormat);

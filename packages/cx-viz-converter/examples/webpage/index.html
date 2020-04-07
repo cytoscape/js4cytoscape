@@ -52,14 +52,18 @@
 
         loadJSON(fileName, function (r1) {
 
-            const date = new Date();
-            const startTime = date.getTime();
-
             const rawCX = JSON.parse(r1);
+
+            const convertStartTime = new Date().getTime();
+
             const cytoscapeData = cxVizConverter.convert(rawCX, 'cytoscapeJS')
+            
+            const convertEndTime = new Date().getTime();
+            console.info('loaded in: ' + (convertEndTime - convertStartTime) + ' milliseconds');
+            
             console.info(JSON.stringify(cytoscapeData));
 
-            var endTime = date.getTime();
+            var endTime = new Date().getTime();
 
             //document.getElementById('cy').style.backgroundColor = cyBackgroundColor;
 
