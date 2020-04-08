@@ -229,7 +229,7 @@
                             "EDGE_LABEL_TRANSPARENCY": "255",
                             "EDGE_LABEL_WIDTH": "200.0",
                             "EDGE_LINE_TYPE": "SOLID",
-                            "line-color": "#323232",
+                            "EDGE_LINE_COLOR": "#323232",
                             "EDGE_SELECTED": "false",
                             "EDGE_SELECTED_PAINT": "#FF0000",
                             "EDGE_SOURCE_ARROW_SELECTED_PAINT": "#FFFF00",
@@ -242,14 +242,14 @@
                             "EDGE_TARGET_ARROW_SHAPE": "NONE",
                             "EDGE_TARGET_ARROW_SIZE": "6.0",
                             "EDGE_TARGET_ARROW_UNSELECTED_PAINT": "#000000",
-                            "line-opacity": 1,
+                            "EDGE_OPACITY": 1,
                             "EDGE_UNSELECTED_PAINT": "#404040",
                             "EDGE_VISIBLE": "true",
-                            "width": 2.0,
+                            "EDGE_WIDTH": 2.0,
                             "arrowColorMatchesEdge": "false"
                         },
                         "network": {
-                            "background-color": "#FFFFFF"
+                            "NETWORK_BACKGROUND_COLOR": "#FFFFFF"
                         },
                         "node": {
                             "NODE_BORDER_PAINT": "#CCCCCC",
@@ -257,9 +257,9 @@
                             "NODE_BORDER_TRANSPARENCY": "255",
                             "NODE_BORDER_WIDTH": "0.0",
                             "NODE_DEPTH": "0.0",
-                            "background-color": "#89D0F5",
-                            "background-opacity": 1,
-                            "height": 35.0,
+                            "NODE_BACKGROUND_COLOR": "#89D0F5",
+                            "NODE_BACKGROUND_OPACITY": 1,
+                            "NODE_HEIGHT": 35.0,
                             "NODE_LABEL_COLOR": "#000000",
                             "NODE_LABEL_FONT_FACE": "SansSerif,plain,12",
                             "NODE_LABEL_FONT_SIZE": "12",
@@ -270,9 +270,9 @@
                             "NODE_PAINT": "#1E90FF",
                             "NODE_SELECTED": "false",
                             "NODE_SELECTED_PAINT": "#FFFF00",
-                            "shape": "ellipse",
+                            "NODE_SHAPE": "ellipse",
                             "NODE_VISIBLE": "true",
-                            "width": 35.0,
+                            "NODE_WIDTH": 35.0,
                             "NODE_X_LOCATION": "0.0",
                             "NODE_Y_LOCATION": "0.0",
                             "NODE_Z_LOCATION": "0.0",
@@ -280,7 +280,7 @@
                         }
                     },
                     "edgeMapping": {
-                        "curve-style": {
+                        "EDGE_CURVE_STYLE": {
                             "definition": {
                                 "attribute": "Is_Tree_Edge",
                                 "map": [
@@ -294,7 +294,7 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         },
                         "EDGE_SOURCE_ARROW_UNSELECTED_PAINT": {
                             "definition": {
@@ -310,7 +310,7 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         },
                         "EDGE_STROKE_UNSELECTED_PAINT": {
                             "definition": {
@@ -326,11 +326,11 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         }
                     },
                     "nodeMapping": {
-                        "background-color": {
+                        "NODE_BACKGROUND_COLOR": {
                             "definition": {
                                 "attribute": "annot_source",
                                 "map": [
@@ -348,15 +348,15 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         },
-                        "label": {
+                        "NODE_LABEL": {
                             "definition": {
                                 "attribute": "annot"
                             },
-                            "type": "passthrough"
+                            "type": "PASSTHROUGH"
                         },
-                        "font-size": {
+                        "NODE_LABEL_FONT_SIZE": {
                             "definition": {
                                 "attribute": "Size",
                                 "map": [
@@ -378,9 +378,9 @@
                                     }
                                 ]
                             },
-                            "type": "continuous"
+                            "type": "CONTINUOUS"
                         },
-                        "width": {
+                        "NODE_WIDTH": {
                             "definition": {
                                 "attribute": "Size",
                                 "map": [
@@ -410,9 +410,9 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         },
-                        "height": {
+                        "NODE_HEIGHT": {
                             "definition": {
                                 "attribute": "Size",
                                 "map": [
@@ -442,7 +442,7 @@
                                     }
                                 ]
                             },
-                            "type": "discrete"
+                            "type": "DISCRETE"
                         }
                     }
                 }
