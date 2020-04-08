@@ -302,10 +302,6 @@ const converter = {
             'background-color': null
         }
 
-        let nodeMap = new Map();
-        let edgeMap = new Map();
-
-       
         let cxVisualProperties = undefined;
 
         let nodeAttributeTypeMap = new Map();
@@ -332,28 +328,11 @@ const converter = {
             } else if (cxAspect['nodes']) {
                 const cxNodes = cxAspect['nodes'];
                 cxNodes.forEach((cxNode) => {
-                    const cxId = cxNode['id'].toString();
-                    nodeMap.set(cxId, {
-                        id: cxNode['id'],
-                        v: cxNode['v'],
-                        layout: {
-                            x: cxNode['x'],
-                            y: cxNode['y'],
-                            z: cxNode['z']
-                        }
-                    });
                     cxUtil.updateInferredTypes(nodeAttributeTypeMap, nodeAttributeNameMap, cxNode['v']);
                 });
             } else if (cxAspect['edges']) {
                 const cxEdges = cxAspect['edges'];
                 cxEdges.forEach((cxEdge) => {
-                    const cxId = cxEdge['id'].toString();
-                    edgeMap.set(cxId, {
-                        id: cxEdge['id'],
-                        v: cxEdge['v'],
-                        s: cxEdge['s'],
-                        t: cxEdge['t']
-                    });
                     cxUtil.updateInferredTypes(edgeAttributeTypeMap, edgeAttributeNameMap, cxEdge['v']);
                 });
             } else if (cxAspect['visualProperties']) {
@@ -371,28 +350,36 @@ const converter = {
 
         //Add nodes
         output.elements['nodes'] = [];
-        output.elements['edges'] = [];
-        nodeMap.forEach((cxNode, key) => {
-            const element = {};
-            element['data'] = cxUtil.getExpandedAttributes(cxNode.v, nodeAttributeNameMap, nodeAttributeDefaultValueMap);
-            element['data']['id'] = cxNode.id;
-            element['position'] = {
-                x: cxNode.layout.x,
-                y: cxNode.layout.y
-            }
-            output.elements.nodes.push(element)
-        });
 
         //Add edges
         output.elements['edges'] = [];
-        edgeMap.forEach((cxEdge, key) => {
+
+
+cx.forEach((cxAspect) => {
+     if (cxAspect['nodes']) {
+        const cxNodes = cxAspect['nodes'];
+        cxNodes.forEach((cxNode) => {
             const element = {};
-            element['data'] = cxUtil.getExpandedAttributes(cxEdge.v, edgeAttributeNameMap, edgeAttributeDefaultValueMap);
-            element['data']['id'] = cxEdge.id;
-            element['data']['source'] = cxEdge.s;
-            element['data']['target'] = cxEdge.t;
+            element['data'] = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
+            element['data']['id'] = cxNode.id.toString();
+            element['position'] = {
+                x: cxNode['x'],
+                y: cxNode['y']
+            }
+            output.elements.nodes.push(element)
+        });
+    } else if (cxAspect['edges']) {
+        const cxEdges = cxAspect['edges'];
+        cxEdges.forEach((cxEdge) => {
+            const element = {};
+            element['data'] = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
+            element['data']['id'] = cxEdge.id.toString();
+            element['data']['source'] = cxEdge['s'];
+            element['data']['target'] = cxEdge['t'];
             output.elements.edges.push(element)
         });
+    } 
+});
 
         const style = getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
