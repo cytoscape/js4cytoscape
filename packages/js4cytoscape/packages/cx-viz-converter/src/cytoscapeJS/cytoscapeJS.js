@@ -233,6 +233,9 @@ function getCSSMappingEntries(
     return output;
 }
 
+const NODE_SELECTOR = 'node';
+const EDGE_SELECTOR = 'edge';
+
 function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap) {
     let output = {
         style: [],
@@ -286,8 +289,7 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
     return output;
 }
 
-const NODE_SELECTOR = 'node';
-const EDGE_SELECTOR = 'edge';
+
 
 function getData(v, attributeNameMap, attributeDefaultValueMap) {
     let data = {};
@@ -303,34 +305,7 @@ function getData(v, attributeNameMap, attributeDefaultValueMap) {
     return data;
 }
 
-function updateAttributeTypeMap(attributeTypeMap, attributeDeclarations) {
-    Object.keys(attributeDeclarations).forEach((attributeName) => {
-        const attributeDeclaration = attributeDeclarations[attributeName];
-        if (attributeDeclaration['d']) {
-            attributeTypeMap.set(attributeName, attributeDeclaration.d);
-        }
-    });
-}
 
-function updateAttributeNameMap(attributeNameMap, attributeDeclarations) {
-    Object.keys(attributeDeclarations).forEach((attributeName) => {
-        const attributeDeclaration = attributeDeclarations[attributeName];
-        if (attributeDeclaration['a']) {
-            console.log('attribute ' + attributeDeclaration.a + ' should be renamed to ' + attributeName);
-            attributeNameMap.set(attributeDeclaration.a, attributeName);
-        }
-    });
-}
-
-function updateAttributeDefaultValueMap(attributeDefaultValueMap, attributeDeclarations) {
-    Object.keys(attributeDeclarations).forEach((attributeName) => {
-        const attributeDeclaration = attributeDeclarations[attributeName];
-        if (attributeDeclaration['v']) {
-            console.log('attribute ' + attributeName + ' has default value ' + attributeDeclaration.v);
-            attributeDefaultValueMap.set(attributeName, attributeDeclaration.v);
-        }
-    });
-}
 
 const converter = {
     targetFormat: 'cytoscapeJS',
@@ -345,7 +320,7 @@ const converter = {
         let nodeMap = new Map();
         let edgeMap = new Map();
 
-        let cxAttributeDeclarations = undefined;
+       
         let cxVisualProperties = undefined;
 
         let nodeAttributeTypeMap = new Map();
@@ -357,33 +332,18 @@ const converter = {
         let nodeAttributeDefaultValueMap = new Map();
         let edgeAttributeDefaultValueMap = new Map();
 
-        let updateInferredTypes = function (attributeTypeMap, attributeNameMap, v) {
-            Object.keys(v).forEach((key) => {
-                if (!attributeTypeMap.has(key)) {
-                    const value = v[key];
-                    const inferredType = typeof value;
-                    const newKey = attributeNameMap.has(key) ? attributeNameMap.get(key) : key;
-                    attributeTypeMap.set(newKey, inferredType);
-                }
-            })
-        }
-
         cx.forEach((cxAspect) => {
             if (cxAspect['attributeDeclarations']) {
-                cxAttributeDeclarations = cxAspect['attributeDeclarations'];
+                const cxAttributeDeclarations = cxAspect['attributeDeclarations'];
                 console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
-                cxAttributeDeclarations.forEach((cxAttributeDeclaration) => {
-                    if (cxAttributeDeclaration['nodes']) {
-                        updateAttributeNameMap(nodeAttributeNameMap, cxAttributeDeclaration.nodes);
-                        updateAttributeTypeMap(nodeAttributeTypeMap, cxAttributeDeclaration.nodes);
-                        updateAttributeDefaultValueMap(nodeAttributeDefaultValueMap, cxAttributeDeclaration.nodes);
-                    }
-                    if (cxAttributeDeclaration['edges']) {
-                        updateAttributeNameMap(edgeAttributeNameMap, cxAttributeDeclaration.edges);
-                        updateAttributeTypeMap(edgeAttributeTypeMap, cxAttributeDeclaration.edges);
-                        updateAttributeDefaultValueMap(edgeAttributeDefaultValueMap, cxAttributeDeclaration.edges);
-                    }
-                });
+                cxUtil.processAttributeDeclarations(cxAttributeDeclarations,
+                    nodeAttributeNameMap,
+                    nodeAttributeTypeMap,
+                    nodeAttributeDefaultValueMap,
+                    edgeAttributeNameMap,
+                    edgeAttributeTypeMap,
+                    edgeAttributeDefaultValueMap
+                    );
             } else if (cxAspect['nodes']) {
                 const cxNodes = cxAspect['nodes'];
                 cxNodes.forEach((cxNode) => {
@@ -397,7 +357,7 @@ const converter = {
                             z: cxNode['z']
                         }
                     });
-                    updateInferredTypes(nodeAttributeTypeMap, nodeAttributeNameMap, cxNode['v']);
+                    cxUtil.updateInferredTypes(nodeAttributeTypeMap, nodeAttributeNameMap, cxNode['v']);
                 });
             } else if (cxAspect['edges']) {
                 const cxEdges = cxAspect['edges'];
@@ -409,7 +369,7 @@ const converter = {
                         s: cxEdge['s'],
                         t: cxEdge['t']
                     });
-                    updateInferredTypes(edgeAttributeTypeMap, edgeAttributeNameMap, cxEdge['v']);
+                    cxUtil.updateInferredTypes(edgeAttributeTypeMap, edgeAttributeNameMap, cxEdge['v']);
                 });
             } else if (cxAspect['visualProperties']) {
                 cxVisualProperties = cxAspect['visualProperties'];
@@ -435,7 +395,6 @@ const converter = {
                 x: cxNode.layout.x,
                 y: cxNode.layout.y
             }
-
             output.elements.nodes.push(element)
         });
 
