@@ -180,6 +180,24 @@ function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, 
     return output; //getStyleElement(selector, css);
 }
 
+function getBypassCSSEntry(entityType, cxElement) {
+   
+    const id = cxElement.po;
+    const css = {};
+    Object.keys(cxElement.v).forEach((portablePropertyKey) => {
+        const portablePropertyValue = cxElement.v[portablePropertyKey];
+        if (defaultPropertyConvert[entityType][portablePropertyKey]) {
+            const styleMap = defaultPropertyConvert[entityType][portablePropertyKey](portablePropertyValue);
+            styleMap.forEach((value, key) => {
+                css[key] = value;
+            });
+        }
+    });
+
+    const selector = getIdSelector(id);
+    return getStyleElement(selector, css);
+}
+
 /** 
  * 
 */
@@ -211,7 +229,6 @@ function getCSSMappingEntries(
                 break;
             }
         }
-
     });
     return output;
 }
@@ -230,6 +247,8 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
     let mappingCSSNodeStyle = undefined;
     let mappingCSSEdgeStyle = undefined;
 
+    let bypassCSSEntries = [];
+
     cxVisualProperties.forEach((vpElement) => {
         const vpAt = vpElement.at;
         if (vpAt === cxConstants.STYLE) {
@@ -247,10 +266,11 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
             const edgeMapping = value.edgeMapping;
             mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
-        } else if (vpElement == cxConstants.N) {
-            //Bypass style node
-        } else if (vpElement == cxConstants.E) {
-            //Bypass style edge
+        } else if (vpAt === cxConstants.N) {
+            bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
+        } else if (vpAt === cxConstants.E) {
+            bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
+
         }
     })
 
