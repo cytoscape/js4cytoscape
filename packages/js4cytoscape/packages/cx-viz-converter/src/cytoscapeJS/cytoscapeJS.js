@@ -11,18 +11,18 @@ function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
 
 const defaultPropertyConvert = {
     'node': {
-        'shape': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.shape, portablePropertyValue),
-        'width': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
-        'height': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.height, portablePropertyValue),
-        'background-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_color, portablePropertyValue),
-        'background-opacity': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
-        'label': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
-        'label-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue)
+        'NODE_SHAPE': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.shape, portablePropertyValue),
+        'NODE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
+        'NODE_HEIGHT': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.height, portablePropertyValue),
+        'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_color, portablePropertyValue),
+        'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
+        'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
+        'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue)
     },
     'edge': {
-        'width': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
-        'opacity': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
-        'line-color': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue)
+        'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
+        'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
+        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue)
     },
 }
 
@@ -34,18 +34,18 @@ function simplePassthroughMappingConvert(targetStyleField, attributeName) {
 
 const passthroughMappingConvert = {
     'node': {
-        'shape': (attributeName) => simplePassthroughMappingConvert(jsConstants.shape, attributeName),
-        'width': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
-        'height': (attributeName) => simplePassthroughMappingConvert(jsConstants.height, attributeName),
-        'background-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_color, attributeName),
-        'background-opacity': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_opacity, attributeName),
-        'label': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
-        'label-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName)
+        'NODE_SHAPE': (attributeName) => simplePassthroughMappingConvert(jsConstants.shape, attributeName),
+        'NODE_WIDTH': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
+        'NODE_HEIGHT': (attributeName) => simplePassthroughMappingConvert(jsConstants.height, attributeName),
+        'NODE_BACKGROUND_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_color, attributeName),
+        'NODE_BACKGROUND_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_opacity, attributeName),
+        'NODE_LABEL': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
+        'NODE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName)
     },
     'edge': {
-        'width': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
-        'opacity': (attributeName) => simplePassthroughMappingConvert(jsConstants.opacity, attributeName),
-        'line-color': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName)
+        'EDGE_WIDTH': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
+        'EDGE_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.opacity, attributeName),
+        'EDGE_LINE_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName)
     },
 }
 function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
@@ -61,18 +61,18 @@ function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue,
 
 const mapDataPropertyConvert = {
     'node': {
-        'shape': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.shape, attributeName, minValue, maxValue, minVP, maxVP),
-        'width': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
-        'height': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.height, attributeName, minValue, maxValue, minVP, maxVP),
-        'background-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_color, attributeName, minValue, maxValue, minVP, maxVP),
-        'background-opacity': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_opacity, attributeName, minValue, maxValue, minVP, maxVP),
-        'label': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
-        'label-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP)
+        'NODE_SHAPE': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.shape, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_WIDTH': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_HEIGHT': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.height, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_BACKGROUND_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_color, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_BACKGROUND_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_LABEL': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP)
     },
     'edge': {
-        'width': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
-        'opacity': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.opacity, attributeName, minValue, maxValue, minVP, maxVP),
-        'line-color': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP)
+        'EDGE_WIDTH': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LINE_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP)
     },
 }
 
@@ -210,18 +210,21 @@ function getCSSMappingEntries(
         const cxMappingEntry = cxMappingEntries[key];
         console.log(" mapping type: " + cxMappingEntry.type);
         switch (cxMappingEntry.type) {
-            case 'continuous': {
+            case 'CONTINUOUS': {
                 const continousMappings = getContinuousMappingCSSEntries(key, cxMappingEntry.definition, entityType, attributeTypeMap);
                 continousMappings.forEach((continousMapping) => {
                     output.push(continousMapping);
                 })
                 break;
             }
-            case 'passthrough': {
-                output.push(getPassthroughMappingCSSEntry(key, cxMappingEntry.definition, entityType));
+            case 'PASSTHROUGH': {
+                const cssEntry = getPassthroughMappingCSSEntry(key, cxMappingEntry.definition, entityType);
+                if (cssEntry) {
+                    output.push(cssEntry);
+                }
                 break;
             }
-            case 'discrete': {
+            case 'DISCRETE': {
                 const discreteMappings = getDiscreteMappingCSSEntries(key, cxMappingEntry.definition, entityType, attributeTypeMap);
                 discreteMappings.forEach((discreteMapping) => {
                     output.push(discreteMapping);
@@ -288,24 +291,6 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
 
     return output;
 }
-
-
-
-function getData(v, attributeNameMap, attributeDefaultValueMap) {
-    let data = {};
-    Object.keys(v).forEach((key) => {
-        const newKey = attributeNameMap.has(key) ? attributeNameMap.get(key) : key;
-        data[newKey] = v[key];
-    });
-    attributeDefaultValueMap.forEach((value, key) => {
-        if (!data[key]) {
-            data[key] = value;
-        }
-    });
-    return data;
-}
-
-
 
 const converter = {
     targetFormat: 'cytoscapeJS',
@@ -389,7 +374,7 @@ const converter = {
         output.elements['edges'] = [];
         nodeMap.forEach((cxNode, key) => {
             const element = {};
-            element['data'] = getData(cxNode.v, nodeAttributeNameMap, nodeAttributeDefaultValueMap);
+            element['data'] = cxUtil.getExpandedAttributes(cxNode.v, nodeAttributeNameMap, nodeAttributeDefaultValueMap);
             element['data']['id'] = cxNode.id;
             element['position'] = {
                 x: cxNode.layout.x,
@@ -402,7 +387,7 @@ const converter = {
         output.elements['edges'] = [];
         edgeMap.forEach((cxEdge, key) => {
             const element = {};
-            element['data'] = getData(cxEdge.v, edgeAttributeNameMap, edgeAttributeDefaultValueMap);
+            element['data'] = cxUtil.getExpandedAttributes(cxEdge.v, edgeAttributeNameMap, edgeAttributeDefaultValueMap);
             element['data']['id'] = cxEdge.id;
             element['data']['source'] = cxEdge.s;
             element['data']['target'] = cxEdge.t;

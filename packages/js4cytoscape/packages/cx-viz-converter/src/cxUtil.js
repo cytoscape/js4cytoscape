@@ -76,6 +76,20 @@ function updateInferredTypes(attributeTypeMap, attributeNameMap, v) {
     })
 }
 
+function getExpandedAttributes(v, attributeNameMap, attributeDefaultValueMap) {
+    let data = {};
+    Object.keys(v).forEach((key) => {
+        const newKey = attributeNameMap.has(key) ? attributeNameMap.get(key) : key;
+        data[newKey] = v[key];
+    });
+    attributeDefaultValueMap.forEach((value, key) => {
+        if (!data[key]) {
+            data[key] = value;
+        }
+    });
+    return data;
+}
+
 module.exports = {
     getCxVersion: getCxVersion,
     getCxMajorVersion: getCxMajorVersion,
@@ -83,5 +97,6 @@ module.exports = {
     updateAttributeTypeMap: updateAttributeTypeMap,
     updateAttributeNameMap: updateAttributeNameMap,
     updateAttributeDefaultValueMap: updateAttributeDefaultValueMap,
-    updateInferredTypes: updateInferredTypes
+    updateInferredTypes: updateInferredTypes,
+    getExpandedAttributes : getExpandedAttributes
 };
