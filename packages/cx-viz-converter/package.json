@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
-    "fs-extra": "^9.0.0"
+    "fs-extra": "^7.0.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.0",
