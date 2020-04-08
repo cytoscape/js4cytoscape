@@ -6,7 +6,7 @@ module.exports = Object.freeze({
     'background_color': 'background-color',
     'background_opacity': 'background-opacity',
     'label': 'label',
-    'label_color': 'label-color', 
+    'label_color': 'color', 
     'opacity': 'opacity',
     'line_color': 'line-color'
 });
