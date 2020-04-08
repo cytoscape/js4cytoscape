@@ -70,7 +70,8 @@ function lnvConvert(cx) {
 
     //Second pass. 
     // Here is where the actual output is generated.
-    
+
+    //Final step
     nodeMap.forEach((value, id) => {
         nodeViews.push(value);
     });
