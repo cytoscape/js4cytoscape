@@ -4,31 +4,84 @@ const largeNetworkConstants = require('./largeNetworkConstants.js');
 const cxUtil = require('../cxUtil.js');
 
 function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
-    const targetStyleEntry = new Map();
-    targetStyleEntry.set(targetStyleField, portablePropertValue);
+    const targetStyleEntry = {};
+    targetStyleEntry[targetStyleField] = portablePropertValue;
     return targetStyleEntry;
+}
+
+function hexToRGB(hex) {
+    let r = 0, g = 0, b = 0;
+
+    // 3 digits
+    if (hex.length == 4) {
+        r = "0x" + hex[1] + hex[1];
+        g = "0x" + hex[2] + hex[2];
+        b = "0x" + hex[3] + hex[3];
+
+        // 6 digits
+    } else if (hex.length == 7) {
+        r = "0x" + hex[1] + hex[2];
+        g = "0x" + hex[3] + hex[4];
+        b = "0x" + hex[5] + hex[6];
+    }
+
+    return [parseInt(r), parseInt(g), parseInt(b)];
+}
+
+function alphaToInt(alphaDecimal) {
+    return alphaDecimal * 255;
 }
 
 const defaultPropertyConvert = {
     'node': {
-        'NODE_SHAPE': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.shape, portablePropertyValue),
-        'NODE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
-        'NODE_HEIGHT': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.height, portablePropertyValue),
-        'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_color, portablePropertyValue),
-        'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
-        'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
-        'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue)
+        'NODE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert('width', portablePropertyValue),
+        'NODE_HEIGHT': (portablePropertyValue) => simpleDefaultPropertyConvert('height', portablePropertyValue),
+        'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.color, hexToRGB(portablePropertyValue)),
+        'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert('alpha', alphaToInt(portablePropertyValue)),
+        'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
     },
     'edge': {
-        'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
-        'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
-        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue)
+        'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.width, portablePropertyValue),
+        'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert('alpha', alphaToInt(portablePropertyValue)),
+        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.color, hexToRGB(portablePropertyValue))
     },
+}
+
+function getDefaultValues(defaultVisualProperties) {
+    let output = {
+        node: {},
+        edge: {}
+    };
+    if (defaultVisualProperties['node']) {
+        const nodeDefault = defaultVisualProperties.node;
+        const lnvEntries = getLNVValues('node', nodeDefault);
+        Object.assign(output.node, lnvEntries);
+    }
+    if (defaultVisualProperties['edge']) {
+        const edgeDefault = defaultVisualProperties.edge;
+        const lnvEntries = getLNVValues('edge', edgeDefault);
+        Object.assign(output.edge, lnvEntries);
+    }
+    return output;
+}
+
+function getLNVValues(entityType, entries) {
+    let output = {};
+    Object.keys(entries).forEach(portablePropertyKey => {
+        const portablePropertyValue = entries[portablePropertyKey];
+        if (defaultPropertyConvert[entityType][portablePropertyKey]) {
+            const lnvEntry = defaultPropertyConvert[entityType][portablePropertyKey](portablePropertyValue);
+            Object.keys(lnvEntry).forEach(lnvKey => {
+                output[lnvKey] = lnvEntry[lnvKey];
+            });
+        }
+    })
+    return output;
 }
 
 function processColor(colorArray, alpha) {
     return colorArray != undefined
-        ? alpha != undefined 
+        ? alpha != undefined
             ? [colorArray[0], colorArray[1], colorArray[2], alpha]
             : [colorArray[0], colorArray[1], colorArray[2]]
         : undefined;
@@ -48,33 +101,58 @@ function processNodeView(nodeView) {
         position: nodeView.position
     };
 
-    
-    //Object.keys(nodeView).forEach();
 
-    output[largeNetworkConstants.color] = processColor(colorArray, alpha);
-    output[largeNetworkConstants.size] = processSize(width, height);
+    Object.keys(nodeView).forEach(key => {
+        if (key === 'width') {
+            width = nodeView.width;
+        } else if (key === 'height') {
+            height = nodeView.height;
+        } else if (key === 'color') {
+            colorArray = nodeView.color;
+        } else if (key === 'alpha') {
+            alpha = nodeView.alpha;
+        }
+    });
 
+    const color = processColor(colorArray, alpha);
+    if (color) {
+        output[largeNetworkConstants.color] = color;
+    }
+
+    const size = processSize(width, height);
+    if (size) {
+        output[largeNetworkConstants.size] = processSize(width, height);
+    }
     return output;
 }
 
 function processEdgeView(edgeView) {
     let colorArray = undefined;
     let alpha = undefined;
-    
+
     let output = {
         id: edgeView.id,
         s: edgeView.s,
         t: edgeView.t
     }
 
-    //Object.keys(edgeView).forEach();
-    
-    output[largeNetworkConstants.color] = processColor(colorArray, alpha);
+    Object.keys(edgeView).forEach(key => {
+        if (key === 'color') {
+            colorArray = edgeView.color;
+        } else if (key === 'alpha') {
+            alpha = edgeView.alpha;
+        }
+    });
+
+    const color = processColor(colorArray, alpha);
+    if (color) {
+        output[largeNetworkConstants.color] = color;
+    }
     return output;
 }
 
 function lnvConvert(cx) {
-    
+
     //First pass. 
     // We may need to collect object attributes to calculate
     // mappings in the second pass. 
@@ -90,8 +168,11 @@ function lnvConvert(cx) {
     let nodeAttributeDefaultValueMap = new Map();
     let edgeAttributeDefaultValueMap = new Map();
 
-    let defaultValues = {};
-    let bypassMappings = {};
+    let defaultValues = undefined;
+    let bypassMappings = {
+        'node': {},
+        'edge': {}
+    };
     let discreteMappings = {};
     let continuousMappings = {};
 
@@ -99,7 +180,6 @@ function lnvConvert(cx) {
     cx.forEach((cxAspect) => {
         if (cxAspect['attributeDeclarations']) {
             const cxAttributeDeclarations = cxAspect['attributeDeclarations'];
-            console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
             cxUtil.processAttributeDeclarations(cxAttributeDeclarations,
                 nodeAttributeNameMap,
                 nodeAttributeTypeMap,
@@ -107,7 +187,7 @@ function lnvConvert(cx) {
                 edgeAttributeNameMap,
                 edgeAttributeTypeMap,
                 edgeAttributeDefaultValueMap
-                );
+            );
         } else if (cxAspect['nodes']) {
             const cxNodes = cxAspect['nodes'];
             cxNodes.forEach((cxNode) => {
@@ -124,7 +204,7 @@ function lnvConvert(cx) {
     });
 
     let output = {};
-    
+
     let nodeViews = [];
     let edgeViews = [];
 
@@ -134,59 +214,113 @@ function lnvConvert(cx) {
             const value = vpElement.v;
             const defaultStyles = value.default;
 
-            //defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
-           // defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
+            defaultValues = getDefaultValues(defaultStyles);
+            console.log('large network default style = ' + JSON.stringify(defaultValues, null, 2));
 
-           
             const nodeMapping = value.nodeMapping;
+
             //mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
 
             const edgeMapping = value.edgeMapping;
             //mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
         } else if (vpAt === cxConstants.N) {
+
+            const key = vpElement[cxConstants.PO].toString();
+            const values = getLNVValues('node', vpElement.v)
+
+            if (!bypassMappings.node[key]) {
+                bypassMappings.node[key] = {};
+            }
+
+            console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+
+            Object.assign(bypassMappings.node[key], values);
             //bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
         } else if (vpAt === cxConstants.E) {
-            //bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
+            const key = vpElement[cxConstants.PO].toString();
+            const values = getLNVValues('edge', vpElement.v)
 
+            if (!bypassMappings.edge[key]) {
+                bypassMappings.edge[key] = {};
+            }
+
+            console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+
+            Object.assign(bypassMappings.edge[key], values);
         }
     });
+
+
+
     //Second pass. 
     // Here is where the actual output is generated.
 
+
+
     cx.forEach((cxAspect) => {
-         if (cxAspect['nodes']) {
+        if (cxAspect['nodes']) {
             const cxNodes = cxAspect['nodes'];
+
+
             cxNodes.forEach((cxNode) => {
                 const cxId = cxNode[cxConstants.ID].toString();
                 const nodeView = {
-                    id : cxId,
-                    position: cxNode['z'] ? 
-                        [cxNode['x'],cxNode['y'],cxNode['z']] 
-                        : [cxNode['x'],cxNode['y']]
+                    id: cxId,
+                    position: cxNode['z'] ?
+                        [cxNode['x'], cxNode['y'], cxNode['z']]
+                        : [cxNode['x'], cxNode['y']]
+                }
+
+                //TODO calculate lnv vps based on defaults and attributes
+                if (defaultValues) {
+                    const defaultNodeVisualProperties = defaultValues['node'];
+                    Object.assign(nodeView, defaultNodeVisualProperties);
+                }
+                //Assign mappings
+                const expandedAttributes = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
+
+                //Assign bypass
+                if (bypassMappings.node[cxId]) {
+                    Object.assign(nodeView, bypassMappings.node[cxId]);
                 }
 
                 const processedNodeView = processNodeView(nodeView);
 
                 nodeViews.push(processedNodeView);
-            })
+            });
+
         } else if (cxAspect['edges']) {
             const cxEdges = cxAspect['edges'];
+
             cxEdges.forEach((cxEdge) => {
                 const cxId = cxEdge[cxConstants.ID].toString();
                 const edgeView = {
-                    id : cxId,
-                    s : cxEdge.s.toString(),
-                    t : cxEdge.t.toString() 
+                    id: cxId,
+                    s: cxEdge.s.toString(),
+                    t: cxEdge.t.toString()
+                }
+
+                //TODO calculate lnv vps based on defaults and attributes
+                if (defaultValues) {
+                    const defaultEdgeVisualProperties = defaultValues['edge'];
+                    Object.assign(edgeView, defaultEdgeVisualProperties);
+                }
+
+                const expandedAttributes = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
+
+                //Assign bypass
+                if (bypassMappings.edge[cxId]) {
+                    Object.assign(edgeView, bypassMappings.edge[cxId]);
                 }
 
                 const processedEdgeView = processEdgeView(edgeView);
 
                 edgeViews.push(processedEdgeView);
-            })
+            });
         }
     });
-    
+
     output[largeNetworkConstants.nodeViews] = nodeViews;
     output[largeNetworkConstants.edgeViews] = edgeViews;
 
@@ -197,7 +331,7 @@ function lnvConvert(cx) {
 
 const converter = {
     targetFormat: 'lnv',
-    convert:  (cx) => {
+    convert: (cx) => {
         return lnvConvert(cx);
     }
 }
