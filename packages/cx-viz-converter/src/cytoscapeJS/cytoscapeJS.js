@@ -50,12 +50,12 @@ const passthroughMappingConvert = {
 }
 function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
     let output = {};
-    output[targetStyleField] = 'mapData(' + attributeName 
-    + ', ' + minValue 
-    + ', ' + maxValue 
-    + ', ' + minVP 
-    + ', ' + maxVP
-    + ')';
+    output[targetStyleField] = 'mapData(' + attributeName
+        + ', ' + minValue
+        + ', ' + maxValue
+        + ', ' + minVP
+        + ', ' + maxVP
+        + ')';
     return output;
 }
 
@@ -106,7 +106,7 @@ function getContinuousSelector(entityType, attributeName, minValue, maxValue, in
     const minCondition = includeMin ? '>=' : '>';
     const maxCondition = includeMax ? '<=' : '<';
 
-    return entityType + '['+attributeName+' '  + minCondition + ' '+minValue+']['+attributeName+' ' + maxCondition + ' '+maxValue+']'
+    return entityType + '[' + attributeName + ' ' + minCondition + ' ' + minValue + '][' + attributeName + ' ' + maxCondition + ' ' + maxValue + ']'
 }
 
 function getContinuousStyle(entityType, portablePropertyKey, attributeName, minValue, maxValue, minVP, maxVP) {
@@ -122,11 +122,11 @@ function getContinuousMappingCSSEntries(portablePropertyKey, cxMappingDefinition
     const attributeName = cxMappingDefinition['attribute'];
     const rangeMaps = cxMappingDefinition['map'];
     console.log('continuous mapping for ' + attributeName + ': ' + JSON.stringify(rangeMaps, null, 2));
-    
-    rangeMaps.forEach((range)=> {
+
+    rangeMaps.forEach((range) => {
         const selector = getContinuousSelector(entityType, attributeName, range.min, range.max, range.includeMin, range.includeMax);
         const style = getContinuousStyle(entityType, portablePropertyKey, attributeName, range.min, range.max, range.minVPValue, range.maxVPValue);
-        
+
         output.push(getStyleElement(selector, style));
     });
     return output;
@@ -161,10 +161,10 @@ function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, 
     const attributeName = cxMappingDefinition['attribute'];
     const attributeDataType = attributeTypeMap.get(attributeName);
     atttributeToValueMap.forEach((discreteMap) => {
-        console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' (' + attributeName + '<' +attributeDataType +'>) -> ' + discreteMap.vp);
+        console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' (' + attributeName + '<' + attributeDataType + '>) -> ' + discreteMap.vp);
 
         const selector = getDiscreteSelector(entityType, attributeName, attributeDataType, discreteMap.v);
-       
+
         if (defaultPropertyConvert[entityType][portablePropertyKey]) {
             const styleMap = defaultPropertyConvert[entityType][portablePropertyKey](discreteMap.vp);
             const css = {};
@@ -181,7 +181,7 @@ function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, 
 }
 
 function getBypassCSSEntry(entityType, cxElement) {
-   
+
     const id = cxElement.po;
     const css = {};
     Object.keys(cxElement.v).forEach((portablePropertyKey) => {
@@ -324,7 +324,7 @@ const converter = {
                     edgeAttributeNameMap,
                     edgeAttributeTypeMap,
                     edgeAttributeDefaultValueMap
-                    );
+                );
             } else if (cxAspect['nodes']) {
                 const cxNodes = cxAspect['nodes'];
                 cxNodes.forEach((cxNode) => {
@@ -355,31 +355,31 @@ const converter = {
         output.elements['edges'] = [];
 
 
-cx.forEach((cxAspect) => {
-     if (cxAspect['nodes']) {
-        const cxNodes = cxAspect['nodes'];
-        cxNodes.forEach((cxNode) => {
-            const element = {};
-            element['data'] = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
-            element['data']['id'] = cxNode.id.toString();
-            element['position'] = {
-                x: cxNode['x'],
-                y: cxNode['y']
+        cx.forEach((cxAspect) => {
+            if (cxAspect['nodes']) {
+                const cxNodes = cxAspect['nodes'];
+                cxNodes.forEach((cxNode) => {
+                    const element = {};
+                    element['data'] = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
+                    element['data']['id'] = cxNode.id.toString();
+                    element['position'] = {
+                        x: cxNode['x'],
+                        y: cxNode['y']
+                    }
+                    output.elements.nodes.push(element)
+                });
+            } else if (cxAspect['edges']) {
+                const cxEdges = cxAspect['edges'];
+                cxEdges.forEach((cxEdge) => {
+                    const element = {};
+                    element['data'] = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
+                    element['data']['id'] = cxEdge.id.toString();
+                    element['data']['source'] = cxEdge['s'];
+                    element['data']['target'] = cxEdge['t'];
+                    output.elements.edges.push(element)
+                });
             }
-            output.elements.nodes.push(element)
         });
-    } else if (cxAspect['edges']) {
-        const cxEdges = cxAspect['edges'];
-        cxEdges.forEach((cxEdge) => {
-            const element = {};
-            element['data'] = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
-            element['data']['id'] = cxEdge.id.toString();
-            element['data']['source'] = cxEdge['s'];
-            element['data']['target'] = cxEdge['t'];
-            output.elements.edges.push(element)
-        });
-    } 
-});
 
         const style = getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
