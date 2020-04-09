@@ -21,5 +21,7 @@ module.exports = Object.freeze({
     VISUAL_PROPERTIES: 'visualProperties',
     DEFAULT: 'default',
 
-    STYLE: 'style'
+    STYLE: 'style',
+
+    PO: 'po'
 });
