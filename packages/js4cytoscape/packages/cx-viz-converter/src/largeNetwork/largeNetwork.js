@@ -44,8 +44,10 @@ const defaultPropertyConvert = {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.width, portablePropertyValue),
         'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert('alpha', alphaToInt(portablePropertyValue)),
         'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.color, hexToRGB(portablePropertyValue))
-    },
+    }
 }
+
+
 
 function getDefaultValues(defaultVisualProperties) {
     let output = {
@@ -151,6 +153,34 @@ function processEdgeView(edgeView) {
     return output;
 }
 
+const mappingPropertyConvert = {
+    'node': {
+        'NODE_WIDTH': ['width'],
+        'NODE_HEIGHT': ['height'],
+        'NODE_BACKGROUND_COLOR': [largeNetworkConstants.color],
+        'NODE_BACKGROUND_OPACITY': ['alpha'],
+        'NODE_LABEL': [largeNetworkConstants.label],
+    },
+    'edge': {
+        'EDGE_WIDTH': [largeNetworkConstants.width],
+        'EDGE_OPACITY': ['alpha'],
+        'EDGE_LINE_COLOR': [largeNetworkConstants.color]
+    }
+}
+
+function getMappings(mappings) {
+    let output = {}
+    Object.keys(mappings).forEach( propertyKey => {
+        const mapping = mappings[propertyKey];
+        output[mapping.definition.attribute] = {
+            type: mapping.type,
+            vp: propertyKey,
+            definition: mapping.definition
+        }
+    });
+    return output;
+}
+
 function lnvConvert(cx) {
 
     //First pass. 
@@ -169,14 +199,15 @@ function lnvConvert(cx) {
     let edgeAttributeDefaultValueMap = new Map();
 
     let defaultValues = undefined;
+    let mappings = {
+        node : {},
+        edge : {}
+    }
     let bypassMappings = {
         'node': {},
         'edge': {}
     };
-    let discreteMappings = {};
-    let continuousMappings = {};
-
-
+   
     cx.forEach((cxAspect) => {
         if (cxAspect['attributeDeclarations']) {
             const cxAttributeDeclarations = cxAspect['attributeDeclarations'];
@@ -218,10 +249,12 @@ function lnvConvert(cx) {
             console.log('large network default style = ' + JSON.stringify(defaultValues, null, 2));
 
             const nodeMapping = value.nodeMapping;
-
+            mappings.node = getMappings(nodeMapping);
             //mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
 
-            const edgeMapping = value.edgeMapping;
+            const edgeMapping = value.edgeMapping; 
+            mappings.edge = getMappings(edgeMapping);
+
             //mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
         } else if (vpAt === cxConstants.N) {
@@ -251,7 +284,7 @@ function lnvConvert(cx) {
         }
     });
 
-
+    console.log('mappings: ' + JSON.stringify(mappings, null, 2));
 
     //Second pass. 
     // Here is where the actual output is generated.
