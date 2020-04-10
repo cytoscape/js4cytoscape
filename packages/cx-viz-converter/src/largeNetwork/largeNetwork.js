@@ -194,10 +194,10 @@ const continuousPropertyConvert = {
     }
 }
 
-function getContinuousMappedValue(attributeValue, mappingDefinitions) {
-    mappingDefinitions.forEach(mappingDefinition => {
-
-    });
+function isInRange(attributeValue, min, max, includeMin, includeMax) { 
+    const minSatisfied = includeMin ? min <= attributeValue : min < attributeValue;
+    const maxSatisfied = includeMax ? max >= attributeValue : min < attributeValue;
+    return minSatisfied && maxSatisfied;   
 }
 
 function getMapppedValues(mappings, entityType, attributes) {
@@ -223,7 +223,20 @@ function getMapppedValues(mappings, entityType, attributes) {
                         Object.assign(output, converted);
                     }
                 } else if (mapping.type === 'CONTINUOUS') {
-
+                    const continuousMappings = mapping.definition.map;
+                    continuousMappings.forEach(mapping => {
+                        if ('min' in mapping
+                            && 'max' in mapping
+                            && includeMin in mapping 
+                            && includeMax in mapping) {
+                            
+                            if (isInRange(attributeValue, mapping.min, mapping.max, mapping.includeMin, mapping.includeMax)
+                                && continuousPropertyConvert[entityType][mapping.vp]) {
+                                const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mapping.min, mapping.max, mapping.minVPValue, mapping.maxVPValue);
+                                Object.assign(output, converted);
+                            }
+                        }
+                    });
                 }
         }
     });
