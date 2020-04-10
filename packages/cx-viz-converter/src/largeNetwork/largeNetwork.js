@@ -155,21 +155,6 @@ function processEdgeView(edgeView) {
     return output;
 }
 
-const mappingPropertyConvert = {
-    'node': {
-        'NODE_WIDTH': ['width'],
-        'NODE_HEIGHT': ['height'],
-        'NODE_BACKGROUND_COLOR': [largeNetworkConstants.color],
-        'NODE_BACKGROUND_OPACITY': ['alpha'],
-        'NODE_LABEL': [largeNetworkConstants.label],
-    },
-    'edge': {
-        'EDGE_WIDTH': [largeNetworkConstants.width],
-        'EDGE_OPACITY': ['alpha'],
-        'EDGE_LINE_COLOR': [largeNetworkConstants.color]
-    }
-}
-
 function getMappings(mappings) {
     let output = {}
     Object.keys(mappings).forEach(propertyKey => {
@@ -181,6 +166,38 @@ function getMappings(mappings) {
         }
     });
     return output;
+}
+
+function continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
+    
+}
+
+function continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
+
+}
+
+function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
+
+}
+
+const continuousPropertyConvert = {
+    'node': {
+        'NODE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('width', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_HEIGHT': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('height', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_BACKGROUND_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_BACKGROUND_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('alpha', continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+    },
+    'edge': {
+        'EDGE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.width, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('alpha', continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_LINE_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
+    }
+}
+
+function getContinuousMappedValue(attributeValue, mappingDefinitions) {
+    mappingDefinitions.forEach(mappingDefinition => {
+
+    });
 }
 
 function getMapppedValues(mappings, entityType, attributes) {
