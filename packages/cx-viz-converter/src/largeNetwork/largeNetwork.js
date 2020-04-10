@@ -189,16 +189,25 @@ function getMapppedValues(mappings, entityType, attributes) {
         const attributeValue = attributes[attributeKey];
         if (mappings[entityType][attributeKey]) {
             const mapping = mappings[entityType][attributeKey];
-            const lnvVPs = mappingPropertyConvert[entityType][mapping.vp];
-            lnvVPs.forEach(lnvVP => {
+           
                 if (mapping.type === 'DISCRETE') {
-                    
+                    const discreteMap = mapping.definition.map;
+                    discreteMap.forEach(keyValue => {
+                        if (keyValue.v == attributeValue) {
+                            if (defaultPropertyConvert[entityType][mapping.vp]){
+                                const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
+                                Object.assign(output, converted);
+                            }
+                        }
+                    });
                 } else if (mapping.type === 'PASSTHROUGH') {
-                    output[lnvVP] = attributeValue;
+                    if (defaultPropertyConvert[entityType][mapping.vp]){
+                        const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
+                        Object.assign(output, converted);
+                    }
                 } else if (mapping.type === 'CONTINUOUS') {
 
                 }
-            });
         }
     });
     return output;
