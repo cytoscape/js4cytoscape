@@ -113,6 +113,8 @@ function processNodeView(nodeView) {
             colorArray = nodeView.color;
         } else if (key === 'alpha') {
             alpha = nodeView.alpha;
+        } else {
+            output[key] = nodeView[key];
         }
     });
 
@@ -170,7 +172,7 @@ const mappingPropertyConvert = {
 
 function getMappings(mappings) {
     let output = {}
-    Object.keys(mappings).forEach( propertyKey => {
+    Object.keys(mappings).forEach(propertyKey => {
         const mapping = mappings[propertyKey];
         output[mapping.definition.attribute] = {
             type: mapping.type,
@@ -182,18 +184,24 @@ function getMappings(mappings) {
 }
 
 function getMapppedValues(mappings, entityType, attributes) {
+    let output = {};
     Object.keys(attributes).forEach(attributeKey => {
+        const attributeValue = attributes[attributeKey];
         if (mappings[entityType][attributeKey]) {
             const mapping = mappings[entityType][attributeKey];
-            if (mapping.type === 'DISCRETE') {
-                
-            } else if (mapping.type === 'PASSTHROUGH') {
+            const lnvVPs = mappingPropertyConvert[entityType][mapping.vp];
+            lnvVPs.forEach(lnvVP => {
+                if (mapping.type === 'DISCRETE') {
+                    
+                } else if (mapping.type === 'PASSTHROUGH') {
+                    output[lnvVP] = attributeValue;
+                } else if (mapping.type === 'CONTINUOUS') {
 
-            } else if (mapping.type === 'CONTINUOUS') {
-
-            }
+                }
+            });
         }
     });
+    return output;
 }
 
 function lnvConvert(cx) {
@@ -215,14 +223,14 @@ function lnvConvert(cx) {
 
     let defaultValues = undefined;
     let mappings = {
-        node : {},
-        edge : {}
+        node: {},
+        edge: {}
     }
     let bypassMappings = {
         'node': {},
         'edge': {}
     };
-   
+
     cx.forEach((cxAspect) => {
         if (cxAspect['attributeDeclarations']) {
             const cxAttributeDeclarations = cxAspect['attributeDeclarations'];
@@ -267,7 +275,7 @@ function lnvConvert(cx) {
             mappings.node = getMappings(nodeMapping);
             //mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
 
-            const edgeMapping = value.edgeMapping; 
+            const edgeMapping = value.edgeMapping;
             mappings.edge = getMappings(edgeMapping);
 
             //mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
@@ -311,7 +319,7 @@ function lnvConvert(cx) {
 
             cxNodes.forEach((cxNode) => {
                 const cxId = cxNode[cxConstants.ID].toString();
-                const nodeView = {
+                let nodeView = {
                     id: cxId,
                     position: cxNode['z'] ?
                         [cxNode['x'], cxNode['y'], cxNode['z']]
@@ -326,6 +334,7 @@ function lnvConvert(cx) {
                 //Assign mappings
                 const expandedAttributes = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
                 const mappingValues = getMapppedValues(mappings, 'node', expandedAttributes);
+                Object.assign(nodeView, mappingValues);
 
                 //Assign bypass
                 if (bypassMappings.node[cxId]) {
@@ -356,7 +365,7 @@ function lnvConvert(cx) {
 
                 const expandedAttributes = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
                 const mappingValues = getMapppedValues(mappings, 'node', expandedAttributes);
-
+                Object.assign(edgeView, mappingValues);
                 //Assign bypass
                 if (bypassMappings.edge[cxId]) {
                     Object.assign(edgeView, bypassMappings.edge[cxId]);
