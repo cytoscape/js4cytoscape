@@ -261,6 +261,7 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
             const value = vpElement.v;
             const defaultStyles = value.default;
 
+            console.log('portable node style: ' + JSON.stringify(defaultStyles.node));
             defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
             defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
 
@@ -276,9 +277,10 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
             bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
         } else if (vpAt === cxConstants.E) {
             bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
-
         }
     })
+
+    console.log('default node style: ' + JSON.stringify(defaultCSSNodeStyle));
 
     //Add default style
     output.style.push(getStyleElement(NODE_SELECTOR, defaultCSSNodeStyle));
@@ -384,6 +386,9 @@ const converter = {
         const style = getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
         output.style = style.style;
+        console.log('visualProperties: ' + JSON.stringify(cxVisualProperties, null, 2));
+        console.log('style: ' + JSON.stringify(output.style, null, 2));
+
         output['background-color'] = style['background-color'];
 
         return output;
