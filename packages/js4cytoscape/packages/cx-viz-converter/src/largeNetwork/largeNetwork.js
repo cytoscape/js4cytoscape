@@ -353,12 +353,10 @@ function lnvConvert(cx) {
             defaultValues = getDefaultValues(defaultStyles);
             console.log('large network default style = ' + JSON.stringify(defaultValues, null, 2));
 
-            const nodeMapping = value.nodeMapping;
-            mappings.node = getMappings(nodeMapping);
+            mappings.node = value.nodeMapping ? getMappings(value.nodeMapping) : {};
             //mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
 
-            const edgeMapping = value.edgeMapping;
-            mappings.edge = getMappings(edgeMapping);
+            mappings.edge = value.edgeMapping ? getMappings(value.edgeMapping) : {};
 
             //mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
