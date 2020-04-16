@@ -33,4 +33,24 @@ const convertEndTime = new Date().getTime();
 
 console.info('converted in: ' + (convertEndTime - convertStartTime) + ' milliseconds');
 
-fs.writeFileSync(targetFileName, JSON.stringify(converted, null, 2));
+
+if (targetFormat == 'lnv') {
+    fs.writeFileSync(targetFileName, '{"nodeViews":[');
+
+    converted.nodeViews.forEach((nodeView, i, array) => {
+        fs.appendFileSync(targetFileName, JSON.stringify(nodeView, null));
+        if (i < array.length - 1) {
+            fs.appendFileSync(targetFileName, ',')
+        }
+    })
+    fs.appendFileSync(targetFileName, '],"edgeViews":[');
+    converted.edgeViews.forEach((edgeView, i, array) => {
+        fs.appendFileSync(targetFileName, JSON.stringify(edgeView, null));
+        if (i < array.length - 1) {
+            fs.appendFileSync(targetFileName, ',')
+        }
+    })
+    fs.appendFileSync(targetFileName, ']}');
+} else {
+    fs.writeFileSync(targetFileName, JSON.stringify(converted));
+}
