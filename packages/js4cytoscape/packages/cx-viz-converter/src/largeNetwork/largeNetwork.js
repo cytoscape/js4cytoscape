@@ -217,7 +217,7 @@ function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeM
     const vpRange =getVpRange(vpMin, vpMax);
 
     const alphaDecimal = getMap(vpMin, vpRange, attributeRatio);
-    , minValue, maxValue, minVP, maxVP
+   
     return alphatoInt(alphaDecimal);
 }
 
@@ -225,7 +225,7 @@ const continuousPropertyConvert = {
     'node': {
         'NODE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('width', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
         'NODE_HEIGHT': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('height', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'NODE_BACKGROUND_COLOR': (attributeValue, attrib, minValue, maxValue, minVP, maxVPuteMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_BACKGROUND_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
         'NODE_BACKGROUND_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('alpha', continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
     },
     'edge': {
