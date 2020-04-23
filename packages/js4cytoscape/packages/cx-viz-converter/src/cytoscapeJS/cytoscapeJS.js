@@ -17,12 +17,17 @@ const defaultPropertyConvert = {
         'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_color, portablePropertyValue),
         'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
         'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
-        'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue)
+        'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue),
+        'NODE_LABEL_OPACITY' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
+        'NODE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
     },
     'edge': {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
         'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
-        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue)
+        'EDGE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
+        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue),
+        'EDGE_LABEL_OPACITY' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
+        'EDGE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
     },
 }
 
@@ -40,12 +45,18 @@ const passthroughMappingConvert = {
         'NODE_BACKGROUND_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_color, attributeName),
         'NODE_BACKGROUND_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_opacity, attributeName),
         'NODE_LABEL': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
-        'NODE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName)
+        'NODE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName),
+        'NODE_LABEL_OPACITY' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
+        'NODE_LABEL_FONT_SIZE' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
     },
     'edge': {
         'EDGE_WIDTH': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
         'EDGE_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.opacity, attributeName),
-        'EDGE_LINE_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName)
+        'EDGE_LINE_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName),
+        'EDGE_LABEL': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
+        'EDGE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName),
+        'EDGE_LABEL_OPACITY' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
+        'EDGE_LABEL_FONT_SIZE' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
     },
 }
 function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
@@ -67,12 +78,19 @@ const mapDataPropertyConvert = {
         'NODE_BACKGROUND_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_color, attributeName, minValue, maxValue, minVP, maxVP),
         'NODE_BACKGROUND_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_opacity, attributeName, minValue, maxValue, minVP, maxVP),
         'NODE_LABEL': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
-        'NODE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP)
+        'NODE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_LABEL_OPACITY' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_LABEL_FONT_SIZE' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
+
     },
     'edge': {
         'EDGE_WIDTH': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.width, attributeName, minValue, maxValue, minVP, maxVP),
         'EDGE_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.opacity, attributeName, minValue, maxValue, minVP, maxVP),
-        'EDGE_LINE_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP)
+        'EDGE_LINE_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LABEL': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LABEL_OPACITY' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LABEL_FONT_SIZE' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
     },
 }
 
