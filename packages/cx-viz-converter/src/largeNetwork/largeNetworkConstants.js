@@ -7,8 +7,9 @@ module.exports = Object.freeze({
     's': 's',
     't': 't',
     'label': 'label', 
+    'labelColor' : 'labelColor',
+    'labelFontSize' : 'labelFontSize',
     'color': 'color',
-    'line_color': 'line-color',
     'size' : 'size',
     'width' : 'width'
 });
