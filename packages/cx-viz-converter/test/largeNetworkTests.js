@@ -109,7 +109,7 @@ describe('largeNetworkTests', function(){
         edge: {
             EDGE_LABEL_COLOR: "#D2DCE6",
             EDGE_LABEL_FONT_SIZE: 10,
-            DGE_LABEL_OPACITY: 0.94,
+            EDGE_LABEL_OPACITY: 0.94,
             EDGE_LINE_COLOR: "#6E7882",
             EDGE_OPACITY: 0.55,
             EDGE_WIDTH: 2.0
