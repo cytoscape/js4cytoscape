@@ -39,11 +39,18 @@ const defaultPropertyConvert = {
         'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, hexToRGB(portablePropertyValue)),
         'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, alphaToInt(portablePropertyValue)),
         'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
+        'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, hexToRGB(portablePropertyValue)),
+        'NODE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, alphaToInt(portablePropertyValue)),
+        'NODE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
     },
     'edge': {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.width, portablePropertyValue),
         'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, alphaToInt(portablePropertyValue)),
-        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, hexToRGB(portablePropertyValue))
+        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, hexToRGB(portablePropertyValue)),
+        'EDGE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
+        'EDGE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, hexToRGB(portablePropertyValue)),
+        'EDGE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, alphaToInt(portablePropertyValue)),
+        'EDGE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
     }
 }
 
@@ -98,6 +105,10 @@ function processNodeView(nodeView) {
     let height = undefined;
     let colorArray = undefined;
     let alpha = undefined;
+    
+    let labelColorArray = undefined;
+    let labelAlpha = undefined;
+    
     let output = {
         id: nodeView.id,
         position: nodeView.position
@@ -113,6 +124,10 @@ function processNodeView(nodeView) {
             colorArray = nodeView.preprocessColor;
         } else if (key === largeNetworkConstants.preprocessAlpha) {
             alpha = nodeView.preprocessAlpha;
+        } else if (key === largeNetworkConstants.preprocessLabelColor) {
+            labelColorArray = nodeView.preprocessLabelColor;
+        } else if (key === largeNetworkConstants.preprocessLabelAlpha) {
+            labelAlpha = nodeView.preprocessLabelAlpha;
         } else {
             output[key] = nodeView[key];
         }
@@ -121,6 +136,11 @@ function processNodeView(nodeView) {
     const color = processColor(colorArray, alpha);
     if (color) {
         output[largeNetworkConstants.color] = color;
+    }
+
+    const labelColor = processColor(labelColorArray, labelAlpha);
+    if (labelColor) {
+        output[largeNetworkConstants.labelColor] = labelColor;
     }
 
     const size = processSize(width, height);
@@ -134,6 +154,9 @@ function processEdgeView(edgeView) {
     let colorArray = undefined;
     let alpha = undefined;
 
+    let labelColorArray = undefined;
+    let labelAlpha = undefined;
+
     let output = {
         id: edgeView.id,
         s: edgeView.s,
@@ -145,6 +168,10 @@ function processEdgeView(edgeView) {
             colorArray = edgeView.preprocessColor;
         } else if (key === largeNetworkConstants.preprocessAlpha) {
             alpha = edgeView.preprocessAlpha;
+        } else if (key === largeNetworkConstants.preprocessLabelColor) {
+            labelColorArray = edgeView.preprocessLabelColor;
+        } else if (key === largeNetworkConstants.preprocessLabelAlpha) {
+            labelAlpha = edgeView.preprocessLabelAlpha;
         } else {
             output[key] = edgeView[key];
         }
@@ -154,6 +181,12 @@ function processEdgeView(edgeView) {
     if (color) {
         output[largeNetworkConstants.color] = color;
     }
+
+    const labelColor = processColor(labelColorArray, labelAlpha);
+    if (labelColor) {
+        output[largeNetworkConstants.labelColor] = labelColor;
+    }
+
     return output;
 }
 
@@ -229,11 +262,17 @@ const continuousPropertyConvert = {
         'NODE_HEIGHT': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessNodeHeight, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
         'NODE_BACKGROUND_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
         'NODE_BACKGROUND_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_LABEL_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_LABEL_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_LABEL_FONT_SIZE': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
     },
     'edge': {
         'EDGE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.width, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
         'EDGE_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'EDGE_LINE_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
+        'EDGE_LINE_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_LABEL_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_LABEL_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_LABEL_FONT_SIZE': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
     }
 }
 
