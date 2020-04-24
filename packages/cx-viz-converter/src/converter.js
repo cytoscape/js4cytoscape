@@ -23,6 +23,7 @@ const defaultConverters = [
 function convert(cx, targetFormat, converters = defaultConverters) {
     verifyVersion(cx);
     let selectedConverter = undefined;
+    
     converters.forEach( converter => {
         if (converter.converter.targetFormat == targetFormat) {
             console.log('target format: ' + converter.converter.targetFormat);
