@@ -34,16 +34,16 @@ function alphaToInt(alphaDecimal) {
 
 const defaultPropertyConvert = {
     'node': {
-        'NODE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert('width', portablePropertyValue),
-        'NODE_HEIGHT': (portablePropertyValue) => simpleDefaultPropertyConvert('height', portablePropertyValue),
-        'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.color, hexToRGB(portablePropertyValue)),
-        'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert('alpha', alphaToInt(portablePropertyValue)),
+        'NODE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessNodeWidth, portablePropertyValue),
+        'NODE_HEIGHT': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessNodeHeight, portablePropertyValue),
+        'NODE_BACKGROUND_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, hexToRGB(portablePropertyValue)),
+        'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, alphaToInt(portablePropertyValue)),
         'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
     },
     'edge': {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.width, portablePropertyValue),
-        'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert('alpha', alphaToInt(portablePropertyValue)),
-        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.color, hexToRGB(portablePropertyValue))
+        'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, alphaToInt(portablePropertyValue)),
+        'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, hexToRGB(portablePropertyValue))
     }
 }
 
@@ -105,14 +105,14 @@ function processNodeView(nodeView) {
 
 
     Object.keys(nodeView).forEach(key => {
-        if (key === 'width') {
-            width = nodeView.width;
-        } else if (key === 'height') {
-            height = nodeView.height;
-        } else if (key === 'color') {
-            colorArray = nodeView.color;
-        } else if (key === 'alpha') {
-            alpha = nodeView.alpha;
+        if (key === largeNetworkConstants.preprocessNodeWidth) {
+            width = nodeView.preprocessNodeWidth;
+        } else if (key === largeNetworkConstants.preprocessNodeHeight) {
+            height = nodeView.preprocessNodeHeight;
+        } else if (key === largeNetworkConstants.preprocessColor) {
+            colorArray = nodeView.preprocessColor;
+        } else if (key === largeNetworkConstants.preprocessAlpha) {
+            alpha = nodeView.preprocessAlpha;
         } else {
             output[key] = nodeView[key];
         }
@@ -141,10 +141,12 @@ function processEdgeView(edgeView) {
     }
 
     Object.keys(edgeView).forEach(key => {
-        if (key === 'color') {
-            colorArray = edgeView.color;
-        } else if (key === 'alpha') {
-            alpha = edgeView.alpha;
+        if (key === largeNetworkConstants.preprocessColor) {
+            colorArray = edgeView.preprocessColor;
+        } else if (key === largeNetworkConstants.preprocessAlpha) {
+            alpha = edgeView.preprocessAlpha;
+        } else {
+            output[key] = edgeView[key];
         }
     });
 
@@ -223,15 +225,15 @@ function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeM
 
 const continuousPropertyConvert = {
     'node': {
-        'NODE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('width', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'NODE_HEIGHT': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('height', continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'NODE_BACKGROUND_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'NODE_BACKGROUND_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('alpha', continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessNodeWidth, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_HEIGHT': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessNodeHeight, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_BACKGROUND_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'NODE_BACKGROUND_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
     },
     'edge': {
         'EDGE_WIDTH': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.width, continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'EDGE_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert('alpha', continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
-        'EDGE_LINE_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.color, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
+        'EDGE_OPACITY': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessAlpha, continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax)),
+        'EDGE_LINE_COLOR': (attributeValue, attributeMin, attributeMax, vpMin, vpMax) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessColor, continuousColorPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax))
     }
 }
 

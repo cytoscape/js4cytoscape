@@ -11,5 +11,12 @@ module.exports = Object.freeze({
     'labelFontSize' : 'labelFontSize',
     'color': 'color',
     'size' : 'size',
-    'width' : 'width'
+    'width' : 'width',
+
+    'preprocessColor': 'preprocessColor',
+    'preprocessAlpha': 'preprocessAlpha',
+    'preprocessLabelColor': 'preprocessLabelColor',
+    'preprocessLabelAlpha': 'preprocessLabelAlpha',
+    'preprocessNodeWidth' : 'preprocessNodeWidth',
+    'preprocessNodeHeight' : 'preprocessNodeHeight'
 });
