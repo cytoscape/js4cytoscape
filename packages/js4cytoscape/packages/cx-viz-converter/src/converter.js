@@ -15,16 +15,30 @@ function verifyVersion(cx) {
     }
 }
 
-function convert(cx, targetFormat) {
+const defaultConverters = [
+    largeNetwork,
+    cytoscapeJS
+];
+
+function convert(cx, targetFormat, converters = defaultConverters) {
     verifyVersion(cx);
-    switch(targetFormat) {
-        case largeNetwork.converter.targetFormat: {
-            return largeNetwork.converter.convert(cx);
+    let selectedConverter = undefined;
+    converters.forEach( converter => {
+        if (converter.converter.targetFormat == targetFormat) {
+            console.log('target format: ' + converter.converter.targetFormat);
+            if (typeof selectedConverter == 'undefined') {
+                selectedConverter = converter;
+            } else {
+                throw 'converters contain multiple entries for target format: ' + targetFormat;
+            }
         }
-        case cytoscapeJS.converter.targetFormat: {
-            return cytoscapeJS.converter.convert(cx);
-        }
+    });
+
+    if (typeof selectedConverter == 'undefined') {
+        throw 'no converter available for target format: ' + targetFormat
     }
+
+    return selectedConverter.converter.convert(cx)
 }
 
 module.exports = {

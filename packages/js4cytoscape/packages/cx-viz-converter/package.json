@@ -24,9 +24,11 @@
     "clean": "rimraf build/*",
     "lint": "run-s lint:*",
     "watch": "run-p watch:*",
-    "test": "mocha"
+    "test": "nyc mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nyc": "^15.0.1"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
