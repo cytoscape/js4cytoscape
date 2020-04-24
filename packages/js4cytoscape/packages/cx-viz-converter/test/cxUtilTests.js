@@ -23,16 +23,25 @@ describe('cxUtil tests', function () {
 
     const input = [{
       edges: {
-        interaction: {
-          v: "interact with"
+        edgeDefaultValueAttribute: {
+          v: "edgeDefaultValue" 
+        },
+        edgeNumberTypeAttribute: {
+          d: "long"
+        },
+        edgeNameAliasAttribute: {
+          a: "edgeAlias"
         }
       },
       nodes: {
-        Size: {
+        nodeDefaultValueAttribute: {
+          v: "nodeDefaultValue" 
+        },
+        nodeNumberTypeAttribute: {
           d: "integer"
         },
-        annot_source: {
-          a: "a1"
+        nodeNameAliasAttribute: {
+          a: "nodeAlias"
         },
       }
     }];
@@ -55,7 +64,23 @@ describe('cxUtil tests', function () {
       edgeAttributeDefaultValueMap
     );
 
-    expect(nodeAttributeNameMap).to.have.all.keys('a1');
-    expect(nodeAttributeNameMap.get('a1')).to.equal('annot_source');
+    expect(nodeAttributeNameMap).to.have.all.keys('nodeAlias');
+    expect(nodeAttributeNameMap.get('nodeAlias')).to.equal('nodeNameAliasAttribute');
+
+    expect(edgeAttributeNameMap).to.have.all.keys('edgeAlias');
+    expect(edgeAttributeNameMap.get('edgeAlias')).to.equal('edgeNameAliasAttribute');
+
+    expect(nodeAttributeTypeMap).to.have.all.keys('nodeNumberTypeAttribute');
+    expect(nodeAttributeTypeMap.get('nodeNumberTypeAttribute')).to.equal('integer');
+
+    expect(edgeAttributeTypeMap).to.have.all.keys('edgeNumberTypeAttribute');
+    expect(edgeAttributeTypeMap.get('edgeNumberTypeAttribute')).to.equal('long');
+
+    expect(nodeAttributeDefaultValueMap).to.have.all.keys('nodeDefaultValueAttribute');
+    expect(nodeAttributeDefaultValueMap.get('nodeDefaultValueAttribute')).to.equal('nodeDefaultValue');
+
+    expect(edgeAttributeDefaultValueMap).to.have.all.keys('edgeDefaultValueAttribute');
+    expect(edgeAttributeDefaultValueMap.get('edgeDefaultValueAttribute')).to.equal('edgeDefaultValue');
+
   });
 });
