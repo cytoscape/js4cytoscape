@@ -392,15 +392,10 @@ function lnvConvert(cx) {
             const defaultStyles = value.default;
 
             defaultValues = getDefaultValues(defaultStyles);
-            console.log('large network default style = ' + JSON.stringify(defaultValues, null, 2));
-
+            
             mappings.node = value.nodeMapping ? getMappings(value.nodeMapping) : {};
-            //mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
-
             mappings.edge = value.edgeMapping ? getMappings(value.edgeMapping) : {};
-
-            //mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
-
+           
         } else if (vpAt === cxConstants.N) {
 
             const key = vpElement[cxConstants.PO].toString();
@@ -505,8 +500,6 @@ function lnvConvert(cx) {
     return output;
 }
 
-
-
 const converter = {
     targetFormat: 'lnv',
     convert: (cx) => {
@@ -515,5 +508,9 @@ const converter = {
 }
 
 module.exports = {
+    simpleDefaultPropertyConvert : simpleDefaultPropertyConvert,
+    processNodeView: processNodeView,
+    processEdgeView: processEdgeView,
+    getDefaultValues: getDefaultValues,
     converter: converter
 };
