@@ -15,6 +15,30 @@ describe('largeNetworkTests', function(){
     expect(output).to.eql(expected);
   });
 
+  it('test continuousNumberPropertyConvert', function() {
+    expect(largeNetwork.continuousNumberPropertyConvert(5, 0, 10, 0, 30)).to.eql(15);
+  });
+
+  it('test continuousAlphaPropertyConvert', function() {
+    const output = largeNetwork.continuousAlphaPropertyConvert(5, 0, 10, 0, 1);
+    expect(Number.isInteger(output)).to.eql(true);
+  });
+
+  it('test continuousColorPropertyConvert', function() {
+    expect(largeNetwork.continuousColorPropertyConvert(5,0,10, '#002244', '#FFFFFF')).to.eql([ 128, 145, 162 ]);
+  });
+
+  it('test inInRange', function(){
+    expect(largeNetwork.isInRange(20, 1, 20, false, true)).to.eql(true);
+    expect(largeNetwork.isInRange(20, 1, 20, false, false)).to.eql(false);
+    expect(largeNetwork.isInRange(21, 1, 20, false, true)).to.eql(false);
+
+    expect(largeNetwork.isInRange(1, 1, 20, true, false)).to.eql(true);
+    expect(largeNetwork.isInRange(1, 1, 20, false, false)).to.eql(false);
+    expect(largeNetwork.isInRange(0, 1, 20, false, false)).to.eql(false);
+
+  });
+
   it('test processEdgeView', function(){
     const input = {
         id:'idValue',
