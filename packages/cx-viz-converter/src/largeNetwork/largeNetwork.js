@@ -253,7 +253,9 @@ function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeM
 
     const alphaDecimal = getMap(vpMin, vpRange, attributeRatio);
    
-    return alphatoInt(alphaDecimal);
+    console.log("alphaDecimal = " + alphaDecimal);
+
+    return alphaToInt(alphaDecimal);
 }
 
 const continuousPropertyConvert = {
@@ -278,7 +280,7 @@ const continuousPropertyConvert = {
 
 function isInRange(attributeValue, min, max, includeMin, includeMax) { 
     const minSatisfied = includeMin ? min <= attributeValue : min < attributeValue;
-    const maxSatisfied = includeMax ? max >= attributeValue : min < attributeValue;
+    const maxSatisfied = includeMax ? max >= attributeValue : max > attributeValue;
     console.log('isInRange: ' + attributeValue + ' ' + min + ' ' + max + ' ' + includeMin + ' ' + includeMax + ' ' + minSatisfied + ' ' + maxSatisfied);
     return minSatisfied && maxSatisfied;   
 }
@@ -509,8 +511,12 @@ const converter = {
 
 module.exports = {
     simpleDefaultPropertyConvert : simpleDefaultPropertyConvert,
+    continuousNumberPropertyConvert : continuousNumberPropertyConvert,
+    continuousAlphaPropertyConvert : continuousAlphaPropertyConvert,
+    continuousColorPropertyConvert : continuousColorPropertyConvert,
     processNodeView: processNodeView,
     processEdgeView: processEdgeView,
     getDefaultValues: getDefaultValues,
+    isInRange: isInRange,
     converter: converter
 };
