@@ -29,7 +29,7 @@ function hexToRGB(hex) {
 }
 
 function alphaToInt(alphaDecimal) {
-    return clamp(Math.round(alphaDecimal * 255),0,255);
+    return clamp(Math.round(alphaDecimal * 255), 0, 255);
 }
 
 const defaultPropertyConvert = {
@@ -41,7 +41,7 @@ const defaultPropertyConvert = {
         'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
         'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, hexToRGB(portablePropertyValue)),
         'NODE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, alphaToInt(portablePropertyValue)),
-        'NODE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
+        'NODE_LABEL_FONT_SIZE': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
     },
     'edge': {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.width, portablePropertyValue),
@@ -50,7 +50,7 @@ const defaultPropertyConvert = {
         'EDGE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.label, portablePropertyValue),
         'EDGE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelColor, hexToRGB(portablePropertyValue)),
         'EDGE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.preprocessLabelAlpha, alphaToInt(portablePropertyValue)),
-        'EDGE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
+        'EDGE_LABEL_FONT_SIZE': (portablePropertyValue) => simpleDefaultPropertyConvert(largeNetworkConstants.labelFontSize, portablePropertyValue)
     }
 }
 
@@ -105,10 +105,10 @@ function processNodeView(nodeView) {
     let height = undefined;
     let colorArray = undefined;
     let alpha = undefined;
-    
+
     let labelColorArray = undefined;
     let labelAlpha = undefined;
-    
+
     let output = {
         id: nodeView.id,
         position: nodeView.position
@@ -218,14 +218,14 @@ function getMap(vpMin, vpRange, attributeRatio) {
 
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
-  }
+}
 
 function continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    const vpRange =getVpRange(vpMin, vpMax);
+    const vpRange = getVpRange(vpMin, vpMax);
 
     const output = getMap(vpMin, vpRange, attributeRatio);
-   
+
     return output;
 }
 
@@ -234,7 +234,7 @@ function continuousColorPropertyConvert(attributeValue, attributeMin, attributeM
     const maxRGB = hexToRGB(vpMax);
 
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    
+
     const rRange = getVpRange(minRGB[0], maxRGB[1]);
     const gRange = getVpRange(minRGB[1], maxRGB[1]);
     const bRange = getVpRange(minRGB[2], maxRGB[2]);
@@ -249,10 +249,10 @@ function continuousColorPropertyConvert(attributeValue, attributeMin, attributeM
 
 function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    const vpRange =getVpRange(vpMin, vpMax);
+    const vpRange = getVpRange(vpMin, vpMax);
 
     const alphaDecimal = getMap(vpMin, vpRange, attributeRatio);
-   
+
     console.log("alphaDecimal = " + alphaDecimal);
 
     return alphaToInt(alphaDecimal);
@@ -278,11 +278,11 @@ const continuousPropertyConvert = {
     }
 }
 
-function isInRange(attributeValue, min, max, includeMin, includeMax) { 
+function isInRange(attributeValue, min, max, includeMin, includeMax) {
     const minSatisfied = includeMin ? min <= attributeValue : min < attributeValue;
     const maxSatisfied = includeMax ? max >= attributeValue : max > attributeValue;
     console.log('isInRange: ' + attributeValue + ' ' + min + ' ' + max + ' ' + includeMin + ' ' + includeMax + ' ' + minSatisfied + ' ' + maxSatisfied);
-    return minSatisfied && maxSatisfied;   
+    return minSatisfied && maxSatisfied;
 }
 
 function getMapppedValues(mappings, entityType, attributes) {
@@ -291,39 +291,39 @@ function getMapppedValues(mappings, entityType, attributes) {
         const attributeValue = attributes[attributeKey];
         if (mappings[entityType][attributeKey]) {
             const mapping = mappings[entityType][attributeKey];
-           
-                if (mapping.type === 'DISCRETE') {
-                    const discreteMap = mapping.definition.map;
-                    discreteMap.forEach(keyValue => {
-                        if (keyValue.v == attributeValue) {
-                            if (defaultPropertyConvert[entityType][mapping.vp]){
-                                const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
-                                Object.assign(output, converted);
-                            }
+
+            if (mapping.type === 'DISCRETE') {
+                const discreteMap = mapping.definition.map;
+                discreteMap.forEach(keyValue => {
+                    if (keyValue.v == attributeValue) {
+                        if (defaultPropertyConvert[entityType][mapping.vp]) {
+                            const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
+                            Object.assign(output, converted);
                         }
-                    });
-                } else if (mapping.type === 'PASSTHROUGH') {
-                    if (defaultPropertyConvert[entityType][mapping.vp]){
-                        const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
-                        Object.assign(output, converted);
                     }
-                } else if (mapping.type === 'CONTINUOUS') {
-                    const continuousMappings = mapping.definition.map;
-                    continuousMappings.forEach(mappingRange => {
-                        if ('min' in mappingRange
-                            && 'max' in mappingRange
-                            && 'includeMin' in mappingRange 
-                            && 'includeMax' in mappingRange) {
-                            
-                            if (isInRange(attributeValue, mappingRange.min, mappingRange.max, mappingRange.includeMin, mappingRange.includeMax)
-                                    && continuousPropertyConvert[entityType][mapping.vp]) {
-                                    const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mappingRange.min, mappingRange.max, mappingRange.minVPValue, mappingRange.maxVPValue);
-                                    Object.assign(output, converted);
-                                
-                            }
-                        }
-                    });
+                });
+            } else if (mapping.type === 'PASSTHROUGH') {
+                if (defaultPropertyConvert[entityType][mapping.vp]) {
+                    const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
+                    Object.assign(output, converted);
                 }
+            } else if (mapping.type === 'CONTINUOUS') {
+                const continuousMappings = mapping.definition.map;
+                continuousMappings.forEach(mappingRange => {
+                    if ('min' in mappingRange
+                        && 'max' in mappingRange
+                        && 'includeMin' in mappingRange
+                        && 'includeMax' in mappingRange) {
+
+                        if (isInRange(attributeValue, mappingRange.min, mappingRange.max, mappingRange.includeMin, mappingRange.includeMax)
+                            && continuousPropertyConvert[entityType][mapping.vp]) {
+                            const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mappingRange.min, mappingRange.max, mappingRange.minVPValue, mappingRange.maxVPValue);
+                            Object.assign(output, converted);
+
+                        }
+                    }
+                });
+            }
         }
     });
     return output;
@@ -335,7 +335,9 @@ function lnvConvert(cx) {
     // We may need to collect object attributes to calculate
     // mappings in the second pass. 
 
-    let cxVisualProperties;
+    let cxVisualProperties = undefined;
+    let cxNodeBypasses = undefined;
+    let cxEdgeBypasses = undefined;
 
     let nodeAttributeTypeMap = new Map();
     let edgeAttributeTypeMap = new Map();
@@ -379,6 +381,10 @@ function lnvConvert(cx) {
             })
         } else if (cxAspect['visualProperties']) {
             cxVisualProperties = cxAspect['visualProperties'];
+        } else if (cxAspect['nodeBypasses']) {
+            cxNodeBypasses = cxAspect['nodeBypasses'];
+        } else if (cxAspect['edgeBypasses']) {
+            cxEdgeBypasses = cxAspect['edgeBypasses'];
         }
     });
 
@@ -388,42 +394,45 @@ function lnvConvert(cx) {
     let edgeViews = [];
 
     cxVisualProperties.forEach(vpElement => {
-        const vpAt = vpElement.at;
-        if (vpAt === cxConstants.STYLE) {
-            const value = vpElement.v;
-            const defaultStyles = value.default;
 
-            defaultValues = getDefaultValues(defaultStyles);
-            
-            mappings.node = value.nodeMapping ? getMappings(value.nodeMapping) : {};
-            mappings.edge = value.edgeMapping ? getMappings(value.edgeMapping) : {};
-           
-        } else if (vpAt === cxConstants.N) {
+        const defaultStyles = vpElement.default;
 
-            const key = vpElement[cxConstants.PO].toString();
-            const values = getLNVValues('node', vpElement.v)
+        defaultValues = getDefaultValues(defaultStyles);
 
-            if (!bypassMappings.node[key]) {
-                bypassMappings.node[key] = {};
-            }
+        mappings.node = vpElement.nodeMapping ? getMappings(vpElement.nodeMapping) : {};
+        mappings.edge = vpElement.edgeMapping ? getMappings(vpElement.edgeMapping) : {};
 
-            console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
 
-            Object.assign(bypassMappings.node[key], values);
-            //bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
-        } else if (vpAt === cxConstants.E) {
-            const key = vpElement[cxConstants.PO].toString();
-            const values = getLNVValues('edge', vpElement.v)
-
-            if (!bypassMappings.edge[key]) {
-                bypassMappings.edge[key] = {};
-            }
-
-            console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
-
-            Object.assign(bypassMappings.edge[key], values);
-        }
     });
+
+    cxNodeBypasses.forEach((vpElement) => {
+
+        const key = vpElement[cxConstants.ID].toString();
+        const values = getLNVValues('node', vpElement.v)
+
+        if (!bypassMappings.node[key]) {
+            bypassMappings.node[key] = {};
+        }
+
+        console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+
+        Object.assign(bypassMappings.node[key], values);
+        //bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
+    });
+
+    cxEdgeBypasses.forEach((vpElement) => {
+        const key = vpElement[cxConstants.ID].toString();
+        const values = getLNVValues('edge', vpElement.v)
+
+        if (!bypassMappings.edge[key]) {
+            bypassMappings.edge[key] = {};
+        }
+
+        console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+
+        Object.assign(bypassMappings.edge[key], values);
+    }
+    );
 
     console.log('mappings: ' + JSON.stringify(mappings, null, 2));
 
@@ -510,10 +519,10 @@ const converter = {
 }
 
 module.exports = {
-    simpleDefaultPropertyConvert : simpleDefaultPropertyConvert,
-    continuousNumberPropertyConvert : continuousNumberPropertyConvert,
-    continuousAlphaPropertyConvert : continuousAlphaPropertyConvert,
-    continuousColorPropertyConvert : continuousColorPropertyConvert,
+    simpleDefaultPropertyConvert: simpleDefaultPropertyConvert,
+    continuousNumberPropertyConvert: continuousNumberPropertyConvert,
+    continuousAlphaPropertyConvert: continuousAlphaPropertyConvert,
+    continuousColorPropertyConvert: continuousColorPropertyConvert,
     processNodeView: processNodeView,
     processEdgeView: processEdgeView,
     getDefaultValues: getDefaultValues,
