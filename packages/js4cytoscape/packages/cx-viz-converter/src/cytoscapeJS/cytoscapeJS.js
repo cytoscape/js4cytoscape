@@ -18,16 +18,16 @@ const defaultPropertyConvert = {
         'NODE_BACKGROUND_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.background_opacity, portablePropertyValue),
         'NODE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
         'NODE_LABEL_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_color, portablePropertyValue),
-        'NODE_LABEL_OPACITY' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
-        'NODE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
+        'NODE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
+        'NODE_LABEL_FONT_SIZE': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
     },
     'edge': {
         'EDGE_WIDTH': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.width, portablePropertyValue),
         'EDGE_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.opacity, portablePropertyValue),
         'EDGE_LABEL': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label, portablePropertyValue),
         'EDGE_LINE_COLOR': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.line_color, portablePropertyValue),
-        'EDGE_LABEL_OPACITY' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
-        'EDGE_LABEL_FONT_SIZE' : (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
+        'EDGE_LABEL_OPACITY': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_opacity, portablePropertyValue),
+        'EDGE_LABEL_FONT_SIZE': (portablePropertyValue) => simpleDefaultPropertyConvert(jsConstants.label_font_size, portablePropertyValue)
     },
 }
 
@@ -46,8 +46,8 @@ const passthroughMappingConvert = {
         'NODE_BACKGROUND_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.background_opacity, attributeName),
         'NODE_LABEL': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
         'NODE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName),
-        'NODE_LABEL_OPACITY' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
-        'NODE_LABEL_FONT_SIZE' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
+        'NODE_LABEL_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
+        'NODE_LABEL_FONT_SIZE': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
     },
     'edge': {
         'EDGE_WIDTH': (attributeName) => simplePassthroughMappingConvert(jsConstants.width, attributeName),
@@ -55,8 +55,8 @@ const passthroughMappingConvert = {
         'EDGE_LINE_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.line_color, attributeName),
         'EDGE_LABEL': (attributeName) => simplePassthroughMappingConvert(jsConstants.label, attributeName),
         'EDGE_LABEL_COLOR': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_color, attributeName),
-        'EDGE_LABEL_OPACITY' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
-        'EDGE_LABEL_FONT_SIZE' : (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
+        'EDGE_LABEL_OPACITY': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_opacity, attributeName),
+        'EDGE_LABEL_FONT_SIZE': (attributeName) => simplePassthroughMappingConvert(jsConstants.label_font_size, attributeName)
     },
 }
 function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
@@ -79,8 +79,8 @@ const mapDataPropertyConvert = {
         'NODE_BACKGROUND_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.background_opacity, attributeName, minValue, maxValue, minVP, maxVP),
         'NODE_LABEL': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
         'NODE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP),
-        'NODE_LABEL_OPACITY' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
-        'NODE_LABEL_FONT_SIZE' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
+        'NODE_LABEL_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'NODE_LABEL_FONT_SIZE': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
 
     },
     'edge': {
@@ -89,8 +89,8 @@ const mapDataPropertyConvert = {
         'EDGE_LINE_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.line_color, attributeName, minValue, maxValue, minVP, maxVP),
         'EDGE_LABEL': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label, attributeName, minValue, maxValue, minVP, maxVP),
         'EDGE_LABEL_COLOR': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_color, attributeName, minValue, maxValue, minVP, maxVP),
-        'EDGE_LABEL_OPACITY' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
-        'EDGE_LABEL_FONT_SIZE' : (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
+        'EDGE_LABEL_OPACITY': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_opacity, attributeName, minValue, maxValue, minVP, maxVP),
+        'EDGE_LABEL_FONT_SIZE': (attributeName, minValue, maxValue, minVP, maxVP) => simpleMapDataPropertyConvert(jsConstants.label_font_size, attributeName, minValue, maxValue, minVP, maxVP)
     },
 }
 
@@ -200,7 +200,7 @@ function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, 
 
 function getBypassCSSEntry(entityType, cxElement) {
 
-    const id = cxElement.po;
+    const id = cxElement.id;
     const css = {};
     Object.keys(cxElement.v).forEach((portablePropertyKey) => {
         const portablePropertyValue = cxElement.v[portablePropertyKey];
@@ -212,7 +212,7 @@ function getBypassCSSEntry(entityType, cxElement) {
         }
     });
 
-    const selector = getIdSelector(id);
+    const selector = getIdSelector(id, entityType);
     return getStyleElement(selector, css);
 }
 
@@ -257,7 +257,7 @@ function getCSSMappingEntries(
 const NODE_SELECTOR = 'node';
 const EDGE_SELECTOR = 'edge';
 
-function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap) {
+function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses, nodeAttributeTypeMap, edgeAttributeTypeMap) {
     let output = {
         style: [],
         'background-color': undefined
@@ -274,29 +274,29 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
     let bypassCSSEntries = [];
 
     cxVisualProperties.forEach((vpElement) => {
-        const vpAt = vpElement.at;
-        if (vpAt === cxConstants.STYLE) {
-            const value = vpElement.v;
-            const defaultStyles = value.default;
+        const defaultStyles = vpElement.default;
 
-            console.log('portable node style: ' + JSON.stringify(defaultStyles.node));
-            defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
-            defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
+        console.log('portable node style: ' + JSON.stringify(defaultStyles.node));
+        defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
+        defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
 
-            cssNetworkBackgroundColor = defaultStyles.network['background-color'];
+        cssNetworkBackgroundColor = defaultStyles.network['background-color'];
 
-            const nodeMapping = value.nodeMapping;
-            mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
+        const nodeMapping = vpElement.nodeMapping;
+        mappingCSSNodeStyle = getCSSMappingEntries(nodeMapping, 'node', nodeAttributeTypeMap);
 
-            const edgeMapping = value.edgeMapping;
-            mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
+        const edgeMapping = vpElement.edgeMapping;
+        mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
-        } else if (vpAt === cxConstants.N) {
-            bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
-        } else if (vpAt === cxConstants.E) {
-            bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
-        }
     })
+    cxNodeBypasses.forEach((vpElement) => {
+       
+        bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
+    });
+
+    cxEdgeBypasses.forEach((vpElement) => {
+        bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
+    });
 
     console.log('default node style: ' + JSON.stringify(defaultCSSNodeStyle));
 
@@ -306,6 +306,8 @@ function getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttri
 
     output.style.push.apply(output.style, mappingCSSNodeStyle);
     output.style.push.apply(output.style, mappingCSSEdgeStyle);
+
+    output.style.push.apply(output.style, bypassCSSEntries);
 
     output['background-color'] = cssNetworkBackgroundColor;
 
@@ -323,6 +325,8 @@ const converter = {
         }
 
         let cxVisualProperties = undefined;
+        let cxNodeBypasses = undefined;
+        let cxEdgeBypasses = undefined;
 
         let nodeAttributeTypeMap = new Map();
         let edgeAttributeTypeMap = new Map();
@@ -357,6 +361,10 @@ const converter = {
                 });
             } else if (cxAspect['visualProperties']) {
                 cxVisualProperties = cxAspect['visualProperties'];
+            } else if (cxAspect['nodeBypasses']) {
+                cxNodeBypasses = cxAspect['nodeBypasses'];
+            } else if (cxAspect['edgeBypasses']) {
+                cxEdgeBypasses = cxAspect['edgeBypasses'];
             }
         });
 
@@ -401,7 +409,7 @@ const converter = {
             }
         });
 
-        const style = getVisualProperties(cxVisualProperties, nodeAttributeTypeMap, edgeAttributeTypeMap);
+        const style = getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
         output.style = style.style;
         console.log('visualProperties: ' + JSON.stringify(cxVisualProperties, null, 2));

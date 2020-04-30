@@ -7,6 +7,7 @@ module.exports = Object.freeze({
     'background_opacity': 'background-opacity',
     'label': 'label',
     'label_color': 'color',
+    'label_font_size' : 'font-size',
     'label_opacity' : 'text-opacity',
     'opacity': 'opacity',
     'line_color': 'line-color'
