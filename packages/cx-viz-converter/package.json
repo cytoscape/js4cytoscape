@@ -1,15 +1,15 @@
 {
-  "name": "cxVizConverter",
+  "name": "cx-viz-converter",
   "version": "0.0.0",
   "description": "CX converter for large network visualization",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cytoscape/cxVizConverter.git"
+    "url": "https://github.com/cytoscape/cx-viz-converter.git"
   },
   "bugs": {
-    "url": "https://github.com/cytoscape/cxVizConverter/issues"
+    "url": "https://github.com/cytoscape/cx-viz-converter/issues"
   },
-  "homepage": "https://github.com/cytoscape/cxVizConverter",
+  "homepage": "https://github.com/cytoscape/cx-viz-converter",
   "main": "./build/bundle.js",
   "scripts": {
     "prepublish": "run-s build",
