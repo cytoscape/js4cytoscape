@@ -242,9 +242,10 @@ function continuousColorPropertyConvert(attributeValue, attributeMin, attributeM
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
 
     const output = [
-        clamp(Math.round(getMap(minRGB[0], maxRGB[0], attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB[1], maxRGB[1], attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB[2], maxRGB[2], attributeRatio)), 0, 255)
+        //TODO check that minRGB and maxRGB are defined/undefined
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[0], maxRGB === undefined ? undefined: maxRGB[0], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[1], maxRGB === undefined ? undefined: maxRGB[1], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[2], maxRGB === undefined ? undefined: maxRGB[2], attributeRatio)), 0, 255)
     ]
     return output;
 }
