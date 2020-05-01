@@ -19,13 +19,42 @@ describe('largeNetworkTests', function(){
     expect(largeNetwork.continuousNumberPropertyConvert(5, 0, 10, 0, 30)).to.eql(15);
   });
 
+  it('test continuousNumberPropertyConvert maxOnly', function() {
+    expect(largeNetwork.continuousNumberPropertyConvert(5, undefined, 10, undefined, 30)).to.eql(30);
+  });
+
+  it('test continuousNumberPropertyConvert minOnly', function() {
+    expect(largeNetwork.continuousNumberPropertyConvert(5, 0, undefined, 0, undefined)).to.eql(0);
+  });
+
   it('test continuousAlphaPropertyConvert', function() {
     const output = largeNetwork.continuousAlphaPropertyConvert(5, 0, 10, 0, 1);
     expect(Number.isInteger(output)).to.eql(true);
+    expect(output).to.eql(128);
+  });
+
+  it('test continuousAlphaPropertyConvert maxOnly', function() {
+    const output = largeNetwork.continuousAlphaPropertyConvert(5, undefined, 10, undefined, 1);
+    expect(Number.isInteger(output)).to.eql(true);
+    expect(output).to.eql(255);
+  });
+
+  it('test continuousAlphaPropertyConvert minOnly', function() {
+    const output = largeNetwork.continuousAlphaPropertyConvert(5, 0, undefined, 0, undefined);
+    expect(Number.isInteger(output)).to.eql(true);
+    expect(output).to.eql(0);
   });
 
   it('test continuousColorPropertyConvert', function() {
     expect(largeNetwork.continuousColorPropertyConvert(5,0,10, '#002244', '#FFFFFF')).to.eql([ 128, 145, 162 ]);
+  });
+
+  it('test continuousColorPropertyConvert maxOnly', function() {
+    expect(largeNetwork.continuousColorPropertyConvert(-5,undefined,10, undefined, '#FFFFFF')).to.eql([ 255, 255, 255 ]);
+  });
+
+  it('test continuousColorPropertyConvert minOnly', function() {
+    expect(largeNetwork.continuousColorPropertyConvert(5,0,undefined, '#002244', undefined)).to.eql([ 0, 34, 68 ]);
   });
 
   it('test inInRange', function(){
