@@ -123,16 +123,24 @@ function getStyleElement(selector, css) {
 function getContinuousSelector(entityType, attributeName, minValue, maxValue, includeMin, includeMax) {
     const minCondition = includeMin ? '>=' : '>';
     const maxCondition = includeMax ? '<=' : '<';
-
-    return entityType + '[' + attributeName + ' ' + minCondition + ' ' + minValue + '][' + attributeName + ' ' + maxCondition + ' ' + maxValue + ']'
+    const minBound = (minValue !== undefined) ? '[' + attributeName + ' ' + minCondition + ' ' + minValue + ']' : '';
+    const maxBound = (maxValue !== undefined) ? '[' + attributeName + ' ' + maxCondition + ' ' + maxValue + ']' : '';
+    return entityType + minBound + maxBound;
 }
 
 function getContinuousStyle(entityType, portablePropertyKey, attributeName, minValue, maxValue, minVP, maxVP) {
-    let output = {};
-    if (mapDataPropertyConvert[entityType][portablePropertyKey]) {
-        return mapDataPropertyConvert[entityType][portablePropertyKey](attributeName, minValue, maxValue, minVP, maxVP);
+
+    if (minValue !== undefined && maxValue !== undefined) {
+        if (mapDataPropertyConvert[entityType][portablePropertyKey]) {
+            return mapDataPropertyConvert[entityType][portablePropertyKey](attributeName, minValue, maxValue, minVP, maxVP);
+        }
+    } else {
+        if (minValue === undefined) {
+            
+        }
     }
-    return output;
+
+    return {};
 }
 
 function getContinuousMappingCSSEntries(portablePropertyKey, cxMappingDefinition, entityType, attributeTypeMap) {

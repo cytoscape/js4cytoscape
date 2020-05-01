@@ -10,6 +10,9 @@ function simpleDefaultPropertyConvert(targetStyleField, portablePropertValue) {
 }
 
 function hexToRGB(hex) {
+    if (hex === undefined) {
+        return hex;
+    }
     let r = 0, g = 0, b = 0;
 
     // 3 digits
@@ -208,12 +211,16 @@ function getAttributeRatio(attributeValue, attributeMin, attributeMax) {
     return attributeValue / (attributeMax - attributeMin);
 }
 
-function getVpRange(vpMin, vpMax) {
-    return vpMax - vpMin;
-}
-
-function getMap(vpMin, vpRange, attributeRatio) {
-    return vpMin + vpRange * attributeRatio;
+function getMap(vpMin, vpMax, attributeRatio) {
+    if (vpMin !== undefined && vpMax !== undefined) {
+        return vpMin + ((vpMax - vpMin) * attributeRatio);
+    } else {
+        if (vpMin === undefined) {
+            return vpMax;
+        } else if (vpMax === undefined) {
+            return vpMin;
+        }
+    }
 }
 
 function clamp(value, min, max) {
@@ -222,9 +229,8 @@ function clamp(value, min, max) {
 
 function continuousNumberPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    const vpRange = getVpRange(vpMin, vpMax);
 
-    const output = getMap(vpMin, vpRange, attributeRatio);
+    const output = getMap(vpMin, vpMax, attributeRatio);
 
     return output;
 }
@@ -235,26 +241,20 @@ function continuousColorPropertyConvert(attributeValue, attributeMin, attributeM
 
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
 
-    const rRange = getVpRange(minRGB[0], maxRGB[1]);
-    const gRange = getVpRange(minRGB[1], maxRGB[1]);
-    const bRange = getVpRange(minRGB[2], maxRGB[2]);
-
     const output = [
-        clamp(Math.round(getMap(minRGB[0], rRange, attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB[1], gRange, attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB[2], bRange, attributeRatio)), 0, 255)
+        clamp(Math.round(getMap(minRGB[0], maxRGB[0], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB[1], maxRGB[1], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB[2], maxRGB[2], attributeRatio)), 0, 255)
     ]
     return output;
 }
 
 function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    const vpRange = getVpRange(vpMin, vpMax);
-
-    const alphaDecimal = getMap(vpMin, vpRange, attributeRatio);
+    
+    const alphaDecimal = getMap(vpMin, vpMax, attributeRatio);
 
     console.log("alphaDecimal = " + alphaDecimal);
-
     return alphaToInt(alphaDecimal);
 }
 
@@ -279,13 +279,17 @@ const continuousPropertyConvert = {
 }
 
 function isInRange(attributeValue, min, max, includeMin, includeMax) {
-    const minSatisfied = includeMin ? min <= attributeValue : min < attributeValue;
-    const maxSatisfied = includeMax ? max >= attributeValue : max > attributeValue;
+    const minSatisfied = min !== undefined 
+        ? (includeMin ? min <= attributeValue : min < attributeValue) 
+        : true;
+    const maxSatisfied = max != undefined
+        ? (includeMax ? max >= attributeValue : max > attributeValue)
+        : true;
     console.log('isInRange: ' + attributeValue + ' ' + min + ' ' + max + ' ' + includeMin + ' ' + includeMax + ' ' + minSatisfied + ' ' + maxSatisfied);
     return minSatisfied && maxSatisfied;
 }
 
-function getMapppedValues(mappings, entityType, attributes) {
+function getMappedValues(mappings, entityType, attributes) {
     let output = {};
     Object.keys(attributes).forEach(attributeKey => {
         const attributeValue = attributes[attributeKey];
@@ -310,18 +314,14 @@ function getMapppedValues(mappings, entityType, attributes) {
             } else if (mapping.type === 'CONTINUOUS') {
                 const continuousMappings = mapping.definition.map;
                 continuousMappings.forEach(mappingRange => {
-                    if ('min' in mappingRange
-                        && 'max' in mappingRange
-                        && 'includeMin' in mappingRange
-                        && 'includeMax' in mappingRange) {
-
+                  
                         if (isInRange(attributeValue, mappingRange.min, mappingRange.max, mappingRange.includeMin, mappingRange.includeMax)
                             && continuousPropertyConvert[entityType][mapping.vp]) {
                             const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mappingRange.min, mappingRange.max, mappingRange.minVPValue, mappingRange.maxVPValue);
                             Object.assign(output, converted);
 
                         }
-                    }
+                    
                 });
             }
         }
@@ -464,7 +464,7 @@ function lnvConvert(cx) {
                 }
                 //Assign mappings
                 const expandedAttributes = cxUtil.getExpandedAttributes(cxNode['v'], nodeAttributeNameMap, nodeAttributeDefaultValueMap);
-                const mappingValues = getMapppedValues(mappings, 'node', expandedAttributes);
+                const mappingValues = getMappedValues(mappings, 'node', expandedAttributes);
                 Object.assign(nodeView, mappingValues);
 
                 //Assign bypass
@@ -495,7 +495,7 @@ function lnvConvert(cx) {
                 }
 
                 const expandedAttributes = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
-                const mappingValues = getMapppedValues(mappings, 'node', expandedAttributes);
+                const mappingValues = getMappedValues(mappings, 'node', expandedAttributes);
                 Object.assign(edgeView, mappingValues);
                 //Assign bypass
                 if (bypassMappings.edge[cxId]) {
