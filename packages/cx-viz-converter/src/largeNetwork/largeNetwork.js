@@ -332,12 +332,12 @@ function getMapppedValues(mappings, entityType, attributes) {
 function lnvConvert(cx) {
 
     //First pass. 
-    // We may need to collect object attributes to calculate
+    // We need to collect object attributes to calculate
     // mappings in the second pass. 
 
     let cxVisualProperties = undefined;
-    let cxNodeBypasses = undefined;
-    let cxEdgeBypasses = undefined;
+    let cxNodeBypasses = [];
+    let cxEdgeBypasses = [];
 
     let nodeAttributeTypeMap = new Map();
     let edgeAttributeTypeMap = new Map();
@@ -382,9 +382,13 @@ function lnvConvert(cx) {
         } else if (cxAspect['visualProperties']) {
             cxVisualProperties = cxAspect['visualProperties'];
         } else if (cxAspect['nodeBypasses']) {
-            cxNodeBypasses = cxAspect['nodeBypasses'];
+            cxAspect.nodeBypasses.forEach(bypass => {
+                cxNodeBypasses.push(bypass);
+            });
         } else if (cxAspect['edgeBypasses']) {
-            cxEdgeBypasses = cxAspect['edgeBypasses'];
+            cxAspect.edgeBypasses.forEach(bypass => {
+                cxEdgeBypasses.push(bypass);
+            });
         }
     });
 

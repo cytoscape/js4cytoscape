@@ -276,7 +276,7 @@ function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses,
     cxVisualProperties.forEach((vpElement) => {
         const defaultStyles = vpElement.default;
 
-        console.log('portable node style: ' + JSON.stringify(defaultStyles.node));
+        console.log('default style: ' + JSON.stringify(defaultStyles));
         defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
         defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
 
@@ -289,8 +289,8 @@ function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses,
         mappingCSSEdgeStyle = getCSSMappingEntries(edgeMapping, 'edge', edgeAttributeTypeMap);
 
     })
+
     cxNodeBypasses.forEach((vpElement) => {
-       
         bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
     });
 
@@ -325,8 +325,8 @@ const converter = {
         }
 
         let cxVisualProperties = undefined;
-        let cxNodeBypasses = undefined;
-        let cxEdgeBypasses = undefined;
+        let cxNodeBypasses = [];
+        let cxEdgeBypasses = [];
 
         let nodeAttributeTypeMap = new Map();
         let edgeAttributeTypeMap = new Map();
@@ -362,9 +362,13 @@ const converter = {
             } else if (cxAspect['visualProperties']) {
                 cxVisualProperties = cxAspect['visualProperties'];
             } else if (cxAspect['nodeBypasses']) {
-                cxNodeBypasses = cxAspect['nodeBypasses'];
+                cxAspect.nodeBypasses.forEach(bypass => {
+                    cxNodeBypasses.push(bypass);
+                });
             } else if (cxAspect['edgeBypasses']) {
-                cxEdgeBypasses = cxAspect['edgeBypasses'];
+                cxAspect.edgeBypasses.forEach(bypass => {
+                    cxEdgeBypasses.push(bypass);
+                });
             }
         });
 
