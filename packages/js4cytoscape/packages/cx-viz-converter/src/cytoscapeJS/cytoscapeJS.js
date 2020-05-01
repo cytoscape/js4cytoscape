@@ -232,7 +232,7 @@ function getCSSMappingEntries(
     entityType,
     attributeTypeMap) {
     let output = [];
-    Object.keys(cxMappingEntries).forEach((key) => {
+    cxMappingEntries && Object.keys(cxMappingEntries).forEach((key) => {
         const cxMappingEntry = cxMappingEntries[key];
         console.log(" mapping type: " + cxMappingEntry.type);
         switch (cxMappingEntry.type) {
