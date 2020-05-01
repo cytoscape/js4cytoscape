@@ -61,12 +61,20 @@ const passthroughMappingConvert = {
 }
 function simpleMapDataPropertyConvert(targetStyleField, attributeName, minValue, maxValue, minVP, maxVP) {
     let output = {};
+    if (minValue != undefined && maxValue !== undefined) {
     output[targetStyleField] = 'mapData(' + attributeName
         + ', ' + minValue
         + ', ' + maxValue
         + ', ' + minVP
         + ', ' + maxVP
         + ')';
+    } else {
+        if (minValue === undefined) {
+            output[targetStyleField] = maxVP;
+        } else if (maxValue == undefined) {
+            output[targetStyleField] = minVP;
+        }
+    }
     return output;
 }
 
@@ -129,17 +137,9 @@ function getContinuousSelector(entityType, attributeName, minValue, maxValue, in
 }
 
 function getContinuousStyle(entityType, portablePropertyKey, attributeName, minValue, maxValue, minVP, maxVP) {
-
-    if (minValue !== undefined && maxValue !== undefined) {
-        if (mapDataPropertyConvert[entityType][portablePropertyKey]) {
-            return mapDataPropertyConvert[entityType][portablePropertyKey](attributeName, minValue, maxValue, minVP, maxVP);
-        }
-    } else {
-        if (minValue === undefined) {
-            
-        }
+    if (mapDataPropertyConvert[entityType][portablePropertyKey]) {
+        return mapDataPropertyConvert[entityType][portablePropertyKey](attributeName, minValue, maxValue, minVP, maxVP);
     }
-
     return {};
 }
 
