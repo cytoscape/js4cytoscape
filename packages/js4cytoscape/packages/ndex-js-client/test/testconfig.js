@@ -1,2 +1,3 @@
-export const testAccount = { username: 'xxx', password: 'yyy' };
+const testAccount = { username: 'cj1', password: 'aaaaaaaaa' };
 
+module.exports = { testAccount };
