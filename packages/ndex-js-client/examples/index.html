@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>NDEx JS Library webpage</title>
-  <script src="../lib/ndexClient.min.js"></script>
+  <script src="../dist/build/bundle.js"></script>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 
-  var ndex = new ndexClient('http://dev.ndexbio.org/v2');
+  var ndex = new ndexClient.NDEx('http://dev.ndexbio.org/v2');
 
   ndex.getStatus().then( (response) => {
     var p = document.createElement('p');

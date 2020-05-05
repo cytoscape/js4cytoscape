@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export default class NDEx {
+class NDEx {
   constructor(hostprefix) {
     if (hostprefix === undefined || hostprefix === null || hostprefix === '') {
       throw new Error('NDEx server endpoint base URL is required in client constructor.');
@@ -248,6 +248,7 @@ export default class NDEx {
       this._httpPostProtectedObj('group', undefined, group).then(
         (response) => {
           let uuidr = response.split('/');
+
           let uuid = uuidr[uuidr.length - 1];
 
           return resolve(uuid);
@@ -305,6 +306,7 @@ export default class NDEx {
       this._httpPostProtectedObj('network', parameters, rawCX).then(
         (response) => {
           let uuidr = response.split('/');
+
           let uuid = uuidr[uuidr.length - 1];
 
           return resolve(uuid);
@@ -457,3 +459,4 @@ export default class NDEx {
 
 }
 
+module.exports = { NDEx };
