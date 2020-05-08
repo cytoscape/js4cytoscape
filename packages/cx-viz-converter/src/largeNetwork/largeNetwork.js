@@ -255,7 +255,7 @@ function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeM
     
     const alphaDecimal = getMap(vpMin, vpMax, attributeRatio);
 
-    console.log("alphaDecimal = " + alphaDecimal);
+    //console.log("alphaDecimal = " + alphaDecimal);
     return alphaToInt(alphaDecimal);
 }
 
@@ -286,7 +286,7 @@ function isInRange(attributeValue, min, max, includeMin, includeMax) {
     const maxSatisfied = max != undefined
         ? (includeMax ? max >= attributeValue : max > attributeValue)
         : true;
-    console.log('isInRange: ' + attributeValue + ' ' + min + ' ' + max + ' ' + includeMin + ' ' + includeMax + ' ' + minSatisfied + ' ' + maxSatisfied);
+    //console.log('isInRange: ' + attributeValue + ' ' + min + ' ' + max + ' ' + includeMin + ' ' + includeMax + ' ' + minSatisfied + ' ' + maxSatisfied);
     return minSatisfied && maxSatisfied;
 }
 
@@ -419,7 +419,7 @@ function lnvConvert(cx) {
             bypassMappings.node[key] = {};
         }
 
-        console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+        //console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
 
         Object.assign(bypassMappings.node[key], values);
         //bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
@@ -433,13 +433,13 @@ function lnvConvert(cx) {
             bypassMappings.edge[key] = {};
         }
 
-        console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
+        //console.log('bypass calculated: ' + JSON.stringify(values, null, 2));
 
         Object.assign(bypassMappings.edge[key], values);
     }
     );
 
-    console.log('mappings: ' + JSON.stringify(mappings, null, 2));
+    //console.log('mappings: ' + JSON.stringify(mappings, null, 2));
 
     //Second pass. 
     // Here is where the actual output is generated.

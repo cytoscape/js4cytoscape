@@ -147,7 +147,7 @@ function getContinuousMappingCSSEntries(portablePropertyKey, cxMappingDefinition
     let output = [];
     const attributeName = cxMappingDefinition['attribute'];
     const rangeMaps = cxMappingDefinition['map'];
-    console.log('continuous mapping for ' + attributeName + ': ' + JSON.stringify(rangeMaps, null, 2));
+    //console.log('continuous mapping for ' + attributeName + ': ' + JSON.stringify(rangeMaps, null, 2));
 
     rangeMaps.forEach((range) => {
         const selector = getContinuousSelector(entityType, attributeName, range.min, range.max, range.includeMin, range.includeMax);
@@ -187,7 +187,7 @@ function getDiscreteMappingCSSEntries(portablePropertyKey, cxMappingDefinition, 
     const attributeName = cxMappingDefinition['attribute'];
     const attributeDataType = attributeTypeMap.get(attributeName);
     atttributeToValueMap.forEach((discreteMap) => {
-        console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' (' + attributeName + '<' + attributeDataType + '>) -> ' + discreteMap.vp);
+        //console.log(' discrete map for ' + portablePropertyKey + ': ' + discreteMap.v + ' (' + attributeName + '<' + attributeDataType + '>) -> ' + discreteMap.vp);
 
         const selector = getDiscreteSelector(entityType, attributeName, attributeDataType, discreteMap.v);
 
@@ -234,7 +234,7 @@ function getCSSMappingEntries(
     let output = [];
     cxMappingEntries && Object.keys(cxMappingEntries).forEach((key) => {
         const cxMappingEntry = cxMappingEntries[key];
-        console.log(" mapping type: " + cxMappingEntry.type);
+        //console.log(" mapping type: " + cxMappingEntry.type);
         switch (cxMappingEntry.type) {
             case 'CONTINUOUS': {
                 const continousMappings = getContinuousMappingCSSEntries(key, cxMappingEntry.definition, entityType, attributeTypeMap);
@@ -284,7 +284,7 @@ function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses,
     cxVisualProperties.forEach((vpElement) => {
         const defaultStyles = vpElement.default;
 
-        console.log('default style: ' + JSON.stringify(defaultStyles));
+        //console.log('default style: ' + JSON.stringify(defaultStyles));
         defaultCSSNodeStyle = getCSSStyleEntries(defaultStyles.node, 'node');
         defaultCSSEdgeStyle = getCSSStyleEntries(defaultStyles.edge, 'edge');
 
@@ -306,7 +306,7 @@ function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses,
         bypassCSSEntries.push(getBypassCSSEntry('edge', vpElement));
     });
 
-    console.log('default node style: ' + JSON.stringify(defaultCSSNodeStyle));
+    //console.log('default node style: ' + JSON.stringify(defaultCSSNodeStyle));
 
     //Add default style
     output.style.push(getStyleElement(NODE_SELECTOR, defaultCSSNodeStyle));
@@ -348,7 +348,7 @@ const converter = {
         cx.forEach((cxAspect) => {
             if (cxAspect['attributeDeclarations']) {
                 const cxAttributeDeclarations = cxAspect['attributeDeclarations'];
-                console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
+                //console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
                 cxUtil.processAttributeDeclarations(cxAttributeDeclarations,
                     nodeAttributeNameMap,
                     nodeAttributeTypeMap,
@@ -381,11 +381,11 @@ const converter = {
         });
 
         nodeAttributeTypeMap.forEach((inferredType, attributeName) => {
-            console.log('inferred attribute type for node: ' + attributeName + ': ' + inferredType);
+            //console.log('inferred attribute type for node: ' + attributeName + ': ' + inferredType);
         });
 
         edgeAttributeTypeMap.forEach((inferredType, attributeName) => {
-            console.log('inferred attribute type for edge: ' + attributeName + ': ' + inferredType);
+            //console.log('inferred attribute type for edge: ' + attributeName + ': ' + inferredType);
         });
 
         //Add nodes
@@ -424,8 +424,8 @@ const converter = {
         const style = getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses, nodeAttributeTypeMap, edgeAttributeTypeMap);
 
         output.style = style.style;
-        console.log('visualProperties: ' + JSON.stringify(cxVisualProperties, null, 2));
-        console.log('style: ' + JSON.stringify(output.style, null, 2));
+        //console.log('visualProperties: ' + JSON.stringify(cxVisualProperties, null, 2));
+        //console.log('style: ' + JSON.stringify(output.style, null, 2));
 
         output['background-color'] = style['background-color'];
 
