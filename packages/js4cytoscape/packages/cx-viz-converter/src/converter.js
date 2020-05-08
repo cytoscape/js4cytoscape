@@ -26,7 +26,7 @@ function convert(cx, targetFormat, converters = defaultConverters) {
     
     converters.forEach( converter => {
         if (converter.converter.targetFormat == targetFormat) {
-            console.log('target format: ' + converter.converter.targetFormat);
+            //console.log('target format: ' + converter.converter.targetFormat);
             if (typeof selectedConverter == 'undefined') {
                 selectedConverter = converter;
             } else {

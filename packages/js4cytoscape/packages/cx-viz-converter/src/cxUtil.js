@@ -21,7 +21,7 @@ function processAttributeDeclarations(cxAttributeDeclarations,
     nodeAttributeDefaultValueMap, 
     edgeAttributeNameMap, edgeAttributeTypeMap, 
     edgeAttributeDefaultValueMap) {
-    console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
+    //console.log(" cxAttributeDeclarations: " + JSON.stringify(cxAttributeDeclarations, null, 2));
     cxAttributeDeclarations.forEach((cxAttributeDeclaration) => {
         if (cxAttributeDeclaration['nodes']) {
             updateAttributeNameMap(nodeAttributeNameMap, cxAttributeDeclaration.nodes);
@@ -49,7 +49,7 @@ function updateAttributeNameMap(attributeNameMap, attributeDeclarations) {
     Object.keys(attributeDeclarations).forEach((attributeName) => {
         const attributeDeclaration = attributeDeclarations[attributeName];
         if (attributeDeclaration['a']) {
-            console.log('attribute ' + attributeDeclaration.a + ' should be renamed to ' + attributeName);
+            //console.log('attribute ' + attributeDeclaration.a + ' should be renamed to ' + attributeName);
             attributeNameMap.set(attributeDeclaration.a, attributeName);
         }
     });
@@ -59,7 +59,7 @@ function updateAttributeDefaultValueMap(attributeDefaultValueMap, attributeDecla
     Object.keys(attributeDeclarations).forEach((attributeName) => {
         const attributeDeclaration = attributeDeclarations[attributeName];
         if (attributeDeclaration['v']) {
-            console.log('attribute ' + attributeName + ' has default value ' + attributeDeclaration.v);
+            //console.log('attribute ' + attributeName + ' has default value ' + attributeDeclaration.v);
             attributeDefaultValueMap.set(attributeName, attributeDeclaration.v);
         }
     });
