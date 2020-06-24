@@ -1,5 +1,5 @@
 {
-  "name": "ndexClient",
+  "name": "ndex-client",
   "version": "0.0.2",
   "description": "NDEx Javascript library",
   "main": "lib/ndexClient.js",
