@@ -20,7 +20,7 @@ class CyNDEx {
   }
 
   getNDExServer() {
-    return this._ndexServer ? this._ndexServer : 'http://dev.ndexbio.org/v2';
+    return this._ndexServer ? this._ndexServer : 'http://public.ndexbio.org/v2';
   }
 
   setBasicAuth(username, password) {
