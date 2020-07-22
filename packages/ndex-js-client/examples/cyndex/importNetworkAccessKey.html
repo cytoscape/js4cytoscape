@@ -24,7 +24,7 @@
   </script>
 
   <br><br>
-  <form onsubmit="importNetwork(document.getElementById('network-uuid').value, document.getElementById('access-key').value); return false;">
+  <form onsubmit="cyndex.setNDExServer('http\:\/\/dev.ndexbio.org/v2'); importNetwork(document.getElementById('network-uuid').value, document.getElementById('access-key').value); return false;">
     <label for="network-uuid">Network UUID:</label>
     <input type="text" id="network-uuid" name="network-uuid" value='9025e42a-9e3f-11e7-8676-06832d634f41'><br><br>
     <label for="access-key">Access Key:</label>
