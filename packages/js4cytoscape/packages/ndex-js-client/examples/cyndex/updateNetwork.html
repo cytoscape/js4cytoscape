@@ -13,16 +13,16 @@
   <script type="text/javascript">
     var cyndex = new ndexClient.CyNDEx();
 
-    const exportCurrentNetwork = () => {
-      cyndex.exportNetworkToNDEx().then((response) => {
+    const updateCurrentNetwork = () => {
+      cyndex.updateNetworkInNDEx().then((response) => {
         var p = document.createElement('p');
         p.appendChild(document.createTextNode('Current network: ' + JSON.stringify(response.data)));
         document.getElementById('content').appendChild(p);
       });
     }
 
-    const exportNetwork = (suid) => {
-      cyndex.exportNetworkToNDEx(suid).then((response) => {
+    const updateNetwork = (suid) => {
+      cyndex.updateNetworkInNDEx(suid).then((response) => {
         var p = document.createElement('p');
         p.appendChild(document.createTextNode('network ' +suid+ ': ' + JSON.stringify(response.data)));
         document.getElementById('content').appendChild(p);
@@ -41,10 +41,10 @@
   </form>
   <br><br>
 
-  <button id="current-summary-button" onclick="exportCurrentNetwork()">Export Current Network</button>
+  <button id="update-current-network-button" onclick="updateCurrentNetwork()">Export Current Network</button>
   <br><br>
 
-  <form onsubmit="exportNetwork(document.getElementById('network-suid').value); return false;">
+  <form onsubmit="updateNetwork(document.getElementById('network-suid').value); return false;">
     <label for="network-uuid">Network SUID:</label>
     <input type="text" id="network-suid" name="network-suid"><br><br>
     <input type="submit" value='Export Specific Network'>
