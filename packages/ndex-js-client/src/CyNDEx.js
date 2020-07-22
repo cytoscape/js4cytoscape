@@ -126,12 +126,12 @@ class CyNDEx {
   updateNetworkInNDEx(suid = 'current', uuid) {
     const saveParams = {
       serverUrl: this.getNDExServer(),
-      uuid: uuid,
+      //uuid: uuid,
       username: this._username,
       password: this._password
     }
 
-    return this._httpPost('/cyndex2/v1/networks/' + suid, undefined, saveParams);
+    return this._httpPut('/cyndex2/v1/networks/' + suid, undefined, saveParams);
   }
   /* network set functions */
 
