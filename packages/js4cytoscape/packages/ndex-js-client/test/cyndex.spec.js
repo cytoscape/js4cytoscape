@@ -1,59 +1,244 @@
 /* global describe, it, before */
 
 const { expect } = require('chai');
-const sinon = require("sinon");
 const nock = require('nock')
 
 const { CyNDEx } = require('../dist/build/bundle.js');
-const { testAccount } = require('./testconfig.js');
 
+describe('cyndex client tests', () => {
 
+  const CORS_HEADER = {
+    'access-control-allow-origin': '*',
+    'access-control-allow-credentials': 'true'
+  };
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  const SERVER = 'http://127.0.0.1:1234';
 
-function errorPrinter(err) {
-  console.log(err);
-}
+  const DUMMY_USERNAME = 'dummy-username';
+  const DUMMY_PASSWORD = 'dummy-password'; 
+  const DUMMY_UUID = 'dummy-uuid';
 
-describe('testing sinon mock', () => {
-  let cyndex = new CyNDEx();
+  const DEFAULT_SERVER = 'http://public.ndexbio.org/v2'
+
+  const getNock = () => {
+    return nock(SERVER).defaultReplyHeaders(CORS_HEADER);
+  }
+
+  const repeatRequest = (uri, requestBody) => {
+    //console.log(JSON.stringify(requestBody));
+    return [
+      200,
+      requestBody
+      //{ header: 'value' }, // optional headers
+    ]
+  }
 
   beforeEach(() => {
-
 
   });
   afterEach(() => {
 
   });
 
-  // test all the open functions in this section.
   it('get status', (done) => {
+    const cyndex = new CyNDEx();
 
-    nock('http://127.0.0.1:1234').defaultReplyHeaders({
-      'access-control-allow-origin': '*',
-      'access-control-allow-credentials': 'true'
-    })
-      .get('/cyndex2/v1')
-      .reply(200, {
-        data: { message: 'dummy' },
-        errors: []
-      });
+    const expectedresponse = {
+      dummy: 'dummy'
+    };
+
+    getNock().get('/cyndex2/v1').query(
+      actualQueryObject => {
+        return true
+      }
+    ).reply(200, expectedresponse);
 
     cyndex.getStatus().then((response) => {
+      expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
       done();
     });
-
-    /*
-    expect(
-      stub.calledWith("/cyndex2/v1", {
-        params: { start: "2018-01-01", end: "2018-01-30" }
-      })
-    ).to.be.true;
-    */
   });
 
+  it('networkSummaryCurrent', (done) => {
+    const cyndex = new CyNDEx();
 
+    const expectedresponse = {
+      dummy: 'dummy'
+    };
 
+    getNock().get('/cyndex2/v1/networks/current').query(
+      actualQueryObject => {
+        return true
+      }
+    ).reply(200, expectedresponse);
+
+    cyndex.getNetworkSummary().then((response) => {
+      expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
+      done();
+    });
+  });
+
+  it('networkSummarySUID', (done) => {
+    const cyndex = new CyNDEx();
+
+    const expectedresponse = {
+      dummy: 'dummy'
+    };
+
+    getNock().get('/cyndex2/v1/networks/1').query(
+      actualQueryObject => {
+        return true
+      }
+    ).reply(200, expectedresponse);
+
+    cyndex.getNetworkSummary(1).then((response) => {
+      expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
+      done();
+    });
+  });
+
+  it('exportNetworkCurrent', (done) => {
+    const cyndex = new CyNDEx();
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks/current')
+      .reply(repeatRequest);
+
+    cyndex.exportNetworkToNDEx().then((response) => {
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
+      done();
+    });
+  });
+
+  it('exportNetworkSUID', (done) => {
+    const cyndex = new CyNDEx();
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks/1')
+      .reply(repeatRequest);
+
+    cyndex.exportNetworkToNDEx(1).then((response) => {
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
+      done();
+    });
+  });
+
+  it('updateNetworkCurrent', (done) => {
+    const cyndex = new CyNDEx();
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().options('/cyndex2/v1/networks/current')
+    .reply(200, {});
+
+    getNock().put('/cyndex2/v1/networks/current')
+      .reply(repeatRequest);
+
+    cyndex.updateNetworkInNDEx().then((response) => {
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
+      done();
+    });
+  });
+
+  it('updateNetworkSUID', (done) => {
+    const cyndex = new CyNDEx();
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().options('/cyndex2/v1/networks/1')
+      .reply(200, {});
+
+    getNock().put('/cyndex2/v1/networks/1')
+      .reply(repeatRequest);
+
+    cyndex.updateNetworkInNDEx(1).then((response) => {
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
+      done();
+    });
+  });
+
+  it('importNetworkPassword', (done) => {
+    const cyndex = new CyNDEx();
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks')
+      .reply(repeatRequest);
+
+    cyndex.importNetworkFromNDEx(DUMMY_UUID).then((response) => {
+      expect(response.uuid).to.equal(DUMMY_UUID);
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
+      expect(response.accessKey).to.equal(undefined);
+      done();
+    });
+  });
+
+  it('importNetworkAccessKey', (done) => {
+    const cyndex = new CyNDEx();
+
+    const DUMMY_ACCESS_KEY = 'dummy-access-key';
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks')
+      .reply(repeatRequest);
+
+    cyndex.importNetworkFromNDEx(DUMMY_UUID, DUMMY_ACCESS_KEY).then((response) => {
+      expect(response.uuid).to.equal(DUMMY_UUID);
+      expect(response.accessKey).to.equal(DUMMY_ACCESS_KEY);
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(undefined);
+      expect(response.password).to.equal(undefined);
+      done();
+    });
+  });
+
+  it('importNetworkAccessIdToken', (done) => {
+    const cyndex = new CyNDEx();
+
+    const DUMMY_ID_TOKEN = 'dummy-id-token';
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks')
+      .reply(repeatRequest);
+
+    cyndex.importNetworkFromNDEx(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
+      expect(response.uuid).to.equal(DUMMY_UUID);
+      expect(response.idToken).to.equal(DUMMY_ID_TOKEN);
+      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
+      expect(response.username).to.equal(undefined);
+      expect(response.password).to.equal(undefined);
+      expect(response.accessKey).to.equal(undefined);
+      done();
+    });
+  });
+
+  it('importNetworkFromCX', (done) => {
+    const cyndex = new CyNDEx();
+
+    const DUMMY_CX = { 'dummy-field' : 'dummy-value'};
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/cyndex2/v1/networks/cx')
+      .reply(repeatRequest);
+
+    cyndex.importNetworkFromCX(DUMMY_CX).then((response) => {
+      expect(response['dummy-field']).to.equal('dummy-value');
+      done();
+    });
+  });
 });
