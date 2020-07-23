@@ -15,7 +15,7 @@
     "clean": "rimraf build/*",
     "lint": "run-s lint:*",
     "watch": "run-p watch:*",
-    "test": "mocha"
+    "test": "nyc mocha"
   },
   "keywords": [
     "webpack",
@@ -54,6 +54,7 @@
     "mocha": "^5.2.0",
     "nock": "^13.0.2",
     "npm-run-all": "^4.1.1",
+    "nyc": "^15.1.0",
     "rimraf": "^2.6.2",
     "sinon": "^7.1.1",
     "uglifyjs-webpack-plugin": "^1.2.7",
