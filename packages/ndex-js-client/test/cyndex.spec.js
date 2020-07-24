@@ -53,7 +53,7 @@ describe('cyndex client tests', () => {
       }
     ).reply(200, expectedresponse);
 
-    cyndex.getStatus().then((response) => {
+    cyndex.getCyNDExStatus().then((response) => {
       expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
       done();
     });
@@ -72,7 +72,7 @@ describe('cyndex client tests', () => {
       }
     ).reply(200, expectedresponse);
 
-    cyndex.getNetworkSummary().then((response) => {
+    cyndex.getCytoscapeNetworkSummary().then((response) => {
       expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
       done();
     });
@@ -91,7 +91,7 @@ describe('cyndex client tests', () => {
       }
     ).reply(200, expectedresponse);
 
-    cyndex.getNetworkSummary(1).then((response) => {
+    cyndex.getCytoscapeNetworkSummary(1).then((response) => {
       expect(JSON.stringify(response)).to.equal(JSON.stringify(expectedresponse));
       done();
     });
@@ -105,7 +105,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks/current')
       .reply(repeatRequest);
 
-    cyndex.exportNetworkToNDEx().then((response) => {
+    cyndex.postCytoscapeNetworkToNDEx().then((response) => {
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
       expect(response.password).to.equal(DUMMY_PASSWORD);
@@ -121,7 +121,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks/1')
       .reply(repeatRequest);
 
-    cyndex.exportNetworkToNDEx(1).then((response) => {
+    cyndex.postCytoscapeNetworkToNDEx(1).then((response) => {
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
       expect(response.password).to.equal(DUMMY_PASSWORD);
@@ -140,7 +140,7 @@ describe('cyndex client tests', () => {
     getNock().put('/cyndex2/v1/networks/current')
       .reply(repeatRequest);
 
-    cyndex.updateNetworkInNDEx().then((response) => {
+    cyndex.putCytoscapeNetworkInNDEx().then((response) => {
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
       expect(response.password).to.equal(DUMMY_PASSWORD);
@@ -159,7 +159,7 @@ describe('cyndex client tests', () => {
     getNock().put('/cyndex2/v1/networks/1')
       .reply(repeatRequest);
 
-    cyndex.updateNetworkInNDEx(1).then((response) => {
+    cyndex.putCytoscapeNetworkInNDEx(1).then((response) => {
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
       expect(response.password).to.equal(DUMMY_PASSWORD);
@@ -175,7 +175,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.importNetworkFromNDEx(DUMMY_UUID).then((response) => {
+    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
@@ -195,7 +195,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.importNetworkFromNDEx(DUMMY_UUID, DUMMY_ACCESS_KEY).then((response) => {
+    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID, DUMMY_ACCESS_KEY).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.accessKey).to.equal(DUMMY_ACCESS_KEY);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
@@ -215,7 +215,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.importNetworkFromNDEx(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
+    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.idToken).to.equal(DUMMY_ID_TOKEN);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
@@ -226,7 +226,7 @@ describe('cyndex client tests', () => {
     });
   });
 
-  it('importNetworkFromCX', (done) => {
+  it('postCXNetworkInCytoscape', (done) => {
     const cyndex = new CyNDEx();
 
     const DUMMY_CX = { 'dummy-field' : 'dummy-value'};
@@ -236,7 +236,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks/cx')
       .reply(repeatRequest);
 
-    cyndex.importNetworkFromCX(DUMMY_CX).then((response) => {
+    cyndex.postCXNetworkInCytoscape(DUMMY_CX).then((response) => {
       expect(response['dummy-field']).to.equal('dummy-value');
       done();
     });

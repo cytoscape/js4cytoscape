@@ -92,15 +92,15 @@ class CyNDEx {
 
   }
 
-  getStatus() {
+  getCyNDExStatus() {
     return this._httpGet('/cyndex2/v1');
   }
 
-  getNetworkSummary(suid = 'current') {
+  getCytoscapeNetworkSummary(suid = 'current') {
     return this._httpGet('/cyndex2/v1/networks/' + suid);
   }
 
-  importNetworkFromNDEx(uuid, accessKey, idToken) {
+  postNDExNetworkInCytoscape(uuid, accessKey, idToken) {
     const importParams = {
       serverUrl: this.getNDExServer(),
       uuid: uuid,
@@ -113,11 +113,11 @@ class CyNDEx {
     return this._httpPost('/cyndex2/v1/networks', undefined, importParams);
   }
 
-  importNetworkFromCX(cx) {
+  postCXNetworkInCytoscape(cx) {
     return this._httpPost('/cyndex2/v1/networks/cx', undefined, cx);
   }
 
-  exportNetworkToNDEx(suid = 'current') {
+  postCytoscapeNetworkToNDEx(suid = 'current') {
     const saveParams = {
       serverUrl: this.getNDExServer(),
       username: this._username,
@@ -127,7 +127,7 @@ class CyNDEx {
     return this._httpPost('/cyndex2/v1/networks/' + suid, undefined, saveParams);
   }
 
-  updateNetworkInNDEx(suid = 'current', uuid) {
+  putCytoscapeNetworkInNDEx(suid = 'current', uuid) {
     const saveParams = {
       serverUrl: this.getNDExServer(),
       //uuid: uuid,
