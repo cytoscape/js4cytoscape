@@ -14,7 +14,7 @@
     var cyndex = new ndexClient.CyNDEx();
 
     const updateCurrentNetwork = () => {
-      cyndex.updateNetworkInNDEx().then((response) => {
+      cyndex.putCytoscapeNetworkInNDEx().then((response) => {
         var p = document.createElement('p');
         p.appendChild(document.createTextNode('Current network: ' + JSON.stringify(response.data)));
         document.getElementById('content').appendChild(p);
@@ -22,7 +22,7 @@
     }
 
     const updateNetwork = (suid) => {
-      cyndex.updateNetworkInNDEx(suid).then((response) => {
+      cyndex.putCytoscapeNetworkInNDEx(suid).then((response) => {
         var p = document.createElement('p');
         p.appendChild(document.createTextNode('network ' +suid+ ': ' + JSON.stringify(response.data)));
         document.getElementById('content').appendChild(p);

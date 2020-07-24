@@ -19,7 +19,7 @@
           return response.json();
         })
         .then(function (cx) {
-          cyndex.importNetworkFromCX(cx).then((response) => {
+          cyndex.postCXNetworkInCytoscape(cx).then((response) => {
             var p = document.createElement('p');
             p.appendChild(document.createTextNode('Current network: ' + JSON.stringify(response.data)));
             document.getElementById('content').appendChild(p);
