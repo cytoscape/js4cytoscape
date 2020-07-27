@@ -100,7 +100,7 @@ class CyNDEx {
     return this._httpGet('/cyndex2/v1/networks/' + suid);
   }
 
-  postNDExNetworkInCytoscape(uuid, accessKey, idToken) {
+  postNDExNetworkToCytoscape(uuid, accessKey, idToken) {
     const importParams = {
       serverUrl: this.getNDExServer(),
       uuid: uuid,

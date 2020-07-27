@@ -175,7 +175,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID).then((response) => {
+    cyndex.postNDExNetworkToCytoscape(DUMMY_UUID).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
       expect(response.username).to.equal(DUMMY_USERNAME);
@@ -195,7 +195,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID, DUMMY_ACCESS_KEY).then((response) => {
+    cyndex.postNDExNetworkToCytoscape(DUMMY_UUID, DUMMY_ACCESS_KEY).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.accessKey).to.equal(DUMMY_ACCESS_KEY);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
@@ -215,7 +215,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
 
-    cyndex.postNDExNetworkInCytoscape(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
+    cyndex.postNDExNetworkToCytoscape(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.idToken).to.equal(DUMMY_ID_TOKEN);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
