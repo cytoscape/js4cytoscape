@@ -226,7 +226,7 @@ describe('cyndex client tests', () => {
     });
   });
 
-  it('postCXNetworkInCytoscape', (done) => {
+  it('postCXNetworkToCytoscape', (done) => {
     const cyndex = new CyNDEx();
 
     const DUMMY_CX = { 'dummy-field' : 'dummy-value'};
@@ -236,7 +236,7 @@ describe('cyndex client tests', () => {
     getNock().post('/cyndex2/v1/networks/cx')
       .reply(repeatRequest);
 
-    cyndex.postCXNetworkInCytoscape(DUMMY_CX).then((response) => {
+    cyndex.postCXNetworkToCytoscape(DUMMY_CX).then((response) => {
       expect(response['dummy-field']).to.equal('dummy-value');
       done();
     });
