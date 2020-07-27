@@ -113,7 +113,7 @@ class CyNDEx {
     return this._httpPost('/cyndex2/v1/networks', undefined, importParams);
   }
 
-  postCXNetworkInCytoscape(cx) {
+  postCXNetworkToCytoscape(cx) {
     return this._httpPost('/cyndex2/v1/networks/cx', undefined, cx);
   }
 
