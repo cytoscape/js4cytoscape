@@ -17,7 +17,51 @@ describe('cxUtil tests', function () {
     expect(() => cxUtil.getCxVersion('x.0')).to.throw();
   });
 
+  it('fail on version parse', function () {
+    expect(() => cxUtil.getCxVersion('x.0')).to.throw();
+  });
 
+  it('updateInferredType test', function () {
+    const v = {
+      "dummyField": "dummyStringValue"
+    }
+    let attributeTypeMap = new Map();
+    let attributeNameMap = new Map();
+    cxUtil.updateInferredTypes(attributeTypeMap, attributeNameMap, v);
+
+    expect(attributeTypeMap).to.have.all.keys('dummyField');
+    expect(attributeTypeMap.get('dummyField')).to.equal('string');
+
+  });
+
+  it('updateInferredType undefined v test', function () {
+    
+    let attributeTypeMap = new Map();
+    let attributeNameMap = new Map();
+    cxUtil.updateInferredTypes(attributeTypeMap, attributeNameMap, undefined);
+
+    expect(attributeTypeMap).to.be.empty
+  });
+
+  it('getExpandedAttributes test', function () {
+    
+    let attributeTypeMap = new Map();
+    let attributeDefaultValueMap = new Map();
+    attributeDefaultValueMap.set('keyA', 'valueA');
+    let data = cxUtil.getExpandedAttributes({}, attributeTypeMap, attributeDefaultValueMap);
+
+    expect(data.keyA).to.equal('valueA');
+  });
+
+  it('getExpandedAttributes null v test', function () {
+    
+    let attributeTypeMap = new Map();
+    let attributeDefaultValueMap = new Map();
+    attributeDefaultValueMap.set('keyA', 'valueA');
+    let data = cxUtil.getExpandedAttributes(undefined, attributeTypeMap, attributeDefaultValueMap);
+
+    expect(data.keyA).to.equal('valueA');
+  });
 
   it('test processAttributeDeclarations', function () {
 
