@@ -12,7 +12,7 @@ describe('converter tests', function(){
 
     var newData = cxVizConverter.convert(rawCX, 'lnv');
 
-    console.log(JSON.stringify(newData));
+    //console.log(JSON.stringify(newData));
   });
 
   it('fails on incompatible version', function(){

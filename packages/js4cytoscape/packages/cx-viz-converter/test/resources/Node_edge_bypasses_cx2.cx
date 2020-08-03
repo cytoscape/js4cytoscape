@@ -43,16 +43,56 @@
         "attributeDeclarations": [
             {
                 "nodes": {
-                    "represents": {
-                        "a": "r"
+                    "jaccard": {
+                        "d": "double"
+                    },
+                    "align_score": {
+                        "d": "double"
+                    },
+                    "align_fdr": {
+                        "d": "double"
+                    },
+                    "annot_source": {
+                        "d": "string"
+                    },
+                    "overlap": {
+                        "d": "string"
+                    },
+                    "genes": {
+                        "d": "string"
+                    },
+                    "Size": {
+                        "d": "integer"
                     },
                     "name": {
-                        "a": "n"
+                        "a": "n",
+                        "d": "string"
+                    },
+                    "cc_overlap": {
+                        "d": "string"
+                    },
+                    "annot": {
+                        "d": "string"
+                    },
+                    "align_goID": {
+                        "d": "string"
+                    }
+                },
+                "networkAttributes": {
+                    "name": {
+                        "d": "string"
                     }
                 },
                 "edges": {
+                    "Is_Tree_Edge": {
+                        "d": "string"
+                    },
+                    "name": {
+                        "d": "string"
+                    },
                     "interaction": {
-                        "a": "i"
+                        "a": "i",
+                        "d": "string"
                     }
                 }
             }
