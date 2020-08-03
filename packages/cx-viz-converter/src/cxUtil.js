@@ -66,7 +66,7 @@ function updateAttributeDefaultValueMap(attributeDefaultValueMap, attributeDecla
 }
 
 function updateInferredTypes(attributeTypeMap, attributeNameMap, v) {
-    Object.keys(v).forEach((key) => {
+    v && Object.keys(v).forEach((key) => {
         if (!attributeTypeMap.has(key)) {
             const value = v[key];
             const inferredType = typeof value;
@@ -78,7 +78,7 @@ function updateInferredTypes(attributeTypeMap, attributeNameMap, v) {
 
 function getExpandedAttributes(v, attributeNameMap, attributeDefaultValueMap) {
     let data = {};
-    Object.keys(v).forEach((key) => {
+    v && Object.keys(v).forEach((key) => {
         const newKey = attributeNameMap.has(key) ? attributeNameMap.get(key) : key;
         data[newKey] = v[key];
     });
