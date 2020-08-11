@@ -21,6 +21,13 @@ class NDEx {
       }
     }
   
+    setGoogleUser(googleUser) {
+      if (googleUser !== undefined ) {
+        this._googleUser = googleUser;
+        this._authType = 'g'; // valid values are 'g','b' or undefined
+      }
+    }
+
     get authenticationType() {
       return this._authType;
     }
@@ -67,12 +74,17 @@ class NDEx {
   
     // access endpoints that supports authentication
   
+    _getIdToken() {
+      const user = this._googleUser ? this._googleUser : googleAuth.getAuthInstance().currentUser.get();
+      return user.getAuthResponse().id_token
+    }
+
     _setAuthHeader(config) {
       if (this._authType === 'b') {
         config ['auth'] = { username: this.username,
           password: this.password};
       } else if (this.authenticationType === 'g') {
-        let idToken = this.googleAuth.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+        const idToken =  _getIdToken();
   
         if (config['headers'] === undefined) {config['headers'] = {};}
         config['headers']['Authorization'] = 'Bearer ' + idToken;
