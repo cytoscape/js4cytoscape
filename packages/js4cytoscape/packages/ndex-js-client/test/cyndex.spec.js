@@ -205,27 +205,6 @@ describe('cyndex client tests', () => {
     });
   });
 
-  it('importNetworkAccessIdToken', (done) => {
-    const cyndex = new CyNDEx();
-
-    const DUMMY_ID_TOKEN = 'dummy-id-token';
-
-    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
-
-    getNock().post('/cyndex2/v1/networks')
-      .reply(repeatRequest);
-
-    cyndex.postNDExNetworkToCytoscape(DUMMY_UUID, undefined, DUMMY_ID_TOKEN).then((response) => {
-      expect(response.uuid).to.equal(DUMMY_UUID);
-      expect(response.idToken).to.equal(DUMMY_ID_TOKEN);
-      expect(response.serverUrl).to.equal(DEFAULT_SERVER);
-      expect(response.username).to.equal(undefined);
-      expect(response.password).to.equal(undefined);
-      expect(response.accessKey).to.equal(undefined);
-      done();
-    });
-  });
-
   it('postCXNetworkToCytoscape', (done) => {
     const cyndex = new CyNDEx();
 
