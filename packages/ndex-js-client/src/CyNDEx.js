@@ -30,6 +30,13 @@ class CyNDEx {
     }
   }
 
+  setGoogleUser(googleUser) {
+    if (googleUser !== undefined ) {
+      this._googleUser = googleUser;
+      this._authType = 'g'; // valid values are 'g','b' or undefined
+    }
+  }
+
   setBasicAuth(username, password) {
     if (username !== undefined && username != null && username !== '') {
       this._username = username;
@@ -42,6 +49,11 @@ class CyNDEx {
     return CY_REST_BASE_URL + ':' + this._port;
   }
 
+  _getIdToken() {
+    const user = this._googleUser ? this._googleUser : googleAuth.getAuthInstance().currentUser.get();
+    return user.getAuthResponse().id_token
+  }
+
   _getAuthorizationFields() {
     switch (this._authType) {
       case 'b' : return {
@@ -49,7 +61,7 @@ class CyNDEx {
         password : this._password
       };
       case 'g' : return {
-        idToken : this.googleAuth.getAuthInstance().currentUser.get().getAuthResponse().id_token
+        idToken : this._getIdToken()
       };
       default : return {};
     }
