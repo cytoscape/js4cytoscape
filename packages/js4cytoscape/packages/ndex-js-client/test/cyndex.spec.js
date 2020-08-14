@@ -199,8 +199,8 @@ describe('cyndex client tests', () => {
       expect(response.uuid).to.equal(DUMMY_UUID);
       expect(response.accessKey).to.equal(DUMMY_ACCESS_KEY);
       expect(response.serverUrl).to.equal(DEFAULT_SERVER);
-      expect(response.username).to.equal(undefined);
-      expect(response.password).to.equal(undefined);
+      expect(response.username).to.equal(DUMMY_USERNAME);
+      expect(response.password).to.equal(DUMMY_PASSWORD);
       done();
     });
   });

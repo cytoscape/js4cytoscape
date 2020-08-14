@@ -50,8 +50,8 @@ class CyNDEx {
   }
 
   _getIdToken() {
-    const user = this._googleUser ? this._googleUser : googleAuth.getAuthInstance().currentUser.get();
-    return user.getAuthResponse().id_token
+    const user = this._googleUser ? this._googleUser : this._googleAuth.getAuthInstance().currentUser.get();
+    return user.getAuthResponse().id_token;
   }
 
   _getAuthorizationFields() {
@@ -88,11 +88,11 @@ class CyNDEx {
   }
 
   _httpPut(url, parameters, data) {
-    return this._http('put', url, parameters, data)
+    return this._http('put', url, parameters, data);
   }
 
   _httpPost(url, parameters, data) {
-    return this._http('post', url, parameters, data)
+    return this._http('post', url, parameters, data);
   }
 
   _http(method, url, parameters, data) {
@@ -138,7 +138,7 @@ class CyNDEx {
       serverUrl: this.getNDExServer(),
       uuid: uuid,
       accessKey: accessKey,
-    }
+    };
 
     const authorizationFields = this._getAuthorizationFields();
 
@@ -152,7 +152,7 @@ class CyNDEx {
   postCytoscapeNetworkToNDEx(suid = 'current') {
     const saveParams = {
       serverUrl: this.getNDExServer(),
-    }
+    };
 
     const authorizationFields = this._getAuthorizationFields();
 
@@ -162,19 +162,13 @@ class CyNDEx {
   putCytoscapeNetworkInNDEx(suid = 'current', uuid) {
     const saveParams = {
       serverUrl: this.getNDExServer(),
-      //uuid: uuid,
-      username: this._username,
-      password: this._password
-    }
+      uuid: uuid
+    };
 
     const authorizationFields = this._getAuthorizationFields();
 
-    return this._httpPut('/cyndex2/v1/networks/' + suid, undefined, Object.assign(saveParams));
+    return this._httpPut('/cyndex2/v1/networks/' + suid, undefined, Object.assign(saveParams, authorizationFields));
   }
-  /* network set functions */
-
-  /* undocumented functions. Might be changed ... */
-
 }
 
 module.exports = { CyNDEx };

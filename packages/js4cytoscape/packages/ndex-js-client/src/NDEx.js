@@ -7,6 +7,7 @@ class NDEx {
       }
   
       this._host = hostprefix;
+     
     }
     get host() { return this._host;}
   
@@ -75,8 +76,8 @@ class NDEx {
     // access endpoints that supports authentication
   
     _getIdToken() {
-      const user = this._googleUser ? this._googleUser : googleAuth.getAuthInstance().currentUser.get();
-      return user.getAuthResponse().id_token
+      const user = this._googleUser ? this._googleUser : this._googleAuth.getAuthInstance().currentUser.get();
+      return user.getAuthResponse().id_token;
     }
 
     _setAuthHeader(config) {
@@ -84,7 +85,7 @@ class NDEx {
         config ['auth'] = { username: this.username,
           password: this.password};
       } else if (this.authenticationType === 'g') {
-        const idToken =  _getIdToken();
+        const idToken =  this._getIdToken();
   
         if (config['headers'] === undefined) {config['headers'] = {};}
         config['headers']['Authorization'] = 'Bearer ' + idToken;
