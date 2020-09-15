@@ -20,7 +20,7 @@ class CyNDEx {
   }
 
   getNDExServer() {
-    return this._ndexServer ? this._ndexServer : 'http://public.ndexbio.org/v2';
+    return this._ndexServer ? this._ndexServer : 'http://public.ndexbio.org';
   }
 
   setGoogleAuth(googleAuthObj) {
@@ -135,11 +135,11 @@ class CyNDEx {
 
   postNDExNetworkToCytoscape(uuid, accessKey) {
     const importParams = {
-      serverUrl: this.getNDExServer(),
+      serverUrl: this.getNDExServer() + '/v2',
       uuid: uuid,
       accessKey: accessKey,
     };
-
+    
     const authorizationFields = this._getAuthorizationFields();
 
     return this._httpPost('/cyndex2/v1/networks', undefined, Object.assign(importParams, authorizationFields));
@@ -151,7 +151,7 @@ class CyNDEx {
 
   postCytoscapeNetworkToNDEx(suid = 'current') {
     const saveParams = {
-      serverUrl: this.getNDExServer(),
+      serverUrl: this.getNDExServer() + '/v2',
     };
 
     const authorizationFields = this._getAuthorizationFields();
@@ -161,7 +161,7 @@ class CyNDEx {
 
   putCytoscapeNetworkInNDEx(suid = 'current', uuid) {
     const saveParams = {
-      serverUrl: this.getNDExServer(),
+      serverUrl: this.getNDExServer() + '/v2',
       uuid: uuid
     };
 
