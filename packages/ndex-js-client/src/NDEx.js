@@ -92,6 +92,36 @@ class NDEx {
       }
     }
   
+    _httpGetV3ProtectedObj(URL, parameters) {
+  
+      const v3baseURL = this.host.substring(0,this.host.lastIndexOf('v2')) + 'v3';
+
+      let config = {
+        method: 'get',
+        url: URL,
+        baseURL: v3baseURL
+      };
+  
+      this._setAuthHeader(config);
+  
+      if (parameters !== undefined) {
+        config['params'] = parameters;
+      }
+      return new Promise(function (resolve, reject) {
+        axios(config).then((response) => {
+          if (response.status === 200) {
+            return resolve(response.data);
+          }
+          return reject(response);
+        },
+        (response) => {
+          return reject(response);
+        }
+        );
+      });
+  
+    }
+
     _httpGetProtectedObj(URL, parameters) {
   
       let config = {
@@ -304,6 +334,18 @@ class NDEx {
   
     }
   
+    getCX2Network(uuid, accessKey) {
+  
+      let parameters = {};
+  
+      if (accessKey !== undefined) {
+        parameters = {accesskey: accessKey};
+      }
+  
+      return this._httpGetV3ProtectedObj('network/' + uuid, parameters);
+  
+    }
+
     getNetworkSummary(uuid, accessKey) {
       let parameters = {};
   
