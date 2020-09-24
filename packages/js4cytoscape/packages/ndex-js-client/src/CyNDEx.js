@@ -30,9 +30,9 @@ class CyNDEx {
     }
   }
 
-  setGoogleUser(googleUser) {
-    if (googleUser !== undefined ) {
-      this._googleUser = googleUser;
+  setAuthToken(authToken) {
+    if (authToken !== undefined ) {
+      this._authToken = authToken;
       this._authType = 'g'; // valid values are 'g','b' or undefined
     }
   }
@@ -50,8 +50,7 @@ class CyNDEx {
   }
 
   _getIdToken() {
-    const user = this._googleUser ? this._googleUser : this._googleAuth.getAuthInstance().currentUser.get();
-    return user.getAuthResponse().id_token;
+    return this._authToken ? this._authToken : this._googleAuth.getAuthInstance().currentUser.get().getAuthResponse().id_token;
   }
 
   _getAuthorizationFields() {
