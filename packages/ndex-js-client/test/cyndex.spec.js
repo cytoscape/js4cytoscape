@@ -224,13 +224,7 @@ describe('cyndex client tests', () => {
   it('importNetworkGoogleUserAuth', (done) => {
     const cyndex = new CyNDEx();
 
-    currentUser = {
-      getAuthResponse: () => {
-        return { id_token: DUMMY_TOKEN }
-      }
-    };
-
-    cyndex.setGoogleUser(currentUser);
+    cyndex.setAuthToken(DUMMY_TOKEN);
 
     getNock().post('/cyndex2/v1/networks')
       .reply(repeatRequest);
