@@ -324,6 +324,12 @@ function getVisualProperties(cxVisualProperties, cxNodeBypasses, cxEdgeBypasses,
 
 const converter = {
     targetFormat: 'cytoscapeJS',
+    emptyNetwork: {
+        style: [],
+        elements: {},
+        layout: {},
+        'background-color': null
+    },
     convert: (cx) => {
         const output = {
             style: [],
