@@ -20,8 +20,7 @@ const defaultConverters = [
     cytoscapeJS
 ];
 
-function convert(cx, targetFormat, converters = defaultConverters) {
-    verifyVersion(cx);
+function selectConverter(targetFormat, converters) {
     let selectedConverter = undefined;
     
     converters.forEach( converter => {
@@ -38,7 +37,22 @@ function convert(cx, targetFormat, converters = defaultConverters) {
     if (typeof selectedConverter == 'undefined') {
         throw 'no converter available for target format: ' + targetFormat
     }
+    return selectedConverter;
+}
 
+function getEmptyNetwork(targetFormat, converters) {
+    const selectedConverter = selectConverter(targetFormat, converters);
+    return selectedConverter.converter.emptyNetwork;
+}
+
+function convert(cx, targetFormat, converters = defaultConverters) {
+    
+    if (cx.length == 0) {
+        return getEmptyNetwork(targetFormat, converters);
+    }
+    
+    verifyVersion(cx);
+    const selectedConverter = selectConverter(targetFormat, converters);
     return selectedConverter.converter.convert(cx)
 }
 

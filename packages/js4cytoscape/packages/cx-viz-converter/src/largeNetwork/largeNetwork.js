@@ -518,6 +518,7 @@ function lnvConvert(cx) {
 
 const converter = {
     targetFormat: 'lnv',
+    emptyNetwork: {"nodeViews":[],"edgeViews":[]},
     convert: (cx) => {
         return lnvConvert(cx);
     }
