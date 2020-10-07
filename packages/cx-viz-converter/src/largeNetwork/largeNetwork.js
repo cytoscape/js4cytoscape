@@ -496,7 +496,7 @@ function lnvConvert(cx) {
                 }
 
                 const expandedAttributes = cxUtil.getExpandedAttributes(cxEdge['v'], edgeAttributeNameMap, edgeAttributeDefaultValueMap);
-                const mappingValues = getMappedValues(mappings, 'node', expandedAttributes);
+                const mappingValues = getMappedValues(mappings, 'edge', expandedAttributes);
                 Object.assign(edgeView, mappingValues);
                 //Assign bypass
                 if (bypassMappings.edge[cxId]) {
