@@ -208,7 +208,7 @@ function getMappings(mappings) {
 
 
 function getAttributeRatio(attributeValue, attributeMin, attributeMax) {
-    return attributeValue / (attributeMax - attributeMin);
+    return (attributeValue - attributeMin) / (attributeMax - attributeMin);
 }
 
 function getMap(vpMin, vpMax, attributeRatio) {
@@ -532,6 +532,7 @@ module.exports = {
     processNodeView: processNodeView,
     processEdgeView: processEdgeView,
     getDefaultValues: getDefaultValues,
+    getAttributeRatio: getAttributeRatio,
     isInRange: isInRange,
     converter: converter
 };
