@@ -19,6 +19,8 @@ describe('largeNetworkTests', function(){
     expect(largeNetwork.continuousNumberPropertyConvert(5, 0, 10, 0, 30)).to.eql(15);
   });
 
+ 
+
   it('test continuousNumberPropertyConvert maxOnly', function() {
     expect(largeNetwork.continuousNumberPropertyConvert(5, undefined, 10, undefined, 30)).to.eql(30);
   });
@@ -47,6 +49,14 @@ describe('largeNetworkTests', function(){
 
   it('test continuousColorPropertyConvert', function() {
     expect(largeNetwork.continuousColorPropertyConvert(5,0,10, '#002244', '#FFFFFF')).to.eql([ 128, 145, 162 ]);
+  });
+
+  it('test continuousColorPropertyConvert', function() {
+    expect(largeNetwork.continuousColorPropertyConvert(0.208,0.2,0.522, '#FBE723', '#21918C')).to.eql([ 246, 229, 38 ]);
+  });
+
+  it('test continuousColorPropertyConvert', function() {
+    expect(largeNetwork.getAttributeRatio(0.208,0.2,0.522)).to.eql(0.024844720496894346);
   });
 
   it('test continuousColorPropertyConvert maxOnly', function() {
