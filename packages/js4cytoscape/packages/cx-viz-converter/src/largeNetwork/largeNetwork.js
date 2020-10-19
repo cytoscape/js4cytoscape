@@ -197,11 +197,13 @@ function getMappings(mappings) {
     let output = {}
     Object.keys(mappings).forEach(propertyKey => {
         const mapping = mappings[propertyKey];
-        output[mapping.definition.attribute] = {
+        const mappingList = output[mapping.definition.attribute] ? output[mapping.definition.attribute] : []
+        mappingList.push({
             type: mapping.type,
             vp: propertyKey,
             definition: mapping.definition
-        }
+        })
+        output[mapping.definition.attribute] = mappingList;
     });
     return output;
 }
@@ -243,16 +245,16 @@ function continuousColorPropertyConvert(attributeValue, attributeMin, attributeM
 
     const output = [
         //TODO check that minRGB and maxRGB are defined/undefined
-        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[0], maxRGB === undefined ? undefined: maxRGB[0], attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[1], maxRGB === undefined ? undefined: maxRGB[1], attributeRatio)), 0, 255),
-        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[2], maxRGB === undefined ? undefined: maxRGB[2], attributeRatio)), 0, 255)
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[0], maxRGB === undefined ? undefined : maxRGB[0], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[1], maxRGB === undefined ? undefined : maxRGB[1], attributeRatio)), 0, 255),
+        clamp(Math.round(getMap(minRGB === undefined ? undefined : minRGB[2], maxRGB === undefined ? undefined : maxRGB[2], attributeRatio)), 0, 255)
     ]
     return output;
 }
 
 function continuousAlphaPropertyConvert(attributeValue, attributeMin, attributeMax, vpMin, vpMax) {
     const attributeRatio = getAttributeRatio(attributeValue, attributeMin, attributeMax);
-    
+
     const alphaDecimal = getMap(vpMin, vpMax, attributeRatio);
 
     //console.log("alphaDecimal = " + alphaDecimal);
@@ -280,8 +282,8 @@ const continuousPropertyConvert = {
 }
 
 function isInRange(attributeValue, min, max, includeMin, includeMax) {
-    const minSatisfied = min !== undefined 
-        ? (includeMin ? min <= attributeValue : min < attributeValue) 
+    const minSatisfied = min !== undefined
+        ? (includeMin ? min <= attributeValue : min < attributeValue)
         : true;
     const maxSatisfied = max != undefined
         ? (includeMax ? max >= attributeValue : max > attributeValue)
@@ -295,36 +297,39 @@ function getMappedValues(mappings, entityType, attributes) {
     Object.keys(attributes).forEach(attributeKey => {
         const attributeValue = attributes[attributeKey];
         if (mappings[entityType][attributeKey]) {
-            const mapping = mappings[entityType][attributeKey];
+            mappings[entityType][attributeKey].forEach(
+                (mapping) => {
 
-            if (mapping.type === 'DISCRETE') {
-                const discreteMap = mapping.definition.map;
-                discreteMap.forEach(keyValue => {
-                    if (keyValue.v == attributeValue) {
+                    if (mapping.type === 'DISCRETE') {
+                        const discreteMap = mapping.definition.map;
+                        //console.log('processing discrete map:' + entityType + ' mapping.vp=' + mapping.vp + ' ' + attributeKey);
+                        discreteMap.forEach(keyValue => {
+                            if (keyValue.v == attributeValue) {
+                                //console.log('\tkeyValue.v=' + keyValue.v + ' ' + attributeValue);
+                                if (defaultPropertyConvert[entityType][mapping.vp]) {
+                                    const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
+                                    //console.log('\tconverted ' + JSON.stringify(converted))
+                                    Object.assign(output, converted);
+                                }
+                            }
+                        });
+                    } else if (mapping.type === 'PASSTHROUGH') {
                         if (defaultPropertyConvert[entityType][mapping.vp]) {
-                            const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
+                            const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
                             Object.assign(output, converted);
                         }
-                    }
-                });
-            } else if (mapping.type === 'PASSTHROUGH') {
-                if (defaultPropertyConvert[entityType][mapping.vp]) {
-                    const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
-                    Object.assign(output, converted);
-                }
-            } else if (mapping.type === 'CONTINUOUS') {
-                const continuousMappings = mapping.definition.map;
-                continuousMappings.forEach(mappingRange => {
-                  
-                        if (isInRange(attributeValue, mappingRange.min, mappingRange.max, mappingRange.includeMin, mappingRange.includeMax)
-                            && continuousPropertyConvert[entityType][mapping.vp]) {
-                            const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mappingRange.min, mappingRange.max, mappingRange.minVPValue, mappingRange.maxVPValue);
-                            Object.assign(output, converted);
+                    } else if (mapping.type === 'CONTINUOUS') {
+                        const continuousMappings = mapping.definition.map;
+                        continuousMappings.forEach(mappingRange => {
 
-                        }
-                    
-                });
-            }
+                            if (isInRange(attributeValue, mappingRange.min, mappingRange.max, mappingRange.includeMin, mappingRange.includeMax)
+                                && continuousPropertyConvert[entityType][mapping.vp]) {
+                                const converted = continuousPropertyConvert[entityType][mapping.vp](attributeValue, mappingRange.min, mappingRange.max, mappingRange.minVPValue, mappingRange.maxVPValue);
+                                Object.assign(output, converted);
+                            }
+                        });
+                    }
+                })
         }
     });
     return output;
@@ -518,7 +523,7 @@ function lnvConvert(cx) {
 
 const converter = {
     targetFormat: 'lnv',
-    emptyNetwork: {"nodeViews":[],"edgeViews":[]},
+    emptyNetwork: { "nodeViews": [], "edgeViews": [] },
     convert: (cx) => {
         return lnvConvert(cx);
     }
