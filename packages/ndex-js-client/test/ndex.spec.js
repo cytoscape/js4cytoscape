@@ -257,8 +257,8 @@ describe('Search function test', () =>{
 
   it('search networks with paramter', ()=>{
     return ndexclient.searchNetworks('corpus', undefined, undefined, {accountName: 'cj1'}).then((r)=> {
-      expect(r.numFound).to.be.above(8);
-      expect(r.numFound).to.be.below(11);
+      expect(r.numFound).to.be.above(6);
+      expect(r.numFound).to.be.below(9);
       expect(r.networks[0].nodeCount).to.equal(37);
     }, errorPrinter
     );
