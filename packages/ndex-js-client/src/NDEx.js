@@ -341,7 +341,7 @@ class NDEx {
         parameters = {accesskey: accessKey};
       }
   
-      return this._httpGetV3ProtectedObj('network/' + uuid, parameters);
+      return this._httpGetV3ProtectedObj('networks/' + uuid, parameters);
   
     }
 
