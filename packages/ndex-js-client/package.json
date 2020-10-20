@@ -1,6 +1,6 @@
 {
   "name": "ndex-client",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "NDEx Javascript library",
   "main": "./dist/build/bundle.js",
   "scripts": {
