@@ -301,18 +301,20 @@ function getMappedValues(mappings, entityType, attributes) {
                 (mapping) => {
 
                     if (mapping.type === 'DISCRETE') {
-                        const discreteMap = mapping.definition.map;
-                        //console.log('processing discrete map:' + entityType + ' mapping.vp=' + mapping.vp + ' ' + attributeKey);
-                        discreteMap.forEach(keyValue => {
-                            if (keyValue.v == attributeValue) {
-                                //console.log('\tkeyValue.v=' + keyValue.v + ' ' + attributeValue);
-                                if (defaultPropertyConvert[entityType][mapping.vp]) {
-                                    const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
-                                    //console.log('\tconverted ' + JSON.stringify(converted))
-                                    Object.assign(output, converted);
+                        if (mapping.definition.map) {
+                            const discreteMap = mapping.definition.map;
+                            //console.log('processing discrete map:' + entityType + ' mapping.vp=' + mapping.vp + ' ' + attributeKey);
+                            discreteMap.forEach(keyValue => {
+                                if (keyValue.v == attributeValue) {
+                                    //console.log('\tkeyValue.v=' + keyValue.v + ' ' + attributeValue);
+                                    if (defaultPropertyConvert[entityType][mapping.vp]) {
+                                        const converted = defaultPropertyConvert[entityType][mapping.vp](keyValue.vp);
+                                        //console.log('\tconverted ' + JSON.stringify(converted))
+                                        Object.assign(output, converted);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     } else if (mapping.type === 'PASSTHROUGH') {
                         if (defaultPropertyConvert[entityType][mapping.vp]) {
                             const converted = defaultPropertyConvert[entityType][mapping.vp](attributeValue);
