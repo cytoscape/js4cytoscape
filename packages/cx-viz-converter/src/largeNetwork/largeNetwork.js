@@ -403,7 +403,7 @@ function lnvConvert(cx) {
     let nodeViews = [];
     let edgeViews = [];
 
-    cxVisualProperties.forEach(vpElement => {
+    cxVisualProperties && cxVisualProperties.forEach(vpElement => {
 
         const defaultStyles = vpElement.default;
 
@@ -415,7 +415,7 @@ function lnvConvert(cx) {
 
     });
 
-    cxNodeBypasses.forEach((vpElement) => {
+    cxNodeBypasses && cxNodeBypasses.forEach((vpElement) => {
 
         const key = vpElement[cxConstants.ID].toString();
         const values = getLNVValues('node', vpElement.v)
@@ -430,7 +430,7 @@ function lnvConvert(cx) {
         //bypassCSSEntries.push(getBypassCSSEntry('node', vpElement));
     });
 
-    cxEdgeBypasses.forEach((vpElement) => {
+    cxEdgeBypasses && cxEdgeBypasses.forEach((vpElement) => {
         const key = vpElement[cxConstants.ID].toString();
         const values = getLNVValues('edge', vpElement.v)
 
