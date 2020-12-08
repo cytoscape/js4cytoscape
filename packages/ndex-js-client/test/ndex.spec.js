@@ -13,6 +13,7 @@ function errorPrinter(err) {
 }
 
 describe('testing client', () => {
+  //this.timeout(5000);
   /*
   it('get status on non-exist server', () => {
     let ndex0 = new NDEx('http://dev11.ndexbio.org/v2');
@@ -330,6 +331,67 @@ describe('Search function test', () =>{
       expect(r['86fbe77b-a799-11e7-b522-06832d634f41'].length).to.equal(36);
       expect(r['2977ee7f-1d34-11e7-8145-06832d634f41'].length).to.equal(36);
     }, errorPrinter
+    );
+  });
+
+  it('get edges', ()=>{
+    return ndexclient.getRandomEdges(
+      '86fbe77b-a799-11e7-b522-06832d634f41', 5).then((r)=> {
+        expect(r.length).to.equal(5);
+      }, errorPrinter
+    );
+  });
+
+  it('get nodes', ()=>{
+    return ndexclient.getAspectElements(
+      '86fbe77b-a799-11e7-b522-06832d634f41', 'nodes',5).then((r)=> {
+        expect(r.length).to.equal(5);
+        expect(r[0].id).to.equal(1);
+        expect(r[0].v.n).to.equal("IMB1");
+      }, errorPrinter
+    );
+  });
+
+  it('get all nodes', ()=>{
+    return ndexclient.getAspectElements(
+      '86fbe77b-a799-11e7-b522-06832d634f41', 'nodes').then((r)=> {
+        expect(r.length).to.equal(32);
+        expect(r[0].id).to.equal(1);
+        expect(r[0].v.n).to.equal("IMB1");
+        expect(r[31].id).to.equal(32);
+        expect(r[31].v.n).to.equal("DLGP5");
+        expect(r[31].v.type).to.equal('Protein');
+        expect(r[31].v.alias[0]).to.equal("uniprot knowledgebase:A8MTM6");
+        expect(r[31].x).to.equal(520.0389842438293);
+      }, errorPrinter
+    );
+  });
+
+  it('get filtered edges', ()=>{
+    return ndexclient.getFilteredEdges(
+      'be5c3f09-254f-11e7-bbd5-06832d634f41', "weight", "0.30", ">").then((r)=> {
+        expect(r.length).to.equal(8);
+        expect(r[0].id).to.equal(1202);
+        expect(r[0].s).to.equal(286);
+        expect(r[6].id).to.equal(1180);
+        expect(r[6].s).to.equal(269);
+        expect(r[6].v.weight).to.equal(0.367647058824);
+        expect(r[7].v.weight).to.equal(0.321853878339);
+      }, errorPrinter
+    );
+  });
+
+  it('get filtered edges with limit', ()=>{
+    return ndexclient.getFilteredEdges(
+      'be5c3f09-254f-11e7-bbd5-06832d634f41', "weight", "0.35", ">", 4).then((r)=> {
+        expect(r.length).to.equal(4);
+        expect(r[0].id).to.equal(1202);
+        expect(r[0].s).to.equal(286);
+        expect(r[0].v.weight).to.equal(0.738552437223);
+        expect(r[3].id).to.equal(579);
+        expect(r[3].s).to.equal(384);
+        expect(r[3].v.weight).to.equal(0.367647058824);
+      }, errorPrinter
     );
   });
 
