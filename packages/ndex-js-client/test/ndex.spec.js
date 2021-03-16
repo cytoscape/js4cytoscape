@@ -369,6 +369,23 @@ describe('Search function test', () =>{
     );
   });
 
+  it('get metadata', ()=>{
+    return ndexclient.getMetaData(
+      '86fbe77b-a799-11e7-b522-06832d634f41').then((r)=> {
+        expect(r.metaData.length).to.equal(10);
+        expect(r.metaData[2].name).to.equal('nodes');
+        expect(r.metaData[2].elementCount).to.equal(32);
+
+        expect(r.metaData[3].name).to.equal('edges');
+        expect(r.metaData[3].elementCount).to.equal(47);
+
+        expect(r.metaData[5].name).to.equal('nodeAttributes');
+        expect(r.metaData[5].elementCount).to.equal(64);
+
+      }, errorPrinter
+    );
+  });
+
   it('get all nodes', ()=>{
     return ndexclient.getAspectElements(
       '86fbe77b-a799-11e7-b522-06832d634f41', 'nodes').then((r)=> {
