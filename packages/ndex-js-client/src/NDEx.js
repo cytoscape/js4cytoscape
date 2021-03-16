@@ -516,6 +516,17 @@ class NDEx {
       return this._httpGetV3ProtectedObj('networks/' + uuid + '/edges', parameters);
     }
 
+    getMetaData(uuid, accessKey) {
+      let parameters = {
+      };
+
+      if (accessKey !== undefined) {
+        parameters ['accesskey'] =accessKey;
+      }
+
+      return this._httpGetProtectedObj('network/' + uuid + '/aspect', parameters);
+    }
+
     getAspectElements(uuid, aspectName, limit, accessKey ) {
 
       let parameters = {
