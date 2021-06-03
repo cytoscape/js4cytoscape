@@ -1,0 +1,19 @@
+{
+  "name": "js4cytoscape",
+  "version": "1.0.0",
+  "description": "JavaScript library for calling Cytoscape Automation via CyREST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cytoscape/js4cytoscape.git"
+  },
+  "author": "Yihang Xin, Alex Pico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cytoscape/js4cytoscape/issues"
+  },
+  "homepage": "https://github.com/cytoscape/js4cytoscape#readme"
+}
