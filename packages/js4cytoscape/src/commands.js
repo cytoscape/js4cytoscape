@@ -1,4 +1,4 @@
-const CYREST_BASE_URL = 'http://127.0.0.1:1234';
+let CYREST_BASE_URL = 'http://127.0.0.1:1234';
 
 
 async function getCurrent(){
