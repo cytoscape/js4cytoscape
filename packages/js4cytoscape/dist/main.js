@@ -1,3 +1,4 @@
+let defaultBaseUrl = 'http://127.0.0.1:1234/v1';
 
 
 // I. CyREST API functions
@@ -76,9 +77,7 @@ export async function cyrestPUT(operation = '', parameters = '', body = '', base
       console.log(JSON.stringify(json));
 }
 
-let defaultBaseUrl = 'http://127.0.0.1:1234/v1';
-
-
 export async function deleteAllNetworks(baseUrl = defaultBaseUrl) {
+    let res = cyrestDELETE('networks', baseUrl = baseUrl);
     console.log("All networks are deleted.")
 }
