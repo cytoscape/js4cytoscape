@@ -1,8 +1,8 @@
-let defaultBaseUrl = 'http://127.0.0.1:1234/v1';
+const defaultBaseUrl = 'http://127.0.0.1:1234/v1';
 
 
 // I. CyREST API functions
-export async function cyrestGET(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
+async function cyrestGET(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
@@ -20,7 +20,7 @@ export async function cyrestGET(operation = '', parameters = '', baseUrl = defau
 }
 
 
-export async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
+async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
@@ -38,7 +38,7 @@ export async function cyrestDELETE(operation = '', parameters = '', baseUrl = de
 }
 
 
-export async function cyrestPOST(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
+async function cyrestPOST(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
@@ -58,7 +58,7 @@ export async function cyrestPOST(operation = '', parameters = '', body = '', bas
 }
 
 
-export async function cyrestPUT(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
+async function cyrestPUT(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
