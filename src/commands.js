@@ -1,4 +1,4 @@
-const defaultBaseUrl = 'http://127.0.0.1:1234/v1';
+let defaultBaseUrl = 'http://127.0.0.1:1234/v1';
 
 
 // I. CyREST API functions
@@ -33,8 +33,8 @@ async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBa
           'Content-Type': 'application/json'
         }
       });
-      const json = await res.json();
-      console.log(JSON.stringify(json));
+      const json = await res.text();
+      console.log(json);
 }
 
 
