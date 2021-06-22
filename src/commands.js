@@ -16,7 +16,7 @@ async function cyrestGET(operation = '', parameters = '', baseUrl = defaultBaseU
         }
       });
       const json = await res.json();
-      console.log(JSON.stringify(json));
+      return json;
 }
 
 
@@ -34,7 +34,7 @@ async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBa
         }
       });
       const json = await res.text();
-      console.log(json);
+      return json;
 }
 
 
@@ -54,7 +54,7 @@ async function cyrestPOST(operation = '', parameters = '', body = '', baseUrl = 
         body: qbody
       });
       const json = await res.json();
-      console.log(JSON.stringify(json));
+      return json;
 }
 
 
@@ -74,5 +74,8 @@ async function cyrestPUT(operation = '', parameters = '', body = '', baseUrl = d
         body: qbody
       });
       const json = await res.json();
-      console.log(JSON.stringify(json));
+      return json;
 }
+
+
+// II. Commands API functions
