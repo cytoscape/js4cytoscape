@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/cytoscape/js4cytoscape#readme",
   "devDependencies": {
-    "webpack-cli": "^4.7.2"
+    "lodash": "^4.17.21",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-concat-plugin": "^3.0.0"
   }
 }
