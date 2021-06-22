@@ -6,7 +6,7 @@ module.exports = {
   entry: ['./src/commands.js', './src/networks.js'],
   plugins: [
     new ConcatPlugin({
-      uglify: false,
+      uglify: true,
       sourceMap: false,
       name: 'result',
       outputPath: '',
