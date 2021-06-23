@@ -35,7 +35,7 @@ async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBa
 }
 
 
-async function cyrestPOST(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
+async function cyrestPOST(operation = '', parameters = '', body = {}, baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
@@ -55,7 +55,7 @@ async function cyrestPOST(operation = '', parameters = '', body = '', baseUrl = 
 }
 
 
-async function cyrestPUT(operation = '', parameters = '', body = '', baseUrl = defaultBaseUrl) {
+async function cyrestPUT(operation = '', parameters = '', body = {}, baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
         const qparameters = parameters;
@@ -76,3 +76,20 @@ async function cyrestPUT(operation = '', parameters = '', body = '', baseUrl = d
 
 
 // II. Commands API functions
+async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
+  const qurl = command2getQuery(cmdString, baseUrl)
+  const res = await fetch(qurl, {
+      method: 'GET',
+      headers: {
+        Accept: 'text/plain',
+        'Content-Type': 'text/plain'
+      }
+    });
+    const json = await res.json();
+    return json;
+}
+
+
+function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
+  
+}
