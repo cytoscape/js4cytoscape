@@ -3,7 +3,7 @@ const ConcatPlugin = require('webpack-concat-plugin');
 
 module.exports = {
   mode: "development",
-  entry: ['./src/commands.js', './src/networks.js', './src/CytoscapeSystem.js'],
+  entry: ['./src/Commands.js', './src/Networks.js', './src/CytoscapeSystem.js', './src/Collections.js', './src/CyNDEx.js', './src/js4cytoscape-utils.js'],
   plugins: [
     new ConcatPlugin({
       uglify: true,
@@ -11,7 +11,7 @@ module.exports = {
       name: 'result',
       outputPath: '',
       fileName: 'main.js',
-      filesToConcat: ['./src/commands.js', './src/networks.js', './src/CytoscapeSystem.js'],
+      filesToConcat: ['./src/Commands.js', './src/Networks.js', './src/CytoscapeSystem.js', './src/Collections.js', './src/CyNDEx.js', './src/js4cytoscape-utils.js'],
       attributes: {
           async: true
       }
