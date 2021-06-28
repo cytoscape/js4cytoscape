@@ -91,5 +91,8 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
 
 
 function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
-  
+    let pattern = /( [A-Za-z0-9_-]*=)+/g;
+    let cmdMarkParams = cmdString.replace(pattern, "XXXXXX");
+    let splitCmd = cmdMarkParams.split("XXXXXX");
+    return splitCmd;
 }
