@@ -94,5 +94,9 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     let pattern = /( [A-Za-z0-9_-]*=)+/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX");
     let splitCmd = cmdMarkParams.split("XXXXXX");
-    return splitCmd;
+    let cyCmd = splitCmd[0];
+    let tempString = cyCmd.replace(" ", "/");
+    let commandUrl = baseUrl.concat('/commands/')
+    let url = encodeURI(commandUrl.concat(tempString));
+    return url;
 }
