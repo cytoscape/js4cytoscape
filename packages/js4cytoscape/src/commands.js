@@ -91,19 +91,20 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
 
 
 function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
-    let pattern = /( [A-Za-z0-9_-]*=)+/g;
-    let cmdMarkParams = cmdString.replace(pattern, "XXXXXX");
+    let pattern =  /\ [A-Za-z0-9_-]*=/g;
+    let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
     let splitCmd = cmdMarkParams.split("XXXXXX");
     let cyCmd = splitCmd[0];
     let tempString = cyCmd.replace(" ", "/");
     let commandUrl = baseUrl.concat('/commands/')
     let url = encodeURI(commandUrl.concat(tempString));
     let args = (splitCmd.slice(1)).join(' ');
+    let argDict = null;
     if (!(args === undefined || args.length == 0)) {
         let tempArgs = args.replace(/['"]+/g, '');
         console.log(tempArgs);
     } else {
-        let argDict = null;
+        argDict = null;
     }
     return args;
 }
