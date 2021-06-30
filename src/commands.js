@@ -98,5 +98,12 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     let tempString = cyCmd.replace(" ", "/");
     let commandUrl = baseUrl.concat('/commands/')
     let url = encodeURI(commandUrl.concat(tempString));
-    return url;
+    let args = (splitCmd.slice(1)).join(' ');
+    if (!(args === undefined || args.length == 0)) {
+        let tempArgs = args.replace(/['"]+/g, '');
+        console.log(tempArgs);
+    } else {
+        let argDict = null;
+    }
+    return args;
 }
