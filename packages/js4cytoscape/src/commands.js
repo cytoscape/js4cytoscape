@@ -99,12 +99,23 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     let commandUrl = baseUrl.concat('/commands/')
     let url = encodeURI(commandUrl.concat(tempString));
     let args = (splitCmd.slice(1)).join(' ');
-    let argDict = null;
+    let qargs = "";
+    let keyList = [];
+    let valueList = [];
     if (!(args === undefined || args.length == 0)) {
-        let tempArgs = args.replace(/['"]+/g, '');
-        console.log(tempArgs);
+        args = args.replace(/['"]+/g, '');
+        const re1 = /[A-Za-z0-9_-]+=/g;
+        keyList = args.match(re1);
+        keyList = keyList.map(function(x){ return x.replace(/=/g,"") });
+        const re2 = /\ *[A-Za-z0-9_-]+=/g;
+        valueList = args.split(re2).slice(1);
+        qargs = keyList[0] + "=" + encodeURI(valueList[0]);
+        for (var i = 1; i < keyList.length; i++){
+          let tempArgs = keyList[i] + "=" + encodeURI(valueList[i]);
+          qargs = qargs + "&" + tempArgs;
+        }
+        return url + "?" + qargs;
     } else {
-        argDict = null;
+        return url;
     }
-    return args;
 }
