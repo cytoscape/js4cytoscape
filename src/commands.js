@@ -84,9 +84,10 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
         Accept: 'text/plain',
         'Content-Type': 'text/plain'
       }
-    });
-    const json = await res.json();
-    return json;
+    }).then(response => response.text())
+      .then((response) => {
+        console.log(response)
+      })
 }
 
 
