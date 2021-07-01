@@ -77,9 +77,26 @@ async function cyrestPUT(operation = '', parameters = '', body = {}, baseUrl = d
 
 // II. Commands API functions
 async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
+  const qurl = command2PostQueryUrl(cmdString, baseUrl);
+  const qbody = command2PostQueryBody(cmdString);
+  const res = await fetch(qurl, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: qbody
+  }).then(response => response.json())
+      .then((response) => {
+        console.log(response);
+      })
+}
+
+
+async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
   const qurl = command2getQuery(cmdString, baseUrl)
   const res = await fetch(qurl, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Accept: 'text/plain',
         'Content-Type': 'text/plain'
@@ -119,4 +136,14 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     } else {
         return url;
     }
+}
+
+
+function command2PostQueryUrl(cmdString, baseUrl = defaultBaseUrl){
+
+}
+
+
+function command2PostQueryBody(cmdString){
+
 }
