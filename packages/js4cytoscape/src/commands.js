@@ -86,7 +86,7 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
       }
     }).then(response => response.text())
       .then((response) => {
-        console.log(response)
+        console.log(response);
       })
 }
 
