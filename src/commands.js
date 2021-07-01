@@ -99,7 +99,8 @@ async function commandsRun(cmdString, baseUrl = defaultBaseUrl) {
 
 async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
   const qurl = command2PostQueryUrl(cmdString, baseUrl);
-  const qbody = command2PostQueryBody(cmdString);
+  let qbody = command2PostQueryBody(cmdString);
+  qbody = JSON.stringify(qbody);
   const res = await fetch(qurl, {
     method: 'POST',
     headers: {
@@ -107,7 +108,7 @@ async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
       'Content-Type': 'application/json'
     },
     body: qbody
-  }).then(response => response.json())
+  }).then(response => response.text())
       .then((response) => {
         console.log(response);
       })
@@ -162,5 +163,20 @@ function command2PostQueryBody(cmdString){
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
     let splitCmd = cmdMarkParams.split("XXXXXX");
     let args = (splitCmd.slice(1)).join(' ');
-
+    let qargs = {};
+    let keyList = [];
+    let valueList = [];
+    if (!(args === undefined || args.length == 0)) {
+        args = args.replace(/['"]+/g, '');
+        const re1 = /[A-Za-z0-9_-]+=/g;
+        keyList = args.match(re1);
+        keyList = keyList.map(function(x){ return x.replace(/=/g,"") });
+        const re2 = /\ *[A-Za-z0-9_-]+=/g;
+        valueList = args.split(re2).slice(1);
+        keyList.forEach((key, i) => qargs[key] = valueList[i]);
+        return qargs;
+    } else {
+        qargs = {'atLeastOneArg':'required'};
+        return qargs;
+    }
 }
