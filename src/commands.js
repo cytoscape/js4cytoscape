@@ -93,18 +93,23 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
 }
 
 
+async function commandsRun(cmdString, baseUrl = defaultBaseUrl) {
+    commandsGET(cmdString, baseUrl=baseUrl);
+}
+
+
 async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
-  const qurl = command2getQuery(cmdString, baseUrl)
-  const res = await fetch(qurl, {
-      method: 'POST',
-      headers: {
+    const qurl = command2getQuery(cmdString, baseUrl)
+    const res = await fetch(qurl, {
+        method: 'POST',
+        headers: {
         Accept: 'text/plain',
         'Content-Type': 'text/plain'
-      }
-    }).then(response => response.text())
-      .then((response) => {
-        console.log(response);
-      })
+        }
+        }).then(response => response.text())
+          .then((response) => {
+            console.log(response);
+          })
 }
 
 
@@ -140,7 +145,14 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
 
 
 function command2PostQueryUrl(cmdString, baseUrl = defaultBaseUrl){
-
+    let pattern =  /\ [A-Za-z0-9_-]*=/g;
+    let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
+    let splitCmd = cmdMarkParams.split("XXXXXX");
+    let cyCmd = splitCmd[0];
+    let tempString = cyCmd.replace(" ", "/");
+    let commandUrl = baseUrl.concat('/commands/')
+    let urlPost = encodeURI(commandUrl.concat(tempString));
+    return urlPost;
 }
 
 
