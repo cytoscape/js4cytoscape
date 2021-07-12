@@ -84,10 +84,9 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
         Accept: 'text/plain',
         'Content-Type': 'text/plain'
       }
-    }).then(response => response.text())
-      .then((response) => {
-        console.log(response);
-      })
+    });
+    const json = await res.text();
+    return json;
 }
 
 
@@ -108,10 +107,9 @@ async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
       'Content-Type': 'application/json'
     },
     body: qbody
-  }).then(response => response.text())
-      .then((response) => {
-        console.log(response);
-      })
+  });
+    const json = await res.text();
+    return json;
 }
 
 
