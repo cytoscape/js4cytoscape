@@ -31,7 +31,8 @@ async function exportNetworkToNDEx(serverUrl=serverUrl, username, password, isPu
         metadata: metadata,
         isPublic: isPublic
       }
-    let networkSuid = getNetworkSuid(network=network);
+    let networkSuid = await getNetworkSuid(network=network);
+    console.log(networkSuid);
     const exportNetworkUrl = CYREST_BASE_URL + '/cyndex2/v1/networks/' + networkSuid;
     console.log('Calling CyREST POST:', exportNetworkUrl)
     const response = await fetch(exportNetworkUrl, {
