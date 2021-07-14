@@ -2,10 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title></title>
   </head>
   <body>
     <script type="text/javascript", src="./dist/main.js"></script>
+    <script src="https://unpkg.com/ndex-client@0.0.2/dist/build/bundle.js"></script>
+    <script src="https://unpkg.com/cytoscape-cx2js@0.6.4/build/bundle.js"></script>
+    <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>
     <button onclick="deleteAllNetworks()">Delete all networks</button>
     <button onclick="cytoscapeVersionInfo()">Get Cytoscape version</button>
     <button onclick="cytoscapeMemoryStatus()">Cytoscape memory status</button>
@@ -16,5 +20,7 @@
     <button onclick="analyzeNetwork()">Analyze network</button>
     <button onclick="importNetworkFromNDEX(serverUrl, '306e55b8-8078-11eb-9e72-0ac135e8bacf', 'yihang.xin', 'xin950301')">Import network from NDEx</button>
     <button onclick="exportNetworkToNDEx(serverUrl, 'yihang.xin', 'xin950301', true, network='current', metadata=null)">Export network to NDEx</button>
+    <div id="cy1"></div>
+    <button onclick="displayNDExCX('b1e9a489-bbe7-11ea-aaef-0ac135e8bacf', 'cy1')">Display original NDEx Network</button>
   </body>
 </html>
