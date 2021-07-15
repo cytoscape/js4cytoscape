@@ -2,7 +2,7 @@ const defaultBaseUrl = 'http://127.0.0.1:1234/v1';
 const serverUrl = 'http://ndexbio.org/v2';
 const CYREST_BASE_URL = 'http://127.0.0.1:1234';
 let ndex;
-
+let disabledButton;
 
 function displayCX(cx, elementId) {
     const element = document.getElementById(elementId);
@@ -47,4 +47,17 @@ function displayLocalCX(fileLocation, element) {
       .then(function (response) {
         return response.json();
       }).then((cx) => { displayCX(cx, element); });
+}
+
+async function checkCytoscape() {
+    try {
+      let res = await cyrestGET('version');
+      disabledButton = false;
+    } catch(err){
+      disabledButton = true;
+    }
+    const button = document.getElementById('cytobutton');
+    if (disabledButton) button.disabled = "disabled";
+    if (disabledButton) document.getElementById('cytobutton').innerText = 'Download Cytoscape';
+    if (disabledButton) document.getElementById("cytobutton").setAttribute('title',"Download Cytoscape");
 }
