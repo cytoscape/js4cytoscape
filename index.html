@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>js4cytoscape</title>
   </head>
+
   <body>
     <script type="text/javascript", src="./dist/main.js"></script>
     <script src="https://unpkg.com/ndex-client@0.0.2/dist/build/bundle.js"></script>
@@ -21,9 +22,10 @@
     <button onclick="importNetworkFromNDEX(serverUrl, '306e55b8-8078-11eb-9e72-0ac135e8bacf', 'yihang.xin', 'xin950301')">Import network from NDEx</button>
     <button onclick="exportNetworkToNDEx(serverUrl, 'yihang.xin', 'xin950301', true, network='current', metadata=null)">Export network to NDEx</button>
     <div id="cy1"></div>
-    <button onclick="displayNDExCX('b1e9a489-bbe7-11ea-aaef-0ac135e8bacf', 'cy1')">Display CX file from NDEx</button>
+    <button onclick="displayNDExCX('4958993c-df46-11eb-b666-0ac135e8bacf', 'cy1')">Display CX file from NDEx</button>
     <div id="cy2"></div>
     <button onclick="displayLocalCX('./galFiltered.cx', 'cy2')">Display CX file from local</button>
     <br><br>
+    <button class="cytobutton">Cytoscape is connected</button>
   </body>
 </html>
