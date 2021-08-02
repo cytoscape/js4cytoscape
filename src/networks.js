@@ -26,8 +26,31 @@ async function deleteAllNetworks(baseUrl = defaultBaseUrl) {
 }
 
 
-async function getNetworkSuid(title = "current", baseUrl = defaultBaseUrl){
-      let cmd = 'network get attribute network="' + title + '" namespace="default" columnList="SUID"';
+async function getNetworkSuid(title = null, baseUrl = defaultBaseUrl){
+      let networkTitle;
+      if (typeof title === 'string' || title instanceof String){
+        if (title == "current"){
+          networkTitle = title;
+        } else {
+          let netNames = await getNetworkList(baseUrl=baseUrl);
+          if (netNames.includes(title)){
+            networkTitle = title;
+          } else {
+            console.log("Network does not exist: " + title);
+          }
+        }
+      } else if (typeof title === 'number'){
+          let netSuids = await cyrestGET('networks', baseUrl=baseUrl);
+          if (netSuids.includes(title)){
+            console.log(title);
+            return title;
+          } else {
+            console.log("Network does not exist: " + title);
+          }
+      } else {
+        networkTitle = "current";
+      }
+      let cmd = 'network get attribute network="' + networkTitle + '" namespace="default" columnList="SUID"';
       let suid = commandsPOST(cmd, baseUrl=baseUrl);
       let res = suid.then((data) => { console.log("Network suid: " + JSON.parse(data)['data'][0]['SUID']) });
       res = suid.then((data) => { return JSON.parse(data)['data'][0]['SUID'] });
