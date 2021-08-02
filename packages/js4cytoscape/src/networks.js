@@ -33,3 +33,20 @@ async function getNetworkSuid(title = "current", baseUrl = defaultBaseUrl){
       res = suid.then((data) => { return JSON.parse(data)['data'][0]['SUID'] });
       return res;
 }
+
+async function getNetworkList(baseUrl = defaultBaseUrl){
+      let count = await getNetworkCount(baseUrl);
+      if(count == 0) {
+          console.log([]);
+          return [];
+      }
+      let cynetworksSUIDs = await cyrestGET('networks', baseUrl = baseUrl);
+      let cynetworksnames = [];
+      for (const cynetworksSUID of cynetworksSUIDs){
+          let res = await cyrestGET(("networks/" + cynetworksSUID.toString()));
+          let netname = res['data']['name'];
+          cynetworksnames.push(netname);
+      }
+      console.log(cynetworksnames);
+      return cynetworksnames;
+}
