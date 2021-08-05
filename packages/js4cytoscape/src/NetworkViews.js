@@ -7,7 +7,7 @@ async function getNetworkViews(network = null, baseUrl = defaultBaseUrl){
 }
 
 
-async function getNetworkViesSuid(network = null, baseUrl = defaultBaseUrl){
+async function getNetworkViewsSuid(network = null, baseUrl = defaultBaseUrl){
     let netSuid = await getNetworkSuid(network, baseUrl);
     let anyViews = await getNetworkViews(netSuid, baseUrl);
     return anyViews;
