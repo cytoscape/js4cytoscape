@@ -15,7 +15,7 @@ async function getNetworkViewsSuid(network = null, baseUrl = defaultBaseUrl){
 
 
 async function fitContent(selectedOnly = false, network = null, baseUrl = defaultBaseUrl){
-    let viewSuid = await getNetworkViesSuid(network, baseUrl);
+    let viewSuid = await getNetworkViewsSuid(network, baseUrl);
     let selected = 'view fit selected view=SUID:'  + viewSuid;
     let notSelected = 'view fit content view=SUID:' + viewSuid;
     if (selectedOnly == true) {
@@ -23,4 +23,9 @@ async function fitContent(selectedOnly = false, network = null, baseUrl = defaul
     } else {
         commandsPOST(notSelected, baseUrl);
     }
+}
+
+async function setCurrentView(network = null, baseUrl = defaultBaseUrl){
+    let viewSuid = await getNetworkViewsSuid(network, baseUrl);
+    commandsPOST('view set current view=SUID:"' + viewSuid + '"', baseUrl=baseUrl);
 }
