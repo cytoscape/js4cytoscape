@@ -19,6 +19,11 @@ async function getNetworkCount(baseUrl = defaultBaseUrl){
     return res;
 }
 
+async function deleteNetwork(network = null, baseUrl = defaultBaseUrl) {
+    let suid = await getNetworkSuid(network, baseUrl)
+    let res = cyrestDELETE('networks/' + suid, baseUrl = baseUrl);
+    console.log("Selected network is deleted.")
+}
 
 async function deleteAllNetworks(baseUrl = defaultBaseUrl) {
     let res = cyrestDELETE('networks', baseUrl = baseUrl);
