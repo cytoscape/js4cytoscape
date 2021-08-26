@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>js4cytoscape</title>
   </head>
-
   <body>
     <script type="text/javascript", src="./dist/main.js"></script>
     <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>
@@ -24,6 +23,22 @@
     <button onclick="analyzeNetwork()">Analyze network</button>
     <button onclick="importNetworkFromNDEX(serverUrl, '306e55b8-8078-11eb-9e72-0ac135e8bacf', 'yihang.xin', 'xin950301')">Import network from NDEx</button>
     <button onclick="exportNetworkToNDEx(serverUrl, 'yihang.xin', 'xin950301', true, network='current', metadata=null)">Export network to NDEx</button>
+    <textarea readonly id="log" rows="30" cols="120"></textarea>
+    <script type="text/javascript">
+        window.onload = (function () {
+          var old = console.log;
+          var logger = document.getElementById('log');
+          console.log = function () {
+            for (var i = 0; i < arguments.length; i++) {
+              if (typeof arguments[i] == 'object') {
+                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+              } else {
+                logger.innerHTML += arguments[i] + '<br />';
+              }
+            }
+          }
+        })();
+    </script>
     <div id="cy1"></div>
     <button onclick="displayNDExCX('4958993c-df46-11eb-b666-0ac135e8bacf', 'cy1')">Display CX file from NDEx</button>
     <div id="cy2"></div>
