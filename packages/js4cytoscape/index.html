@@ -13,16 +13,14 @@
     </script>
     <button class="cytobutton", id="cytobutton", title="Cytoscape is connected">Cytoscape is connected</button>
     <br><br>
-    <button onclick="deleteAllNetworks()">Delete all networks</button>
     <button onclick="cytoscapeVersionInfo()">Get Cytoscape version</button>
+    <button onclick="importNetworkFromNDEX(serverUrl, 'c8f811e4-8b74-11eb-9e72-0ac135e8bacf')">Import network from NDEx</button>
     <button onclick="cytoscapeMemoryStatus()">Cytoscape memory status</button>
     <button onclick="getAvailableApps()">Get available apps</button>
     <button onclick="getInstalledApps()">Get Installed apps</button>
     <button onclick="openAppStore('ClueGO')">Open ClueGo App in Cytoscape</button>
     <button onclick="getFilterList()">Get Filter List</button>
     <button onclick="analyzeNetwork()">Analyze network</button>
-    <button onclick="importNetworkFromNDEX(serverUrl, '306e55b8-8078-11eb-9e72-0ac135e8bacf', 'yihang.xin', 'xin950301')">Import network from NDEx</button>
-    <button onclick="exportNetworkToNDEx(serverUrl, 'yihang.xin', 'xin950301', true, network='current', metadata=null)">Export network to NDEx</button>
     <textarea readonly id="log" rows="30" cols="120"></textarea>
     <script type="text/javascript">
         window.onload = (function () {
