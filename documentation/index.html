@@ -5,14 +5,14 @@
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
 		<link rel="canonical" href="http://js.cytoscape.org" />
 		<meta name="description" content="Graph theory / network library for analysis and visualisation - compatible with CommonJS/Node.js/Browserify/Webpack, AMD/Require.js, npm, Bower, jspm, Meteor/Atmosphere, jQuery, and plain JS/JavaScript">
-		<meta name="author" content="Max Franz">
+		<meta name="author" content="Yihang Xin">
 		<meta name="robots" content="all" />
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimal-ui">
 
 		<link rel="shortcut icon" href="img/cytoscape-logo.png" />
 		<link rel="shortcut icon" href="img/cytoscape-logo.svg" type="image/svg" />
 
-		<title>Cytoscape.js</title>
+		<title>js4cytoscape</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/font-awesome.css">
@@ -28,178 +28,33 @@
 			<a id="open-navigation" class="activatable plain-link"><span class="fa fa-bars"></span></a>
 			<div id="open-navigation-bg"></div>
 
-			<h1 id="top" class="title"><span class="title-logo"></span>Cytoscape.js</h1>
+			<h1 id="top" class="title"><span class="title-logo"></span>js4cytoscape</h1>
 
 			<div class="subtitle">
-				Graph theory (network) library for visualisation and analysis
+				JavaScript library for calling Cytoscape Automation via CyREST
 			</div>
 
 			<div id="documentation">
-			{{#each sections}}
-				{{#if name}}<h1 id="{{id}}">{{name}} {{{bookmark}}}</h1>{{/if}}
+				<div class="links">
+					<p><a href="https://github.com/cytoscape/cytoscape.js"><img src="https://img.shields.io/badge/Repo-GitHub-yellow.svg" alt="GitHub repo"></a>
+				</div>
+				<h1 id="{{id}}"> App Demos </h1>
 
-				{{#if html}}
-					{{{html}}}
-				{{/if}}
+				<div class="gallery-demos">
+					<div class="gallery-demo">
 
-				{{#if demos}}
+						<a class="gallery-link" href="demos/colajs-graph">
+							<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
+						</a>
 
-					<div class="gallery-demos">
-					{{#each demos}}
-						<div class="gallery-demo">
-
-							<a class="gallery-link" href="{{viewUrl}}">
-								<span class="gallery-preview" style="background-image: url('{{imgUrl}}');"></span>
+						<div class="gallery-title">
+							<a href="https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/Sample-App">
+								<span class="gallery-name"><span class="fa fa-github"></span> Sample App </span>
 							</a>
-
-							<div class="gallery-title">
-								<a href="{{githubUrl}}">
-									<span class="gallery-name"><span class="fa fa-github"></span> {{name}}</span>
-								</a>
-							</div>
-
 						</div>
-					{{/each}}
+
 					</div>
 
-				{{/if}}
-
-				{{#each sections}}
-				{{#if fromMd}}
-				{{else}}
-					<h2 id="{{id}}">{{name}} {{{bookmark}}}</h2>
-
-					{{#if extensions}}
-						<ul>
-						{{#each extensions}}
-							<li><a target="_blank" href="{{url}}"><code>{{name}}</code></a> : {{descr}}</li>
-						{{/each}}
-						</ul>
-					{{/if}}
-
-					{{#if html}}
-						{{{html}}}
-					{{/if}}
-
-					{{#if layout}}
-						<h3>Options</h3>
-						<pre><code class="lang-js">{{{layout.optionsFormatted}}}</code></pre>
-						<button class="run run-inline-code"><span class="fa fa-play"></span></button>
-					{{/if}}
-
-					{{#each fns}}
-						<div class="function">
-							<div class="name" id="{{id}}">
-								<span class="fn-name">{{name}}()</span> {{#if aliases}}et al{{/if}} {{{bookmark}}}
-								{{#each altIds}}<span id="{{.}}">&nbsp;</span>{{/each}}
-							</div>
-
-							{{#if extFn}}
-								<div class="ext-function-note">
-									<span class="fa fa-puzzle-piece important"></span> <a href="#extensions">Extension</a> function: This function is intended for use in extensions.
-								</div>
-							{{/if}}
-
-							{{#if processedPureAliases}}
-							<div class="pure-aliases">
-								<span class="important-indicator"></span> Aliases:
-
-								{{#each processedPureAliases}}
-									<span class="pure-alias">
-										<code id="{{id}}" class="pure-alias-name">{{name}}()</code><span class="pure-alias-comma">,</span>
-									</span>
-								{{/each}}
-							</div>
-							{{/if}}
-
-							<div class="descr">{{{descr}}}</div>
-
-							{{#if formats}}
-							<div class="formats">
-								{{#each formats}}
-									<div class="format">
-										{{#if args}}
-											<div class="name">{{name}}( <span class="args-summary">{{#each args}}{{#if optional}} [{{/if}}<span class="comma">,&nbsp;</span>{{{name}}}{{#if optional}}]{{/if}}{{/each}}</span> )</div>
-										{{else}}
-											<div class="name">{{name}}()</div>
-										{{/if}}
-
-										{{#if processedPureAliases}}
-										<div class="pure-aliases">
-											<span class="important-indicator"></span> Aliases:
-
-											{{#each processedPureAliases}}
-												<span class="pure-alias">
-													<span id="{{id}}" class="pure-alias-name">{{name}}()</span><span class="pure-alias-comma">,</span>
-												</span>
-											{{/each}}
-										</div>
-										{{/if}}
-
-										<div class="descr">{{{descr}}}</div>
-										<ul class="args">
-											{{#each args}}
-												<li>
-													<span class="name">{{{linkedName}}}</span>
-													{{#if optional}}<span class="optional">[optional]</span>{{/if}}
-													<span class="descr">{{{descr}}}</span>
-
-													{{#if fields}}
-													<ul class="fields">
-														{{#each fields}}
-															<li>
-																<span class="name">{{{linkedName}}}</span>
-																{{#if optional}}<span class="optional">[optional]</span>{{/if}}
-																<span class="descr">{{{descr}}}</span>
-															</li>
-
-															{{#if fields}}
-															<ul class="fields">
-																{{#each fields}}
-																<li>
-																	<span class="name">{{{linkedName}}}</span>
-																	{{#if optional}}<span class="optional">[optional]</span>{{/if}}
-																	<span class="descr">{{{descr}}}</span>
-																</li>
-
-																{{#if fields}}
-																<ul class="fields">
-																	{{#each fields}}
-																	<li>
-																		<span class="name">{{{linkedName}}}</span>
-																		{{#if optional}}<span class="optional">[optional]</span>{{/if}}
-																		<span class="descr">{{{descr}}}</span>
-																	</li>
-																	{{/each}}
-																</ul>
-																{{/if}}
-
-																{{/each}}
-															</ul>
-															{{/if}}
-														{{/each}}
-													</ul>
-													{{/if}}
-												</li>
-											{{/each}}
-										</ul>
-									</div>
-								{{/each}}
-							</div>
-							{{/if}}
-
-							<div class="details">
-								{{#if html}}
-									{{{html}}}
-								{{/if}}
-							</div>
-						</div>
-					{{/each}}
-
-				{{/if}}
-				{{/each}}
-			{{/each}}
-			</div>
 
 			<p><span class="fa fa-sign-blank"></span></p>
 
