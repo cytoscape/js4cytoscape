@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Open in Cytoscape</title>
+  </head>
+  <body>
+    <h1>How to add Open in Cytoscape button in web page</h1>
+      <h2>Prerequisites</h2>
+      <list>
+        <li>An installed and running version of Cytoscape.</li>
+        <li>An internet connection.</li>
+      </list>
+
+      <h2>Step 1</h2>
+      <p> Clone js4cytoscape repository from GitHub, the GitHub source for the js4cytoscape is available at <a
+      href='https://github.com/cytoscape/js4cytoscape'>https://github.com/cytoscape/js4cytoscape</a></p>
+      <h2>Step 2</h2>
+      <p>
+          You will find main.js file in the dist folder, and you can copy main.js into your web page folder.
+      </p>
+      <h2>Step 3</h2>
+      <p>
+        Copy the following code, and paste it in your html file.
+        <br><br>
+        <br><br>
+        &lt;type="text/javascript", src="/Users/yxin/git/cytoscape/js4cytoscape/dist/main.js"&gt;&lt;/script&gt
+        <br><br>
+        &lt;script type="text/javascript"&gt
+        <br><br>
+            window.onload = checkCytoscape();
+        <br><br>
+        &lt;/script&gt
+        <br><br>
+        &lt;button class="cytobutton", id="cytobutton", title="Cytoscape is connected"&gtCytoscape is connected&lt;/button&gt
+        <br><br>
+      </p>
+      <h2>Step 4</h2>
+      <p> You will see a button in your web page, if the Cytoscape is installed and opened on your machine, the button will show "Cytoscape is connected".
+        <br><br>
+        If the Cytoscape desktop application is not installed and opened, the button will show "Download Cytoscape".
+        <br><br>
+        Here is the demo:
+      </p>
+    <script type="text/javascript", src="/Users/yxin/git/cytoscape/js4cytoscape/dist/main.js"></script>
+    <script type="text/javascript">
+        window.onload = checkCytoscape();
+    </script>
+    <button class="cytobutton", id="cytobutton", title="Cytoscape is connected">Cytoscape is connected</button>
+  </body>
+</html>
