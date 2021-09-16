@@ -38,7 +38,7 @@
 				<div class="links">
 					<p><a href="https://github.com/cytoscape/cytoscape.js"><img src="https://img.shields.io/badge/Repo-GitHub-yellow.svg" alt="GitHub repo"></a>
 				</div>
-				<h1 id="{{id}}"> App Demos </h1>
+				<h1 id="demos"> App Demos </h1>
 
 				<div class="gallery-demos">
 					<div class="gallery-demo">
@@ -52,6 +52,20 @@
 								<span class="gallery-name"><span class="fa fa-github"></span> Sample App </span>
 							</a>
 						</div>
+
+						<div class="gallery-demo">
+
+							<a class="gallery-link" href="demos/Open-In-Cytoscape/index.html">
+								<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
+							</a>
+
+							<div class="gallery-title">
+								<a href="https://github.com/cytoscape/js4cytoscape/blob/main/documentation/demos/Open-In-Cytoscape/index.html">
+									<span class="gallery-name"><span class="fa fa-github"></span> Open in Cytoscape </span>
+								</a>
+							</div>
+
+</div>
 
 					</div>
 
@@ -69,29 +83,7 @@
 		<div id="navigation">
 			<div id="toc-sections" class="toc-sections">
 
-				{{#each sections}}
-					<div class="section lvl1">
-						{{#if sections}}<span class="expander">
-							<span class="fa fa-caret-down expanded-icon"></span>
-							<span class="fa fa-caret-right collapsed-icon"></span>
-						</span>{{/if}}
-						<a class="toclink" href="#{{id}}">{{& name}}</a>
-					</div>
-
-					{{#each sections}}
-						<div class="section lvl2">
-							{{#if fns}}<span class="expander">
-								<span class="fa fa-caret-down expanded-icon"></span>
-								<span class="fa fa-caret-right collapsed-icon"></span>
-							</span>{{/if}}
-							<a class="toclink" href="#{{id}}">{{& name}}</a>
-						</div>
-
-						{{#each fns}}
-							<div class="section lvl3"><a class="toclink" href="#{{id}}">{{name}}() {{#if aliases}}et al{{/if}}</a></div>
-						{{/each}}
-					{{/each}}
-				{{/each}}
+				App Demos
 
 			</div>
 
