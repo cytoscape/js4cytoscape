@@ -1,9 +1,14 @@
 # cytoscape-cx2js
 
 Convert CX JSON to cytoscape.js.
-Does not handle conversion of Cytoscape Desktop Annotations. To convert Cytoscape Desktop Annotations to cytoscape.js, see [cyannotation-cx2js](https://github.com/cytoscape/cyannotation-cx2js).
 
-For CX2 support, see [cx-viz-converter](https://github.com/cytoscape/cx-viz-converter).
+cytoscape-cx2js does not handle conversion of Cytoscape Desktop Annotations. To convert Cytoscape Desktop Annotations to cytoscape.js see:
+[cyannotation-cx2js](https://github.com/cytoscape/cyannotation-cx2js).
+
+cytoscape-cx2js does not handle conversion of CX2. To convert CX2 to cytoscape.js see:
+[cx-viz-converter](https://github.com/cytoscape/cx-viz-converter).
+
+Documentation for the CX data model can be found [here](https://home.ndexbio.org/data-model/).
 
 ## Run targets
 
