@@ -2,7 +2,7 @@
 
 Convert Cytoscape Desktop Annotations to cytoscape.js.
 
-Builds off of [cytoscape-canvas]('https://github.com/classcraft/cytoscape.js-canvas'). A cytoscape.js extension to render a canvas over/under a Cytoscape.js graph.
+Builds off of [cytoscape-canvas](https://github.com/classcraft/cytoscape.js-canvas). A cytoscape.js extension to render a canvas over/under a Cytoscape.js graph.
 
 ## Run targets
 
