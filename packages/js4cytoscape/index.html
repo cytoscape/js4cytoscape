@@ -29,9 +29,9 @@
           console.log = function () {
             for (var i = 0; i < arguments.length; i++) {
               if (typeof arguments[i] == 'object') {
-                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '&#10';
               } else {
-                logger.innerHTML += arguments[i] + '<br />';
+                logger.innerHTML += arguments[i] + '&#10';
               }
             }
           }
