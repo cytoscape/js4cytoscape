@@ -35,103 +35,109 @@
 			</div>
 
 			<div id="documentation">
-				<div class="links">
-					<p><a href="https://github.com/cytoscape/cytoscape.js"><img src="https://img.shields.io/badge/Repo-GitHub-yellow.svg" alt="GitHub repo"></a>
-				</div>
-				<h1 id="demos"> App Demos </h1>
+				<h1 id="demos">App Demos <a href="#demos"><span class="fa fa-bookmark"></span></a></h1>
 
-				<div class="gallery-demos">
-					<div class="gallery-demo">
 
-						<a class="gallery-link" href="demos/Sample-App/index.html">
-							<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
-						</a>
 
-						<div class="gallery-title">
-							<a href="https://github.com/cytoscape/js4cytoscape/blob/main/docs/demos/Sample-App/index.html">
-								<span class="gallery-name"><span class="fa fa-github"></span> Sample App </span>
-							</a>
+						<div class="gallery-demos">
+							<div class="gallery-demo">
+
+								<a class="gallery-link" href="demos/Sample-App/index.html">
+									<span class="gallery-preview" style="background-image:url('img/cytoscape-logo.png');"></span>
+								</a>
+
+								<div class="gallery-title">
+									<a href="https://github.com/cytoscape/js4cytoscape/blob/main/docs/demos/Sample-App/index.html">
+										<span class="gallery-name"><span class="fa fa-github"></span>Sample App 1</span>
+									</a>
+								</div>
+
+							</div>
+							<div class="gallery-demo">
+
+								<a class="gallery-link" href="demos/Open-In-Cytoscape/index.html">
+									<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
+								</a>
+
+								<div class="gallery-title">
+									<a href="https://github.com/cytoscape/js4cytoscape/blob/main/docs/demos/Open-In-Cytoscape/index.html">
+										<span class="gallery-name"><span class="fa fa-github"></span> Open in Cytoscape Button</span>
+									</a>
+								</div>
+
+							</div>
+							<div class="gallery-demo">
+
+								<a class="gallery-link" href="https://github.com/cytoscape">
+									<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
+								</a>
+
+								<div class="gallery-title">
+									<a href="https://github.com/cytoscape">
+										<span class="gallery-name"><span class="fa fa-github"></span> Sample App 2</span>
+									</a>
+								</div>
+							</div>
 						</div>
 
-						<div class="gallery-demo">
+						<div class="toc-search">
+							<input id="toc-input" type="text" placeholder="Find sections"></input>
+							<a id="toc-clear" class="plain-link"><span class="fa fa-times"></span></a>
+							<a id="toc-top" href="#top" class="plain-link"><span class="fa fa-arrow-up"></span></a>
+						</div>
 
-							<a class="gallery-link" href="demos/Open-In-Cytoscape/index.html">
-								<span class="gallery-preview" style="background-image: url('img/cytoscape-logo.png');"></span>
-							</a>
+						<div id="navigation">
+							<div id="toc-sections" class="toc-sections">
 
-							<div class="gallery-title">
-								<a href="https://github.com/cytoscape/js4cytoscape/blob/main/docs/demos/Open-In-Cytoscape/index.html">
-									<span class="gallery-name"><span class="fa fa-github"></span> Open in Cytoscape </span>
-								</a>
+								App Demos
+
 							</div>
 
-</div>
-
-					</div>
-
-
-			<p><span class="fa fa-sign-blank"></span></p>
-
-		</div>
-
-		<div class="toc-search">
-			<input id="toc-input" type="text" placeholder="Find sections"></input>
-			<a id="toc-clear" class="plain-link"><span class="fa fa-times"></span></a>
-			<a id="toc-top" href="#top" class="plain-link"><span class="fa fa-arrow-up"></span></a>
-		</div>
-
-		<div id="navigation">
-			<div id="toc-sections" class="toc-sections">
-
-				App Demos
-
-			</div>
-
-			<p><span class="fa fa-sign-blank"></span></p>
-		</div>
+							<p><span class="fa fa-sign-blank"></span></p>
+						</div>
 
 
-		<div id="orphaned-cy-container">
-			<div id="cy-etc" class="hidden">
-				<div id="cy-arrow">
-					<span class="fa fa-arrow-down"></span>
-				</div>
-				<div id="cy-title"><pre class="content"></pre></div>
-				<div id="cy-label" class="hidden"><code>window.cy</code></div>
-				<div id="cy" class="hidden"></div>
-				<div id="cy-refresh" class="hidden">
-					<span class="link plain-link fa fa-refresh"></span>
-				</div>
-				<div id="cy-show">
-					<span class="link plain-link fa fa-plus"></span>
-				</div>
-				<div id="cy-hide" class="hidden">
-					<span class="link plain-link fa fa-minus"></span>
-				</div>
-			</div>
-		</div>
+						<div id="orphaned-cy-container">
+							<div id="cy-etc" class="hidden">
+								<div id="cy-arrow">
+									<span class="fa fa-arrow-down"></span>
+								</div>
+								<div id="cy-title"><pre class="content"></pre></div>
+								<div id="cy-label" class="hidden"><code>window.cy</code></div>
+								<div id="cy" class="hidden"></div>
+								<div id="cy-refresh" class="hidden">
+									<span class="link plain-link fa fa-refresh"></span>
+								</div>
+								<div id="cy-show">
+									<span class="link plain-link fa fa-plus"></span>
+								</div>
+								<div id="cy-hide" class="hidden">
+									<span class="link plain-link fa fa-minus"></span>
+								</div>
+							</div>
+						</div>
 
-		<script src="js/cytoscape.min.js"></script>
+						<script src="js/cytoscape.min.js"></script>
 
-		<!-- polyfills so the docs work on old browsers, like IE -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
+						<!-- polyfills so the docs work on old browsers, like IE -->
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.2.20171210/classList.min.js"></script>
 
-		<!-- the docs js -->
-		<script src="js/script.js"></script>
+						<!-- the docs js -->
+						<script src="js/script.js"></script>
 
-		<script type="text/javascript">
+						<script type="text/javascript">
 
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-155159-11']);
-		_gaq.push(['_trackPageview']);
+						var _gaq = _gaq || [];
+						_gaq.push(['_setAccount', 'UA-155159-11']);
+						_gaq.push(['_trackPageview']);
 
-		(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
+						(function() {
+						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+						})();
 
-		</script>
+						</script>
 
-	</body>
-</html>
+					</body>
+				</html>
