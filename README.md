@@ -6,7 +6,7 @@ JavaScript library for calling Cytoscape Automation via CyREST
 
 #### To run this demo ***online***:
 1. Make sure Cytoscape is installed and running.
-2. Launch index.html via githack: https://raw.githack.com/cytoscape/js4cytoscape/main/index.html
+2. Launch index.html via githack: https://raw.githack.com/cytoscape/js4cytoscape/main/packages/js4cytoscape/index.html
 
 
 ### Related Libraries
