@@ -9,9 +9,4 @@ JavaScript library for calling Cytoscape Automation via CyREST
 2. Launch index.html via githack: https://raw.githack.com/cytoscape/js4cytoscape/main/packages/js4cytoscape/index.html
 
 
-### Related Libraries
-1. Cytoscape.js: https://github.com/cytoscape/cytoscape.js
-2. NDEx Javascript client: https://github.com/ndexbio/ndex-js-client
-3. cytoscape-cx2js: https://github.com/cytoscape/cx2js
-
 
