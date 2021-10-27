@@ -4,6 +4,7 @@
   "description": "JavaScript library for calling Cytoscape Automation via CyREST",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
