@@ -1,52 +1,27 @@
 # NDEx Javascript client
 
-Webpack based NDEx client libraries (Input: ES6, Output: universal library)
+A NDEx API Client written in JS.
 
+## Documentation
 
-## Features
+- See the full [NDEx API documentation](https://home.ndexbio.org/using-the-ndex-server-api/)
+- Try out the [NDEx API](http://openapi.ndextools.org/)
 
-* Webpack 4 based.
-* ES6 as a source.
-* Exports in a [umd](https://github.com/umdjs/umd) format so your library works everywhere.
-* ES6 test setup with [Mocha](http://mochajs.org/) and [Chai](http://chaijs.com/).
-* Linting with [ESLint](http://eslint.org/).
-
-## Process
-
-```
-ES6 source files
-       |
-       |
-    webpack
-       |
-       +--- babel, eslint
-       |
-  ready to use
-     library
-  in umd format
-```
-
-*Have in mind that you have to build your library before publishing. The files under the `lib` folder are the ones that should be distributed.*
+_Have in mind that you have to build your library before publishing. The files under the `dist` folder are the ones that should be distributed._
 
 ## Getting started
 
 1. Build your library
-  * Modify the testconfig.js file with the credentials of test account.
-  * Run `npm install` to get the project's dependencies
-  * Run `npm run build` to produce minified version of your library.
-2. Development mode
-  * Having all the dependencies installed run `npm run dev`. This command will generate an non-minified version of your library and will run a watcher so you get the compilation on file change.
-3. Running the tests
-  * Run `npm run test`
+
+- Modify the testconfig.js file with the credentials of test account.
+- Run `npm install` to get the project's dependencies
+- Run `npm run build` to produce a bundle
+
+2. Running the tests
+
+- Run `npm run test`
 
 ## Scripts
 
-* `npm run build` - produces production version of your library under the `lib` folder
-* `npm run dev` - produces development version of your library and runs a watcher
-* `npm run test` - well ... it runs the tests :)
-* `npm run test:watch` - same as above but in a watch mode
-
-## Readings
-
-* [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
-
+- `npm run build` - produces production version of your library under the `lib` folder
+- `npm run test` - well ... it runs the tests :)

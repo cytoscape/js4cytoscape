@@ -1,37 +1,37 @@
-
-const webpack = require('webpack');
-const { env } = require('process');
-const pkg = require('./package.json');
-const isProd = env.NODE_ENV === 'production';
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const isNonNil = x => x != null;
-
-const camelcase = require('camelcase');
-
-const minify = env.MINIFY === 'true';
-
-
-const config = {
+const webConfig = {
   entry: __dirname + '/src/index.js',
-  devtool: isProd ? false : 'inline-source-map',
-
+  target: 'web',
   output: {
-    filename: './build/bundle.js',
-    library: camelcase( pkg.name ),
-    libraryTarget: 'umd'
+    filename: './ndexClient.js',
+    library: 'ndexClient',
   },
-
-  externals: isProd ? Object.keys( pkg.dependencies || {} ) : [],
 
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {
+        presets: ['@babel/preset-env']
+      } }
     ]
-  },
-  plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
-    minify ? new UglifyJSPlugin() : null
-  ].filter(isNonNil)
+  }
 };
 
-module.exports = config;
+
+const nodeConfig = {
+  entry: __dirname + '/src/index.js',
+  target: 'node',
+  output: {
+    filename: './ndexClient.common.js',
+    libraryTarget: 'commonjs'
+  },
+
+
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', options: {
+        presets: ['@babel/preset-env']
+      } }
+    ]
+  }
+};
+
+module.exports = [webConfig, nodeConfig];
