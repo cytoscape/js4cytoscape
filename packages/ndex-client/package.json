@@ -1,5 +1,5 @@
 {
-  "name": "ndex-client",
+  "name": "@js4cytoscape/ndex-client",
   "version": "0.3.2",
   "description": "NDEx Javascript library",
   "main": "./dist/ndexClient.common.js",
