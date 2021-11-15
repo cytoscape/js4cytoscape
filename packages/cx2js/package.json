@@ -1,5 +1,5 @@
 {
-  "name": "cytoscape-cx2js",
+  "name": "@js4cytoscape/cytoscape-cx2js",
   "version": "0.6.5",
   "description": "A cx to Cytoscape JS utility",
   "repository": {
