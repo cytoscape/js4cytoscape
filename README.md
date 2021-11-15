@@ -8,8 +8,11 @@ To build this repository, please run the following commands:
 ```
 git@github.com:cytoscape/js4cytoscape.git
 cd js4cytoscape
+git checkout develop
 npx lerna bootstrap
 ```
+
+This creates new builds of all packages in your local repository.  To use it for development, please link those using ```npm link``` command.
 
 ## js4cytoscape monoropo
 This monorepo was derived from the following repositories:
