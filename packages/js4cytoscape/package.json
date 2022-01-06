@@ -1,5 +1,5 @@
 {
-  "name": "js4cytoscape",
+  "name": "@js4cytoscape/js4cytoscape",
   "version": "1.0.0",
   "description": "JavaScript library for calling Cytoscape Automation via CyREST",
   "main": "index.js",

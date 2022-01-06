@@ -1,9 +1,10 @@
 /* global describe, it, before */
 
 const { expect } = require('chai');
-const nock = require('nock')
+const nock = require('nock');
+const { CyNDEx } = require('../src/');
 
-const { CyNDEx } = require('../dist/build/bundle.js');
+const { repeatRequest} = require('./nockUtil.js');
 
 describe('cyndex client tests', () => {
 
@@ -25,14 +26,7 @@ describe('cyndex client tests', () => {
     return nock(SERVER).defaultReplyHeaders(CORS_HEADER);
   }
 
-  const repeatRequest = (uri, requestBody) => {
-    //console.log(JSON.stringify(requestBody));
-    return [
-      200,
-      requestBody
-      //{ header: 'value' }, // optional headers
-    ]
-  }
+
 
   beforeEach(() => {
 

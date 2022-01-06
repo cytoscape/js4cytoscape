@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 const {expect } = require('chai');
-const {NDEx} = require('../dist/build/bundle.js');
+const {NDEx} = require('../src/');
 const {testAccount} = require('./testconfig.js');
 
 function sleep(ms) {
@@ -11,6 +11,19 @@ function sleep(ms) {
 function errorPrinter(err) {
   console.log(err);
 }
+
+describe('input validation', () => {
+  it('throws an error when http:// or https:// is not at the start of the url', () => {
+    let url = 'dev.ndexbio.org/v2';
+
+    expect(() => new NDEx(url)).to.throw();
+  });
+
+  it('doesnt throw an error when the url has http:// or https:// at the start of the url', () => {
+    expect(() => new NDEx('http://dev.ndexbio.org/v2')).not.to.throw();
+    expect(() => new NDEx('https://dev.ndexbio.org/v2')).not.to.throw();
+  });
+});
 
 describe('testing client', () => {
   //this.timeout(5000);
@@ -181,11 +194,11 @@ describe('Authticated network test', () =>{
   it('get private network', ()=> {
     return ndexclient.getRawNetwork('2977ee7f-1d34-11e7-8145-06832d634f41')
       .then((network) => {
-        expect(network[12].nodes.length).to.equal(37);
-        expect(network[9].edges.length).to.equal(37);
-        expect(network[11].networkAttributes.length).to.equal(8);
-        expect(network[5].citations.length).to.equal(1);
-        expect(network[14].supports.length).to.equal(15);
+        expect(network[10].nodes.length).to.equal(37);
+        expect(network[7].edges.length).to.equal(37);
+        expect(network[9].networkAttributes.length).to.equal(8);
+        expect(network[3].citations.length).to.equal(1);
+        expect(network[12].supports.length).to.equal(15);
 
       });
   });
@@ -203,8 +216,8 @@ describe('Authticated network test', () =>{
           sleep(3000).then(()=>{
             ndexclient.getRawNetwork(networkId)
               .then((newNet)=>{
-                expect(newNet[7].edges.length).to.equal(37);
-                newNet[9].networkAttributes[0] = {n: 'name', v: 'my updated network'};
+                expect(newNet[5].edges.length).to.equal(37);
+                newNet[7].networkAttributes[0] = {n: 'name', v: 'my updated network'};
                 return ndexclient.updateNetworkFromRawCX(networkId, newNet);
               }, errorPrinter)
               .then((res)=> {
@@ -212,8 +225,8 @@ describe('Authticated network test', () =>{
                   return ndexclient.getRawNetwork(networkId);
                 }, errorPrinter)
                   .then((updatedNet)=>{
-                    expect(updatedNet[7].edges.length).to.equal(37);
-                    expect(updatedNet[9].networkAttributes[0].v).to.equal('my updated network');
+                    expect(updatedNet[5].edges.length).to.equal(37);
+                    expect(updatedNet[7].networkAttributes[0].v).to.equal('my updated network');
 
                     return ndexclient.deleteNetwork(networkId);
                   }, errorPrinter)
@@ -369,23 +382,6 @@ describe('Search function test', () =>{
     );
   });
 
-  it('get metadata', ()=>{
-    return ndexclient.getMetaData(
-      '86fbe77b-a799-11e7-b522-06832d634f41').then((r)=> {
-        expect(r.metaData.length).to.equal(10);
-        expect(r.metaData[2].name).to.equal('nodes');
-        expect(r.metaData[2].elementCount).to.equal(32);
-
-        expect(r.metaData[3].name).to.equal('edges');
-        expect(r.metaData[3].elementCount).to.equal(47);
-
-        expect(r.metaData[5].name).to.equal('nodeAttributes');
-        expect(r.metaData[5].elementCount).to.equal(64);
-
-      }, errorPrinter
-    );
-  });
-
   it('get all nodes', ()=>{
     return ndexclient.getAspectElements(
       '86fbe77b-a799-11e7-b522-06832d634f41', 'nodes').then((r)=> {
@@ -429,4 +425,222 @@ describe('Search function test', () =>{
     );
   });
 
+  it('get cx2 metadata', ()=>{
+    return ndexclient.getCX2MetaData(
+      'be5c3f09-254f-11e7-bbd5-06832d634f41').then((r)=> {
+        expect(r.length).to.equal(8);
+        expect(r[3].name).to.equal("nodeBypasses");
+        expect(r[3].elementCount).to.equal(402);
+      }, errorPrinter
+    );
+  });
+
+  it('get cx2 network', ()=> {
+    return ndexclient.getCX2Network('be5c3f09-254f-11e7-bbd5-06832d634f41')
+      .then((network) => {
+        expect(network[4].nodes.length).to.equal(402);
+        expect(network[5].edges.length).to.equal(832);
+        expect(network[9].visualEditorProperties.length).to.equal(1);
+        expect(network[10].status.length).to.equal(1);
+      });
+  });
+
+});
+
+describe('Networkset tests', () => {
+  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  ndexclient.setBasicAuth(testAccount.username, testAccount.password);
+  const networkSetData = {
+      name: 'ndex-client-test-networkset',
+      description: 'test networkset'
+  };
+
+  let createdNetworkSet = '';
+  let createdNetworkSetMember = '';
+  it('creates a networkset', () => {
+
+    return ndexclient.createNetworkSet(networkSetData).then(res => {
+      expect(res).to.be.a('string');
+      createdNetworkSet = res;
+    });
+  });
+
+  it('gets a networkset', () => {
+      return ndexclient.getNetworkSet(createdNetworkSet).then(res => {
+          expect(res.description).to.equal(networkSetData.description);
+          expect(res.name).to.equal(networkSetData.name);
+      });
+  });
+
+  it('updates a networkset', async () => {
+      const updated = {
+          name: 'updated',
+          description: 'updated'
+      };
+      await ndexclient.updateNetworkSet(createdNetworkSet, updated);
+      const updatedNetworkSet = await ndexclient.getNetworkSet(createdNetworkSet);
+      expect(updatedNetworkSet.name).to.equal(updated.name);
+      expect(updatedNetworkSet.description).to.equal(updated.description);
+  });
+
+  it('adds networks to a networkset', async () => {
+      const network = await ndexclient.getRawNetwork('2977ee7f-1d34-11e7-8145-06832d634f41');
+
+      const network0 = network.splice(0, 1).splice(1, 2);
+
+      const nsBefore = await ndexclient.getNetworkSet(createdNetworkSet);
+      const nsBeforeMembers = nsBefore.networks;
+
+      const network0Id = await ndexclient.createNetworkFromRawCX(network0);
+      createdNetworkSetMember = network0Id;
+
+      await ndexclient.addToNetworkSet(createdNetworkSet, [network0Id]);
+
+      const nsAfter = await ndexclient.getNetworkSet(createdNetworkSet);
+      const nsAfterMembers = nsAfter.networks;
+
+      expect(nsBeforeMembers.length).to.equal(0);
+      expect(nsAfterMembers.length).to.equal(1);
+  });
+
+  it('deletes networks from a networkset', async () => {
+
+      const nsBefore = await ndexclient.getNetworkSet(createdNetworkSet);
+      const nsBeforeMembers = nsBefore.networks;
+
+      const network0Id = createdNetworkSetMember;
+
+      await ndexclient.deleteFromNetworkSet(createdNetworkSet, [network0Id]);
+
+      const nsAfter = await ndexclient.getNetworkSet(createdNetworkSet);
+      const nsAfterMembers = nsAfter.networks;
+
+      expect(nsBeforeMembers.length).to.equal(1);
+      expect(nsAfterMembers.length).to.equal(0);
+  });
+
+  it('updates networkset system properties', async () => {
+      const nsBefore = await ndexclient.getNetworkSet(createdNetworkSet);
+      await ndexclient.updateNetworkSetSystemProperty(createdNetworkSet, {showcase: true});
+
+      const nsAfter = await ndexclient.getNetworkSet(createdNetworkSet);
+
+      expect(nsBefore.showcased).to.equal(false);
+      expect(nsAfter.showcased).to.equal(true);
+  })
+
+  it('deletes a networkset', () => {
+    return ndexclient.deleteNetworkSet(createdNetworkSet).then(res => {
+      expect(res).to.equal('');
+    });
+  });
+});
+
+describe('Aspect updates',  () => {
+  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  ndexclient.setBasicAuth(testAccount.username, testAccount.password);
+  const networkWithoutLayoutAspect = '2977ee7f-1d34-11e7-8145-06832d634f41';
+  const networkWithLayoutAspect = '5b7b8d84-eee0-11ea-a908-525400c25d22';
+
+  it('updates node positions for a network with a layout aspect', async () => {
+    const network = await ndexclient.getRawNetwork(networkWithLayoutAspect);
+    const network0Id = await ndexclient.createNetworkFromRawCX(network);
+    const network0 = await ndexclient.getRawNetwork(network0Id);
+    const nodes = network0.filter(o => Object.keys(o)[0] === 'nodes')[0];
+    const positions = nodes['nodes'].map(nodeObj => {
+      return {
+        node: nodeObj['@id'],
+        x: 100,
+        y: 100
+      };
+    });
+
+    await ndexclient.updateCartesianLayoutAspect(network0Id, positions);
+    const updated = await ndexclient.getRawNetwork(network0Id);
+
+    updated.filter(o => Object.keys(o)[0] === 'cartesianLayout')[0]['cartesianLayout'].forEach(positionObj => {
+      expect(positionObj['x']).to.equal(100);
+      expect(positionObj['y']).to.equal(100);
+    });
+
+    await ndexclient.deleteNetwork(network0Id);
+  });
+
+  // it('can update a subset of node positions in a network', async () => {
+  //   const network = await ndexclient.getRawNetwork(networkWithLayoutAspect);
+
+  //   const network0Id = await ndexclient.createNetworkFromRawCX(network);
+  //   const network0 = await ndexclient.getRawNetwork(network0Id);
+  //   const nodes = network0.filter(o => Object.keys(o)[0] === 'nodes')[0];
+
+  //   const singleNodeId = nodes['nodes'][0]['@id'];
+  //   const positions = [{
+  //     node: singleNodeId,
+  //     x: 1,
+  //     y: 1
+  //   }];
+
+  //   expect(() =>ndexclient.updateCartesianLayoutAspect(network0Id, positions)).to.throw();
+  //   // const updated = await ndexclient.getRawNetwork(network0Id);
+
+  //   // const updatedNode = updated.filter(o => Object.keys(o)[0] === 'cartesianLayout')[0]['cartesianLayout'].filter(positionObj => positionObj.node === singleNodeId)[0];
+  //   // expect(updatedNode.x).to.equal(1);
+  //   // expect(updatedNode.y).to.equal(1);
+  //   await ndexclient.deleteNetwork(network0Id);
+  // });
+
+  it('updating a network with out a cartesianLayout aspect adds a cartesian layout aspect', async () => {
+    const network = await ndexclient.getRawNetwork(networkWithoutLayoutAspect);
+    const network0Id = await ndexclient.createNetworkFromRawCX(network);
+    const network0 = await ndexclient.getRawNetwork(network0Id);
+    const nodes = network0.filter(o => Object.keys(o)[0] === 'nodes')[0];
+    const positions = nodes['nodes'].map(nodeObj => {
+      return {
+        node: nodeObj['@id'],
+        x: 100,
+        y: 100
+      };
+    });
+
+    // the network doesnt have a cartesian layout aspect
+    expect(network.filter(o => Object.keys(o)[0] === 'cartesianLayout').length).to.equal(0);
+
+    await ndexclient.updateCartesianLayoutAspect(network0Id, positions);
+
+    const updated = await ndexclient.getRawNetwork(network0Id);
+    updated.filter(o => Object.keys(o)[0] === 'cartesianLayout')[0]['cartesianLayout'].forEach(positionObj => {
+      expect(positionObj['x']).to.equal(100);
+      expect(positionObj['y']).to.equal(100);
+    });
+
+    expect(updated.filter(o => Object.keys(o)[0] === 'cartesianLayout').length).to.equal(1);
+    await ndexclient.deleteNetwork(network0Id);
+  });
+
+
+  it('updating some nodes in a network with out a cartesianLayout aspect adds a cartesian layout aspect', async () => {
+    const network = await ndexclient.getRawNetwork(networkWithoutLayoutAspect);
+    const network0Id = await ndexclient.createNetworkFromRawCX(network);
+    const network0 = await ndexclient.getRawNetwork(network0Id);
+    const nodes = network0.filter(o => Object.keys(o)[0] === 'nodes')[0];
+    const singleNodeId = nodes['nodes'][0]['@id'];
+    const positions = [{
+      node: singleNodeId,
+      x: 1,
+      y: 1
+    }];
+
+    // the network doesnt have a cartesian layout aspect
+    expect(network.filter(o => Object.keys(o)[0] === 'cartesianLayout').length).to.equal(0);
+
+    await ndexclient.updateCartesianLayoutAspect(network0Id, positions);
+
+    const updated = await ndexclient.getRawNetwork(network0Id);
+
+    // when you update the cartesian layout aspect for a network that doesn't have one and you
+    // only include a subset of node positions, only that subset will have a position
+    expect(updated.filter(o => Object.keys(o)[0] === 'cartesianLayout')[0]['cartesianLayout'].length).to.equal(1);
+
+    await ndexclient.deleteNetwork(network0Id);
+  });
 });
