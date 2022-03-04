@@ -1,6 +1,10 @@
 {
   "presets": [
-    "env"
-  ],
-  "ignore": "node_modules/**/*"
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
 }
