@@ -4,13 +4,16 @@
   "description": "CX converter for large network visualization",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cytoscape/cx-viz-converter.git"
+    "url": "https://github.com/cytoscape/js4cytoscape.git"
   },
   "bugs": {
-    "url": "https://github.com/cytoscape/cx-viz-converter/issues"
+    "url": "https://github.com/cytoscape/js4cytoscape/issues"
   },
-  "homepage": "https://github.com/cytoscape/cx-viz-converter",
-  "main": "./build/bundle.js",
+  "homepage": "https://github.com/cytoscape/js4cytoscape",
+  "main": "./dist/bundle.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prepublish": "run-s build",
     "postinstall": "run-s build",
@@ -25,32 +28,6 @@
     "lint": "run-s lint:*",
     "watch": "run-p watch:*",
     "test": "nyc mocha"
-  },
-  "dependencies": {
-    "nyc": "^15.0.1"
-  },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-env": "^1.6.0",
-    "browser-sync": "^2.18.13",
-    "chai": "^4.1.2",
-    "cross-env": "^5.0.0",
-    "echo-cli": "^1.0.8",
-    "eslint": "^4.6.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "fs": "0.0.1-security",
-    "fs-extra": "^9.0.0",
-    "mocha": "^3.5.3",
-    "npm-run-all": "^4.1.1",
-    "rimraf": "^2.6.2",
-    "uglifyjs-webpack-plugin": "^1.1.2",
-    "webpack": "^3.5.6"
   },
   "engines": {
     "node": ">=6.3.0"

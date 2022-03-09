@@ -1,20 +1,20 @@
 const webpack = require('webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 const { env } = require('process');
 const isProd = env.NODE_ENV === 'production';
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const isNonNil = x => x != null;
 
-const minify = env.MINIFY == 'true';
 const pkg = require('./package.json');
 const camelcase = require('camelcase');
 
 let conf = {
   devtool: isProd ? false : 'inline-source-map',
 
+  mode: 'production',
+
   entry: './src/index.js',
 
   output: {
-    filename: './build/bundle.js',
+    filename: 'bundle.js',
     library: camelcase( pkg.name ),
     libraryTarget: 'umd'
   },
@@ -23,15 +23,33 @@ let conf = {
 
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { 
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+        ],
+      }
     ]
   },
 
-  plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
-
-        minify ? new UglifyJSPlugin() : null
-  ].filter( isNonNil )
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+    ],
+  }
 };
 
 module.exports = conf;
