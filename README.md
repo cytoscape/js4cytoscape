@@ -1,39 +1,62 @@
 # js4cytoscape
-Collection of JavaScript libraries and utilities for calling Cytoscape Automation via CyREST
+js4cytoscape is a collection of JavaScript / TypeScript libraries for processing [CX](), accessing [NDEx API](), and calling [Cytoscape Desktop]() Automation via CyREST. These libraries are maintained by the Cytoscape Core Developer team.
 
-## Quick Start
-To build this repository, please run the following commands:
+## Project List
+This monorepo was derived from the following repositories:
 
+- [js4cytoscape](https://github.com/cytoscape/js4cytoscape/tree/main/packages/js4cytoscape)
+- [cx-viz-converter](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx-viz-converter)
+- [ndex-js-client](https://github.com/cytoscape/js4cytoscape/tree/main/packages/ndex-js-client)
+- [cx2js](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx2js)
+- [cyannotation-cx2js](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cyannotation-cx2js)
+
+All of the above are now in archived and all new features and bug fixes will be available from here.
+
+## How to use
+The latest versions of these libraries are available in the following npm repository:
+
+https://www.npmjs.com/org/js4cytoscape
+
+
+For npm users:
+
+```npm install @js4cytoscape/PACKAGE-NAME```
+
+For yarn users:
+
+```yarn add @js4cytoscape/PACKAGE-NAME```
+
+Please read the documents in each package directory (TBD)
+
+## Quick Start Guide for Developers
+
+This repository uses NPM and its [Workspace](https://docs.npmjs.com/cli/v8/using-npm/workspaces) and you need to follow these rules to avoid accidentally add unnecessary dependencies and _package-lock.json_ files.
+
+
+## Build the entire 
+To build the latest versions, please run the following commands:
 
 ```
 git@github.com:cytoscape/js4cytoscape.git
 cd js4cytoscape
 git checkout develop
-npx lerna bootstrap
+npm install
+npm run build --workspaces
 ```
 
-This creates new builds of all packages in your local repository.  To use it for development, please link those using ```npm link``` command.
+This creates new builds of all packages in your local directory.  To use these builds for development, please link those using ```npm link``` command.
 
-## js4cytoscape monoropo
-This monorepo was derived from the following repositories:
+### Adding a new dependency
 
-1. js4cytoscape: https://github.com/cytoscape/js4cytoscape/tree/main/packages/js4cytoscape
-2. cx-viz-converter: https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx-viz-converter
-3. ndex-js-client: https://github.com/cytoscape/js4cytoscape/tree/main/packages/ndex-js-client
-4. cx2js: https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx2js
-5. cyannotation-cx2js: https://github.com/cytoscape/js4cytoscape/tree/main/packages/cyannotation-cx2js
+#### Dev Dependencies
 
-Each of these can be installed indivudually by running ```npm install --save``` in the package directory.
+All dev-dependencies should be added to the project root. To add a new dev-dependency, run the following command **in the root directory**:
 
+```npm install PACKAGE-NAME --save-dev```
 
-### js4cytoscape demo
+#### Dependencies for a specific sub-project
 
-#### To run this demo ***online***:
-1. Make sure Cytoscape is installed and running.
-2. Launch index.html via githack: https://raw.githack.com/cytoscape/js4cytoscape/main/packages/js4cytoscape/index.html
+If you need to add a new dependency to a specific sub-project, you should run:
 
-
-### Related Libraries
-Cytoscape.js: https://github.com/cytoscape/cytoscape.js
-
+```npm install PACKAGE-NAME -w packages/SUBPROJECT-NAME```
 
