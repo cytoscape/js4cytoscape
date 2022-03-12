@@ -1,0 +1,44 @@
+{
+  "name": "cx-utils",
+  "version": "0.1.0",
+  "description": "Utility library for CX",
+  "keywords": [
+    "graph",
+    "data science",
+    "network analysis",
+    "cytoscape",
+    "bioinformatics"
+  ],
+  "author": "The Cytoscape Consortium",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cytoscape/js4cytoscape/issues"
+  },
+  "homepage": "https://github.com/cytoscape/js4cytoscape/packages/cx-utils#readme",
+  "main": "./dist/cx-utils.cjs",
+  "module": "./dist/cx-utils.mjs",
+  "exports": {
+    "import": "./dist/cx-utils.mjs",
+    "require": "./dist/cx-utils.cjs"
+  },
+  "types": "./types/cx-utils.d.ts",
+  "files": [
+    "/dist",
+    "/types"
+  ],
+  "scripts": {
+    "clean": "rimraf .cache .tmp dist",
+    "build": "concurrently --raw \"npm run build:mjs\" \"npm run build:cjs\"",
+    "build:mjs": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --outfile=dist/cx-utils.mjs",
+    "build:cjs": "esbuild src/index.ts --bundle --minify --format=cjs --outfile=dist/cx-utils.cjs",
+    "test": "npm run build && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cytoscape/js4cytoscape.git"
+  },
+  "devDependencies": {
+    "@js4cytoscape/cx2js": "file:packages/cx2js",
+    "@js4cytoscape/ndex-client": "file:packages/ndex-client"
+  }
+}
