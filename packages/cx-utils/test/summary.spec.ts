@@ -1,5 +1,5 @@
 import NetworkSummary from '../src/model/NetworkSummary'
-import { getNetwork, getNetworkSummary } from './ndex-helper'
+import { getNetwork, getNetworkSummary } from './test-helper'
 
 const UUID_NEST = '60112105-f853-11e9-bb65-0ac135e8bacf'
 

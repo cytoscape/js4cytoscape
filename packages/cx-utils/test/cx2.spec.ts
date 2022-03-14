@@ -1,6 +1,6 @@
 import Cx2 from "../src/model/Cx2"
 import { getNodes } from "../src/utils/cx2-util"
-import { getNetwork } from "./ndex-helper"
+import { getNetwork } from "./test-helper"
 
 // Small data
 const UUID_SMALL = '848d122e-ecb7-11eb-b666-0ac135e8bacf'
