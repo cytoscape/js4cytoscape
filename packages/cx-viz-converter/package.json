@@ -1,6 +1,6 @@
 {
   "name": "@js4cytoscape/cx-viz-converter",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "CX converter for large network visualization",
   "repository": {
     "type": "git",
@@ -10,13 +10,12 @@
     "url": "https://github.com/cytoscape/js4cytoscape/issues"
   },
   "homepage": "https://github.com/cytoscape/js4cytoscape",
-  "main": "./dist/bundle.js",
+  "main": "./dist/cx-viz-converter.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "prepublish": "run-s build",
-    "postinstall": "run-s build",
     "lint:js": "eslint ./src",
     "bundle:js": "webpack",
     "watch:js": "webpack --watch",
@@ -24,7 +23,7 @@
     "bundle": "run-s bundle:*",
     "build": "run-p bundle",
     "build-prod": "cross-env NODE_ENV=production run-s build",
-    "clean": "rimraf build/*",
+    "clean": "rimraf dist/*",
     "lint": "run-s lint:*",
     "watch": "run-p watch:*",
     "test": "nyc mocha"
