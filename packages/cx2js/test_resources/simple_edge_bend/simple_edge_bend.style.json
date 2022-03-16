@@ -14,7 +14,7 @@
       "text-halign": "center",
       "text-opacity": 1,
       "text-wrap": "wrap",
-      "text-max-width": "200.0",
+      "text-max-width": 200.0,
       "shape": "roundrectangle",
       "background-opacity": 1,
       "width": 75

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "cytoscape-canvas": "3.0.1",
+    "fs": "^0.0.1-security",
     "lodash": "^4.17.10"
   },
   "engines": {

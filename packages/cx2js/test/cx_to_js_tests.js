@@ -43,6 +43,52 @@ const DEFAULT_STYLE = [
 ];
 
 
+const visualPropertyMapForTest = {
+    
+  'NODE_FILL_COLOR': { 'att': 'background-color', 'type': 'color' },
+  'NODE_TRANSPARENCY': { 'att': 'background-opacity', 'type': 'opacity' },
+  'NODE_SHAPE': { 'att': 'shape', 'type': 'nodeShape' },
+  'NODE_WIDTH': { 'att': 'width', 'type': 'number' },
+  'NODE_HEIGHT': { 'att': 'height', 'type': 'number' },
+  'NODE_BORDER_PAINT': { 'att': 'border-color', 'type': 'color' },
+  'NODE_BORDER_TRANSPARENCY': { 'att': 'border-opacity', 'type': 'opacity' },
+  'NODE_BORDER_WIDTH': { 'att': 'border-width', 'type': 'number' },
+  'NODE_SIZE': { 'att': 'node-size', 'type': 'number' },
+  
+  'NODE_LABEL_FONT_FACE': { 'att': 'font-family', 'type': 'fontFamily' },
+  'NODE_LABEL_WIDTH': { 'att': 'text-max-width', 'type': 'number' },
+  
+  'NODE_LABEL': { 'att': 'content', 'type': 'string' },
+  'NODE_LABEL_COLOR': { 'att': 'color', 'type': 'color' },
+  'NODE_LABEL_FONT_SIZE': { 'att': 'font-size', 'type': 'number' },
+  'NODE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
+  'NODE_LABEL_POSITION': { 'att': 'labelPosition', 'type': 'labelPosition' },
+  
+  'NODE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' },
+
+  'EDGE_CURVED': { 'att': 'curve-style', 'type': 'string' },
+  'EDGE_BEND': { 'att': 'curve-style', 'type': 'edgeBend' },
+  
+  'EDGE_WIDTH': { 'att': 'width', 'type': 'number' },
+  'EDGE_LABEL': { 'att': 'label', 'type': 'string' },
+  'EDGE_LABEL_COLOR': { 'att': 'color', 'type': 'color' },
+  'EDGE_LABEL_FONT_SIZE': { 'att': 'font-size', 'type': 'number' },
+  'EDGE_LABEL_FONT_FACE': { 'att': 'font-family', 'type': 'fontFamily' },
+  'EDGE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
+  'EDGE_LINE_TYPE': { 'att': 'line-style', 'type': 'line' },
+  
+  'EDGE_STROKE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
+  'EDGE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
+  'EDGE_TRANSPARENCY': { 'att': 'opacity', 'type': 'opacity' },
+  'EDGE_SOURCE_ARROW_SHAPE': { 'att': 'source-arrow-shape', 'type': 'arrow' },
+  'EDGE_TARGET_ARROW_SHAPE': { 'att': 'target-arrow-shape', 'type': 'arrow' },
+  'EDGE_TARGET_ARROW_UNSELECTED_PAINT': { 'att': 'target-arrow-color', 'type': 'color' },
+  'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' },
+
+  'EDGE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' }
+};
+
+
 describe('CX to JS', function () {
 
   it('niceCX end to end small_graph', function () {
@@ -115,26 +161,69 @@ describe('CX to JS', function () {
   it('niceCX stringifyFunctionTerm', function () {
 
     var utils = new CyNetworkUtils();
-   
+
     var functionTerm = {
-      
-        "po": 105590984,
-        "f": "bel:biologicalProcess",
-        "args": [
-          "GO:cell proliferation"
-        ]
-      
+
+      "po": 105590984,
+      "f": "bel:biologicalProcess",
+      "args": [
+        "GO:cell proliferation"
+      ]
+
     };
     var string = utils.stringifyFunctionTerm(functionTerm);
 
     expect(string).to.eql("bp(GO:cell proliferation)");
   });
 
+  it('niceCX getDefaultNodeLabel name', function () {
+
+    var utils = new CyNetworkUtils();
+
+    const niceCX = {};
+
+    var nodeEntry = {
+      "@id": 4980,
+      "n": "x"
+    };
+    var name = utils.getDefaultNodeLabel(niceCX, nodeEntry);
+
+    expect(name).to.eql("x");
+  });
+
+  it('niceCX getDefaultNodeLabel zero length name', function () {
+
+    var utils = new CyNetworkUtils();
+
+    const niceCX = {};
+
+    var nodeEntry = {
+      "@id": 4980,
+      "n": ""
+    };
+    var name = utils.getDefaultNodeLabel(niceCX, nodeEntry);
+
+    expect(name).to.eql("");
+  });
+
+  it('niceCX getDefaultNodeLabel no name', function () {
+
+    var utils = new CyNetworkUtils();
+
+    const niceCX = {};
+
+    var nodeEntry = {
+      "@id": 4980,
+    };
+    var name = utils.getDefaultNodeLabel(niceCX, nodeEntry);
+
+    expect(name).to.eql(null);
+  });
 
   it('niceCX stringifyFunctionTerm recursion', function () {
 
     var utils = new CyNetworkUtils();
-   
+
     var functionTerm = {
       "po": 105590995,
       "f": "bel:peptidaseActivity",
@@ -252,9 +341,12 @@ describe('CX to JS', function () {
 
     var attributeNameMap = { 'foo': 'bar' };
 
-    var attributeName = cxToJs.getCyAttributeName('hodor', attributeNameMap);
+    var attributeName = cxToJs.getCyAttributeName('hOdor', attributeNameMap);
 
-    expect(attributeName).to.equal('hodor');
+    expect(attributeName).to.equal('hOdor');
+
+    var attributeName2 = cxToJs.getCyAttributeName('hoDOR', attributeNameMap);
+    expect(attributeName2).to.equal('hOdor');
   });
 
   it('cxToJs invalidChar sanitizeAttributeNameMap', function () {
@@ -390,6 +482,32 @@ describe('CX to JS', function () {
     expect(result).to.eql(expectedList);
   });
 
+  it('cxToJs discreet parseMappingDefinition NODE_SIZE', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var definition = "COL=node type,T=string,K=0=a,V=0=20.0,K=1=b,V=1=15.0";
+
+    let expectedList = {
+      "COL": "node type",
+      "T": "string",
+      "m": {
+        "0": {
+          "K": "a",
+          "V": "20.0"
+
+        },
+        "1": {
+          "K": "b",
+          "V": "15.0"
+        }
+      }
+    };
+    var result = cxToJs.parseMappingDefinition(definition);
+
+    expect(result).to.eql(expectedList);
+  });
+
   it('cxToJs continuous parseMappingDefinition', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
@@ -440,12 +558,12 @@ describe('CX to JS', function () {
     var cxToJs = new CxToJs(utils);
 
     var vpElement = {
-      dependencies : { 
-        
+      dependencies: {
+
       }
-    }; 
-    var postProcessParams = { nodeSize : 45 }; 
-    var nodeProperties = { width : 30, height : 40};
+    };
+    var postProcessParams = { nodeSize: 45 };
+    var nodeProperties = { width: 30, height: 40 };
     cxToJs.postProcessNodeProperties(vpElement, postProcessParams, nodeProperties);
 
     let expectedNodeProperties = {
@@ -461,11 +579,11 @@ describe('CX to JS', function () {
     var cxToJs = new CxToJs(utils);
 
     var vpElement = {
-      dependencies : { 
-        nodeSizeLocked : 'true'
+      dependencies: {
+        nodeSizeLocked: 'true'
       }
-    }; 
-    var postProcessParams = { nodeSize : 45 }; 
+    };
+    var postProcessParams = { nodeSize: 45 };
     var nodeProperties = {};
     cxToJs.postProcessNodeProperties(vpElement, postProcessParams, nodeProperties);
 
@@ -477,39 +595,134 @@ describe('CX to JS', function () {
     expect(nodeProperties).to.eql(expectedNodeProperties);
   });
 
-  it ('cxToJs style calls postProcessNodeProperties', function() {
-      var utils = new CyNetworkUtils();
-      var cxToJs = new CxToJs(utils);
-  
-      var niceCX = {
-        "visualProperties": {
-          "elements": [
-            {
-              "properties_of": "nodes:default",
-              "properties": {
-                "NODE_SIZE": "80.0",
-                "NODE_WIDTH" : "40",
-                "NODE_HEIGHT" : "50"
+  it('cxToJs style removes bend points from mappings', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      /*"cyTableColumn": {
+        "elements": [
+          {
+            "applies_to": "edge_table",
+            "n": "BEND_MAP_ID",
+            "d": "long"
+          }
+        ]
+      },*/
+      "visualProperties": {
+        "elements": [
+          {
+            "properties_of": "edges:default",
+            "mappings": {
+              "EDGE_BEND": {
+                "type": "DISCRETE",
+                "definition": "COL=BEND_MAP_ID,T=long,K=0=32768,V=0=-0.999465341096995,,0.03269605398006593,,0.019276522475253997|0.9695559291694197,,0.24486996592563826,,0.4928228037719012|0.9775849566562197,,-0.21054133209291012,,0.7497379871752963,K=1=32769,V=1=-0.8180894351619633,,-0.5750910154717946,,0.11517130454940294|0.48926506182749563,,-0.872135138195301,,0.12395195145033311|-0.5740923897181274,,-0.8187905275879356,,0.08896345341033057"
               }
             }
-          ]
-        }
-      };
-  
-      var result = cxToJs.cyStyleFromNiceCX(niceCX);
-  
-      var expectedResult = [
-          {
-            "css": {
-              width: 40,
-              height: 50
-            },
-            "selector": "node"
           }
-  ];
+        ]
+      }
+    };
+    var attributeNameMap = { 'bend_map_id': 'BEND_MAP_ID' };
+    var result = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
 
-      expect(result).to.eql(expectedResult);
-   
+    var expectedResult = [
+      {
+        "css": {
+          "curve-style": "bezier"
+        },
+        "selector": "edge"
+      }
+    ];
+
+    expect(result).to.eql(expectedResult);
+
+  });
+
+  it('cxToJs style calls postProcessNodeProperties', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "visualProperties": {
+        "elements": [
+          {
+            "properties_of": "nodes:default",
+            "properties": {
+              "NODE_SIZE": "80.0",
+              "NODE_WIDTH": "40",
+              "NODE_HEIGHT": "50"
+            }
+          }
+        ]
+      }
+    };
+
+    var result = cxToJs.cyStyleFromNiceCX(niceCX);
+
+    var expectedResult = [
+      {
+        "css": {
+          width: 40,
+          "text-wrap": "wrap",
+          height: 50
+        },
+        "selector": "node"
+      }
+    ];
+
+    expect(result).to.eql(expectedResult);
+
+  });
+
+  it('cxToJs pieChart', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "cyVisualProperties": {
+        "elements": [
+          {
+            "properties_of": "nodes:default",
+            "properties": {
+              "NODE_CUSTOMGRAPHICS_1": "org.cytoscape.PieChart:{\"cy_range\":[4.19689134222E-20,0.0493210553996],\"cy_colors\":[\"#FF0000\",\"#00FFFF\",\"#0000FF\",\"#00FF00\"],\"cy_borderWidth\":0.0,\"cy_borderColor\":\"#FFFFFF\",\"cy_dataColumns\":[\"Basal\",\"Her2\",\"LumA\",\"LumB\"]}",
+            }
+          }]
+      }
+    };
+
+    const attributeNameMap = {
+      basal: 'basal',
+      her2: 'her2',
+      luma: 'luma',
+      lumb: 'lumb'
+    };
+
+    const result = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+    expect(result[0].css["pie-1-background-color"]).to.eql("#FF0000");
+    expect(result[0].css["pie-2-background-color"]).to.eql("#00FFFF");
+    expect(result[0].css["pie-3-background-color"]).to.eql("#0000FF");
+    expect(result[0].css["pie-4-background-color"]).to.eql("#00FF00");
+
+    let ele = {};
+
+    ele.json = function () {
+      return {
+        data: {
+
+          basal: 4,
+          her2: 3,
+          luma: 2,
+          lumb: 1
+        }
+      }
+    };
+
+    expect(result[0].css['pie-1-background-size'](ele)).to.eql(40);
+    expect(result[0].css['pie-2-background-size'](ele)).to.eql(30);
+    expect(result[0].css['pie-3-background-size'](ele)).to.eql(20);
+    expect(result[0].css['pie-4-background-size'](ele)).to.eql(10);
   });
 
   it('cxToJs base getNodeLabelPosition', function () {
@@ -520,7 +733,64 @@ describe('CX to JS', function () {
 
     let jsPosition = {
       "text-halign": "center",
-      "text-valign": "center"
+      "text-valign": "center",
+      "text-justification": "center",
+      "text-margin-x": 0,
+      "text-margin-y": 0
+    };
+    var result = cxToJs.getNodeLabelPosition(cxPosition);
+
+    expect(result).to.eql(jsPosition);
+  });
+
+  it('cxToJs getNodeLabelPosition with x-y offsets', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxPosition = "C,C,c,136.42,-15.48";
+
+    let jsPosition = {
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-justification": "center",
+      "text-margin-x": 136.42,
+      "text-margin-y": -15.48
+    };
+    var result = cxToJs.getNodeLabelPosition(cxPosition);
+
+    expect(result).to.eql(jsPosition);
+  });
+
+  it('cxToJs getNodeLabelPosition with left justified text', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxPosition = "C,C,l,0.00,0.00";
+
+    let jsPosition = {
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-justification": "left",
+      "text-margin-x": 0,
+      "text-margin-y": 0
+    };
+    var result = cxToJs.getNodeLabelPosition(cxPosition);
+
+    expect(result).to.eql(jsPosition);
+  });
+
+  it('cxToJs getNodeLabelPosition with right justified text', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxPosition = "C,C,r,0.00,0.00";
+
+    let jsPosition = {
+      "text-halign": "center",
+      "text-valign": "center",
+      "text-justification": "right",
+      "text-margin-x": 0,
+      "text-margin-y": 0
     };
     var result = cxToJs.getNodeLabelPosition(cxPosition);
 
@@ -533,7 +803,7 @@ describe('CX to JS', function () {
 
     var labelFontFace = "Dialog.plain,plain,15";
     var objectProperties = {};
-    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
@@ -551,7 +821,7 @@ describe('CX to JS', function () {
 
     var labelFontFace = "Dialog.bolditalic,plain,15";
     var objectProperties = {};
-    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
@@ -569,7 +839,7 @@ describe('CX to JS', function () {
 
     var labelFontFace = "ArialMT,plain,10";
     var objectProperties = {};
-    cxToJs.expandProperties('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('NODE_LABEL_FONT_FACE', labelFontFace, objectProperties);
 
     var expandedFontProperties = {
       "font-family": "Arial,Helvetica Neue,Helvetica,sans-serif",
@@ -584,7 +854,7 @@ describe('CX to JS', function () {
     var cxToJs = new CxToJs(utils);
 
     var objectProperties = {};
-    cxToJs.expandDefaultProperties('NODE_LABEL_FONT_FACE', objectProperties);
+    cxToJs.expandPropertiesFromDefaultMap('NODE_LABEL_FONT_FACE', objectProperties);
 
     var expandedProperties = {
       'font-family': 'sans-serif',
@@ -601,11 +871,14 @@ describe('CX to JS', function () {
     var cyLabelPosition = "C,C,c,0.00,0.00";
     var objectProperties = {};
 
-    cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
 
     var expandedLabelPosition = {
       "text-halign": "center",
       "text-valign": "center",
+      "text-justification": "center",
+      "text-margin-x": 0,
+      "text-margin-y": 0
     };
 
     expect(objectProperties).to.eql(expandedLabelPosition);
@@ -618,15 +891,40 @@ describe('CX to JS', function () {
     var cyLabelPosition = "NW,C,c,0.00,0.00";
     var objectProperties = {};
 
-    cxToJs.expandProperties('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('NODE_LABEL_POSITION', cyLabelPosition, objectProperties);
 
     var expandedLabelPosition = {
       "text-halign": "left",
       "text-valign": "top",
+      "text-justification": "center",
+      "text-margin-x": 0,
+      "text-margin-y": 0
     };
 
     expect(objectProperties).to.eql(expandedLabelPosition);
   });
+
+  it('cxToJs map EDGE_CURVED', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+    var objectProperties = {};
+
+    cxToJs.expandPropertiesFromFunctionMap('EDGE_CURVED', "true", objectProperties);
+
+    var expandedEdgeCurved = {
+      'curve-style': 'unbundled-bezier'
+    };
+
+    expect(objectProperties).to.eql(expandedEdgeCurved);
+
+    cxToJs.expandPropertiesFromFunctionMap('EDGE_CURVED', "false", objectProperties);
+
+    expandedEdgeCurved = {
+      'curve-style': 'straight'
+    };
+    expect(objectProperties).to.eql(expandedEdgeCurved);
+  });
+
 
   it('cxToJs base getCyVisualAttributeForVP', function () {
     var utils = new CyNetworkUtils();
@@ -635,7 +933,7 @@ describe('CX to JS', function () {
     var cxVP = "NODE_FILL_COLOR";
 
     let jsVisualAttribute = "background-color";
-    var result = cxToJs.getCyVisualAttributeForVP(cxVP);
+    var result = cxToJs.getCyVisualAttributeForVP(cxVP, visualPropertyMapForTest);
 
     expect(result).to.equal(jsVisualAttribute);
   });
@@ -648,7 +946,7 @@ describe('CX to JS', function () {
 
     let jsVisualAttribute = { att: 'background-color', type: 'color' };
 
-    var result = cxToJs.getCyVisualAttributeObjForVP(cxVP);
+    var result = cxToJs.getCyVisualAttributeObjForVP(cxVP, visualPropertyMapForTest);
 
     expect(result).to.eql(jsVisualAttribute);
   });
@@ -661,7 +959,7 @@ describe('CX to JS', function () {
 
     let jsVisualAttributeType = 'color';
 
-    var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP);
+    var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP, visualPropertyMapForTest);
 
     expect(result).to.equal(jsVisualAttributeType);
   });
@@ -680,7 +978,119 @@ describe('CX to JS', function () {
     expect(result).to.equal(jsVisualAttributeValue);
   });
 
-  it('cxToJs base discreteMappingStyle', function () {
+  it('cxToJs getCySelector boolean false', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxElementType = "edge";
+
+    let cySelector = 'edge[boolCol][!boolCol]';
+
+    var result = cxToJs.getCySelector(cxElementType, 'boolean', 'boolCol', 'false');
+
+    expect(result).to.eql(cySelector);
+  });
+
+  it('cxToJs getCySelector boolean true', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxElementType = "edge";
+
+    let cySelector = 'edge[?boolCol]';
+
+    var result = cxToJs.getCySelector(cxElementType, 'boolean', 'boolCol', 'true');
+
+    expect(result).to.eql(cySelector);
+  });
+
+  it('cxToJs getCySelector string', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxElementType = "edge";
+
+    let cySelector = 'edge[stringCol = \'abc\']';
+
+    var result = cxToJs.getCySelector(cxElementType, 'string', 'stringCol', 'abc');
+
+    expect(result).to.eql(cySelector);
+  });
+
+  it('cxToJs getCySelector float', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxElementType = "edge";
+
+    let cySelector = 'edge[floatCol = 6]';
+
+    var result = cxToJs.getCySelector(cxElementType, 'float', 'floatCol', 6);
+
+    expect(result).to.eql(cySelector);
+  });
+
+  it('cxToJs discreteMappingStyle base', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "EDGE_WIDTH";
+    var cxElementType = "edge";
+
+    var cxDef = {
+      m: { '0': { K: 'true', V: '3' } },
+      COL: 'directed',
+      T: 'boolean'
+    };
+
+    let jsDiscreetMappingStyle = [{
+      selector: 'edge[?directed]',
+      css: { 'width': 3 }
+    }];
+
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+
+    expect(result).to.eql(jsDiscreetMappingStyle);
+  });
+
+  it('cxToJs discreteMappingStyle NODE_SIZE', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var cxVP = "NODE_SIZE";
+    var cxElementType = "node";
+
+    var cxDef = {
+      "COL": "node type",
+      "T": "string",
+      "m": {
+        "0": {
+          "K": "a",
+          "V": "20.0"
+
+        },
+        "1": {
+          "K": "b",
+          "V": "15.0"
+        }
+      }
+    };
+
+    let jsDiscreetMappingStyle = [{
+      selector: 'node[node type = \'a\']',
+      css: { 'width': 20, "height": 20 }
+    }, {
+      selector: "node[node type = 'b']",
+      css: { 'width': 15, 'height': 15 }
+    }
+    ];
+
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+
+    expect(result).to.eql(jsDiscreetMappingStyle);
+  });
+
+  it('cxToJs discreteMappingStyle expanded', function () {
     var utils = new CyNetworkUtils();
     var cxToJs = new CxToJs(utils);
 
@@ -688,17 +1098,17 @@ describe('CX to JS', function () {
     var cxElementType = "edge";
 
     var cxDef = {
-      m: { '0': { K: 'true', V: 'DELTA' } },
+      m: { '0': { K: 'true', V: 'OPEN_DELTA' } },
       COL: 'directed',
       T: 'boolean'
     };
 
     let jsDiscreetMappingStyle = [{
-      selector: 'edge[directed = \'true\']',
-      css: { 'target-arrow-shape': 'triangle' }
+      selector: 'edge[?directed]',
+      css: { "target-arrow-fill": "hollow", 'target-arrow-shape': 'triangle' }
     }];
 
-    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {});
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
 
     expect(result).to.eql(jsDiscreetMappingStyle);
   });
@@ -759,7 +1169,7 @@ describe('CX to JS', function () {
         "selector": "node[Degree > 18]"
       }];
 
-    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {});
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
 
     expect(result).to.eql(jsContinuousMappingStyle);
   });
@@ -793,7 +1203,7 @@ describe('CX to JS', function () {
     let jsContinuousMappingStyle = [
       {
         selector: 'node[Degree < 1]',
-        css: { 'height': 1, 'width':1 }
+        css: { 'height': 1, 'width': 1 }
       },
       {
         "css": {
@@ -824,11 +1234,11 @@ describe('CX to JS', function () {
         "selector": "node[Degree > 18]"
       }];
 
-    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {});
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
 
     expect(result).to.eql(jsContinuousMappingStyle);
   });
-  
+
 
   it('cxToJs base passthroughMappingStyle', function () {
     var utils = new CyNetworkUtils();
@@ -851,7 +1261,7 @@ describe('CX to JS', function () {
         "selector": "node[COMMON]"
       }];
 
-    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {});
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
 
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
@@ -877,7 +1287,7 @@ describe('CX to JS', function () {
         "selector": "node[COMMON]"
       }];
 
-    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {});
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
 
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
@@ -892,7 +1302,7 @@ describe('CX to JS', function () {
     let cos = Math.cos(angle);
     let ratio = 0.5;
     var bendValue = cos + "," + sin + "," + ratio;
-    cxToJs.expandProperties('EDGE_BEND', bendValue, objectProperties);
+    cxToJs.expandPropertiesFromFunctionMap('EDGE_BEND', bendValue, objectProperties);
 
     var expectedBendDistance = sin * ratio;
     var expectedBendWeight = cos * ratio;
@@ -950,7 +1360,7 @@ describe('CX to JS', function () {
     let sin = Math.sin(angle);
     let cos = Math.cos(angle);
     let ratio = 0.5;
-   
+
     var bendDistance = sin * ratio;
     var bendWeight = cos * ratio;
 
@@ -1027,7 +1437,7 @@ describe('CX to JS', function () {
     let sin = Math.sin(angle);
     let cos = Math.cos(angle);
     let ratio = 0.5;
-   
+
     var bendDistance = sin * ratio;
     var bendWeight = cos * ratio;
 
@@ -1060,15 +1470,76 @@ describe('CX to JS', function () {
     };
 
     cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
-    
+
     var expectedEdgeDefaultStyles = [{
       selector: 'edge',
       css: {
         'curve-style': 'straight',
       }
     }];
-    
+
     expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
+    expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
+  });
+
+  it('cxToJs postProcessEdgeBends runs without cartesianLayout', function () {
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var niceCX = {
+      "edges": {
+        "e147": {
+          "@id": 147,
+          "s": 143,
+          "t": 141
+        }
+      },
+    };
+
+    var edgeDefaultStyles = [
+      {
+        "selector": "edge",
+        "css": {
+          "curve-style": "unbundled-bezier"
+        }
+      }
+    ];
+
+    let angle = Math.PI / 3;
+    let sin = Math.sin(angle);
+    let cos = Math.cos(angle);
+    let ratio = 0.5;
+
+    var bendDistance = sin * ratio;
+    var bendWeight = cos * ratio;
+
+    var edgeSpecificStyles = {
+      'e147': {
+        "selector": "edge[ id = 'e147' ]",
+        "css": {
+          "bend-point-weights": [
+            bendWeight
+          ],
+          "bend-point-distances": [
+            bendDistance
+          ]
+        }
+      }
+    };
+
+    var expectedEdgeSpecificStyles = {
+      e147:
+      {
+        selector: 'edge[ id = \'e147\' ]',
+        css:
+        {
+          'curve-style': 'unbundled-bezier',
+          'edge-distances': 'node-position'
+        }
+      }
+    };
+
+    cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
     expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
   });
 
@@ -1113,7 +1584,7 @@ describe('CX to JS', function () {
     let sin = Math.sin(angle);
     let cos = Math.cos(angle);
     let ratio = 0.5;
-   
+
     var bendDistance = sin * ratio;
     var bendWeight = cos * ratio;
 
@@ -1147,14 +1618,14 @@ describe('CX to JS', function () {
     };
 
     cxToJs.postProcessEdgeBends(niceCX, edgeDefaultStyles, edgeSpecificStyles);
-    
+
     var expectedEdgeDefaultStyles = [{
       selector: 'edge',
       css: {
         'curve-style': 'bezier',
       }
     }];
-    
+
     expect(edgeDefaultStyles).to.eql(expectedEdgeDefaultStyles);
     expect(edgeSpecificStyles).to.eql(expectedEdgeSpecificStyles);
   });
