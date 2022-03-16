@@ -1,0 +1,5365 @@
+[{"numberVerification":[{"longNumber":281474976710655}]},{"metaData":[{"consistencyGroup":1,"elementCount":1,"lastUpdate":1516391494740,"name":"ndexStatus","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":1,"lastUpdate":1516390628043,"name":"provenanceHistory","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":30,"idCounter":826,"name":"nodes","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":218,"idCounter":827,"name":"edges","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":11,"name":"networkAttributes","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":210,"name":"nodeAttributes","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":654,"name":"edgeAttributes","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":30,"name":"cartesianLayout","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":3,"name":"cyVisualProperties","properties":[],"version":"1.0"},{"consistencyGroup":1,"elementCount":1,"name":"cyHiddenAttributes","properties":[],"version":"1.0"}]},{"ndexStatus":[{"externalId":"dd268e2f-fd4d-11e7-adc1-0ac135e8bacf","creationTime":1516389652270,"modificationTime":1516391494740,"visibility":"PUBLIC","published":false,"nodeCount":30,"edgeCount":218,"owner":"wzhang1984","ndexServerURI":"http://public.ndexbio.org","readOnly":false}]}, {"provenanceHistory":[{"entity":{"uri":null,"creationEvent":null,"properties":[]}}]}, {"nodes":[{
+  "@id" : 332,
+  "n" : "ABL1"
+}, {
+  "@id" : 331,
+  "n" : "JAK2"
+}, {
+  "@id" : 330,
+  "n" : "NOTCH4"
+}, {
+  "@id" : 329,
+  "n" : "KMT2C"
+}, {
+  "@id" : 328,
+  "n" : "NOTCH1"
+}, {
+  "@id" : 327,
+  "n" : "INPPL1"
+}, {
+  "@id" : 326,
+  "n" : "SPOP"
+}, {
+  "@id" : 325,
+  "n" : "AKT1"
+}, {
+  "@id" : 324,
+  "n" : "MYC"
+}, {
+  "@id" : 323,
+  "n" : "GATA3"
+}, {
+  "@id" : 322,
+  "n" : "MET"
+}, {
+  "@id" : 321,
+  "n" : "PTPRM"
+}, {
+  "@id" : 320,
+  "n" : "ACVR1B"
+}, {
+  "@id" : 319,
+  "n" : "PTK2"
+}, {
+  "@id" : 318,
+  "n" : "PLCB1"
+}, {
+  "@id" : 317,
+  "n" : "IBSP"
+}, {
+  "@id" : 316,
+  "n" : "ERBB2"
+}, {
+  "@id" : 315,
+  "n" : "PIK3CA"
+}, {
+  "@id" : 314,
+  "n" : "EGFR"
+}, {
+  "@id" : 313,
+  "n" : "TLN1"
+}, {
+  "@id" : 312,
+  "n" : "MYCN"
+}, {
+  "@id" : 311,
+  "n" : "KRAS"
+}, {
+  "@id" : 310,
+  "n" : "CDH1"
+}, {
+  "@id" : 309,
+  "n" : "TP53"
+}, {
+  "@id" : 308,
+  "n" : "CCNE1"
+}, {
+  "@id" : 307,
+  "n" : "CCND1"
+}, {
+  "@id" : 306,
+  "n" : "CARD11"
+}, {
+  "@id" : 305,
+  "n" : "STK11"
+}, {
+  "@id" : 304,
+  "n" : "MSH6"
+}, {
+  "@id" : 303,
+  "n" : "PER1"
+}]}, {"edges":[{
+  "@id" : 550,
+  "s" : 332,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 549,
+  "s" : 332,
+  "t" : 323,
+  "i" : "interacts with"
+}, {
+  "@id" : 548,
+  "s" : 332,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 547,
+  "s" : 332,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 546,
+  "s" : 332,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 545,
+  "s" : 332,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 544,
+  "s" : 332,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 543,
+  "s" : 332,
+  "t" : 305,
+  "i" : "interacts with"
+}, {
+  "@id" : 542,
+  "s" : 332,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 541,
+  "s" : 331,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 540,
+  "s" : 331,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 539,
+  "s" : 331,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 538,
+  "s" : 331,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 537,
+  "s" : 331,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 536,
+  "s" : 331,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 535,
+  "s" : 331,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 534,
+  "s" : 331,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 533,
+  "s" : 331,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 532,
+  "s" : 331,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 531,
+  "s" : 330,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 530,
+  "s" : 330,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 529,
+  "s" : 329,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 528,
+  "s" : 329,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 527,
+  "s" : 328,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 526,
+  "s" : 328,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 525,
+  "s" : 328,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 524,
+  "s" : 328,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 523,
+  "s" : 328,
+  "t" : 323,
+  "i" : "interacts with"
+}, {
+  "@id" : 522,
+  "s" : 328,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 521,
+  "s" : 328,
+  "t" : 330,
+  "i" : "interacts with"
+}, {
+  "@id" : 520,
+  "s" : 328,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 519,
+  "s" : 327,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 518,
+  "s" : 327,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 517,
+  "s" : 327,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 516,
+  "s" : 327,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 515,
+  "s" : 327,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 514,
+  "s" : 327,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 513,
+  "s" : 327,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 512,
+  "s" : 327,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 511,
+  "s" : 327,
+  "t" : 318,
+  "i" : "interacts with"
+}, {
+  "@id" : 510,
+  "s" : 327,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 509,
+  "s" : 325,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 508,
+  "s" : 325,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 507,
+  "s" : 325,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 506,
+  "s" : 325,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 505,
+  "s" : 325,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 504,
+  "s" : 325,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 503,
+  "s" : 325,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 502,
+  "s" : 325,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 501,
+  "s" : 325,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 500,
+  "s" : 325,
+  "t" : 320,
+  "i" : "interacts with"
+}, {
+  "@id" : 499,
+  "s" : 325,
+  "t" : 306,
+  "i" : "interacts with"
+}, {
+  "@id" : 498,
+  "s" : 325,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 497,
+  "s" : 325,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 496,
+  "s" : 325,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 495,
+  "s" : 324,
+  "t" : 305,
+  "i" : "interacts with"
+}, {
+  "@id" : 494,
+  "s" : 324,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 493,
+  "s" : 324,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 492,
+  "s" : 324,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 491,
+  "s" : 324,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 490,
+  "s" : 324,
+  "t" : 308,
+  "i" : "interacts with"
+}, {
+  "@id" : 489,
+  "s" : 324,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 488,
+  "s" : 324,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 487,
+  "s" : 324,
+  "t" : 323,
+  "i" : "interacts with"
+}, {
+  "@id" : 486,
+  "s" : 324,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 485,
+  "s" : 324,
+  "t" : 304,
+  "i" : "interacts with"
+}, {
+  "@id" : 484,
+  "s" : 324,
+  "t" : 312,
+  "i" : "interacts with"
+}, {
+  "@id" : 483,
+  "s" : 324,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 482,
+  "s" : 324,
+  "t" : 303,
+  "i" : "interacts with"
+}, {
+  "@id" : 481,
+  "s" : 324,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 480,
+  "s" : 323,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 479,
+  "s" : 323,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 478,
+  "s" : 323,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 477,
+  "s" : 323,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 476,
+  "s" : 322,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 475,
+  "s" : 322,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 474,
+  "s" : 322,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 473,
+  "s" : 322,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 472,
+  "s" : 322,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 471,
+  "s" : 322,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 470,
+  "s" : 322,
+  "t" : 329,
+  "i" : "interacts with"
+}, {
+  "@id" : 469,
+  "s" : 322,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 468,
+  "s" : 322,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 467,
+  "s" : 322,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 466,
+  "s" : 322,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 465,
+  "s" : 322,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 464,
+  "s" : 321,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 463,
+  "s" : 321,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 462,
+  "s" : 321,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 461,
+  "s" : 321,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 460,
+  "s" : 321,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 459,
+  "s" : 321,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 458,
+  "s" : 321,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 457,
+  "s" : 320,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 456,
+  "s" : 319,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 455,
+  "s" : 319,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 454,
+  "s" : 319,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 453,
+  "s" : 319,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 452,
+  "s" : 319,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 451,
+  "s" : 319,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 450,
+  "s" : 319,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 449,
+  "s" : 319,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 448,
+  "s" : 319,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 447,
+  "s" : 319,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 446,
+  "s" : 319,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 445,
+  "s" : 319,
+  "t" : 305,
+  "i" : "interacts with"
+}, {
+  "@id" : 444,
+  "s" : 319,
+  "t" : 313,
+  "i" : "interacts with"
+}, {
+  "@id" : 443,
+  "s" : 319,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 442,
+  "s" : 318,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 441,
+  "s" : 318,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 440,
+  "s" : 318,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 439,
+  "s" : 318,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 438,
+  "s" : 316,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 437,
+  "s" : 316,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 436,
+  "s" : 316,
+  "t" : 313,
+  "i" : "interacts with"
+}, {
+  "@id" : 435,
+  "s" : 316,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 434,
+  "s" : 316,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 433,
+  "s" : 316,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 432,
+  "s" : 316,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 431,
+  "s" : 316,
+  "t" : 323,
+  "i" : "interacts with"
+}, {
+  "@id" : 430,
+  "s" : 316,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 429,
+  "s" : 316,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 428,
+  "s" : 316,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 427,
+  "s" : 316,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 426,
+  "s" : 316,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 425,
+  "s" : 316,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 424,
+  "s" : 315,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 423,
+  "s" : 315,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 422,
+  "s" : 315,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 421,
+  "s" : 315,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 420,
+  "s" : 315,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 419,
+  "s" : 315,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 418,
+  "s" : 315,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 417,
+  "s" : 315,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 416,
+  "s" : 315,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 415,
+  "s" : 315,
+  "t" : 304,
+  "i" : "interacts with"
+}, {
+  "@id" : 414,
+  "s" : 315,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 413,
+  "s" : 315,
+  "t" : 318,
+  "i" : "interacts with"
+}, {
+  "@id" : 412,
+  "s" : 315,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 411,
+  "s" : 315,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 410,
+  "s" : 314,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 409,
+  "s" : 314,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 408,
+  "s" : 314,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 407,
+  "s" : 314,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 406,
+  "s" : 314,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 405,
+  "s" : 314,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 404,
+  "s" : 314,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 403,
+  "s" : 314,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 402,
+  "s" : 314,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 401,
+  "s" : 314,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 400,
+  "s" : 314,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 399,
+  "s" : 314,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 398,
+  "s" : 314,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 397,
+  "s" : 314,
+  "t" : 313,
+  "i" : "interacts with"
+}, {
+  "@id" : 396,
+  "s" : 314,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 395,
+  "s" : 313,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 394,
+  "s" : 313,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 393,
+  "s" : 313,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 392,
+  "s" : 313,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 391,
+  "s" : 313,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 390,
+  "s" : 312,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 389,
+  "s" : 311,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 388,
+  "s" : 311,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 387,
+  "s" : 311,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 386,
+  "s" : 311,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 385,
+  "s" : 311,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 384,
+  "s" : 311,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 383,
+  "s" : 311,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 382,
+  "s" : 311,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 381,
+  "s" : 311,
+  "t" : 318,
+  "i" : "interacts with"
+}, {
+  "@id" : 380,
+  "s" : 311,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 379,
+  "s" : 311,
+  "t" : 313,
+  "i" : "interacts with"
+}, {
+  "@id" : 378,
+  "s" : 311,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 377,
+  "s" : 310,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 376,
+  "s" : 310,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 375,
+  "s" : 310,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 374,
+  "s" : 310,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 373,
+  "s" : 310,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 372,
+  "s" : 310,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 371,
+  "s" : 310,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 370,
+  "s" : 310,
+  "t" : 321,
+  "i" : "interacts with"
+}, {
+  "@id" : 369,
+  "s" : 310,
+  "t" : 313,
+  "i" : "interacts with"
+}, {
+  "@id" : 368,
+  "s" : 309,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 367,
+  "s" : 309,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 366,
+  "s" : 309,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 365,
+  "s" : 309,
+  "t" : 314,
+  "i" : "interacts with"
+}, {
+  "@id" : 364,
+  "s" : 309,
+  "t" : 327,
+  "i" : "interacts with"
+}, {
+  "@id" : 363,
+  "s" : 309,
+  "t" : 331,
+  "i" : "interacts with"
+}, {
+  "@id" : 362,
+  "s" : 309,
+  "t" : 329,
+  "i" : "interacts with"
+}, {
+  "@id" : 361,
+  "s" : 309,
+  "t" : 311,
+  "i" : "interacts with"
+}, {
+  "@id" : 360,
+  "s" : 309,
+  "t" : 322,
+  "i" : "interacts with"
+}, {
+  "@id" : 359,
+  "s" : 309,
+  "t" : 304,
+  "i" : "interacts with"
+}, {
+  "@id" : 358,
+  "s" : 309,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 357,
+  "s" : 309,
+  "t" : 330,
+  "i" : "interacts with"
+}, {
+  "@id" : 356,
+  "s" : 309,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 355,
+  "s" : 309,
+  "t" : 318,
+  "i" : "interacts with"
+}, {
+  "@id" : 354,
+  "s" : 309,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 353,
+  "s" : 309,
+  "t" : 305,
+  "i" : "interacts with"
+}, {
+  "@id" : 352,
+  "s" : 308,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 351,
+  "s" : 307,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 350,
+  "s" : 307,
+  "t" : 306,
+  "i" : "interacts with"
+}, {
+  "@id" : 349,
+  "s" : 307,
+  "t" : 310,
+  "i" : "interacts with"
+}, {
+  "@id" : 348,
+  "s" : 307,
+  "t" : 316,
+  "i" : "interacts with"
+}, {
+  "@id" : 347,
+  "s" : 307,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 346,
+  "s" : 307,
+  "t" : 328,
+  "i" : "interacts with"
+}, {
+  "@id" : 345,
+  "s" : 307,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 344,
+  "s" : 307,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 343,
+  "s" : 307,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 342,
+  "s" : 306,
+  "t" : 325,
+  "i" : "interacts with"
+}, {
+  "@id" : 341,
+  "s" : 306,
+  "t" : 307,
+  "i" : "interacts with"
+}, {
+  "@id" : 340,
+  "s" : 305,
+  "t" : 332,
+  "i" : "interacts with"
+}, {
+  "@id" : 339,
+  "s" : 305,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 338,
+  "s" : 305,
+  "t" : 319,
+  "i" : "interacts with"
+}, {
+  "@id" : 337,
+  "s" : 305,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 336,
+  "s" : 304,
+  "t" : 324,
+  "i" : "interacts with"
+}, {
+  "@id" : 335,
+  "s" : 304,
+  "t" : 315,
+  "i" : "interacts with"
+}, {
+  "@id" : 334,
+  "s" : 304,
+  "t" : 309,
+  "i" : "interacts with"
+}, {
+  "@id" : 333,
+  "s" : 303,
+  "t" : 324,
+  "i" : "interacts with"
+}]}, {"networkAttributes":[{
+  "n" : "name",
+  "v" : "Network-Based Classification (BRCA, Fig. 6A)"
+}, {
+  "n" : "description",
+  "v" : "<div><b id=\"docs-internal-guid-e437e34c-0fe0-9c54-fde3-d766c22d183c\"><b id=\"docs-internal-guid-e437e34c-0fec-2ec5-93d4-cd2b250da95c\"><span style=\"color: #000000;background-color: transparent;\">Subnetworks characterizing breast cancer subtypes extracted from Pathway Commons by NBC, defined as a set of genes with significantly different network-transformed scores between different subtypes (ANOVA FDR &lt; 0.05) and their molecular interactions with higher than average activation scores (&gt; 0.01) learned from NBC.</span></b></b><br/></div>"
+}, {
+  "n" : "version",
+  "v" : "1.0"
+}, {
+  "n" : "__Annotations",
+  "v" : [ "" ],
+  "d" : "list_of_string"
+}, {
+  "n" : "author",
+  "v" : "Wei Zhang, Jianzhu Ma, Trey Ideker"
+}, {
+  "n" : "disease",
+  "v" : "Breast cancer"
+}, {
+  "n" : "labels",
+  "v" : "TCGA-BRCA"
+}, {
+  "n" : "methods",
+  "v" : "Network-Based Classification, Supervised Random Walk"
+}, {
+  "n" : "networkType",
+  "v" : "Functional interaction"
+}, {
+  "n" : "organism",
+  "v" : "Human, Homo sapiens, 9606"
+}, {
+  "n" : "tissue",
+  "v" : "Breast"
+}]}, {"nodeAttributes":[{
+  "po" : 332,
+  "n" : "Basal",
+  "v" : "2.10282304283E-4",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "avg_PPR",
+  "v" : "0.00153239525422",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "LumA",
+  "v" : "2.40855043132E-4",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "LumB",
+  "v" : "0.00243281556888",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0126090186692",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "ANOVA_p",
+  "v" : "5.20659657795E-4",
+  "d" : "double"
+}, {
+  "po" : 332,
+  "n" : "Her2",
+  "v" : "0.0085750597325",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "Basal",
+  "v" : "0.00818834880039",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "avg_PPR",
+  "v" : "0.00229451204468",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "LumA",
+  "v" : "0.00112294137386",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "LumB",
+  "v" : "5.02052428871E-4",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "ANOVA_FDR",
+  "v" : "2.16495388014E-4",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "ANOVA_p",
+  "v" : "5.05285465741E-6",
+  "d" : "double"
+}, {
+  "po" : 331,
+  "n" : "Her2",
+  "v" : "0.00264438694116",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "Basal",
+  "v" : "0.00271376234049",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "avg_PPR",
+  "v" : "0.00146318626692",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "LumA",
+  "v" : "9.53762145731E-4",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "LumB",
+  "v" : "0.00122487574678",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "ANOVA_FDR",
+  "v" : "2.16495388014E-4",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "ANOVA_p",
+  "v" : "4.79793511798E-6",
+  "d" : "double"
+}, {
+  "po" : 330,
+  "n" : "Her2",
+  "v" : "0.00258535935846",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "Basal",
+  "v" : "0.00628341277798",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "avg_PPR",
+  "v" : "0.00228045774193",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "LumA",
+  "v" : "0.00156001096343",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "LumB",
+  "v" : "0.00150488341005",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0227077886547",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "ANOVA_p",
+  "v" : "9.78432545266E-4",
+  "d" : "double"
+}, {
+  "po" : 329,
+  "n" : "Her2",
+  "v" : "9.99799190468E-4",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "Basal",
+  "v" : "0.00839759047274",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "avg_PPR",
+  "v" : "0.0185377425722",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "LumA",
+  "v" : "0.0238783637494",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "LumB",
+  "v" : "0.0174878270867",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "ANOVA_FDR",
+  "v" : "5.65380895701E-13",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "ANOVA_p",
+  "v" : "4.06018596554E-15",
+  "d" : "double"
+}, {
+  "po" : 328,
+  "n" : "Her2",
+  "v" : "0.0104288971099",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "Basal",
+  "v" : "0.00175156939837",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "avg_PPR",
+  "v" : "0.00331162953221",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "LumA",
+  "v" : "0.00404235786063",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "LumB",
+  "v" : "0.00311431041314",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "ANOVA_FDR",
+  "v" : "1.70004700889E-4",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "ANOVA_p",
+  "v" : "3.35736393139E-6",
+  "d" : "double"
+}, {
+  "po" : 327,
+  "n" : "Her2",
+  "v" : "0.0026442078558",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "Basal",
+  "v" : "7.91286382177E-4",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "avg_PPR",
+  "v" : "0.00699267311477",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "LumA",
+  "v" : "0.00480457073068",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "LumB",
+  "v" : "0.00994611350055",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "ANOVA_FDR",
+  "v" : "1.76871556251E-6",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "ANOVA_p",
+  "v" : "2.54034551168E-8",
+  "d" : "double"
+}, {
+  "po" : 326,
+  "n" : "Her2",
+  "v" : "0.0223705069599",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "Basal",
+  "v" : "0.00145046427837",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "avg_PPR",
+  "v" : "0.00337045570869",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "LumA",
+  "v" : "0.00411014764594",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "LumB",
+  "v" : "0.00327062270028",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "ANOVA_FDR",
+  "v" : "0.00568281336099",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "ANOVA_p",
+  "v" : "1.83645674143E-4",
+  "d" : "double"
+}, {
+  "po" : 325,
+  "n" : "Her2",
+  "v" : "0.00304908742565",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "Basal",
+  "v" : "0.109302197569",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "avg_PPR",
+  "v" : "0.092375260105",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "LumA",
+  "v" : "0.0745128031271",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "LumB",
+  "v" : "0.11385152161",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "ANOVA_FDR",
+  "v" : "3.50717034358E-4",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "ANOVA_p",
+  "v" : "8.81514987614E-6",
+  "d" : "double"
+}, {
+  "po" : 324,
+  "n" : "Her2",
+  "v" : "0.104453360462",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "Basal",
+  "v" : "0.00204220851223",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "avg_PPR",
+  "v" : "0.0129132753287",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "LumA",
+  "v" : "0.0178374625897",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "LumB",
+  "v" : "0.0132253652271",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0227894088669",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "ANOVA_p",
+  "v" : "0.00102286395273",
+  "d" : "double"
+}, {
+  "po" : 323,
+  "n" : "Her2",
+  "v" : "0.00491771412987",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "Basal",
+  "v" : "0.00699956358772",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "avg_PPR",
+  "v" : "0.0035706094317",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "LumA",
+  "v" : "0.00207341028913",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "LumB",
+  "v" : "0.00359424617954",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "ANOVA_FDR",
+  "v" : "4.52066247336E-7",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "ANOVA_p",
+  "v" : "5.68126343151E-9",
+  "d" : "double"
+}, {
+  "po" : 322,
+  "n" : "Her2",
+  "v" : "0.00548340116878",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "Basal",
+  "v" : "4.18368945329E-4",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "avg_PPR",
+  "v" : "0.00183930588602",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "LumA",
+  "v" : "0.00275679387539",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "LumB",
+  "v" : "0.00102123020922",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "ANOVA_FDR",
+  "v" : "8.42665368479E-4",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "ANOVA_p",
+  "v" : "2.42058274608E-5",
+  "d" : "double"
+}, {
+  "po" : 321,
+  "n" : "Her2",
+  "v" : "0.00148151391279",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "Basal",
+  "v" : "0.00261409690343",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "avg_PPR",
+  "v" : "4.48809052362E-4",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "LumA",
+  "v" : "1.09468568977E-5",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "LumB",
+  "v" : "4.40943503941E-6",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0398874597877",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "ANOVA_p",
+  "v" : "0.00200511467515",
+  "d" : "double"
+}, {
+  "po" : 320,
+  "n" : "Her2",
+  "v" : "7.82278140929E-5",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "Basal",
+  "v" : "7.2244323274E-4",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "avg_PPR",
+  "v" : "0.00161638578973",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "LumA",
+  "v" : "0.0022401713241",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "LumB",
+  "v" : "9.61785337013E-4",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0110445572267",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "ANOVA_p",
+  "v" : "4.36230267482E-4",
+  "d" : "double"
+}, {
+  "po" : 319,
+  "n" : "Her2",
+  "v" : "0.00149272942939",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "Basal",
+  "v" : "4.2556564499E-4",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "avg_PPR",
+  "v" : "5.38662110063E-4",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "LumA",
+  "v" : "3.68987018864E-4",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "LumB",
+  "v" : "3.52235197704E-4",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "ANOVA_FDR",
+  "v" : "0.034948844322",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "ANOVA_p",
+  "v" : "0.00169410915026",
+  "d" : "double"
+}, {
+  "po" : 318,
+  "n" : "Her2",
+  "v" : "0.00212360233722",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "Basal",
+  "v" : "3.79487422508E-7",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "avg_PPR",
+  "v" : "3.88848415458E-4",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "LumA",
+  "v" : "1.35611565614E-5",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "LumB",
+  "v" : "8.86007009275E-5",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "ANOVA_FDR",
+  "v" : "0.00932354575549",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "ANOVA_p",
+  "v" : "3.5151608773E-4",
+  "d" : "double"
+}, {
+  "po" : 317,
+  "n" : "Her2",
+  "v" : "0.00385802061187",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "Basal",
+  "v" : "0.00247817653703",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "avg_PPR",
+  "v" : "0.0121775923242",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "LumA",
+  "v" : "0.00812137590019",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "LumB",
+  "v" : "0.0132133334214",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "ANOVA_FDR",
+  "v" : "4.19689134222E-20",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "ANOVA_p",
+  "v" : "7.53481389985E-23",
+  "d" : "double"
+}, {
+  "po" : 316,
+  "n" : "Her2",
+  "v" : "0.0486709646529",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "Basal",
+  "v" : "0.0132547162506",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "avg_PPR",
+  "v" : "0.0454503080732",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "LumA",
+  "v" : "0.0617277249709",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "LumB",
+  "v" : "0.040731760118",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "ANOVA_FDR",
+  "v" : "6.38651551874E-12",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "ANOVA_p",
+  "v" : "5.73295827535E-14",
+  "d" : "double"
+}, {
+  "po" : 315,
+  "n" : "Her2",
+  "v" : "0.0268534751031",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "Basal",
+  "v" : "0.021336587921",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "avg_PPR",
+  "v" : "0.00952950624452",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "LumA",
+  "v" : "0.00427973420376",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "LumB",
+  "v" : "0.00916883830108",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "ANOVA_FDR",
+  "v" : "5.30442652851E-17",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "ANOVA_p",
+  "v" : "1.90464148241E-19",
+  "d" : "double"
+}, {
+  "po" : 314,
+  "n" : "Her2",
+  "v" : "0.017737925934",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "Basal",
+  "v" : "0.00114034289577",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "avg_PPR",
+  "v" : "0.003777163913",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "LumA",
+  "v" : "0.00564754559366",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "LumB",
+  "v" : "0.00222732917978",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "ANOVA_FDR",
+  "v" : "1.51082047257E-4",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "ANOVA_p",
+  "v" : "2.7124245468E-6",
+  "d" : "double"
+}, {
+  "po" : 313,
+  "n" : "Her2",
+  "v" : "0.00228885414082",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "Basal",
+  "v" : "0.00209415403117",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "avg_PPR",
+  "v" : "4.1555145232E-4",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "LumA",
+  "v" : "8.30904583033E-5",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "LumB",
+  "v" : "7.91808192309E-5",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "ANOVA_FDR",
+  "v" : "0.00694061834827",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "ANOVA_p",
+  "v" : "2.36753588181E-4",
+  "d" : "double"
+}, {
+  "po" : 312,
+  "n" : "Her2",
+  "v" : "7.01201150892E-5",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "Basal",
+  "v" : "0.00743738982025",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "avg_PPR",
+  "v" : "0.00221007706788",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "LumA",
+  "v" : "0.00113970031116",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "LumB",
+  "v" : "5.90855848001E-4",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0235063709887",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "ANOVA_p",
+  "v" : "0.00109724532443",
+  "d" : "double"
+}, {
+  "po" : 311,
+  "n" : "Her2",
+  "v" : "0.00276325665824",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "Basal",
+  "v" : "0.00381936871613",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "avg_PPR",
+  "v" : "0.016589595066",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "LumA",
+  "v" : "0.0259931876783",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "LumB",
+  "v" : "0.00931971277872",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "ANOVA_FDR",
+  "v" : "5.04413094519E-8",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "ANOVA_p",
+  "v" : "5.4335342318E-10",
+  "d" : "double"
+}, {
+  "po" : 310,
+  "n" : "Her2",
+  "v" : "0.00692663711213",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "Basal",
+  "v" : "0.0559871021251",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "avg_PPR",
+  "v" : "0.025747296484",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "LumA",
+  "v" : "0.0122322233211",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "LumB",
+  "v" : "0.0255902276649",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "ANOVA_FDR",
+  "v" : "7.7389076346E-16",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "ANOVA_p",
+  "v" : "4.16817287322E-18",
+  "d" : "double"
+}, {
+  "po" : 309,
+  "n" : "Her2",
+  "v" : "0.0452144503402",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "Basal",
+  "v" : "0.015241420499",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "avg_PPR",
+  "v" : "0.00456299611383",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "LumA",
+  "v" : "0.00179106575947",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "LumB",
+  "v" : "0.00411532848813",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "ANOVA_FDR",
+  "v" : "6.83885739445E-4",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "ANOVA_p",
+  "v" : "1.84170306852E-5",
+  "d" : "double"
+}, {
+  "po" : 308,
+  "n" : "Her2",
+  "v" : "0.001644214433",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "Basal",
+  "v" : "0.00475912192446",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "avg_PPR",
+  "v" : "0.0229160942226",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "LumA",
+  "v" : "0.0271546637478",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "LumB",
+  "v" : "0.0298836567708",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "ANOVA_FDR",
+  "v" : "1.57787503282E-5",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "ANOVA_p",
+  "v" : "2.54952877835E-7",
+  "d" : "double"
+}, {
+  "po" : 307,
+  "n" : "Her2",
+  "v" : "0.0148060405603",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "Basal",
+  "v" : "0.00493878889592",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "avg_PPR",
+  "v" : "0.00126328553693",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "LumA",
+  "v" : "4.97664886518E-4",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "LumB",
+  "v" : "7.16477394668E-5",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0455321406383",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "ANOVA_p",
+  "v" : "0.00237061414454",
+  "d" : "double"
+}, {
+  "po" : 306,
+  "n" : "Her2",
+  "v" : "0.00185606381953",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "Basal",
+  "v" : "0.00263855302073",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "avg_PPR",
+  "v" : "8.56013599073E-4",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "LumA",
+  "v" : "2.27425370431E-4",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "LumB",
+  "v" : "0.00120315208651",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "ANOVA_FDR",
+  "v" : "0.0493210553996",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "ANOVA_p",
+  "v" : "0.00265643027287",
+  "d" : "double"
+}, {
+  "po" : 305,
+  "n" : "Her2",
+  "v" : "2.00172039144E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "Basal",
+  "v" : "5.30160481711E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "avg_PPR",
+  "v" : "6.53361760967E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "LumA",
+  "v" : "4.3985090043E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "LumB",
+  "v" : "3.80455054596E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "ANOVA_FDR",
+  "v" : "8.95218246371E-4",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "ANOVA_p",
+  "v" : "2.73226394763E-5",
+  "d" : "double"
+}, {
+  "po" : 304,
+  "n" : "Her2",
+  "v" : "0.00271029315525",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "Basal",
+  "v" : "6.82703661969E-5",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "avg_PPR",
+  "v" : "4.48915915327E-4",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "LumA",
+  "v" : "1.18915953088E-4",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "LumB",
+  "v" : "9.01068337278E-5",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "ANOVA_FDR",
+  "v" : "0.00871284715234",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "ANOVA_p",
+  "v" : "3.12849089851E-4",
+  "d" : "double"
+}, {
+  "po" : 303,
+  "n" : "Her2",
+  "v" : "0.00380761956025",
+  "d" : "double"
+}]}, {"edgeAttributes":[{
+  "po" : 550,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) EGFR"
+}, {
+  "po" : 550,
+  "n" : "strength",
+  "v" : "2.6501871987E-8",
+  "d" : "double"
+}, {
+  "po" : 550,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 549,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) GATA3"
+}, {
+  "po" : 549,
+  "n" : "strength",
+  "v" : "0.00179423650681",
+  "d" : "double"
+}, {
+  "po" : 549,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 548,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) INPPL1"
+}, {
+  "po" : 548,
+  "n" : "strength",
+  "v" : "0.00531125201389",
+  "d" : "double"
+}, {
+  "po" : 548,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 547,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) JAK2"
+}, {
+  "po" : 547,
+  "n" : "strength",
+  "v" : "0.00668830637406",
+  "d" : "double"
+}, {
+  "po" : 547,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 546,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) MET"
+}, {
+  "po" : 546,
+  "n" : "strength",
+  "v" : "2.37014815511E-5",
+  "d" : "double"
+}, {
+  "po" : 546,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 545,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) MYC"
+}, {
+  "po" : 545,
+  "n" : "strength",
+  "v" : "3.10320339208E-4",
+  "d" : "double"
+}, {
+  "po" : 545,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 544,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) PTPRM"
+}, {
+  "po" : 544,
+  "n" : "strength",
+  "v" : "1.04054595531E-4",
+  "d" : "double"
+}, {
+  "po" : 544,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 543,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) STK11"
+}, {
+  "po" : 543,
+  "n" : "strength",
+  "v" : "8.08310333166E-5",
+  "d" : "double"
+}, {
+  "po" : 543,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 542,
+  "n" : "name",
+  "v" : "ABL1 (interacts with) TP53"
+}, {
+  "po" : 542,
+  "n" : "strength",
+  "v" : "0.0154030858442",
+  "d" : "double"
+}, {
+  "po" : 542,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 541,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) ABL1"
+}, {
+  "po" : 541,
+  "n" : "strength",
+  "v" : "0.00554269366364",
+  "d" : "double"
+}, {
+  "po" : 541,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 540,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) AKT1"
+}, {
+  "po" : 540,
+  "n" : "strength",
+  "v" : "7.00767607544E-6",
+  "d" : "double"
+}, {
+  "po" : 540,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 539,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) EGFR"
+}, {
+  "po" : 539,
+  "n" : "strength",
+  "v" : "5.08585730594E-7",
+  "d" : "double"
+}, {
+  "po" : 539,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 538,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) ERBB2"
+}, {
+  "po" : 538,
+  "n" : "strength",
+  "v" : "0.00155211712718",
+  "d" : "double"
+}, {
+  "po" : 538,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 537,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) INPPL1"
+}, {
+  "po" : 537,
+  "n" : "strength",
+  "v" : "2.46359697577E-5",
+  "d" : "double"
+}, {
+  "po" : 537,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 536,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) KRAS"
+}, {
+  "po" : 536,
+  "n" : "strength",
+  "v" : "4.38689957149E-5",
+  "d" : "double"
+}, {
+  "po" : 536,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 535,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) PIK3CA"
+}, {
+  "po" : 535,
+  "n" : "strength",
+  "v" : "4.11599019789E-5",
+  "d" : "double"
+}, {
+  "po" : 535,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 534,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) PTK2"
+}, {
+  "po" : 534,
+  "n" : "strength",
+  "v" : "3.60901329597E-4",
+  "d" : "double"
+}, {
+  "po" : 534,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 533,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) PTPRM"
+}, {
+  "po" : 533,
+  "n" : "strength",
+  "v" : "5.08440601394E-4",
+  "d" : "double"
+}, {
+  "po" : 533,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 532,
+  "n" : "name",
+  "v" : "JAK2 (interacts with) TP53"
+}, {
+  "po" : 532,
+  "n" : "strength",
+  "v" : "0.0751538094531",
+  "d" : "double"
+}, {
+  "po" : 532,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 531,
+  "n" : "name",
+  "v" : "NOTCH4 (interacts with) NOTCH1"
+}, {
+  "po" : 531,
+  "n" : "strength",
+  "v" : "5.72013679291E-4",
+  "d" : "double"
+}, {
+  "po" : 531,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 530,
+  "n" : "name",
+  "v" : "NOTCH4 (interacts with) TP53"
+}, {
+  "po" : 530,
+  "n" : "strength",
+  "v" : "0.434142248007",
+  "d" : "double"
+}, {
+  "po" : 530,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 529,
+  "n" : "name",
+  "v" : "KMT2C (interacts with) MET"
+}, {
+  "po" : 529,
+  "n" : "strength",
+  "v" : "0.117033799988",
+  "d" : "double"
+}, {
+  "po" : 529,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 528,
+  "n" : "name",
+  "v" : "KMT2C (interacts with) TP53"
+}, {
+  "po" : 528,
+  "n" : "strength",
+  "v" : "0.0253072546746",
+  "d" : "double"
+}, {
+  "po" : 528,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 527,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) AKT1"
+}, {
+  "po" : 527,
+  "n" : "strength",
+  "v" : "4.12829034321E-5",
+  "d" : "double"
+}, {
+  "po" : 527,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 526,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) CCND1"
+}, {
+  "po" : 526,
+  "n" : "strength",
+  "v" : "0.00129385020123",
+  "d" : "double"
+}, {
+  "po" : 526,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 525,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) CDH1"
+}, {
+  "po" : 525,
+  "n" : "strength",
+  "v" : "0.0608699553164",
+  "d" : "double"
+}, {
+  "po" : 525,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 524,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) EGFR"
+}, {
+  "po" : 524,
+  "n" : "strength",
+  "v" : "2.77937418872E-5",
+  "d" : "double"
+}, {
+  "po" : 524,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 523,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) GATA3"
+}, {
+  "po" : 523,
+  "n" : "strength",
+  "v" : "0.207635815761",
+  "d" : "double"
+}, {
+  "po" : 523,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 522,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) MYC"
+}, {
+  "po" : 522,
+  "n" : "strength",
+  "v" : "0.0366128316493",
+  "d" : "double"
+}, {
+  "po" : 522,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 521,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) NOTCH4"
+}, {
+  "po" : 521,
+  "n" : "strength",
+  "v" : "3.17415723143E-5",
+  "d" : "double"
+}, {
+  "po" : 521,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 520,
+  "n" : "name",
+  "v" : "NOTCH1 (interacts with) PIK3CA"
+}, {
+  "po" : 520,
+  "n" : "strength",
+  "v" : "0.474798840153",
+  "d" : "double"
+}, {
+  "po" : 520,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 519,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) ABL1"
+}, {
+  "po" : 519,
+  "n" : "strength",
+  "v" : "0.00265594627339",
+  "d" : "double"
+}, {
+  "po" : 519,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 518,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) AKT1"
+}, {
+  "po" : 518,
+  "n" : "strength",
+  "v" : "3.3810490714E-6",
+  "d" : "double"
+}, {
+  "po" : 518,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 517,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) EGFR"
+}, {
+  "po" : 517,
+  "n" : "strength",
+  "v" : "2.77686310734E-7",
+  "d" : "double"
+}, {
+  "po" : 517,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 516,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) ERBB2"
+}, {
+  "po" : 516,
+  "n" : "strength",
+  "v" : "9.05459980657E-4",
+  "d" : "double"
+}, {
+  "po" : 516,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 515,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) JAK2"
+}, {
+  "po" : 515,
+  "n" : "strength",
+  "v" : "1.48659123655E-5",
+  "d" : "double"
+}, {
+  "po" : 515,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 514,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) KRAS"
+}, {
+  "po" : 514,
+  "n" : "strength",
+  "v" : "0.00723508126432",
+  "d" : "double"
+}, {
+  "po" : 514,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 513,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) MET"
+}, {
+  "po" : 513,
+  "n" : "strength",
+  "v" : "6.71678133765E-6",
+  "d" : "double"
+}, {
+  "po" : 513,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 512,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) PIK3CA"
+}, {
+  "po" : 512,
+  "n" : "strength",
+  "v" : "0.56367560363",
+  "d" : "double"
+}, {
+  "po" : 512,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 511,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) PLCB1"
+}, {
+  "po" : 511,
+  "n" : "strength",
+  "v" : "2.67375490617E-6",
+  "d" : "double"
+}, {
+  "po" : 511,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 510,
+  "n" : "name",
+  "v" : "INPPL1 (interacts with) TP53"
+}, {
+  "po" : 510,
+  "n" : "strength",
+  "v" : "6.8663795659E-5",
+  "d" : "double"
+}, {
+  "po" : 510,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 509,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) INPPL1"
+}, {
+  "po" : 509,
+  "n" : "strength",
+  "v" : "2.18173965798E-5",
+  "d" : "double"
+}, {
+  "po" : 509,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 508,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) JAK2"
+}, {
+  "po" : 508,
+  "n" : "strength",
+  "v" : "6.28106776895E-7",
+  "d" : "double"
+}, {
+  "po" : 508,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 507,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) KRAS"
+}, {
+  "po" : 507,
+  "n" : "strength",
+  "v" : "2.97942414649E-4",
+  "d" : "double"
+}, {
+  "po" : 507,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 506,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) MET"
+}, {
+  "po" : 506,
+  "n" : "strength",
+  "v" : "2.67785382396E-5",
+  "d" : "double"
+}, {
+  "po" : 506,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 505,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) MYC"
+}, {
+  "po" : 505,
+  "n" : "strength",
+  "v" : "0.223562500671",
+  "d" : "double"
+}, {
+  "po" : 505,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 504,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) NOTCH1"
+}, {
+  "po" : 504,
+  "n" : "strength",
+  "v" : "0.00442061246208",
+  "d" : "double"
+}, {
+  "po" : 504,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 503,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) PIK3CA"
+}, {
+  "po" : 503,
+  "n" : "strength",
+  "v" : "0.256906743153",
+  "d" : "double"
+}, {
+  "po" : 503,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 502,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) PTK2"
+}, {
+  "po" : 502,
+  "n" : "strength",
+  "v" : "7.92934721826E-9",
+  "d" : "double"
+}, {
+  "po" : 502,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 501,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) TP53"
+}, {
+  "po" : 501,
+  "n" : "strength",
+  "v" : "1.87355544888E-7",
+  "d" : "double"
+}, {
+  "po" : 501,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 500,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) ACVR1B"
+}, {
+  "po" : 500,
+  "n" : "strength",
+  "v" : "1.22016429185E-6",
+  "d" : "double"
+}, {
+  "po" : 500,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 499,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) CARD11"
+}, {
+  "po" : 499,
+  "n" : "strength",
+  "v" : "1.11751919324E-5",
+  "d" : "double"
+}, {
+  "po" : 499,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 498,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) CCND1"
+}, {
+  "po" : 498,
+  "n" : "strength",
+  "v" : "0.00159902399165",
+  "d" : "double"
+}, {
+  "po" : 498,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 497,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) EGFR"
+}, {
+  "po" : 497,
+  "n" : "strength",
+  "v" : "3.43047689712E-11",
+  "d" : "double"
+}, {
+  "po" : 497,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 496,
+  "n" : "name",
+  "v" : "AKT1 (interacts with) ERBB2"
+}, {
+  "po" : 496,
+  "n" : "strength",
+  "v" : "1.41560030628E-4",
+  "d" : "double"
+}, {
+  "po" : 496,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 495,
+  "n" : "name",
+  "v" : "MYC (interacts with) STK11"
+}, {
+  "po" : 495,
+  "n" : "strength",
+  "v" : "5.81345696037E-4",
+  "d" : "double"
+}, {
+  "po" : 495,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 494,
+  "n" : "name",
+  "v" : "MYC (interacts with) TP53"
+}, {
+  "po" : 494,
+  "n" : "strength",
+  "v" : "3.5948622807E-10",
+  "d" : "double"
+}, {
+  "po" : 494,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 493,
+  "n" : "name",
+  "v" : "MYC (interacts with) ABL1"
+}, {
+  "po" : 493,
+  "n" : "strength",
+  "v" : "1.19678936235E-7",
+  "d" : "double"
+}, {
+  "po" : 493,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 492,
+  "n" : "name",
+  "v" : "MYC (interacts with) AKT1"
+}, {
+  "po" : 492,
+  "n" : "strength",
+  "v" : "3.18524663182E-6",
+  "d" : "double"
+}, {
+  "po" : 492,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 491,
+  "n" : "name",
+  "v" : "MYC (interacts with) CCND1"
+}, {
+  "po" : 491,
+  "n" : "strength",
+  "v" : "8.04818012428E-6",
+  "d" : "double"
+}, {
+  "po" : 491,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 490,
+  "n" : "name",
+  "v" : "MYC (interacts with) CCNE1"
+}, {
+  "po" : 490,
+  "n" : "strength",
+  "v" : "4.77747176869E-6",
+  "d" : "double"
+}, {
+  "po" : 490,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 489,
+  "n" : "name",
+  "v" : "MYC (interacts with) EGFR"
+}, {
+  "po" : 489,
+  "n" : "strength",
+  "v" : "1.09845147684E-8",
+  "d" : "double"
+}, {
+  "po" : 489,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 488,
+  "n" : "name",
+  "v" : "MYC (interacts with) ERBB2"
+}, {
+  "po" : 488,
+  "n" : "strength",
+  "v" : "3.03028089823E-4",
+  "d" : "double"
+}, {
+  "po" : 488,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 487,
+  "n" : "name",
+  "v" : "MYC (interacts with) GATA3"
+}, {
+  "po" : 487,
+  "n" : "strength",
+  "v" : "2.9673580034E-7",
+  "d" : "double"
+}, {
+  "po" : 487,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 486,
+  "n" : "name",
+  "v" : "MYC (interacts with) KRAS"
+}, {
+  "po" : 486,
+  "n" : "strength",
+  "v" : "5.14018393155E-7",
+  "d" : "double"
+}, {
+  "po" : 486,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 485,
+  "n" : "name",
+  "v" : "MYC (interacts with) MSH6"
+}, {
+  "po" : 485,
+  "n" : "strength",
+  "v" : "1.27449179842E-8",
+  "d" : "double"
+}, {
+  "po" : 485,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 484,
+  "n" : "name",
+  "v" : "MYC (interacts with) MYCN"
+}, {
+  "po" : 484,
+  "n" : "strength",
+  "v" : "1.31518051833E-7",
+  "d" : "double"
+}, {
+  "po" : 484,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 483,
+  "n" : "name",
+  "v" : "MYC (interacts with) NOTCH1"
+}, {
+  "po" : 483,
+  "n" : "strength",
+  "v" : "5.53141276485E-5",
+  "d" : "double"
+}, {
+  "po" : 483,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 482,
+  "n" : "name",
+  "v" : "MYC (interacts with) PER1"
+}, {
+  "po" : 482,
+  "n" : "strength",
+  "v" : "1.3334090424E-5",
+  "d" : "double"
+}, {
+  "po" : 482,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 481,
+  "n" : "name",
+  "v" : "MYC (interacts with) PTK2"
+}, {
+  "po" : 481,
+  "n" : "strength",
+  "v" : "1.77969028621E-8",
+  "d" : "double"
+}, {
+  "po" : 481,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 480,
+  "n" : "name",
+  "v" : "GATA3 (interacts with) ABL1"
+}, {
+  "po" : 480,
+  "n" : "strength",
+  "v" : "0.00294037466011",
+  "d" : "double"
+}, {
+  "po" : 480,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 479,
+  "n" : "name",
+  "v" : "GATA3 (interacts with) ERBB2"
+}, {
+  "po" : 479,
+  "n" : "strength",
+  "v" : "0.016716013374",
+  "d" : "double"
+}, {
+  "po" : 479,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 478,
+  "n" : "name",
+  "v" : "GATA3 (interacts with) MYC"
+}, {
+  "po" : 478,
+  "n" : "strength",
+  "v" : "0.00201225968509",
+  "d" : "double"
+}, {
+  "po" : 478,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 477,
+  "n" : "name",
+  "v" : "GATA3 (interacts with) NOTCH1"
+}, {
+  "po" : 477,
+  "n" : "strength",
+  "v" : "0.407091089374",
+  "d" : "double"
+}, {
+  "po" : 477,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 476,
+  "n" : "name",
+  "v" : "MET (interacts with) ABL1"
+}, {
+  "po" : 476,
+  "n" : "strength",
+  "v" : "1.02748530144E-4",
+  "d" : "double"
+}, {
+  "po" : 476,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 475,
+  "n" : "name",
+  "v" : "MET (interacts with) AKT1"
+}, {
+  "po" : 475,
+  "n" : "strength",
+  "v" : "2.68275833929E-6",
+  "d" : "double"
+}, {
+  "po" : 475,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 474,
+  "n" : "name",
+  "v" : "MET (interacts with) CDH1"
+}, {
+  "po" : 474,
+  "n" : "strength",
+  "v" : "0.00184679493655",
+  "d" : "double"
+}, {
+  "po" : 474,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 473,
+  "n" : "name",
+  "v" : "MET (interacts with) EGFR"
+}, {
+  "po" : 473,
+  "n" : "strength",
+  "v" : "4.76121237147E-4",
+  "d" : "double"
+}, {
+  "po" : 473,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 472,
+  "n" : "name",
+  "v" : "MET (interacts with) ERBB2"
+}, {
+  "po" : 472,
+  "n" : "strength",
+  "v" : "0.0439097179875",
+  "d" : "double"
+}, {
+  "po" : 472,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 471,
+  "n" : "name",
+  "v" : "MET (interacts with) INPPL1"
+}, {
+  "po" : 471,
+  "n" : "strength",
+  "v" : "2.34728070104E-5",
+  "d" : "double"
+}, {
+  "po" : 471,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 470,
+  "n" : "name",
+  "v" : "MET (interacts with) KMT2C"
+}, {
+  "po" : 470,
+  "n" : "strength",
+  "v" : "0.115780162422",
+  "d" : "double"
+}, {
+  "po" : 470,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 469,
+  "n" : "name",
+  "v" : "MET (interacts with) KRAS"
+}, {
+  "po" : 469,
+  "n" : "strength",
+  "v" : "5.91014428958E-6",
+  "d" : "double"
+}, {
+  "po" : 469,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 468,
+  "n" : "name",
+  "v" : "MET (interacts with) PIK3CA"
+}, {
+  "po" : 468,
+  "n" : "strength",
+  "v" : "3.67988204761E-4",
+  "d" : "double"
+}, {
+  "po" : 468,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 467,
+  "n" : "name",
+  "v" : "MET (interacts with) PTK2"
+}, {
+  "po" : 467,
+  "n" : "strength",
+  "v" : "1.19018899211E-7",
+  "d" : "double"
+}, {
+  "po" : 467,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 466,
+  "n" : "name",
+  "v" : "MET (interacts with) PTPRM"
+}, {
+  "po" : 466,
+  "n" : "strength",
+  "v" : "0.00112023726424",
+  "d" : "double"
+}, {
+  "po" : 466,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 465,
+  "n" : "name",
+  "v" : "MET (interacts with) TP53"
+}, {
+  "po" : 465,
+  "n" : "strength",
+  "v" : "0.354765128063",
+  "d" : "double"
+}, {
+  "po" : 465,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 464,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) ABL1"
+}, {
+  "po" : 464,
+  "n" : "strength",
+  "v" : "2.62698649684E-5",
+  "d" : "double"
+}, {
+  "po" : 464,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 463,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) CDH1"
+}, {
+  "po" : 463,
+  "n" : "strength",
+  "v" : "0.472916116823",
+  "d" : "double"
+}, {
+  "po" : 463,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 462,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) EGFR"
+}, {
+  "po" : 462,
+  "n" : "strength",
+  "v" : "2.49538648176E-5",
+  "d" : "double"
+}, {
+  "po" : 462,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 461,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) ERBB2"
+}, {
+  "po" : 461,
+  "n" : "strength",
+  "v" : "1.46968531686E-4",
+  "d" : "double"
+}, {
+  "po" : 461,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 460,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) JAK2"
+}, {
+  "po" : 460,
+  "n" : "strength",
+  "v" : "1.54893685888E-4",
+  "d" : "double"
+}, {
+  "po" : 460,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 459,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) MET"
+}, {
+  "po" : 459,
+  "n" : "strength",
+  "v" : "5.55493977116E-4",
+  "d" : "double"
+}, {
+  "po" : 459,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 458,
+  "n" : "name",
+  "v" : "PTPRM (interacts with) PTK2"
+}, {
+  "po" : 458,
+  "n" : "strength",
+  "v" : "4.07522057953E-5",
+  "d" : "double"
+}, {
+  "po" : 458,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 457,
+  "n" : "name",
+  "v" : "ACVR1B (interacts with) AKT1"
+}, {
+  "po" : 457,
+  "n" : "strength",
+  "v" : "3.67559074465E-7",
+  "d" : "double"
+}, {
+  "po" : 457,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 456,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) AKT1"
+}, {
+  "po" : 456,
+  "n" : "strength",
+  "v" : "1.02720966133E-8",
+  "d" : "double"
+}, {
+  "po" : 456,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 455,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) CCND1"
+}, {
+  "po" : 455,
+  "n" : "strength",
+  "v" : "1.92626396864E-5",
+  "d" : "double"
+}, {
+  "po" : 455,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 454,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) CDH1"
+}, {
+  "po" : 454,
+  "n" : "strength",
+  "v" : "0.374416042779",
+  "d" : "double"
+}, {
+  "po" : 454,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 453,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) EGFR"
+}, {
+  "po" : 453,
+  "n" : "strength",
+  "v" : "7.28470000422E-10",
+  "d" : "double"
+}, {
+  "po" : 453,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 452,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) ERBB2"
+}, {
+  "po" : 452,
+  "n" : "strength",
+  "v" : "2.73346170934E-5",
+  "d" : "double"
+}, {
+  "po" : 452,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 451,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) JAK2"
+}, {
+  "po" : 451,
+  "n" : "strength",
+  "v" : "0.00286705172965",
+  "d" : "double"
+}, {
+  "po" : 451,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 450,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) KRAS"
+}, {
+  "po" : 450,
+  "n" : "strength",
+  "v" : "1.91241278899E-8",
+  "d" : "double"
+}, {
+  "po" : 450,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 449,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) MET"
+}, {
+  "po" : 449,
+  "n" : "strength",
+  "v" : "1.53901544267E-6",
+  "d" : "double"
+}, {
+  "po" : 449,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 448,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) MYC"
+}, {
+  "po" : 448,
+  "n" : "strength",
+  "v" : "0.00164248757702",
+  "d" : "double"
+}, {
+  "po" : 448,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 447,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) PIK3CA"
+}, {
+  "po" : 447,
+  "n" : "strength",
+  "v" : "2.09816725242E-6",
+  "d" : "double"
+}, {
+  "po" : 447,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 446,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) PTPRM"
+}, {
+  "po" : 446,
+  "n" : "strength",
+  "v" : "1.24807637236E-4",
+  "d" : "double"
+}, {
+  "po" : 446,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 445,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) STK11"
+}, {
+  "po" : 445,
+  "n" : "strength",
+  "v" : "1.1294301914E-4",
+  "d" : "double"
+}, {
+  "po" : 445,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 444,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) TLN1"
+}, {
+  "po" : 444,
+  "n" : "strength",
+  "v" : "0.00614768510477",
+  "d" : "double"
+}, {
+  "po" : 444,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 443,
+  "n" : "name",
+  "v" : "PTK2 (interacts with) TP53"
+}, {
+  "po" : 443,
+  "n" : "strength",
+  "v" : "2.6317275877E-9",
+  "d" : "double"
+}, {
+  "po" : 443,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 442,
+  "n" : "name",
+  "v" : "PLCB1 (interacts with) INPPL1"
+}, {
+  "po" : 442,
+  "n" : "strength",
+  "v" : "7.16713404906E-6",
+  "d" : "double"
+}, {
+  "po" : 442,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 441,
+  "n" : "name",
+  "v" : "PLCB1 (interacts with) KRAS"
+}, {
+  "po" : 441,
+  "n" : "strength",
+  "v" : "8.55271514335E-7",
+  "d" : "double"
+}, {
+  "po" : 441,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 440,
+  "n" : "name",
+  "v" : "PLCB1 (interacts with) PIK3CA"
+}, {
+  "po" : 440,
+  "n" : "strength",
+  "v" : "0.0457736175734",
+  "d" : "double"
+}, {
+  "po" : 440,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 439,
+  "n" : "name",
+  "v" : "PLCB1 (interacts with) TP53"
+}, {
+  "po" : 439,
+  "n" : "strength",
+  "v" : "0.00812748878294",
+  "d" : "double"
+}, {
+  "po" : 439,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 438,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) PTK2"
+}, {
+  "po" : 438,
+  "n" : "strength",
+  "v" : "1.25685837149E-6",
+  "d" : "double"
+}, {
+  "po" : 438,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 437,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) PTPRM"
+}, {
+  "po" : 437,
+  "n" : "strength",
+  "v" : "1.11892189673E-4",
+  "d" : "double"
+}, {
+  "po" : 437,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 436,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) TLN1"
+}, {
+  "po" : 436,
+  "n" : "strength",
+  "v" : "9.91766867469E-6",
+  "d" : "double"
+}, {
+  "po" : 436,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 435,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) AKT1"
+}, {
+  "po" : 435,
+  "n" : "strength",
+  "v" : "5.35398780249E-6",
+  "d" : "double"
+}, {
+  "po" : 435,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 434,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) CCND1"
+}, {
+  "po" : 434,
+  "n" : "strength",
+  "v" : "8.79142326146E-6",
+  "d" : "double"
+}, {
+  "po" : 434,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 433,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) CDH1"
+}, {
+  "po" : 433,
+  "n" : "strength",
+  "v" : "1.71821770431E-5",
+  "d" : "double"
+}, {
+  "po" : 433,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 432,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) EGFR"
+}, {
+  "po" : 432,
+  "n" : "strength",
+  "v" : "5.7335382621E-7",
+  "d" : "double"
+}, {
+  "po" : 432,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 431,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) GATA3"
+}, {
+  "po" : 431,
+  "n" : "strength",
+  "v" : "0.00196078763981",
+  "d" : "double"
+}, {
+  "po" : 431,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 430,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) INPPL1"
+}, {
+  "po" : 430,
+  "n" : "strength",
+  "v" : "0.00119458290428",
+  "d" : "double"
+}, {
+  "po" : 430,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 429,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) JAK2"
+}, {
+  "po" : 429,
+  "n" : "strength",
+  "v" : "6.65860563642E-5",
+  "d" : "double"
+}, {
+  "po" : 429,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 428,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) KRAS"
+}, {
+  "po" : 428,
+  "n" : "strength",
+  "v" : "3.88743806583E-5",
+  "d" : "double"
+}, {
+  "po" : 428,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 427,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) MET"
+}, {
+  "po" : 427,
+  "n" : "strength",
+  "v" : "0.0165821635167",
+  "d" : "double"
+}, {
+  "po" : 427,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 426,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) MYC"
+}, {
+  "po" : 426,
+  "n" : "strength",
+  "v" : "0.240786867854",
+  "d" : "double"
+}, {
+  "po" : 426,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 425,
+  "n" : "name",
+  "v" : "ERBB2 (interacts with) PIK3CA"
+}, {
+  "po" : 425,
+  "n" : "strength",
+  "v" : "7.43174662599E-4",
+  "d" : "double"
+}, {
+  "po" : 425,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 424,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) AKT1"
+}, {
+  "po" : 424,
+  "n" : "strength",
+  "v" : "0.0553928235066",
+  "d" : "double"
+}, {
+  "po" : 424,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 423,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) CCND1"
+}, {
+  "po" : 423,
+  "n" : "strength",
+  "v" : "0.181505259032",
+  "d" : "double"
+}, {
+  "po" : 423,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 422,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) CDH1"
+}, {
+  "po" : 422,
+  "n" : "strength",
+  "v" : "0.030235414204",
+  "d" : "double"
+}, {
+  "po" : 422,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 421,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) EGFR"
+}, {
+  "po" : 421,
+  "n" : "strength",
+  "v" : "5.69813997974E-9",
+  "d" : "double"
+}, {
+  "po" : 421,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 420,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) ERBB2"
+}, {
+  "po" : 420,
+  "n" : "strength",
+  "v" : "4.88774264674E-6",
+  "d" : "double"
+}, {
+  "po" : 420,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 419,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) INPPL1"
+}, {
+  "po" : 419,
+  "n" : "strength",
+  "v" : "0.0621515549567",
+  "d" : "double"
+}, {
+  "po" : 419,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 418,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) JAK2"
+}, {
+  "po" : 418,
+  "n" : "strength",
+  "v" : "2.1550534922E-7",
+  "d" : "double"
+}, {
+  "po" : 418,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 417,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) KRAS"
+}, {
+  "po" : 417,
+  "n" : "strength",
+  "v" : "1.31756016147E-7",
+  "d" : "double"
+}, {
+  "po" : 417,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 416,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) MET"
+}, {
+  "po" : 416,
+  "n" : "strength",
+  "v" : "6.25122893469E-5",
+  "d" : "double"
+}, {
+  "po" : 416,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 415,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) MSH6"
+}, {
+  "po" : 415,
+  "n" : "strength",
+  "v" : "3.98794855963E-4",
+  "d" : "double"
+}, {
+  "po" : 415,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 414,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) NOTCH1"
+}, {
+  "po" : 414,
+  "n" : "strength",
+  "v" : "0.268794733703",
+  "d" : "double"
+}, {
+  "po" : 414,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 413,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) PLCB1"
+}, {
+  "po" : 413,
+  "n" : "strength",
+  "v" : "0.00187526982495",
+  "d" : "double"
+}, {
+  "po" : 413,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 412,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) PTK2"
+}, {
+  "po" : 412,
+  "n" : "strength",
+  "v" : "4.34112455754E-8",
+  "d" : "double"
+}, {
+  "po" : 412,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 411,
+  "n" : "name",
+  "v" : "PIK3CA (interacts with) TP53"
+}, {
+  "po" : 411,
+  "n" : "strength",
+  "v" : "2.97942865944E-4",
+  "d" : "double"
+}, {
+  "po" : 411,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 410,
+  "n" : "name",
+  "v" : "EGFR (interacts with) ABL1"
+}, {
+  "po" : 410,
+  "n" : "strength",
+  "v" : "6.06451927179E-8",
+  "d" : "double"
+}, {
+  "po" : 410,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 409,
+  "n" : "name",
+  "v" : "EGFR (interacts with) AKT1"
+}, {
+  "po" : 409,
+  "n" : "strength",
+  "v" : "1.54468114571E-11",
+  "d" : "double"
+}, {
+  "po" : 409,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 408,
+  "n" : "name",
+  "v" : "EGFR (interacts with) CDH1"
+}, {
+  "po" : 408,
+  "n" : "strength",
+  "v" : "2.22990193807E-8",
+  "d" : "double"
+}, {
+  "po" : 408,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 407,
+  "n" : "name",
+  "v" : "EGFR (interacts with) ERBB2"
+}, {
+  "po" : 407,
+  "n" : "strength",
+  "v" : "8.01678801093E-7",
+  "d" : "double"
+}, {
+  "po" : 407,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 406,
+  "n" : "name",
+  "v" : "EGFR (interacts with) INPPL1"
+}, {
+  "po" : 406,
+  "n" : "strength",
+  "v" : "2.76942368338E-6",
+  "d" : "double"
+}, {
+  "po" : 406,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 405,
+  "n" : "name",
+  "v" : "EGFR (interacts with) JAK2"
+}, {
+  "po" : 405,
+  "n" : "strength",
+  "v" : "1.04725288658E-7",
+  "d" : "double"
+}, {
+  "po" : 405,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 404,
+  "n" : "name",
+  "v" : "EGFR (interacts with) KRAS"
+}, {
+  "po" : 404,
+  "n" : "strength",
+  "v" : "9.28068036999E-6",
+  "d" : "double"
+}, {
+  "po" : 404,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 403,
+  "n" : "name",
+  "v" : "EGFR (interacts with) MET"
+}, {
+  "po" : 403,
+  "n" : "strength",
+  "v" : "2.51325907647E-4",
+  "d" : "double"
+}, {
+  "po" : 403,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 402,
+  "n" : "name",
+  "v" : "EGFR (interacts with) MYC"
+}, {
+  "po" : 402,
+  "n" : "strength",
+  "v" : "3.4774808173E-4",
+  "d" : "double"
+}, {
+  "po" : 402,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 401,
+  "n" : "name",
+  "v" : "EGFR (interacts with) NOTCH1"
+}, {
+  "po" : 401,
+  "n" : "strength",
+  "v" : "0.00134013866638",
+  "d" : "double"
+}, {
+  "po" : 401,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 400,
+  "n" : "name",
+  "v" : "EGFR (interacts with) PIK3CA"
+}, {
+  "po" : 400,
+  "n" : "strength",
+  "v" : "9.57268267311E-8",
+  "d" : "double"
+}, {
+  "po" : 400,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 399,
+  "n" : "name",
+  "v" : "EGFR (interacts with) PTK2"
+}, {
+  "po" : 399,
+  "n" : "strength",
+  "v" : "2.97374665696E-11",
+  "d" : "double"
+}, {
+  "po" : 399,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 398,
+  "n" : "name",
+  "v" : "EGFR (interacts with) PTPRM"
+}, {
+  "po" : 398,
+  "n" : "strength",
+  "v" : "2.65638286271E-5",
+  "d" : "double"
+}, {
+  "po" : 398,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 397,
+  "n" : "name",
+  "v" : "EGFR (interacts with) TLN1"
+}, {
+  "po" : 397,
+  "n" : "strength",
+  "v" : "4.60072991844E-6",
+  "d" : "double"
+}, {
+  "po" : 397,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 396,
+  "n" : "name",
+  "v" : "EGFR (interacts with) TP53"
+}, {
+  "po" : 396,
+  "n" : "strength",
+  "v" : "0.772694965173",
+  "d" : "double"
+}, {
+  "po" : 396,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 395,
+  "n" : "name",
+  "v" : "TLN1 (interacts with) CDH1"
+}, {
+  "po" : 395,
+  "n" : "strength",
+  "v" : "0.646587607402",
+  "d" : "double"
+}, {
+  "po" : 395,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 394,
+  "n" : "name",
+  "v" : "TLN1 (interacts with) EGFR"
+}, {
+  "po" : 394,
+  "n" : "strength",
+  "v" : "8.4835375884E-6",
+  "d" : "double"
+}, {
+  "po" : 394,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 393,
+  "n" : "name",
+  "v" : "TLN1 (interacts with) ERBB2"
+}, {
+  "po" : 393,
+  "n" : "strength",
+  "v" : "2.55703963481E-5",
+  "d" : "double"
+}, {
+  "po" : 393,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 392,
+  "n" : "name",
+  "v" : "TLN1 (interacts with) KRAS"
+}, {
+  "po" : 392,
+  "n" : "strength",
+  "v" : "2.43926361935E-8",
+  "d" : "double"
+}, {
+  "po" : 392,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 391,
+  "n" : "name",
+  "v" : "TLN1 (interacts with) PTK2"
+}, {
+  "po" : 391,
+  "n" : "strength",
+  "v" : "4.62772975142E-4",
+  "d" : "double"
+}, {
+  "po" : 391,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 390,
+  "n" : "name",
+  "v" : "MYCN (interacts with) MYC"
+}, {
+  "po" : 390,
+  "n" : "strength",
+  "v" : "0.00331998131777",
+  "d" : "double"
+}, {
+  "po" : 390,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 389,
+  "n" : "name",
+  "v" : "KRAS (interacts with) AKT1"
+}, {
+  "po" : 389,
+  "n" : "strength",
+  "v" : "9.40885585259E-5",
+  "d" : "double"
+}, {
+  "po" : 389,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 388,
+  "n" : "name",
+  "v" : "KRAS (interacts with) EGFR"
+}, {
+  "po" : 388,
+  "n" : "strength",
+  "v" : "1.9024896908E-4",
+  "d" : "double"
+}, {
+  "po" : 388,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 387,
+  "n" : "name",
+  "v" : "KRAS (interacts with) ERBB2"
+}, {
+  "po" : 387,
+  "n" : "strength",
+  "v" : "0.00111424931764",
+  "d" : "double"
+}, {
+  "po" : 387,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 386,
+  "n" : "name",
+  "v" : "KRAS (interacts with) INPPL1"
+}, {
+  "po" : 386,
+  "n" : "strength",
+  "v" : "0.0506004673104",
+  "d" : "double"
+}, {
+  "po" : 386,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 385,
+  "n" : "name",
+  "v" : "KRAS (interacts with) JAK2"
+}, {
+  "po" : 385,
+  "n" : "strength",
+  "v" : "0.00100102335759",
+  "d" : "double"
+}, {
+  "po" : 385,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 384,
+  "n" : "name",
+  "v" : "KRAS (interacts with) MET"
+}, {
+  "po" : 384,
+  "n" : "strength",
+  "v" : "6.3952875211E-5",
+  "d" : "double"
+}, {
+  "po" : 384,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 383,
+  "n" : "name",
+  "v" : "KRAS (interacts with) MYC"
+}, {
+  "po" : 383,
+  "n" : "strength",
+  "v" : "0.0616891072862",
+  "d" : "double"
+}, {
+  "po" : 383,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 382,
+  "n" : "name",
+  "v" : "KRAS (interacts with) PIK3CA"
+}, {
+  "po" : 382,
+  "n" : "strength",
+  "v" : "1.5523522582E-6",
+  "d" : "double"
+}, {
+  "po" : 382,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 381,
+  "n" : "name",
+  "v" : "KRAS (interacts with) PLCB1"
+}, {
+  "po" : 381,
+  "n" : "strength",
+  "v" : "6.50182399654E-7",
+  "d" : "double"
+}, {
+  "po" : 381,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 380,
+  "n" : "name",
+  "v" : "KRAS (interacts with) PTK2"
+}, {
+  "po" : 380,
+  "n" : "strength",
+  "v" : "2.52043394064E-8",
+  "d" : "double"
+}, {
+  "po" : 380,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 379,
+  "n" : "name",
+  "v" : "KRAS (interacts with) TLN1"
+}, {
+  "po" : 379,
+  "n" : "strength",
+  "v" : "9.27743156369E-9",
+  "d" : "double"
+}, {
+  "po" : 379,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 378,
+  "n" : "name",
+  "v" : "KRAS (interacts with) TP53"
+}, {
+  "po" : 378,
+  "n" : "strength",
+  "v" : "1.39751893865E-5",
+  "d" : "double"
+}, {
+  "po" : 378,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 377,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) CCND1"
+}, {
+  "po" : 377,
+  "n" : "strength",
+  "v" : "0.0252649166769",
+  "d" : "double"
+}, {
+  "po" : 377,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 376,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) EGFR"
+}, {
+  "po" : 376,
+  "n" : "strength",
+  "v" : "1.34358471379E-8",
+  "d" : "double"
+}, {
+  "po" : 376,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 375,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) ERBB2"
+}, {
+  "po" : 375,
+  "n" : "strength",
+  "v" : "1.23255154545E-4",
+  "d" : "double"
+}, {
+  "po" : 375,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 374,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) MET"
+}, {
+  "po" : 374,
+  "n" : "strength",
+  "v" : "8.58522437935E-6",
+  "d" : "double"
+}, {
+  "po" : 374,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 373,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) NOTCH1"
+}, {
+  "po" : 373,
+  "n" : "strength",
+  "v" : "0.0617947328769",
+  "d" : "double"
+}, {
+  "po" : 373,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 372,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) PIK3CA"
+}, {
+  "po" : 372,
+  "n" : "strength",
+  "v" : "0.0566049971599",
+  "d" : "double"
+}, {
+  "po" : 372,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 371,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) PTK2"
+}, {
+  "po" : 371,
+  "n" : "strength",
+  "v" : "0.0785285030659",
+  "d" : "double"
+}, {
+  "po" : 371,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 370,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) PTPRM"
+}, {
+  "po" : 370,
+  "n" : "strength",
+  "v" : "0.0885304639342",
+  "d" : "double"
+}, {
+  "po" : 370,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 369,
+  "n" : "name",
+  "v" : "CDH1 (interacts with) TLN1"
+}, {
+  "po" : 369,
+  "n" : "strength",
+  "v" : "0.212037143209",
+  "d" : "double"
+}, {
+  "po" : 369,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 368,
+  "n" : "name",
+  "v" : "TP53 (interacts with) ABL1"
+}, {
+  "po" : 368,
+  "n" : "strength",
+  "v" : "4.07405647016E-4",
+  "d" : "double"
+}, {
+  "po" : 368,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 367,
+  "n" : "name",
+  "v" : "TP53 (interacts with) AKT1"
+}, {
+  "po" : 367,
+  "n" : "strength",
+  "v" : "1.55606667146E-9",
+  "d" : "double"
+}, {
+  "po" : 367,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 366,
+  "n" : "name",
+  "v" : "TP53 (interacts with) CCND1"
+}, {
+  "po" : 366,
+  "n" : "strength",
+  "v" : "2.29985730943E-4",
+  "d" : "double"
+}, {
+  "po" : 366,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 365,
+  "n" : "name",
+  "v" : "TP53 (interacts with) EGFR"
+}, {
+  "po" : 365,
+  "n" : "strength",
+  "v" : "0.407892200904",
+  "d" : "double"
+}, {
+  "po" : 365,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 364,
+  "n" : "name",
+  "v" : "TP53 (interacts with) INPPL1"
+}, {
+  "po" : 364,
+  "n" : "strength",
+  "v" : "3.63163833123E-6",
+  "d" : "double"
+}, {
+  "po" : 364,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 363,
+  "n" : "name",
+  "v" : "TP53 (interacts with) JAK2"
+}, {
+  "po" : 363,
+  "n" : "strength",
+  "v" : "0.0023990751459",
+  "d" : "double"
+}, {
+  "po" : 363,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 362,
+  "n" : "name",
+  "v" : "TP53 (interacts with) KMT2C"
+}, {
+  "po" : 362,
+  "n" : "strength",
+  "v" : "0.0013009814325",
+  "d" : "double"
+}, {
+  "po" : 362,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 361,
+  "n" : "name",
+  "v" : "TP53 (interacts with) KRAS"
+}, {
+  "po" : 361,
+  "n" : "strength",
+  "v" : "1.96105074257E-6",
+  "d" : "double"
+}, {
+  "po" : 361,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 360,
+  "n" : "name",
+  "v" : "TP53 (interacts with) MET"
+}, {
+  "po" : 360,
+  "n" : "strength",
+  "v" : "0.0985170543968",
+  "d" : "double"
+}, {
+  "po" : 360,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 359,
+  "n" : "name",
+  "v" : "TP53 (interacts with) MSH6"
+}, {
+  "po" : 359,
+  "n" : "strength",
+  "v" : "7.97166142653E-4",
+  "d" : "double"
+}, {
+  "po" : 359,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 358,
+  "n" : "name",
+  "v" : "TP53 (interacts with) MYC"
+}, {
+  "po" : 358,
+  "n" : "strength",
+  "v" : "3.89543734514E-6",
+  "d" : "double"
+}, {
+  "po" : 358,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 357,
+  "n" : "name",
+  "v" : "TP53 (interacts with) NOTCH4"
+}, {
+  "po" : 357,
+  "n" : "strength",
+  "v" : "0.0212142236583",
+  "d" : "double"
+}, {
+  "po" : 357,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 356,
+  "n" : "name",
+  "v" : "TP53 (interacts with) PIK3CA"
+}, {
+  "po" : 356,
+  "n" : "strength",
+  "v" : "9.11116043281E-5",
+  "d" : "double"
+}, {
+  "po" : 356,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 355,
+  "n" : "name",
+  "v" : "TP53 (interacts with) PLCB1"
+}, {
+  "po" : 355,
+  "n" : "strength",
+  "v" : "8.55631063023E-4",
+  "d" : "double"
+}, {
+  "po" : 355,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 354,
+  "n" : "name",
+  "v" : "TP53 (interacts with) PTK2"
+}, {
+  "po" : 354,
+  "n" : "strength",
+  "v" : "3.08996174706E-10",
+  "d" : "double"
+}, {
+  "po" : 354,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 353,
+  "n" : "name",
+  "v" : "TP53 (interacts with) STK11"
+}, {
+  "po" : 353,
+  "n" : "strength",
+  "v" : "3.0489179085E-8",
+  "d" : "double"
+}, {
+  "po" : 353,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 352,
+  "n" : "name",
+  "v" : "CCNE1 (interacts with) MYC"
+}, {
+  "po" : 352,
+  "n" : "strength",
+  "v" : "0.0175923256561",
+  "d" : "double"
+}, {
+  "po" : 352,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 351,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) AKT1"
+}, {
+  "po" : 351,
+  "n" : "strength",
+  "v" : "9.43327532499E-5",
+  "d" : "double"
+}, {
+  "po" : 351,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 350,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) CARD11"
+}, {
+  "po" : 350,
+  "n" : "strength",
+  "v" : "4.89364967259E-4",
+  "d" : "double"
+}, {
+  "po" : 350,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 349,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) CDH1"
+}, {
+  "po" : 349,
+  "n" : "strength",
+  "v" : "0.0293128118433",
+  "d" : "double"
+}, {
+  "po" : 349,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 348,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) ERBB2"
+}, {
+  "po" : 348,
+  "n" : "strength",
+  "v" : "1.61047869018E-6",
+  "d" : "double"
+}, {
+  "po" : 348,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 347,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) MYC"
+}, {
+  "po" : 347,
+  "n" : "strength",
+  "v" : "0.00625623035437",
+  "d" : "double"
+}, {
+  "po" : 347,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 346,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) NOTCH1"
+}, {
+  "po" : 346,
+  "n" : "strength",
+  "v" : "0.00151207573386",
+  "d" : "double"
+}, {
+  "po" : 346,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 345,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) PIK3CA"
+}, {
+  "po" : 345,
+  "n" : "strength",
+  "v" : "0.399660880106",
+  "d" : "double"
+}, {
+  "po" : 345,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 344,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) PTK2"
+}, {
+  "po" : 344,
+  "n" : "strength",
+  "v" : "8.65681232872E-7",
+  "d" : "double"
+}, {
+  "po" : 344,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 343,
+  "n" : "name",
+  "v" : "CCND1 (interacts with) TP53"
+}, {
+  "po" : 343,
+  "n" : "strength",
+  "v" : "3.06174517166E-4",
+  "d" : "double"
+}, {
+  "po" : 343,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 342,
+  "n" : "name",
+  "v" : "CARD11 (interacts with) AKT1"
+}, {
+  "po" : 342,
+  "n" : "strength",
+  "v" : "2.55890576253E-5",
+  "d" : "double"
+}, {
+  "po" : 342,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 341,
+  "n" : "name",
+  "v" : "CARD11 (interacts with) CCND1"
+}, {
+  "po" : 341,
+  "n" : "strength",
+  "v" : "0.00356002858273",
+  "d" : "double"
+}, {
+  "po" : 341,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 340,
+  "n" : "name",
+  "v" : "STK11 (interacts with) ABL1"
+}, {
+  "po" : 340,
+  "n" : "strength",
+  "v" : "1.41350294769E-6",
+  "d" : "double"
+}, {
+  "po" : 340,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 339,
+  "n" : "name",
+  "v" : "STK11 (interacts with) MYC"
+}, {
+  "po" : 339,
+  "n" : "strength",
+  "v" : "0.982199401176",
+  "d" : "double"
+}, {
+  "po" : 339,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 338,
+  "n" : "name",
+  "v" : "STK11 (interacts with) PTK2"
+}, {
+  "po" : 338,
+  "n" : "strength",
+  "v" : "4.72476006617E-7",
+  "d" : "double"
+}, {
+  "po" : 338,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 337,
+  "n" : "name",
+  "v" : "STK11 (interacts with) TP53"
+}, {
+  "po" : 337,
+  "n" : "strength",
+  "v" : "2.36752238409E-9",
+  "d" : "double"
+}, {
+  "po" : 337,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 336,
+  "n" : "name",
+  "v" : "MSH6 (interacts with) MYC"
+}, {
+  "po" : 336,
+  "n" : "strength",
+  "v" : "3.03546281555E-4",
+  "d" : "double"
+}, {
+  "po" : 336,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 335,
+  "n" : "name",
+  "v" : "MSH6 (interacts with) PIK3CA"
+}, {
+  "po" : 335,
+  "n" : "strength",
+  "v" : "0.005040194521",
+  "d" : "double"
+}, {
+  "po" : 335,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 334,
+  "n" : "name",
+  "v" : "MSH6 (interacts with) TP53"
+}, {
+  "po" : 334,
+  "n" : "strength",
+  "v" : "0.0325107757854",
+  "d" : "double"
+}, {
+  "po" : 334,
+  "n" : "interaction",
+  "v" : "interacts with"
+}, {
+  "po" : 333,
+  "n" : "name",
+  "v" : "PER1 (interacts with) MYC"
+}, {
+  "po" : 333,
+  "n" : "strength",
+  "v" : "0.0640661790125",
+  "d" : "double"
+}, {
+  "po" : 333,
+  "n" : "interaction",
+  "v" : "interacts with"
+}]}, {"cartesianLayout":[{
+  "node" : 332,
+  "x" : 136.22682861011117,
+  "y" : 270.2883046795731
+}, {
+  "node" : 331,
+  "x" : 80.6299244017577,
+  "y" : 406.1862487792969
+}, {
+  "node" : 330,
+  "x" : 61.38213692617177,
+  "y" : 469.5247497558594
+}, {
+  "node" : 329,
+  "x" : 263.66651258325015,
+  "y" : 537.6985036821253
+}, {
+  "node" : 328,
+  "x" : 486.78357277822255,
+  "y" : 320.01797829580073
+}, {
+  "node" : 327,
+  "x" : 414.7019382567382,
+  "y" : 412.288058862207
+}, {
+  "node" : 326,
+  "x" : 127.011962890625,
+  "y" : 236.23449362802742
+}, {
+  "node" : 325,
+  "x" : 423.6233249754882,
+  "y" : 345.43948708486323
+}, {
+  "node" : 324,
+  "x" : 412.54754638671875,
+  "y" : 166.71812783193351
+}, {
+  "node" : 323,
+  "x" : 460.8866271972656,
+  "y" : 260.6733503449967
+}, {
+  "node" : 322,
+  "x" : 73.05336342763661,
+  "y" : 510.4300537109375
+}, {
+  "node" : 321,
+  "x" : 670.5999179930664,
+  "y" : 344.198215112207
+}, {
+  "node" : 320,
+  "x" : 311.30329236840646,
+  "y" : 526.64892578125
+}, {
+  "node" : 319,
+  "x" : 673.8654209227539,
+  "y" : 415.6882358641601
+}, {
+  "node" : 318,
+  "x" : 236.71515236806633,
+  "y" : 313.82275390625
+}, {
+  "node" : 317,
+  "x" : 177.41094133281234,
+  "y" : 206.53504106425765
+}, {
+  "node" : 316,
+  "x" : 239.45181274414062,
+  "y" : 193.74059714365242
+}, {
+  "node" : 315,
+  "x" : 498.53418312978505,
+  "y" : 416.62503395986323
+}, {
+  "node" : 314,
+  "x" : 174.9819522948241,
+  "y" : 510.2254638671875
+}, {
+  "node" : 313,
+  "x" : 611.5242954344726,
+  "y" : 475.62698708486323
+}, {
+  "node" : 312,
+  "x" : 294.1789332375471,
+  "y" : 560.8272094726562
+}, {
+  "node" : 311,
+  "x" : 204.49711122631237,
+  "y" : 416.4836120605469
+}, {
+  "node" : 310,
+  "x" : 568.8041416258789,
+  "y" : 388.76068459462886
+}, {
+  "node" : 309,
+  "x" : 148.84976540517567,
+  "y" : 448.5708312988281
+}, {
+  "node" : 308,
+  "x" : 396.8923034667969,
+  "y" : 54.589805230615156
+}, {
+  "node" : 307,
+  "x" : 578.5921054930664,
+  "y" : 307.1875034422851
+}, {
+  "node" : 306,
+  "x" : 180.94493103027344,
+  "y" : 554.3298253073749
+}, {
+  "node" : 305,
+  "x" : 454.30682373046875,
+  "y" : 69.78451119374992
+}, {
+  "node" : 304,
+  "x" : 245.97333107900383,
+  "y" : 256.87066650390625
+}, {
+  "node" : 303,
+  "x" : 245.61160278320312,
+  "y" : 143.4501613526368
+}]}, {"cyVisualProperties":[{
+  "properties_of" : "network",
+  "properties" : {
+    "NETWORK_BACKGROUND_PAINT" : "#FFFFFF",
+    "NETWORK_CENTER_X_LOCATION" : "0.0",
+    "NETWORK_CENTER_Y_LOCATION" : "0.0",
+    "NETWORK_CENTER_Z_LOCATION" : "0.0",
+    "NETWORK_DEPTH" : "0.0",
+    "NETWORK_EDGE_SELECTION" : "true",
+    "NETWORK_HEIGHT" : "400.0",
+    "NETWORK_NODE_SELECTION" : "true",
+    "NETWORK_SCALE_FACTOR" : "1.0",
+    "NETWORK_SIZE" : "550.0",
+    "NETWORK_WIDTH" : "550.0"
+  }
+}, {
+  "properties_of" : "nodes:default",
+  "properties" : {
+    "COMPOUND_NODE_PADDING" : "10.0",
+    "COMPOUND_NODE_SHAPE" : "ROUND_RECTANGLE",
+    "NODE_BORDER_PAINT" : "#999999",
+    "NODE_BORDER_STROKE" : "SOLID",
+    "NODE_BORDER_TRANSPARENCY" : "255",
+    "NODE_BORDER_WIDTH" : "2.0",
+    "NODE_CUSTOMGRAPHICS_1" : "org.cytoscape.PieChart:{\"cy_range\":[4.19689134222E-20,0.0493210553996],\"cy_colors\":[\"#FF0000\",\"#00FFFF\",\"#0000FF\",\"#00FF00\"],\"cy_borderWidth\":0.0,\"cy_borderColor\":\"#FFFFFF\",\"cy_dataColumns\":[\"Basal\",\"Her2\",\"LumA\",\"LumB\"]}",
+    "NODE_CUSTOMGRAPHICS_2" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_3" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_4" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_5" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_6" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_7" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_8" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_9" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_POSITION_1" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_2" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_3" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_4" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_5" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_6" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_7" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_8" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_9" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_SIZE_1" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_2" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_3" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_4" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_5" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_6" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_7" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_8" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_9" : "50.0",
+    "NODE_CUSTOMPAINT_1" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_1, name=Node Custom Paint 1)",
+    "NODE_CUSTOMPAINT_2" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_2, name=Node Custom Paint 2)",
+    "NODE_CUSTOMPAINT_3" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_3, name=Node Custom Paint 3)",
+    "NODE_CUSTOMPAINT_4" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_4, name=Node Custom Paint 4)",
+    "NODE_CUSTOMPAINT_5" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_5, name=Node Custom Paint 5)",
+    "NODE_CUSTOMPAINT_6" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_6, name=Node Custom Paint 6)",
+    "NODE_CUSTOMPAINT_7" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_7, name=Node Custom Paint 7)",
+    "NODE_CUSTOMPAINT_8" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_8, name=Node Custom Paint 8)",
+    "NODE_CUSTOMPAINT_9" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_9, name=Node Custom Paint 9)",
+    "NODE_DEPTH" : "0.0",
+    "NODE_FILL_COLOR" : "#FFFFFF",
+    "NODE_HEIGHT" : "35.0",
+    "NODE_LABEL_COLOR" : "#000000",
+    "NODE_LABEL_FONT_FACE" : "SansSerif.plain,plain,12",
+    "NODE_LABEL_FONT_SIZE" : "12",
+    "NODE_LABEL_POSITION" : "S,N,c,0.00,0.00",
+    "NODE_LABEL_TRANSPARENCY" : "255",
+    "NODE_LABEL_WIDTH" : "200.0",
+    "NODE_NESTED_NETWORK_IMAGE_VISIBLE" : "true",
+    "NODE_PAINT" : "#1E90FF",
+    "NODE_SELECTED" : "false",
+    "NODE_SELECTED_PAINT" : "#FFFF00",
+    "NODE_SHAPE" : "ELLIPSE",
+    "NODE_SIZE" : "35.0",
+    "NODE_TRANSPARENCY" : "255",
+    "NODE_VISIBLE" : "true",
+    "NODE_WIDTH" : "75.0",
+    "NODE_X_LOCATION" : "0.0",
+    "NODE_Y_LOCATION" : "0.0",
+    "NODE_Z_LOCATION" : "0.0"
+  },
+  "dependencies" : {
+    "nodeCustomGraphicsSizeSync" : "true",
+    "nodeSizeLocked" : "true"
+  },
+  "mappings" : {
+    "NODE_LABEL" : {
+      "type" : "PASSTHROUGH",
+      "definition" : "COL=name,T=string"
+    },
+    "NODE_SIZE" : {
+      "type" : "CONTINUOUS",
+      "definition" : "COL=avg_PPR,T=double,L=0=1.0,E=0=20.0,G=0=20.0,OV=0=3.88848415458E-4,L=1=50.0,E=1=50.0,G=1=1.0,OV=1=0.092375260105"
+    }
+  }
+}, {
+  "properties_of" : "edges:default",
+  "properties" : {
+    "EDGE_CURVED" : "true",
+    "EDGE_LABEL_COLOR" : "#000000",
+    "EDGE_LABEL_FONT_FACE" : "Dialog.plain,plain,10",
+    "EDGE_LABEL_FONT_SIZE" : "10",
+    "EDGE_LABEL_TRANSPARENCY" : "255",
+    "EDGE_LABEL_WIDTH" : "200.0",
+    "EDGE_LINE_TYPE" : "SOLID",
+    "EDGE_PAINT" : "#323232",
+    "EDGE_SELECTED" : "false",
+    "EDGE_SELECTED_PAINT" : "#FF0000",
+    "EDGE_SOURCE_ARROW_SELECTED_PAINT" : "#FFFF00",
+    "EDGE_SOURCE_ARROW_SHAPE" : "NONE",
+    "EDGE_SOURCE_ARROW_UNSELECTED_PAINT" : "#000000",
+    "EDGE_STROKE_SELECTED_PAINT" : "#FF0000",
+    "EDGE_STROKE_UNSELECTED_PAINT" : "#848484",
+    "EDGE_TARGET_ARROW_SELECTED_PAINT" : "#FFFF00",
+    "EDGE_TARGET_ARROW_SHAPE" : "DELTA",
+    "EDGE_TARGET_ARROW_UNSELECTED_PAINT" : "#000000",
+    "EDGE_TRANSPARENCY" : "255",
+    "EDGE_UNSELECTED_PAINT" : "#404040",
+    "EDGE_VISIBLE" : "true",
+    "EDGE_WIDTH" : "2.0"
+  },
+  "dependencies" : {
+    "arrowColorMatchesEdge" : "true"
+  },
+  "mappings" : {
+    "EDGE_LINE_TYPE" : {
+      "type" : "CONTINUOUS",
+      "definition" : "COL=strength,T=double,L=0=LONG_DASH,E=0=LONG_DASH,G=0=SOLID,OV=0=0.005548999624160403"
+    },
+    "EDGE_TRANSPARENCY" : {
+      "type" : "CONTINUOUS",
+      "definition" : "COL=strength,T=double,L=0=1,E=0=128,G=0=128,OV=0=1.54468114571E-11,L=1=128,E=1=128,G=1=128,OV=1=0.004999999719416052,L=2=255,E=2=255,G=2=255,OV=2=0.005549999897243897,L=3=255,E=3=255,G=3=1,OV=3=0.982199401176"
+    },
+    "EDGE_UNSELECTED_PAINT" : {
+      "type" : "CONTINUOUS",
+      "definition" : "COL=strength,T=double,L=0=#00FFFF,E=0=#00FFFF,G=0=#00FFFF,OV=0=0.005548999624160403,L=1=#FFFF00,E=1=#FFFF00,G=1=#FFFF00,OV=1=0.005549999897243897,L=2=#FF0000,E=2=#FF0000,G=2=#FF0000,OV=2=0.982199401176"
+    },
+    "EDGE_WIDTH" : {
+      "type" : "CONTINUOUS",
+      "definition" : "COL=strength,T=double,L=0=1.0,E=0=1.0,G=0=1.0,OV=0=1.54468114571E-11,L=1=1.0,E=1=1.0,G=1=1.0,OV=1=0.005548999624160403,L=2=2.0,E=2=2.0,G=2=2.0,OV=2=0.005549999897243897,L=3=2.0,E=3=2.0,G=3=1.0,OV=3=0.982199401176"
+    }
+  }
+}]}, {"cyHiddenAttributes":[{
+  "n" : "layoutAlgorithm",
+  "v" : "Grid Layout"
+}]},{"status":[{"error":"","success":true}]}]

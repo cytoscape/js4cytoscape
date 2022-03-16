@@ -15,7 +15,7 @@ let conf = {
 
   output: {
     filename: 'bundle.js',
-    library: camelcase( pkg.name ),
+    library: 'cytoscapeCx2js',
     libraryTarget: 'umd'
   },
 

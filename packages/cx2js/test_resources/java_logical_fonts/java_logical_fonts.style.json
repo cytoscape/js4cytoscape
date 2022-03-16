@@ -12,9 +12,13 @@
       "font-size": 12,
       "text-valign": "center",
       "text-halign": "center",
+      "text-justification": "center",
+      "text-margin-x": 0,
+      "text-margin-y": 0,
       "text-opacity": 1,
       "text-wrap": "wrap",
-      "text-max-width": "200.0",
+      "visibility": "visible",
+      "text-max-width": 200.0,
       "shape": "roundrectangle",
       "background-opacity": 1,
       "width": 75
@@ -122,6 +126,7 @@
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
       "font-size": 10,
       "text-opacity": 1,
+      "visibility": "visible",
       "line-style": "solid",
       "source-arrow-shape": "none",
       "source-arrow-color": "rgb(0,0,0)",
@@ -172,7 +177,7 @@
   },
   {
     "selector": "node:selected",
-    "css": {
+    "style": {
       "background-color": "rgb(255,255,0)"
     }
   },

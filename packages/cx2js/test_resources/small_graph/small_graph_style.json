@@ -11,13 +11,17 @@
       "font-family": "sans-serif",
       "width": "35.0",
       "text-wrap": "wrap",
-      "text-max-width": "200.0",
+      "visibility": "visible",
+      "text-max-width": 200.0,
       "font-size": 12,
       "color": "rgb(0,0,0)",
       "height": "35.0",
       "background-opacity": 1,
       "text-valign": "center",
       "text-halign": "center",
+      "text-justification": "center",
+      "text-margin-x": 0,
+      "text-margin-y": 0,
       "font-weight": "normal"
     }
   },
@@ -64,6 +68,34 @@
     }
   },
   {
+    "css": {
+      "height": 25,
+      "width": 25
+    },
+    "selector": "node[type = '']"
+  },
+  {
+    "css": {
+      "height": 25,
+      "width": 25
+    },
+    "selector": "node[type = 'Small Molecule']"
+  },
+  {
+    "css": {
+      "height": 25,
+      "width": 25
+    },
+    "selector": "node[type = 'SmallMolecule']"
+  },
+  {
+    "css": {
+      "height": 35,
+      "width": 35
+    },
+    "selector": "node[type = 'Protein']"
+  },
+  {
     "selector": "edge",
     "css": {
       "font-family": "Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif",
@@ -75,6 +107,7 @@
       "source-arrow-shape": "none",
       "width": 2,
       "text-opacity": 1,
+      "visibility": "visible",
       "source-arrow-color": "rgb(64,64,64)",
       "target-arrow-color": "rgb(64,64,64)",
       "line-color": "rgb(64,64,64)",
@@ -352,26 +385,26 @@
     }
   },
   {
-    "selector": "edge[directed = 'true']",
+    "selector": "edge[?directed]",
     "css": {
       "target-arrow-shape": "triangle"
     }
   },
   {
-    "selector": "edge[directed = 'false']",
+    "selector": "edge[directed][!directed]",
     "css": {
       "line-style": "dashed"
     }
   },
   {
-    "selector": "edge[directed = 'true']",
+    "selector": "edge[?directed]",
     "css": {
       "line-style": "solid"
     }
   },
   {
     "selector": "node:selected",
-    "css": {
+    "style": {
       "background-color": "rgb(255,0,0)"
     }
   },
