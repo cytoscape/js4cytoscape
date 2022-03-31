@@ -4,7 +4,6 @@ const { env } = require('process');
 const isProd = env.NODE_ENV === 'production';
 
 const pkg = require('./package.json');
-const camelcase = require('camelcase');
 
 let conf = {
   devtool: isProd ? false : 'inline-source-map',
