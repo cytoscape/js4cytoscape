@@ -1,6 +1,11 @@
-const { expect, assert } = require('chai');
+const { expect } = require('chai');
+const rewire = require('rewire');
 const { CxToJs, CyNetworkUtils } = require('../src');
 const fs = require('fs-extra');
+
+var appsrc = rewire('../src/cx_to_js.js');
+
+const visualPropertyMap = appsrc.__get__('visualPropertyMap');
 
 const DEFAULT_STYLE = [
   {
@@ -41,53 +46,6 @@ const DEFAULT_STYLE = [
     }
   }
 ];
-
-
-const visualPropertyMapForTest = {
-    
-  'NODE_FILL_COLOR': { 'att': 'background-color', 'type': 'color' },
-  'NODE_TRANSPARENCY': { 'att': 'background-opacity', 'type': 'opacity' },
-  'NODE_SHAPE': { 'att': 'shape', 'type': 'nodeShape' },
-  'NODE_WIDTH': { 'att': 'width', 'type': 'number' },
-  'NODE_HEIGHT': { 'att': 'height', 'type': 'number' },
-  'NODE_BORDER_PAINT': { 'att': 'border-color', 'type': 'color' },
-  'NODE_BORDER_TRANSPARENCY': { 'att': 'border-opacity', 'type': 'opacity' },
-  'NODE_BORDER_WIDTH': { 'att': 'border-width', 'type': 'number' },
-  'NODE_SIZE': { 'att': 'node-size', 'type': 'number' },
-  
-  'NODE_LABEL_FONT_FACE': { 'att': 'font-family', 'type': 'fontFamily' },
-  'NODE_LABEL_WIDTH': { 'att': 'text-max-width', 'type': 'number' },
-  
-  'NODE_LABEL': { 'att': 'content', 'type': 'string' },
-  'NODE_LABEL_COLOR': { 'att': 'color', 'type': 'color' },
-  'NODE_LABEL_FONT_SIZE': { 'att': 'font-size', 'type': 'number' },
-  'NODE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
-  'NODE_LABEL_POSITION': { 'att': 'labelPosition', 'type': 'labelPosition' },
-  
-  'NODE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' },
-
-  'EDGE_CURVED': { 'att': 'curve-style', 'type': 'string' },
-  'EDGE_BEND': { 'att': 'curve-style', 'type': 'edgeBend' },
-  
-  'EDGE_WIDTH': { 'att': 'width', 'type': 'number' },
-  'EDGE_LABEL': { 'att': 'label', 'type': 'string' },
-  'EDGE_LABEL_COLOR': { 'att': 'color', 'type': 'color' },
-  'EDGE_LABEL_FONT_SIZE': { 'att': 'font-size', 'type': 'number' },
-  'EDGE_LABEL_FONT_FACE': { 'att': 'font-family', 'type': 'fontFamily' },
-  'EDGE_LABEL_TRANSPARENCY': { 'att': 'text-opacity', 'type': 'opacity' },
-  'EDGE_LINE_TYPE': { 'att': 'line-style', 'type': 'line' },
-  
-  'EDGE_STROKE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
-  'EDGE_UNSELECTED_PAINT': { 'att': 'line-color', 'type': 'color' },
-  'EDGE_TRANSPARENCY': { 'att': 'opacity', 'type': 'opacity' },
-  'EDGE_SOURCE_ARROW_SHAPE': { 'att': 'source-arrow-shape', 'type': 'arrow' },
-  'EDGE_TARGET_ARROW_SHAPE': { 'att': 'target-arrow-shape', 'type': 'arrow' },
-  'EDGE_TARGET_ARROW_UNSELECTED_PAINT': { 'att': 'target-arrow-color', 'type': 'color' },
-  'EDGE_SOURCE_ARROW_UNSELECTED_PAINT': { 'att': 'source-arrow-color', 'type': 'color' },
-
-  'EDGE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' }
-};
-
 
 describe('CX to JS', function () {
 
@@ -130,6 +88,7 @@ describe('CX to JS', function () {
 
     var actualNodeElement;
     var expectedNodeElement;
+
     for (let i = 0; i < elements['nodes'].length; i++) {
       if (elements['nodes'][i]['data']['name'] == 'TULP2') {
         actualNodeElement = elements['nodes'][i];
@@ -716,7 +675,7 @@ describe('CX to JS', function () {
           luma: 2,
           lumb: 1
         }
-      }
+      };
     };
 
     expect(result[0].css['pie-1-background-size'](ele)).to.eql(40);
@@ -933,7 +892,7 @@ describe('CX to JS', function () {
     var cxVP = "NODE_FILL_COLOR";
 
     let jsVisualAttribute = "background-color";
-    var result = cxToJs.getCyVisualAttributeForVP(cxVP, visualPropertyMapForTest);
+    var result = cxToJs.getCyVisualAttributeForVP(cxVP, visualPropertyMap);
 
     expect(result).to.equal(jsVisualAttribute);
   });
@@ -946,7 +905,7 @@ describe('CX to JS', function () {
 
     let jsVisualAttribute = { att: 'background-color', type: 'color' };
 
-    var result = cxToJs.getCyVisualAttributeObjForVP(cxVP, visualPropertyMapForTest);
+    var result = cxToJs.getCyVisualAttributeObjForVP(cxVP, visualPropertyMap);
 
     expect(result).to.eql(jsVisualAttribute);
   });
@@ -959,7 +918,7 @@ describe('CX to JS', function () {
 
     let jsVisualAttributeType = 'color';
 
-    var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP, visualPropertyMapForTest);
+    var result = cxToJs.getCyVisualAttributeTypeForVp(cxVP, visualPropertyMap);
 
     expect(result).to.equal(jsVisualAttributeType);
   });
@@ -1048,7 +1007,7 @@ describe('CX to JS', function () {
       css: { 'width': 3 }
     }];
 
-    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMap);
 
     expect(result).to.eql(jsDiscreetMappingStyle);
   });
@@ -1085,7 +1044,7 @@ describe('CX to JS', function () {
     }
     ];
 
-    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMap);
 
     expect(result).to.eql(jsDiscreetMappingStyle);
   });
@@ -1108,7 +1067,7 @@ describe('CX to JS', function () {
       css: { "target-arrow-fill": "hollow", 'target-arrow-shape': 'triangle' }
     }];
 
-    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
+    var result = cxToJs.discreteMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMap);
 
     expect(result).to.eql(jsDiscreetMappingStyle);
   });
@@ -1169,7 +1128,7 @@ describe('CX to JS', function () {
         "selector": "node[Degree > 18]"
       }];
 
-    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMap);
 
     expect(result).to.eql(jsContinuousMappingStyle);
   });
@@ -1234,7 +1193,7 @@ describe('CX to JS', function () {
         "selector": "node[Degree > 18]"
       }];
 
-    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
+    var result = cxToJs.continuousMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMap);
 
     expect(result).to.eql(jsContinuousMappingStyle);
   });
@@ -1261,7 +1220,7 @@ describe('CX to JS', function () {
         "selector": "node[COMMON]"
       }];
 
-    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMapForTest);
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {},visualPropertyMap);
 
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
@@ -1287,7 +1246,7 @@ describe('CX to JS', function () {
         "selector": "node[COMMON]"
       }];
 
-    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMapForTest);
+    var result = cxToJs.passthroughMappingStyle(cxElementType, cxVP, cxDef, {}, visualPropertyMap);
 
     expect(result).to.eql(jsPassthroughMappingStyle);
   });
@@ -1816,4 +1775,29 @@ describe('CX to JS', function () {
     expect(result).to.eql(pan);
   });
 
+});
+
+it('WP2806 style test', function () {
+  var utils = new CyNetworkUtils();
+  var cxToJs = new CxToJs(utils);
+
+  var content = fs.readFileSync('test_resources/WP2806.cx');
+  var rawCX = JSON.parse(content);
+  var niceCX = utils.rawCXtoNiceCX(rawCX);
+
+  var attributeNameMap = {};
+  var elements = cxToJs.cyElementsFromNiceCX(niceCX, attributeNameMap);
+
+  //var expectedElementsContent = fs.readFileSync('test_resources/small_graph/small_graph_elements.json');
+  //var expectedElementsJson = JSON.parse(expectedElementsContent);
+  //expect(elements.nodes).to.have.deep.members(expectedElementsJson.nodes);
+  //expect(elements.edges).to.have.deep.members(expectedElementsJson.edges);
+
+  var style = cxToJs.cyStyleFromNiceCX(niceCX, attributeNameMap);
+
+  //var expectedStyleContent = fs.readFileSync('test_resources/small_graph/small_graph_style.json');
+  //var expectedStyleJson = JSON.parse(expectedStyleContent);
+  //expect(style).to.have.deep.members(expectedStyleJson);
+
+  console.log(style);
 });
