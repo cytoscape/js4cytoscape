@@ -1066,9 +1066,12 @@ class CxToJs {
                             let sin = Number(pointFields[1]);
                             let ratio = Number(pointFields[2]);
                             //console.log("Cos: " + cos + " Sin: " + sin + " Ratio: " + ratio);
-                            
-                            controlPointDistances.push(sin * ratio);
-                            controlPointWeights.push(cos * ratio);
+                            if( isNaN(cos) || isNaN(sin) || isNaN(ratio)) {
+                                return;
+                            } else {
+                                controlPointDistances.push(sin * ratio);
+                                controlPointWeights.push(cos * ratio);
+                            }
                         });
                         objectProperties['bend-point-distances'] = controlPointDistances;
                         objectProperties['bend-point-weights'] = controlPointWeights;
@@ -1963,7 +1966,7 @@ class CxToJs {
                                         return cy;
                                     };
                                     */
-                                }
+}
                                 
-                                module.exports = { CxToJs };
+module.exports = { CxToJs };
                                 
