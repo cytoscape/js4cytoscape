@@ -14,7 +14,7 @@ let conf = {
   entry: './src/index.js',
 
   output: {
-    filename: 'bundle.js',
+    filename: 'cx-viz-converter.js',
     library: camelcase( pkg.name ),
     libraryTarget: 'umd'
   },

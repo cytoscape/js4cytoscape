@@ -1,0 +1,1302 @@
+[
+    {
+        "numberVerification": [
+            {
+                "longNumber": 281474976710655
+            }
+        ]
+    },
+    {
+        "metaData": [
+            {
+                "name": "edges",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "nodeAttributes",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "edgeAttributes",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "provenanceHistory",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "cartesianLayout",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "cyVisualProperties",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "nodes",
+                "version": "1.0",
+                "consistencyGroup": 1
+            },
+            {
+                "name": "networkAttributes",
+                "version": "1.0",
+                "consistencyGroup": 1
+            }
+        ]
+    },
+    {
+        "edges": [
+            {
+                "@id": 4751,
+                "s": 4700,
+                "t": 4662
+            },
+            {
+                "@id": 4744,
+                "s": 4695,
+                "t": 4700
+            },
+            {
+                "@id": 4739,
+                "s": 4688,
+                "t": 4706
+            },
+            {
+                "@id": 4728,
+                "s": 4675,
+                "t": 4700
+            }
+        ]
+    },
+    {
+        "nodes": [
+            {
+                "@id": 4706,
+                "n": "INSR"
+            },
+            {
+                "@id": 4700,
+                "n": "INS"
+            },
+            {
+                "@id": 4695,
+                "n": "Ca2+"
+            },
+            {
+                "@id": 4688,
+                "n": "INS"
+            },
+            {
+                "@id": 4675,
+                "n": ""
+            },
+            {
+                "@id": 4662,
+                "n": ""
+            }
+        ]
+    },
+    {
+        "edges": []
+    },
+    {
+        "nodeAttributes": [
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "#ffffff",
+                "po": 4706
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "Rectangle",
+                "po": 4706
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4706
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4706
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4706
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "a8f54",
+                "po": 4706
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4706",
+                "po": 4706
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "10.0",
+                "po": 4706
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4706
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "Ensembl",
+                "po": 4706
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "Dialog.plain",
+                "po": 4706
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "GeneProduct",
+                "po": 4706
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "false",
+                "po": 4706
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "ENSG00000171105",
+                "po": 4706
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "24.0",
+                "po": 4706
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "ENSG00000171105",
+                "po": 4706
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "80.0",
+                "po": 4706
+            },
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "#ffffff",
+                "po": 4700
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "Rectangle",
+                "po": 4700
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4700
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4700
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4700
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "bee2d",
+                "po": 4700
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4700",
+                "po": 4700
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "10.0",
+                "po": 4700
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4700
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "Ensembl",
+                "po": 4700
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "Dialog.plain",
+                "po": 4700
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "GeneProduct",
+                "po": 4700
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "false",
+                "po": 4700
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "ENSG00000129965",
+                "po": 4700
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "20.0",
+                "po": 4700
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "ENSG00000129965",
+                "po": 4700
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "58.0",
+                "po": 4700
+            },
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "#ffffff",
+                "po": 4695
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "Rectangle",
+                "po": 4695
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4695
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4695
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#0000ff",
+                "po": 4695
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "d0a5c",
+                "po": 4695
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4695",
+                "po": 4695
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "10.0",
+                "po": 4695
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4695
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "HMDB",
+                "po": 4695
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "Dialog.plain",
+                "po": 4695
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "Metabolite",
+                "po": 4695
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "false",
+                "po": 4695
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "HMDB00464",
+                "po": 4695
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "20.0",
+                "po": 4695
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "",
+                "po": 4695
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "46.0",
+                "po": 4695
+            },
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "#ffffff",
+                "po": 4688
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "Rectangle",
+                "po": 4688
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4688
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4688
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4688
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "e4bc9",
+                "po": 4688
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4688",
+                "po": 4688
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "10.0",
+                "po": 4688
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4688
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "Ensembl",
+                "po": 4688
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "Dialog.plain",
+                "po": 4688
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "GeneProduct",
+                "po": 4688
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "false",
+                "po": 4688
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "ENSG00000129965",
+                "po": 4688
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "20.0",
+                "po": 4688
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "ENSG00000129965",
+                "po": 4688
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "80.0",
+                "po": 4688
+            },
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "0.0",
+                "po": 4675
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "f63ac",
+                "po": 4675
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4675",
+                "po": 4675
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "0.0",
+                "po": 4675
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4675
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "0.0",
+                "po": 4675
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "",
+                "po": 4675
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "0.0",
+                "po": 4675
+            },
+            {
+                "n": "FillColor",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Shape",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "BorderThickness",
+                "d": "double",
+                "v": "0.0",
+                "po": 4662
+            },
+            {
+                "n": "BorderStyle",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "GraphID",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "row.names",
+                "d": "string",
+                "v": "4662",
+                "po": 4662
+            },
+            {
+                "n": "LabelSize",
+                "d": "double",
+                "v": "0.0",
+                "po": 4662
+            },
+            {
+                "n": "IsGPMLShape",
+                "d": "boolean",
+                "v": "false",
+                "po": 4662
+            },
+            {
+                "n": "XrefDatasource",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "LabelFont",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Type",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Transparent",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "XrefId",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Height",
+                "d": "double",
+                "v": "0.0",
+                "po": 4662
+            },
+            {
+                "n": "Ensembl",
+                "d": "string",
+                "v": "",
+                "po": 4662
+            },
+            {
+                "n": "Width",
+                "d": "double",
+                "v": "0.0",
+                "po": 4662
+            }
+        ]
+    },
+    {
+        "edgeAttributes": [
+            {
+                "n": "StartArrow",
+                "d": "string",
+                "v": "Line",
+                "po": 4751
+            },
+            {
+                "n": "EndArrow",
+                "d": "string",
+                "v": "Arrow",
+                "po": 4751
+            },
+            {
+                "n": "ConnectorType",
+                "d": "string",
+                "v": "Curved",
+                "po": 4751
+            },
+            {
+                "n": "LineThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4751
+            },
+            {
+                "n": "LineStyle",
+                "d": "string",
+                "v": "Dashed",
+                "po": 4751
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4751
+            },
+            {
+                "n": "StartArrow",
+                "d": "string",
+                "v": "Line",
+                "po": 4744
+            },
+            {
+                "n": "EndArrow",
+                "d": "string",
+                "v": "Arrow",
+                "po": 4744
+            },
+            {
+                "n": "ConnectorType",
+                "d": "string",
+                "v": "Curved",
+                "po": 4744
+            },
+            {
+                "n": "LineThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4744
+            },
+            {
+                "n": "LineStyle",
+                "d": "string",
+                "v": "Dashed",
+                "po": 4744
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4744
+            },
+            {
+                "n": "StartArrow",
+                "d": "string",
+                "v": "Line",
+                "po": 4739
+            },
+            {
+                "n": "EndArrow",
+                "d": "string",
+                "v": "Arrow",
+                "po": 4739
+            },
+            {
+                "n": "ConnectorType",
+                "d": "string",
+                "v": "Straight",
+                "po": 4739
+            },
+            {
+                "n": "LineThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4739
+            },
+            {
+                "n": "LineStyle",
+                "d": "string",
+                "v": "Solid",
+                "po": 4739
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4739
+            },
+            {
+                "n": "StartArrow",
+                "d": "string",
+                "v": "Line",
+                "po": 4728
+            },
+            {
+                "n": "EndArrow",
+                "d": "string",
+                "v": "Arrow",
+                "po": 4728
+            },
+            {
+                "n": "ConnectorType",
+                "d": "string",
+                "v": "Straight",
+                "po": 4728
+            },
+            {
+                "n": "LineThickness",
+                "d": "double",
+                "v": "1.0",
+                "po": 4728
+            },
+            {
+                "n": "LineStyle",
+                "d": "string",
+                "v": "Solid",
+                "po": 4728
+            },
+            {
+                "n": "Color",
+                "d": "string",
+                "v": "#000000",
+                "po": 4728
+            }
+        ]
+    },
+    {
+        "networkAttributes": [
+            {
+                "n": "wikipathwaysVersion",
+                "d": "string",
+                "v": "94959"
+            },
+            {
+                "n": "rightsHolder",
+                "d": "string",
+                "v": "WikiPathways"
+            },
+            {
+                "n": "disease",
+                "d": "string",
+                "v": "type 2 diabetes mellitus; hyperglycemia"
+            },
+            {
+                "n": "organism",
+                "d": "string",
+                "v": "Human; 9606; Homo sapiens"
+            },
+            {
+                "n": "author",
+                "d": "string",
+                "v": "WikiPathways team"
+            },
+            {
+                "n": "__Annotations",
+                "d": "list_of_string",
+                "v": [
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=ae68b2e9-964e-4754-8ef1-bfa3ed7c3b03|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=716.546618647459|width=5.825740814208984|y=740.0743297318928|z=6|height=6.311219215393066",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=1218e957-89c2-4116-8167-8ba5de61307b|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=178.9325730292117|width=8.738611221313477|y=649.4420768307324|z=5|height=7.7676544189453125",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=a691bcfc-9871-4faf-a4a9-1289e2cdb5b3|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=432.29091636654664|width=4.59755459520234|y=911.0397158863547|z=4|height=5.340262413024902",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=95023f76-7783-4414-aec8-acb564f74ba7|customShape=NZ M 3.4785709381103516 -3.800206422805786 Q 5.470775604248047 -3.976614475250244 5.735387802124023 -0.9883072972297668 Q 6.0 2.0 7.992204666137695 1.823591947555542 Q 6.0 2.0 6.264612197875977 4.988307476043701 Q 6.529224395751953 7.976614475250244 4.5370192527771 8.153022766113281 Z |fillColor=-1|shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Brace|x=891.6316526610644|width=14.314718381208456|y=542.3312324929973|z=1|height=12.646491201799174",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=b8d331ed-5682-45a4-9197-f3cc8ae0c0e6|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=502.3249299719888|width=7.2821760177612305|y=731.8350340136055|z=0|height=7.7676544189453125",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=15f19084-814f-4933-bf4d-816eebdf16aa|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=141.85574229691878|width=10.195046424865723|y=435.2203881552621|z=2|height=9.224089622497559",
+                    "edgeThickness=1.0|canvas=background|fillOpacity=100.0|zoom=0.48547838756677997|type=org.cytoscape.view.presentation.annotations.ShapeAnnotation|uuid=20b4cf51-45bc-473d-823d-5a13e00e1d9a|customShape=NZ M 0.0 50.0 C 0.0 22.385759353637695 22.385759353637695 0.0 50.0 0.0 C 77.61424255371094 0.0 100.0 22.385759353637695 100.0 50.0 C 100.0 77.61424255371094 77.61424255371094 100.0 50.0 100.0 C 22.385759353637695 100.0 0.0 77.61424255371094 0.0 50.0 Z |shapeType=CUSTOM|edgeColor=-16777216|edgeOpacity=100.0|name=Ellipse|x=899.8709483793518|width=66.02506256103516|y=608.2455982392958|z=3|height=36.41088008880615"
+                ]
+            },
+            {
+                "n": "description",
+                "d": "string",
+                "v": "Insulin resistance is strongly associated with type II diabetes. \"Diabetogenic\" factors including FFA, TNFalpha and cellular stress induce insulin resistance through inhibition of IRS1 functions. Serine/threonine phosphorylation, interaction with SOCS, regulation of the expression, modification of the cellular localization, and degradation represent the molecular mechanisms stimulated by them. Various kinases (ERK, JNK, IKKbeta, PKCzeta, PKCtheta and mTOR) are involved in this process.\n\nThe development of type II diabetes requires impaired beta-cell function. Chronic hyperglycemia has been shown to induce multiple defects in beta-cells. Hyperglycemia has been proposed to lead to large amounts of reactive oxygen species (ROS) in beta-cells, with subsequent damage to cellular components including PDX-1. Loss of PDX-1, a critical regulator of insulin promoter activity, has also been proposed as an important mechanism leading to beta-cell dysfunction.\n\n Although there is little doubt as to the importance of genetic factors in type II diabetes, genetic analysis is difficult due to complex interaction among multiple susceptibility genes and between genetic and environmental factors. Genetic studies have therefore given very diverse results. Kir6.2 and IRS are two of the candidate genes. It is known that Kir6.2 and IRS play central roles in insulin secretion and insulin signal transmission, respectively.\n\nSource: [http://www.kegg.jp/dbget-bin/www_bget?pathway+map04930 KEGG]"
+            },
+            {
+                "n": "cell",
+                "d": "string",
+                "v": "pancreatic beta cell"
+            },
+            {
+                "n": "version",
+                "d": "string",
+                "v": "20190411"
+            },
+            {
+                "n": "labels",
+                "d": "string",
+                "v": "WP1584; type 2 diabetes mellitus pathway"
+            },
+            {
+                "n": "wikipathwaysID",
+                "d": "string",
+                "v": "WP1584"
+            },
+            {
+                "n": "rights",
+                "d": "string",
+                "v": "Waiver-No Rights Reserved (CC0)"
+            },
+            {
+                "n": "name",
+                "d": "string",
+                "v": "Neighborhood  query result on network - WP1584 - Type II diabetes mellitus - Homo sapiens"
+            },
+            {
+                "n": "wikipathwaysIRI",
+                "d": "string",
+                "v": "<a href=\"http://identifiers.org/wikipathways/WP1584_r94959\">http://identifiers.org/wikipathways/WP1584_r94959</a>"
+            },
+            {
+                "n": "networkType",
+                "d": "string",
+                "v": "pathway"
+            },
+            {
+                "n": "prov:wasDerivedFrom",
+                "d": "string",
+                "v": "91a8ae89-5ca9-11e9-9f06-0ac135e8bacf"
+            },
+            {
+                "n": "prov:wasGeneratedBy",
+                "d": "string",
+                "v": "NDEx Neighborhood Query/v1.1 (Depth=1; Query terms=\"ins\")"
+            }
+        ]
+    },
+    {
+        "cyVisualProperties": [
+            {
+                "properties_of": "network",
+                "properties": {
+                    "NETWORK_ANNOTATION_SELECTION": "false",
+                    "NETWORK_BACKGROUND_PAINT": "#FFFFFF",
+                    "NETWORK_CENTER_X_LOCATION": "0.0",
+                    "NETWORK_CENTER_Y_LOCATION": "0.0",
+                    "NETWORK_CENTER_Z_LOCATION": "0.0",
+                    "NETWORK_DEPTH": "0.0",
+                    "NETWORK_EDGE_SELECTION": "true",
+                    "NETWORK_HEIGHT": "400.0",
+                    "NETWORK_NODE_SELECTION": "true",
+                    "NETWORK_SCALE_FACTOR": "1.0",
+                    "NETWORK_SIZE": "550.0",
+                    "NETWORK_WIDTH": "550.0"
+                }
+            },
+            {
+                "properties_of": "nodes:default",
+                "dependencies": {
+                    "nodeCustomGraphicsSizeSync": "true",
+                    "nodeSizeLocked": "false"
+                },
+                "mappings": {
+                    "NODE_BORDER_PAINT": {
+                        "definition": "COL=Color,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_BORDER_WIDTH": {
+                        "definition": "COL=BorderThickness,T=double",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_FILL_COLOR": {
+                        "definition": "COL=FillColor,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_HEIGHT": {
+                        "definition": "COL=Height,T=double",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_LABEL": {
+                        "definition": "COL=name,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_LABEL_COLOR": {
+                        "definition": "COL=Color,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_LABEL_FONT_FACE": {
+                        "definition": "COL=LabelFont,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_LABEL_FONT_SIZE": {
+                        "definition": "COL=LabelSize,T=double",
+                        "type": "PASSTHROUGH"
+                    },
+                    "NODE_SHAPE": {
+                        "definition": "COL=Shape,T=string,K=0=Hexagon,V=0=HEXAGON,K=1=Ellipse,V=1=ELLIPSE,K=2=RoundRectangle,V=2=ROUND_RECTANGLE,K=3=Oval,V=3=ELLIPSE,K=4=Rectangle,V=4=RECTANGLE,K=5=Triangle,V=5=TRIANGLE,K=6=Pentagon,V=6=HEXAGON,K=7=Organelle,V=7=ROUND_RECTANGLE,K=8=Octagon,V=8=OCTAGON,K=9=RoundedRectangle,V=9=ROUND_RECTANGLE",
+                        "type": "DISCRETE"
+                    },
+                    "NODE_TRANSPARENCY": {
+                        "definition": "COL=Transparent,T=string,K=0=true,V=0=0,K=1=false,V=1=255",
+                        "type": "DISCRETE"
+                    },
+                    "NODE_WIDTH": {
+                        "definition": "COL=Width,T=double",
+                        "type": "PASSTHROUGH"
+                    }
+                },
+                "properties": {
+                    "COMPOUND_NODE_PADDING": "10.0",
+                    "COMPOUND_NODE_SHAPE": "ROUND_RECTANGLE",
+                    "NODE_BORDER_PAINT": "#CCCCCC",
+                    "NODE_BORDER_STROKE": "SOLID",
+                    "NODE_BORDER_TRANSPARENCY": "255",
+                    "NODE_BORDER_WIDTH": "1.0",
+                    "NODE_CUSTOMGRAPHICS_1": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_2": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_3": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_4": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_5": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_6": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_7": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_8": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_9": "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+                    "NODE_CUSTOMGRAPHICS_POSITION_1": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_2": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_3": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_4": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_5": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_6": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_7": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_8": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_POSITION_9": "C,C,c,0.00,0.00",
+                    "NODE_CUSTOMGRAPHICS_SIZE_1": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_2": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_3": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_4": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_5": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_6": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_7": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_8": "50.0",
+                    "NODE_CUSTOMGRAPHICS_SIZE_9": "50.0",
+                    "NODE_CUSTOMPAINT_1": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_1, name=Node Custom Paint 1)",
+                    "NODE_CUSTOMPAINT_2": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_2, name=Node Custom Paint 2)",
+                    "NODE_CUSTOMPAINT_3": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_3, name=Node Custom Paint 3)",
+                    "NODE_CUSTOMPAINT_4": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_4, name=Node Custom Paint 4)",
+                    "NODE_CUSTOMPAINT_5": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_5, name=Node Custom Paint 5)",
+                    "NODE_CUSTOMPAINT_6": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_6, name=Node Custom Paint 6)",
+                    "NODE_CUSTOMPAINT_7": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_7, name=Node Custom Paint 7)",
+                    "NODE_CUSTOMPAINT_8": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_8, name=Node Custom Paint 8)",
+                    "NODE_CUSTOMPAINT_9": "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_9, name=Node Custom Paint 9)",
+                    "NODE_DEPTH": "0.0",
+                    "NODE_FILL_COLOR": "#FFFFFF",
+                    "NODE_HEIGHT": "35.0",
+                    "NODE_LABEL_COLOR": "#000000",
+                    "NODE_LABEL_FONT_FACE": "SansSerif.plain,plain,12",
+                    "NODE_LABEL_FONT_SIZE": "12",
+                    "NODE_LABEL_POSITION": "C,C,c,0.00,0.00",
+                    "NODE_LABEL_TRANSPARENCY": "255",
+                    "NODE_LABEL_WIDTH": "200.0",
+                    "NODE_NESTED_NETWORK_IMAGE_VISIBLE": "true",
+                    "NODE_PAINT": "#1E90FF",
+                    "NODE_SELECTED": "false",
+                    "NODE_SELECTED_PAINT": "#FFFF00",
+                    "NODE_SHAPE": "ELLIPSE",
+                    "NODE_SIZE": "35.0",
+                    "NODE_TRANSPARENCY": "255",
+                    "NODE_VISIBLE": "true",
+                    "NODE_WIDTH": "75.0",
+                    "NODE_X_LOCATION": "0.0",
+                    "NODE_Y_LOCATION": "0.0",
+                    "NODE_Z_LOCATION": "0.0"
+                }
+            },
+            {
+                "properties_of": "edges:default",
+                "dependencies": {
+                    "arrowColorMatchesEdge": "true"
+                },
+                "mappings": {
+                    "EDGE_LINE_TYPE": {
+                        "definition": "COL=LineStyle,T=string,K=0=Dashed,V=0=LONG_DASH,K=1=Dots,V=1=DOT,K=2=Double,V=2=PARALLEL_LINES,K=3=Solid,V=3=SOLID",
+                        "type": "DISCRETE"
+                    },
+                    "EDGE_SOURCE_ARROW_SHAPE": {
+                        "definition": "COL=StartArrow,T=string,K=0=Arrow,V=0=DELTA,K=1=mim-branching-right,V=1=CROSS_OPEN_DELTA,K=2=mim-covalent-bond,V=2=CROSS_DELTA,K=3=mim-branching-left,V=3=CROSS_DELTA,K=4=mim-transcription-translation,V=4=DELTA,K=5=mim-binding,V=5=ARROW,K=6=Line,V=6=NONE,K=7=mim-cleavage,V=7=DIAMOND,K=8=mim-gap,V=8=DELTA,K=9=mim-stimulation,V=9=OPEN_DELTA,K=10=mim-catalysis,V=10=OPEN_CIRCLE,K=11=mim-inhibition,V=11=T,K=12=TBar,V=12=T,K=13=mim-modification,V=13=DELTA,K=14=mim-necessary-stimulation,V=14=CROSS_OPEN_DELTA,K=15=mim-conversion,V=15=DELTA",
+                        "type": "DISCRETE"
+                    },
+                    "EDGE_TARGET_ARROW_SHAPE": {
+                        "definition": "COL=EndArrow,T=string,K=0=Arrow,V=0=DELTA,K=1=mim-branching-right,V=1=CROSS_OPEN_DELTA,K=2=mim-covalent-bond,V=2=CROSS_DELTA,K=3=mim-branching-left,V=3=CROSS_DELTA,K=4=mim-transcription-translation,V=4=DELTA,K=5=mim-binding,V=5=ARROW,K=6=Line,V=6=NONE,K=7=mim-cleavage,V=7=DIAMOND,K=8=mim-gap,V=8=DELTA,K=9=mim-stimulation,V=9=OPEN_DELTA,K=10=mim-catalysis,V=10=OPEN_CIRCLE,K=11=mim-inhibition,V=11=T,K=12=TBar,V=12=T,K=13=mim-modification,V=13=DELTA,K=14=mim-necessary-stimulation,V=14=CROSS_OPEN_DELTA,K=15=mim-conversion,V=15=DELTA",
+                        "type": "DISCRETE"
+                    },
+                    "EDGE_TOOLTIP": {
+                        "definition": "COL=ConnectorType,T=string,K=0=Elbow,V=0=Elbow,K=1=Curved,V=1=Curved,K=2=Straight,V=2=Straight",
+                        "type": "DISCRETE"
+                    },
+                    "EDGE_UNSELECTED_PAINT": {
+                        "definition": "COL=Color,T=string",
+                        "type": "PASSTHROUGH"
+                    },
+                    "EDGE_WIDTH": {
+                        "definition": "COL=LineThickness,T=double",
+                        "type": "PASSTHROUGH"
+                    }
+                },
+                "properties": {
+                    "EDGE_CURVED": "true",
+                    "EDGE_LABEL_COLOR": "#000000",
+                    "EDGE_LABEL_FONT_FACE": "Dialog.plain,plain,10",
+                    "EDGE_LABEL_FONT_SIZE": "10",
+                    "EDGE_LABEL_TRANSPARENCY": "255",
+                    "EDGE_LABEL_WIDTH": "200.0",
+                    "EDGE_LINE_TYPE": "SOLID",
+                    "EDGE_PAINT": "#323232",
+                    "EDGE_SELECTED": "false",
+                    "EDGE_SELECTED_PAINT": "#FF0000",
+                    "EDGE_SOURCE_ARROW_SELECTED_PAINT": "#FFFF00",
+                    "EDGE_SOURCE_ARROW_SHAPE": "NONE",
+                    "EDGE_SOURCE_ARROW_SIZE": "6.0",
+                    "EDGE_SOURCE_ARROW_UNSELECTED_PAINT": "#000000",
+                    "EDGE_STROKE_SELECTED_PAINT": "#FF0000",
+                    "EDGE_STROKE_UNSELECTED_PAINT": "#848484",
+                    "EDGE_TARGET_ARROW_SELECTED_PAINT": "#FFFF00",
+                    "EDGE_TARGET_ARROW_SHAPE": "NONE",
+                    "EDGE_TARGET_ARROW_SIZE": "6.0",
+                    "EDGE_TARGET_ARROW_UNSELECTED_PAINT": "#000000",
+                    "EDGE_TRANSPARENCY": "255",
+                    "EDGE_UNSELECTED_PAINT": "#404040",
+                    "EDGE_VISIBLE": "true",
+                    "EDGE_WIDTH": "2.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4706,
+                "properties": {
+                    "NODE_Z_LOCATION": "32768.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4700,
+                "properties": {
+                    "NODE_Z_LOCATION": "32768.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4695,
+                "properties": {
+                    "NODE_Z_LOCATION": "32768.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4688,
+                "properties": {
+                    "NODE_Z_LOCATION": "32768.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4675,
+                "properties": {
+                    "NODE_BORDER_PAINT": "#000000",
+                    "NODE_BORDER_TRANSPARENCY": "0",
+                    "NODE_BORDER_WIDTH": "1.0",
+                    "NODE_HEIGHT": "2.0",
+                    "NODE_LABEL_COLOR": "#000000",
+                    "NODE_LABEL_FONT_FACE": "Dialog.plain,plain,12",
+                    "NODE_LABEL_FONT_SIZE": "10",
+                    "NODE_SELECTED_PAINT": "#FFFFCC",
+                    "NODE_SHAPE": "ELLIPSE",
+                    "NODE_TRANSPARENCY": "0",
+                    "NODE_WIDTH": "2.0",
+                    "NODE_Z_LOCATION": "16384.0"
+                }
+            },
+            {
+                "properties_of": "nodes",
+                "applies_to": 4662,
+                "properties": {
+                    "NODE_BORDER_PAINT": "#000000",
+                    "NODE_BORDER_WIDTH": "0.0",
+                    "NODE_HEIGHT": "20.0",
+                    "NODE_LABEL": "Impaired Insulin Secretion",
+                    "NODE_LABEL_COLOR": "#000000",
+                    "NODE_LABEL_FONT_FACE": "Dialog.plain,plain,12",
+                    "NODE_LABEL_FONT_SIZE": "10",
+                    "NODE_SELECTED_PAINT": "#FFFFCC",
+                    "NODE_TRANSPARENCY": "0",
+                    "NODE_WIDTH": "139.0",
+                    "NODE_Z_LOCATION": "28672.0"
+                }
+            },
+            {
+                "properties_of": "edges",
+                "applies_to": 4751,
+                "properties": {
+                    "EDGE_WIDTH": "1.0"
+                }
+            },
+            {
+                "properties_of": "edges",
+                "applies_to": 4744,
+                "properties": {
+                    "EDGE_BEND": "0.9763364866578903,0.21625694167015122,0.9763364866578903|0.9763364866578903,0.21625694167015122,0.9763364866578903",
+                    "EDGE_WIDTH": "1.0"
+                }
+            },
+            {
+                "properties_of": "edges",
+                "applies_to": 4739,
+                "properties": {
+                    "EDGE_WIDTH": "1.0"
+                }
+            },
+            {
+                "properties_of": "edges",
+                "applies_to": 4728,
+                "properties": {
+                    "EDGE_WIDTH": "1.0"
+                }
+            }
+        ]
+    },
+    {
+        "metaData": [
+            {
+                "name": "nodes",
+                "elementCount": 6,
+                "idCounter": 4706,
+                "version": "1.0"
+            },
+            {
+                "name": "edges",
+                "elementCount": 4,
+                "idCounter": 4751,
+                "version": "1.0"
+            },
+            {
+                "name": "nodeAttributes",
+                "elementCount": 102,
+                "version": "1.0"
+            },
+            {
+                "name": "edgeAttributes",
+                "elementCount": 24,
+                "version": "1.0"
+            },
+            {
+                "name": "networkAttributes",
+                "elementCount": 17,
+                "version": "1.0"
+            },
+            {
+                "name": "cyVisualProperties",
+                "elementCount": 13,
+                "version": "1.0"
+            }
+        ]
+    },
+    {
+        "status": [
+            {
+                "error": "",
+                "success": true
+            }
+        ]
+    }
+]

@@ -1,6 +1,6 @@
 {
   "name": "@js4cytoscape/cx2js",
-  "version": "0.6.5",
+  "version": "0.6.8",
   "description": "A cx to Cytoscape JS utility",
   "repository": {
     "type": "git",
@@ -30,8 +30,12 @@
   },
   "dependencies": {
     "cytoscape-canvas": "3.0.1",
+    "fs": "^0.0.1-security",
     "lodash": "^4.17.10"
   },
+  "devDependencies": {
+    "rewire": "^6.0.0"
+  }, 
   "engines": {
     "node": ">=6.3.0"
   },

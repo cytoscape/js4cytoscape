@@ -1,10 +1,10 @@
 To run, first install the necessary modules:
 ```
 $ npm install fs
-$ npm link ../../.
+$ npm link ../../../../.
 ```
 
-Then run via the following:
+If the ```results``` directory doesn't exists, create it first and then run the following:
 
 ```
 $ node convertcx2js.js network.cx

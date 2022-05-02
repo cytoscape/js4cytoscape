@@ -139,7 +139,7 @@
         "source": 0,
         "target": 1,
         "interaction": "neighbor-of",
-        "directed": "false",
+        "directed": false,
         "citation": "pubmed:10438538"
       }
     },
@@ -149,7 +149,7 @@
         "source": 1,
         "target": 0,
         "interaction": "controls-state-change-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:10438538"
       }
     },
@@ -159,7 +159,7 @@
         "source": 1,
         "target": 4,
         "interaction": "neighbor-of",
-        "directed": "false",
+        "directed": false,
         "citation": "pubmed:9199504"
       }
     },
@@ -169,7 +169,7 @@
         "source": 1,
         "target": 6,
         "interaction": "in-complex-with",
-        "directed": "false"
+        "directed": false
       }
     },
     {
@@ -178,7 +178,7 @@
         "source": 1,
         "target": 8,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:9199504"
       }
     },
@@ -188,7 +188,7 @@
         "source": 4,
         "target": 10,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:11500363"
       }
     },
@@ -198,7 +198,7 @@
         "source": 4,
         "target": 3,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:9731215"
       }
     },
@@ -208,7 +208,7 @@
         "source": 4,
         "target": 8,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:9199504"
       }
     },
@@ -218,7 +218,7 @@
         "source": 2,
         "target": 9,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:10882101"
       }
     },
@@ -228,7 +228,7 @@
         "source": 5,
         "target": 4,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:9790884"
       }
     },
@@ -238,7 +238,7 @@
         "source": 9,
         "target": 1,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:11238375"
       }
     },
@@ -248,7 +248,7 @@
         "source": 7,
         "target": 2,
         "interaction": "controls-phosphorylation-of",
-        "directed": "true",
+        "directed": true,
         "citation": "pubmed:12761180"
       }
     }
