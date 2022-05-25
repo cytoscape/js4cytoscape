@@ -8,7 +8,7 @@ This [collection of JS notebooks](https://cytoscape.org/javascript-notebooks/) a
 In order to use js4cytoscape, you can implement notebooks in the collection above by making pull requests to the [javascript-notebooks repo](https://github.com/cytoscape/javascript-notebooks), or add the following to the `<head>` of your own web page:
 ```
 <link rel="stylesheet" href="https://cytoscape.org/javascript-notebooks/js4cytoscape-style.css">
-<script src="https://unpkg.com/js4cytoscape/dist/main.js"></script>
+<script src="https://unpkg.com/js4cytoscape@1.0.0/dist/main.js"></script>
 <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>  
 ```
   
