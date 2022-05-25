@@ -19,7 +19,7 @@ https://www.npmjs.com/org/js4cytoscape
 
 For html users, add this to the `<head>` of your page:
 
-```<script src="https://unpkg.com/js4cytoscape/dist/main.js"></script>```
+```<script src="https://unpkg.com/js4cytoscape@1.0.0/dist/main.js"></script>```
 
 For npm users:
 
