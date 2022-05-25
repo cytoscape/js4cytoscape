@@ -97,8 +97,8 @@ async function commandsRun(cmdString, baseUrl = defaultBaseUrl) {
 
 
 async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
-  const qurl = command2PostQueryUrl(cmdString, baseUrl);
-  let qbody = command2PostQueryBody(cmdString);
+  const qurl = command2postQueryUrl(cmdString, baseUrl);
+  let qbody = command2postQueryBody(cmdString);
   qbody = JSON.stringify(qbody);
   const res = await fetch(qurl, {
     method: 'POST',
@@ -144,7 +144,7 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
 }
 
 
-function command2PostQueryUrl(cmdString, baseUrl = defaultBaseUrl){
+function command2postQueryUrl(cmdString, baseUrl = defaultBaseUrl){
     let pattern =  /\ [A-Za-z0-9_-]*=/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
     let splitCmd = cmdMarkParams.split("XXXXXX");
@@ -156,7 +156,7 @@ function command2PostQueryUrl(cmdString, baseUrl = defaultBaseUrl){
 }
 
 
-function command2PostQueryBody(cmdString){
+function command2postQueryBody(cmdString){
     let pattern =  /\ [A-Za-z0-9_-]*=/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
     let splitCmd = cmdMarkParams.split("XXXXXX");
