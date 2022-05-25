@@ -39,5 +39,6 @@ This code sets a global variable `inCyBrowser` that js4cytoscape will respond to
 ## Library developers
 This library follows the conventions established by the RCy3 package, please refer to it when naming functions, paramaters and files.
 
+If you add or rename src files, be sure to update [webpack.config.js](https://github.com/cytoscape/js4cytoscape/blob/main/packages/js4cytoscape/webpack.config.js#L14).
 
 
