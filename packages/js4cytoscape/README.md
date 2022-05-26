@@ -8,7 +8,7 @@ This [collection of JS notebooks](https://cytoscape.org/javascript-notebooks/) a
 In order to use js4cytoscape, you can implement notebooks in the collection above by making pull requests to the [javascript-notebooks repo](https://github.com/cytoscape/javascript-notebooks), or add the following to the `<head>` of your own web page:
 ```
 <link rel="stylesheet" href="https://cytoscape.org/javascript-notebooks/js4cytoscape-style.css">
-<script src="https://unpkg.com/js4cytoscape/dist/main.js"></script>
+<script src="https://unpkg.com/js4cytoscape@1.0.0/dist/main.js"></script>
 <script src="https://unpkg.com/cytoscape@3.6.0/dist/cytoscape.min.js"></script>  
 ```
   
@@ -39,6 +39,20 @@ This code sets a global variable `inCyBrowser` that js4cytoscape will respond to
 ## Library developers
 This library follows the conventions established by the RCy3 package, please refer to it when naming functions, paramaters and files.
 
-If you add or rename src files, be sure to update [webpack.config.js](https://github.com/cytoscape/js4cytoscape/blob/main/packages/js4cytoscape/webpack.config.js#L14).
+Development protocol:
+ * Push to `develop`
+ * Build with `npm run build`
+   * If you add or rename src files, be sure to update [webpack.config.js](https://github.com/cytoscape/js4cytoscape/blob/main/packages/js4cytoscape/webpack.config.js#L14).
+ * Test [main.js](https://github.com/cytoscape/js4cytoscape/blob/main/packages/js4cytoscape/dist/main.js) locally
+ * When ready to publish:
+   * update version in [pacakge.json](https://github.com/cytoscape/js4cytoscape/blob/main/packages/js4cytoscape/package.json)
+   * merge with `main`
+   * publish to npm (requires permissions)
+
+Publishing with npmjs
+https://www.npmjs.com/package/@js4cytoscape/js4cytoscape
+ * If you have an npmjs account with write permissions and two-factor authentication set up, then you can publish this package to npm.
+   * `npm adduser` (first time only)
+   * `npm publish --access public`
 
 
