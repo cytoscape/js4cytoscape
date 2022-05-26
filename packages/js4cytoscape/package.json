@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/cytoscape/js4cytoscape/issues"
   },
-  "homepage": "https://github.com/cytoscape/js4cytoscape#readme",
+  "homepage": "https://github.com/cytoscape/js4cytoscape/tree/main/packages/js4cytoscape#readme",
   "directories": {
     "doc": "docs"
   },
