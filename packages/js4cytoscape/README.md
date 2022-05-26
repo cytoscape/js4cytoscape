@@ -52,7 +52,7 @@ Development protocol:
 Publishing with npmjs
 https://www.npmjs.com/package/@js4cytoscape/js4cytoscape
  * If you have an npmjs account with write permissions and two-factor authentication set up, then you can publish this package to npm.
-   * `npm adduser` (only have to do this once)
+   * `npm adduser` (first time only)
    * `npm publish --access public`
 
 
