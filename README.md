@@ -17,9 +17,9 @@ The latest versions of these libraries are available in the following npm reposi
 
 https://www.npmjs.com/org/js4cytoscape
 
-For html users, add this to the `<head>` of your page:
+For html users, add this to the `<head>` of your page (specify version `@#.#.#` or remove to get latest):
 
-```<script src="https://unpkg.com/js4cytoscape@1.0.0/dist/main.js"></script>```
+```<script src="https://unpkg.com/@js4cytoscape/js4cytoscape@#.#.#/dist/main.js"></script>```
 
 For npm users:
 
