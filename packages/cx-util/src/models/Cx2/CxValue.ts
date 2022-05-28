@@ -1,0 +1,1 @@
+export type CxValue = string | number | boolean | CxValue[]
