@@ -1,12 +1,12 @@
-export const CoreAspectTagMap = {
+export const CoreAspectTag = {
   Nodes: 'nodes',
   Edges: 'edges',
   NetworkAttributes: 'networkAttributes',
   AttributeDeclaration: 'attributeDeclaration',
   VisualProperties: 'visualProperties'
-}
+} as const
 
-export type CoreAspectTag = typeof CoreAspectTagMap[keyof typeof CoreAspectTagMap]
+export type CoreAspectTag = typeof CoreAspectTag[keyof typeof CoreAspectTag]
 
 
 

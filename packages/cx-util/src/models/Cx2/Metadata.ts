@@ -1,7 +1,7 @@
 import { Aspect } from "./Aspect"
 
 export interface Metadata extends Aspect {
-  metadata: MetadataValue[]
+  metaData: MetadataValue[]
 }
 
 export interface MetadataValue {

@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Utilities and types for CX2",
   "main": "index.js",
-  "devDependencies": {
-    "@js4cytoscape/cx2js": "^0.6.8"
-  },
   "scripts": {
     "build": "tsc --project . --module commonjs --outDir ./dist",
     "test": "jest"
@@ -23,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/cytoscape/js4cytoscape/issues"
   },
-  "homepage": "https://github.com/cytoscape/js4cytoscape#readme"
+  "homepage": "https://github.com/cytoscape/js4cytoscape#readme",
+  "devDependencies": {
+    "@js4cytoscape/ndex-client": "file:packages/ndex-client"
+  }
 }
