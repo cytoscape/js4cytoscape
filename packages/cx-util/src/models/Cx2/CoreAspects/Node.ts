@@ -1,7 +1,7 @@
 import { Attribute } from './Attribute'
 
 export interface Node {
-  id: number
+  readonly id: number // Long integer
   v?: Attribute
   x?: number
   y?: number

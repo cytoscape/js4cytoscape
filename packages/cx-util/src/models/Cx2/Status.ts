@@ -6,8 +6,8 @@ import { Aspect } from './Aspect'
 export interface Status extends Aspect {
   status: [
     {
-      error?: string
-      success: boolean
+      readonly error?: string
+      readonly success: boolean
     }
   ]
 }

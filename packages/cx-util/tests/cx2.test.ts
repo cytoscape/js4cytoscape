@@ -1,6 +1,6 @@
 import { Cx2 } from '../src/models/Cx2'
 import { CxDescriptor } from '../src/models/Cx2/CxDescriptor'
-import { toNiceCx, getNodes } from '../src/util/cx2-util'
+import { toCx2Network } from '../src/util/cx2-util'
 
 import * as fs from 'fs/promises'
 import { Status } from '../src/models/Cx2/Status'
@@ -8,8 +8,8 @@ import { Aspect } from '../src/models/Cx2/Aspect'
 import { Metadata, MetadataValue } from '../src/models/Cx2/Metadata'
 
 // Original Data
-const MUSIC_URL =
-  'https://public.ndexbio.org/v3/networks/7fc70ab6-9fb1-11ea-aaef-0ac135e8bacf'
+// const MUSIC_URL =
+//   'https://public.ndexbio.org/v3/networks/7fc70ab6-9fb1-11ea-aaef-0ac135e8bacf'
 
 describe('CX2 file loading basic setup', () => {
   it('Load CX2 as text file, and check its contents', async () => {
@@ -38,10 +38,7 @@ describe('CX2 file loading basic setup', () => {
     expect(status[0].success).toBe(true)
     expect(status[0].error).toBeUndefined()
 
-    const nodes: Node[] = getNodes(musicCx2)
-    expect(nodes.length).toBe(70)
-
-    const niceCx = toNiceCx(musicCx2)
-    // console.info(niceCx)
+    const cx2Network = toCx2Network(musicCx2)
+    console.info(cx2Network)
   })
 })
