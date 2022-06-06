@@ -2,7 +2,7 @@ import { Node } from '../Cx2/CoreAspects/Node'
 import { Edge } from '../Cx2/CoreAspects/Edge'
 import { NetworkAttributeValue } from '../Cx2/CoreAspects/NetworkAttributes'
 
-export interface Cx2Network {
+export interface Cx2Core {
   networkAttributes: NetworkAttributeValue
 
   nodes: {
@@ -13,5 +13,7 @@ export interface Cx2Network {
     [id: number]: Edge
   }
 
-  opaqueAspects: Map<string, object[]>
+  // opaqueAspects: Map<string, object[]>
 }
+
+export type Cx2Network = Cx2Core & { [key: string]: object[] | object }

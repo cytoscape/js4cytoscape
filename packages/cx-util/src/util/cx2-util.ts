@@ -4,9 +4,9 @@ import { NetworkAttributeValue } from '../models/Cx2/CoreAspects/NetworkAttribut
 import { CoreAspectTag } from '../models/Cx2/CoreAspectTag'
 import { CxDescriptor } from '../models/Cx2/CxDescriptor'
 import { NiceCx } from '../models/Cx2/NiceCx'
-import { Cx2Network } from '../models/Cx2Network'
 import { Node } from '../models/Cx2/CoreAspects/Node'
 import { Edge } from '../models/Cx2/CoreAspects/Edge'
+import { Cx2Network } from '../models/Cx2Network'
 
 const isAspect = (aspect: Aspect | CxDescriptor): boolean => {
   const keys = Object.keys(aspect)
@@ -44,8 +44,7 @@ const toCx2Network = (cx2: Cx2): Cx2Network => {
   const cx2Network: Cx2Network = {
     networkAttributes,
     nodes: {},
-    edges: {},
-    opaqueAspects: new Map<string, object[]>(),
+    edges: {}
   }
 
   cx2.forEach((fragment: CxDescriptor | Aspect) => {
@@ -53,6 +52,7 @@ const toCx2Network = (cx2: Cx2): Cx2Network => {
       const aspect = fragment as Aspect
       const aspectName: string = Object.keys(aspect)[0]
       const aspectValues: object[] = aspect[aspectName]
+
       if (aspectName === CoreAspectTag.Nodes) {
         const nodes: Node[] = aspectValues as Node[]
         nodes.forEach((node: Node) => {
@@ -66,7 +66,8 @@ const toCx2Network = (cx2: Cx2): Cx2Network => {
       } else if (aspectName === CoreAspectTag.NetworkAttributes) {
         cx2Network.networkAttributes = aspectValues[0] as NetworkAttributeValue
       } else {
-        cx2Network.opaqueAspects.set(aspectName, aspectValues)
+        // cx2Network.opaqueAspects.set(aspectName, aspectValues)
+        cx2Network[aspectName] = aspectValues
       }
     }
   })
