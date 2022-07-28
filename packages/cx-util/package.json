@@ -1,0 +1,27 @@
+{
+  "name": "cx-util",
+  "version": "0.1.0",
+  "description": "Utilities and types for CX2",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project . --module commonjs --outDir ./dist",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cytoscape/js4cytoscape.git"
+  },
+  "keywords": [
+    "cytoscape",
+    "graph"
+  ],
+  "author": "Keiichiro Ono",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cytoscape/js4cytoscape/issues"
+  },
+  "homepage": "https://github.com/cytoscape/js4cytoscape#readme",
+  "devDependencies": {
+    "@js4cytoscape/ndex-client": "file:packages/ndex-client"
+  }
+}
