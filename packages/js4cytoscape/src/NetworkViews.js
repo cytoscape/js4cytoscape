@@ -1,3 +1,9 @@
+/**
+ * List the SUIDs for all network views associated with a given network.
+ *
+ * @param {*} [network=null]
+ * @return {*} 
+ */
 async function getNetworkViews(network = null, baseUrl = defaultBaseUrl){
     let netSuid = await getNetworkSuid(network, baseUrl);
     let cmd = "networks/" + netSuid + "/views";
@@ -6,14 +12,12 @@ async function getNetworkViews(network = null, baseUrl = defaultBaseUrl){
     return res;
 }
 
-
-async function getNetworkViewsSuid(network = null, baseUrl = defaultBaseUrl){
-    let netSuid = await getNetworkSuid(network, baseUrl);
-    let anyViews = await getNetworkViews(netSuid, baseUrl);
-    return anyViews;
-}
-
-
+/**
+ * Zoom to fit network content to current window in Cytoscape.
+ *
+ * @param {boolean} [selectedOnly=false]
+ * @param {*} [network=null]
+ */
 async function fitContent(selectedOnly = false, network = null, baseUrl = defaultBaseUrl){
     let viewSuid = await getNetworkViewsSuid(network, baseUrl);
     let selected = 'view fit selected view=SUID:'  + viewSuid;
@@ -25,6 +29,12 @@ async function fitContent(selectedOnly = false, network = null, baseUrl = defaul
     }
 }
 
+/**
+ * Set the current network view.
+ *
+ * @param {*} [network=null]
+ * @param {*} [baseUrl=defaultBaseUrl]
+ */
 async function setCurrentView(network = null, baseUrl = defaultBaseUrl){
     let viewSuid = await getNetworkViewsSuid(network, baseUrl);
     commandsPOST('view set current view=SUID:"' + viewSuid + '"', baseUrl=baseUrl);

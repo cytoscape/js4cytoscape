@@ -3,18 +3,17 @@
  memory usage and a function to free Java memory used by the Cytoscape session. 
  ------------------------------------------------------------------------------*/
 
-/* 
-cyBadge
-  Reports the status of your local instance of Cytoscape, displaying the version 
-  if it is successfully detected. Expects an element with class="cytoscape-badge"
-  and the js4cytoscape-style.css. CyBrowser compatible.
-*/
-let cyrunning;
-let cybadgeKey;
-let cybadgeVal;
-let cybadgeElm;
-let cyversion;
-
+/**
+ * Reports the status of your local instance of Cytoscape, displaying the version
+ * if it is successfully detected. Expects an element with class="cytoscape-badge"
+ * and the js4cytoscape-style.css. CyBrowser compatible.
+ *
+ */
+ let cyrunning;
+ let cybadgeKey;
+ let cybadgeVal;
+ let cybadgeElm;
+ let cyversion;
 async function cyBadge(baseUrl = defaultBaseUrl) {
 if (inCyBrowser){
     console.log('cytoscape is running and CyBrowser detected');
@@ -34,7 +33,7 @@ if (inCyBrowser){
 } else {
   cyrunning = false;
   try {
-    cyversion = await cyrestGET('version');
+    cyversion = cyrestGET('version', baseUrl = baseUrl);
     cyrunning = true;
     console.log('cytoscape v' + cyversion["cytoscapeVersion"] + ' is running');
   } catch(err){
@@ -62,13 +61,14 @@ if (inCyBrowser){
 }
 }
 
-/*
-checkCytoscape - DEPRECATED
-  Checks the local running version of Cytoscape and updates a #cytobutton element.
-*/
-async function checkCytoscape() {
+
+/**
+ * @deprecated
+ * Checks the local running version of Cytoscape and updates a #cytobutton element.
+ */
+async function checkCytoscape(baseUrl = defaultBaseUrl) {
     try {
-      let res = await cyrestGET('version');
+      let res = cyrestGET('version', baseUrl = baseUrl);
       disabledButton = false;
     } catch(err){
       disabledButton = true;
@@ -79,10 +79,12 @@ async function checkCytoscape() {
     if (disabledButton) document.getElementById("cytobutton").setAttribute('title',"Download Cytoscape");
 }
 
-/*
-cytoscapeVersionInfo
-    Returns the version of Cytoscape running locally. Not compatible with CyBrowser.
-*/
+/**
+ * Returns the version of Cytoscape running locally. Not compatible with CyBrowser.
+ *
+ * @param {*} [baseUrl=defaultBaseUrl]
+ * @return {*} 
+ */
 async function cytoscapeVersionInfo(baseUrl = defaultBaseUrl) {
     let res = cyrestGET('version', baseUrl = baseUrl);
     const apiVersion = res.then(data => { console.log("apiVersion: " + data['apiVersion']) });
@@ -90,10 +92,11 @@ async function cytoscapeVersionInfo(baseUrl = defaultBaseUrl) {
     return data['cytoscapeVersion'];
 }
 
-/*
-cytoscapeMemoryStatus
-    Returns the version of Cytoscape running locally. Not compatible with CyBrowser.
-*/
+/**
+ * Returns the version of Cytoscape running locally. Not compatible with CyBrowser.
+ *
+ * @return {*} 
+ */
 async function cytoscapeMemoryStatus(baseUrl = defaultBaseUrl) {
     let res = cyrestGET('', '', baseUrl = baseUrl);
     const memory = res.then(data => { console.log(data['memoryStatus']) });

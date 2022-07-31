@@ -1,4 +1,13 @@
-async function importNetworkFromNDEX(serverUrl=serverUrl, uuid, username, password) {
+/**
+ * Import a network from NDEx
+ *
+ * @param {*} [serverUrl=serverUrl]
+ * @param {*} uuid
+ * @param {*} username
+ * @param {*} password
+ * @return {*} 
+ */
+async function importNetworkFromNDEx(serverUrl=serverUrl, uuid, username, password) {
     const cyRESTParams = {
         serverUrl: serverUrl,
         uuid: uuid,
@@ -23,6 +32,17 @@ async function importNetworkFromNDEX(serverUrl=serverUrl, uuid, username, passwo
 }
 
 
+/**
+ * Export a network to NDEx
+ *
+ * @param {*} [serverUrl=serverUrl]
+ * @param {*} username
+ * @param {*} password
+ * @param {*} isPublic
+ * @param {string} [network='current']
+ * @param {*} [metadata=null]
+ * @return {*} 
+ */
 async function exportNetworkToNDEx(serverUrl=serverUrl, username, password, isPublic, network='current', metadata=null) {
     const cyRESTParams = {
         serverUrl: serverUrl,

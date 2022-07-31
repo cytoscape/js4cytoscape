@@ -6,6 +6,13 @@ const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
                   "cyChart", "cyREST"]
 
 
+/**
+ * Update an app or all apps.
+ *
+ * @param {String} tabId
+ * @param {String} buttonId
+ * @return null
+ */
 async function updateAllApps(tabId, buttonId, baseUrl = defaultBaseUrl) {
     let res = await commandsGET('apps update app=', baseUrl=baseUrl);
     renderAllAppUpdates(tabId)
@@ -13,6 +20,11 @@ async function updateAllApps(tabId, buttonId, baseUrl = defaultBaseUrl) {
     return res;
 }
 
+/**
+ * Return a list of the apps that have updates in the app store.
+ *
+ * @param {String} buttonId
+ */
 async function checkUpdateApp(buttonId) {
     let res = await commandsGET('apps list updates')
     const button = document.getElementById(buttonId);
@@ -24,6 +36,11 @@ async function checkUpdateApp(buttonId) {
 }
 
 
+/**
+ * Render a list of currently installed apps.
+ *
+ * @param {String} tabId
+ */
 function renderCurrentlyInstalledApp(tabId) {
     let apps = Promise.resolve(getInstalledApps())
     enableAppTitle = '<h4>Installed Apps</h4>'

@@ -1,3 +1,8 @@
+/**
+ * Set the current network the Cytoscape session.
+ *
+ * @param {*} [network=null]
+ */
 async function setCurrentNetwork(network = null, baseUrl = defaultBaseUrl){
     let suid = await getNetworkSuid(network, baseUrl);
     let cmd = 'network set current network=SUID:"' + suid + '"';
@@ -5,6 +10,12 @@ async function setCurrentNetwork(network = null, baseUrl = defaultBaseUrl){
 }
 
 
+/**
+ * Rename a network.
+ *
+ * @param {*} title
+ * @param {*} [network=null]
+ */
 async function renameNetwork(title, network = null, baseUrl = defaultBaseUrl){
     let oldSuid = await getNetworkSuid(network, baseUrl);
     let cmd = 'network rename name="' + title + '" sourceNetwork=SUID:"' + oldSuid +'""';
@@ -12,6 +23,11 @@ async function renameNetwork(title, network = null, baseUrl = defaultBaseUrl){
 }
 
 
+/**
+ * Count the networks in the Cytoscape session.
+ *
+ * @return {*} Number of networks
+ */
 async function getNetworkCount(baseUrl = defaultBaseUrl){
     let cmd = cyrestGET('networks/count', baseUrl);
     let res = cmd.then(data => { console.log(data['count']) });
@@ -19,18 +35,34 @@ async function getNetworkCount(baseUrl = defaultBaseUrl){
     return res;
 }
 
+/**
+ * Delete a network from Cytoscape session.
+ *
+ * @param {*} [network=null]
+ */
 async function deleteNetwork(network = null, baseUrl = defaultBaseUrl) {
     let suid = await getNetworkSuid(network, baseUrl)
     let res = cyrestDELETE('networks/' + suid, baseUrl = baseUrl);
     console.log("Selected network is deleted.")
 }
 
+/**
+ * Delete all networks from Cytoscape session.
+ *
+ */
 async function deleteAllNetworks(baseUrl = defaultBaseUrl) {
     let res = cyrestDELETE('networks', baseUrl = baseUrl);
     console.log("All networks are deleted.")
 }
 
 
+/**
+ * Get the SUID for a network by title.
+ *
+ * @param {*} [title=null]
+ * @param {*} [baseUrl=defaultBaseUrl]
+ * @return {*} 
+ */
 async function getNetworkSuid(title = null, baseUrl = defaultBaseUrl){
       let networkTitle;
       if (typeof title === 'string' || title instanceof String){
@@ -62,6 +94,11 @@ async function getNetworkSuid(title = null, baseUrl = defaultBaseUrl){
       return res;
 }
 
+/**
+ * Retrieve the list of networks in Cytoscape session.
+ *
+ * @return {*} 
+ */
 async function getNetworkList(baseUrl = defaultBaseUrl){
       let count = await getNetworkCount(baseUrl);
       if(count == 0) {

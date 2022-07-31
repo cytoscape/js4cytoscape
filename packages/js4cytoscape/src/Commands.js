@@ -1,4 +1,11 @@
 // I. CyREST API functions
+/**
+ * Send GET request to CyREST.
+ *
+ * @param {string} [operation='']
+ * @param {string} [parameters='']
+ * @return {string} JSON 
+ */
 async function cyrestGET(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
@@ -16,7 +23,13 @@ async function cyrestGET(operation = '', parameters = '', baseUrl = defaultBaseU
       return json;
 }
 
-
+/**
+ * Send DELETE request to CyREST.
+ *
+ * @param {string} [operation='']
+ * @param {string} [parameters='']
+ * @return {string} JSON 
+ */
 async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
@@ -35,6 +48,14 @@ async function cyrestDELETE(operation = '', parameters = '', baseUrl = defaultBa
 }
 
 
+/**
+ * Send POST request to CyREST.
+ *
+ * @param {string} [operation='']
+ * @param {string} [parameters='']
+ * @param {*} [body={}]
+ * @return {*} 
+ */
 async function cyrestPOST(operation = '', parameters = '', body = {}, baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
@@ -54,7 +75,14 @@ async function cyrestPOST(operation = '', parameters = '', body = {}, baseUrl = 
       return json;
 }
 
-
+/**
+ * Send PUT request to CyREST.
+ *
+ * @param {string} [operation='']
+ * @param {string} [parameters='']
+ * @param {*} [body={}]
+ * @return {*} 
+ */
 async function cyrestPUT(operation = '', parameters = '', body = {}, baseUrl = defaultBaseUrl) {
     let qurl = baseUrl.concat('/', operation);
     if (parameters != '') {
@@ -76,6 +104,12 @@ async function cyrestPUT(operation = '', parameters = '', body = {}, baseUrl = d
 
 
 // II. Commands API functions
+/**
+ * Send GET request to CyREST Commands API
+ *
+ * @param {*} cmdString
+ * @return {*} 
+ */
 async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
   const qurl = command2getQuery(cmdString, baseUrl)
   const res = await fetch(qurl, {
@@ -89,13 +123,12 @@ async function commandsGET(cmdString, baseUrl = defaultBaseUrl) {
     return json;
 }
 
-
-
-async function commandsRun(cmdString, baseUrl = defaultBaseUrl) {
-    commandsGET(cmdString, baseUrl=baseUrl);
-}
-
-
+/**
+ * Send POST request to CyREST Commands API
+ *
+ * @param {*} cmdString
+ * @return {*} 
+ */
 async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
   const qurl = command2postQueryUrl(cmdString, baseUrl);
   let qbody = command2postQueryBody(cmdString);
@@ -113,6 +146,12 @@ async function commandsPOST(cmdString, baseUrl = defaultBaseUrl) {
 }
 
 
+/**
+ * Process command string to correct syntax for commandsGET
+ *
+ * @param {*} cmdString
+ * @return {*} 
+ */
 function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     let pattern =  /\ [A-Za-z0-9_-]*=/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
@@ -143,7 +182,12 @@ function command2getQuery(cmdString, baseUrl = defaultBaseUrl){
     }
 }
 
-
+/**
+ * Process command string to correct syntax for URL in commandsPOST
+ *
+ * @param {*} cmdString
+ * @return {*} 
+ */
 function command2postQueryUrl(cmdString, baseUrl = defaultBaseUrl){
     let pattern =  /\ [A-Za-z0-9_-]*=/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");
@@ -155,7 +199,12 @@ function command2postQueryUrl(cmdString, baseUrl = defaultBaseUrl){
     return urlPost;
 }
 
-
+/**
+ * Process command string to correct syntax for Body in commandsPOST
+ *
+ * @param {*} cmdString
+ * @return {*} 
+ */
 function command2postQueryBody(cmdString){
     let pattern =  /\ [A-Za-z0-9_-]*=/g;
     let cmdMarkParams = cmdString.replace(pattern, "XXXXXX$&");

@@ -2,13 +2,13 @@
  Functions for managing Cytoscape SESSIONS, including save, open and close.
 ------------------------------------------------------------------------------*/
 
-/*
-openSession
-  Opens a session file. If no file is provided, then it opens YeastPerturbation.cys.
-  CyBrowser compatible.
-  
-  - fileLocation = local file or URL
-*/
+/**
+ * Opens a session file. If no file is provided, then it opens YeastPerturbation.cys.
+ * CyBrowser compatible.
+ * 
+ * @param {String} fileLocation Path to local file or URL
+ * @return null 
+ */
 async function openSession(fileLocation=null, baseUrl=defaultBaseUrl) {
     let type = 'file';
     if(fileLocation === null){
@@ -29,15 +29,14 @@ async function openSession(fileLocation=null, baseUrl=defaultBaseUrl) {
     }
 }
 
-/*
-closeSession
-  Closes the current session. Can save before closing.
-  CyBrowser compatible.
-  
-  - saveBeforeClosing = boolean. A false arg is required (not assumed) to 
-  close without saving.
-  - filename = name of file (only used if saving)
-*/
+/**
+ * Closes the current session. Can save before closing.
+ * CyBrowser compatible.
+ * 
+ * @param {Boolean} saveBeforeClosing A false arg is required (not assumed) to 
+ * close without saving.
+ * @param {String} filename Name of file (only used if saving)
+ */
 async function closeSession(saveBeforeClosing, filename=null, baseUrl=defaultBaseUrl) {
     if(saveBeforeClosing) saveSession(filename, baseUrl);
     let cmd = 'session new';
@@ -53,12 +52,11 @@ async function closeSession(saveBeforeClosing, filename=null, baseUrl=defaultBas
     }
 }
 
-/*
-saveSession
-  Saves the current session. Saves as a new file if not previously saved.
-  CyBrowser compatible (except for the optional cyREST check on current session name).
-  
-  - filename = name of file
+/**
+ * Saves the current session. Saves as a new file if not previously saved.
+ * CyBrowser compatible (except for the optional cyREST check on current session name).
+ * 
+ * @param {String} filename Name of file
 */
 async function saveSession(filename=null, baseUrl=defaultBaseUrl) {
     if (filename === null){
