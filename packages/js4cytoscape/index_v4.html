@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <script src="dist/main.js"></script>
     <link rel="icon" href="img/tab.png">
     <title>App Manager</title>
   </head>
@@ -112,11 +112,11 @@
 <!-- Additional JavaScript -->
 <script type="text/javascript">
 window.addEventListener('load', function() { 
-    if(window.navigator.userAgent.includes('CyBrowser')){  
-        alert("CyBrowser detected!");
+    // if(window.navigator.userAgent.includes('CyBrowser')){  
+        // alert("CyBrowser detected!");
         renderInstalledApps('enabledApps');
         renderDisabledApps('disabledApps');
-    }
+    // }
 });
 
 
@@ -129,7 +129,7 @@ const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
 
 
 function renderInstalledApps(tabId) {  
-    alert("renderInstalledApps called!");
+    // alert("renderInstalledApps called!");
     let apps = Promise.resolve(getInstalledAppsCyB())
     apps.then(data => {
         array = data.split('\n');
@@ -201,20 +201,27 @@ async function switchToggleAndReload(checkbox, app) {
     }else{
         let res = await disableAppCyB(app);
    }
-   location.reload(true);
+//    location.reload(true);
 }
 
 async function uninstallAndReload(app) {
     let res = await uninstallAppCyB(app);
-    location.reload(true);
+
+    var table = document.getElementById("enabledApps");
+for (var i = 0, row; row = table.rows[i]; i++) {
+        anamevar = row.cells[0].textContent.replace(/\W/g,"");
+        if (anamevar.includes(app)) {
+            row.remove();
+        }
+    }
 }
 
 async function getInstalledAppsCyB() {
-    let res = await cybrowser.executeCyCommand('apps list installed'); // commandsGET
+    let res = await commandsGET('apps list installed'); // commandsGET | cybrowser.executeCyCommand
     return res;
 }
 async function getDisabledAppsCyB() {
-    let res = await cybrowser.executeCyCommand('apps list disabled'); 
+    let res = await commandsGET('apps list disabled'); 
     return res;
 }
 async function getAppUpdatesCyB(baseUrl = defaultBaseUrl) {
