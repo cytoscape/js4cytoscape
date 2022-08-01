@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="img/tab.png">
+    <title>App Manager</title>
+  </head>
+  <style>
+  h3 {
+    text-align: center;
+      }
+  body {
+    font-size: 1rem;
+  }
+  a {
+    text-decoration: none;
+    font-size: 1.4rem;
+  }
+  .center-text {
+        text-align: center;
+        display: block;
+      }
+  td {
+      padding: 5px;
+    }
+  .btn {
+    border-radius: 30px;
+    border-width: thin;
+    border-color: #F7941E;
+  }
+  .btn:focus {
+    color: grey;
+  }
+  .btn-enabled{
+    background-color: #F7941E; /* cytoscape orange */
+    color: white;
+  }
+  .btn-disabled{
+    background-color: white; 
+    color: #F7941E;
+  }
+  .center {
+    margin: auto;
+    width: 500px;
+    border: 5px;
+    padding: 10px;
+  }
+
+  /* ON/OFF SWITCH */
+  .onoffswitch {
+        position: relative; width: 95px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        border: 2px solid #4d4d4d; border-radius: 20px;
+    }
+    .onoffswitch-inner {
+        display: block; width: 200%; margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
+        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: normal;
+        box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+        content: "Enabled";
+        padding-left: 10px;
+        background-color: #F7941E; color: #FFFFFF;
+    }
+    .onoffswitch-inner:after {
+        content: "Disabled";
+        padding-right: 10px;
+        background-color: #FFFFFF; color: #F7941E;
+        text-align: right;
+    }
+    .onoffswitch-switch {
+        display: block; width: 16px; margin: 2px;
+        background: #666666;
+        position: absolute; top: 0; bottom: 0;
+        right: 71px;
+        border: 2px solid #999999; border-radius: 20px;
+        transition: all 0.3s ease-in 0s; 
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0px; 
+    }
+  </style>
+
+  <body>
+
+    <div class="center">
+        <img src="img/logo_mgr_large.png" width="400px"/>
+        <p style="margin-left:20px; margin-top:0px;">Visit the <a href="https://apps.cytoscape.org">App Store</a> to find and install new apps.</p>
+        <br />
+        <table id ="enabledApps"></table>
+        <table id ="disabledApps"></table>
+    </div>
+     
+<!-- Additional JavaScript -->
+<script type="text/javascript">
+window.addEventListener('load', function() { 
+    if(window.navigator.userAgent.includes('CyBrowser')){  
+        alert("CyBrowser detected!");
+        renderInstalledApps('enabledApps');
+        renderDisabledApps('disabledApps');
+    }
+});
+
+
+const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
+                  "Core Apps", "CyNDEx-2", "CyCL", "Diffusion", "FileTransfer",
+                  "ID Mapper", "JSON Support", "Network Merge", "NetworkAnalyzer",
+                  "OpenCL Prefuse Layout", "PSI-MI Reader", "PSICQUIC Web Service Client",
+                  "SBML Reader", "aMatReader", "copycatLayout", "cyBrowser",
+                  "cyChart", "cyREST"]
+
+
+function renderInstalledApps(tabId) {  
+    alert("renderInstalledApps called!");
+    let apps = Promise.resolve(getInstalledAppsCyB())
+    apps.then(data => {
+        array = data.split('\n');
+        array = array.map(function(a){
+            a = a.split(',');
+            a = a.map(function(i){
+                i = i.split(': ')[1];
+                return i;
+            })
+            return a;
+        });
+        array.forEach(app => {
+            var aname=app[0];
+            if (typeof aname == 'undefined') { aname = "";} //resolve null
+            var anamevar = aname.replace(/\W/g,"");
+            var aver=app[1];
+            var astat=app[2];
+            if (aname.length > 0 && !coreApps.includes(aname)){
+                arow = '<tr><td><img src="img/trash.png" height="23px" style="float:left;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
+                arow += '<div class="onoffswitch" style="float:left;"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"' +
+                    'id="'+anamevar+'" tabindex="0" checked onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">' +
+                    '<label class="onoffswitch-label" for="'+anamevar+'">'+
+                    '<span class="onoffswitch-inner"></span>'+
+                    '<span class="onoffswitch-switch"></span></label></div>';    
+                arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
+                document.getElementById(tabId).innerHTML += arow;
+            }
+        });
+    });
+}
+
+function renderDisabledApps(tabId) {  
+    let apps = Promise.resolve(getDisabledAppsCyB())
+    apps.then(data => {
+        array = data.split('\n');
+        array = array.map(function(a){
+            a = a.split(',');
+            a = a.map(function(i){
+                i = i.split(': ')[1];
+                return i;
+            })
+            return a;
+        });
+        array.forEach(app => {
+            var aname=app[0];
+            if (typeof aname == 'undefined') { aname = "";} //resolve null
+            var anamevar = aname.replace(/\W/g,"");
+            var aver=app[1];
+            var astat=app[2];
+            if (aname.length > 0 && !coreApps.includes(aname)){
+                arow = '<tr><td><img src="img/trash.png" height="23px" style="float:left;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
+                arow += '<div class="onoffswitch" style="float:left;"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"' +
+                    'id="'+anamevar+'" tabindex="0" onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">' +
+                    '<label class="onoffswitch-label" for="'+anamevar+'">'+
+                    '<span class="onoffswitch-inner"></span>'+
+                    '<span class="onoffswitch-switch"></span></label></div>';
+                arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
+
+                document.getElementById(tabId).innerHTML += arow;
+            }
+        });
+    });
+    
+}
+
+async function switchToggleAndReload(checkbox, app) {
+    if(checkbox.checked == true){
+        let res = await enableAppCyB(app);
+    }else{
+        let res = await disableAppCyB(app);
+   }
+   location.reload(true);
+}
+
+async function uninstallAndReload(app) {
+    let res = await uninstallAppCyB(app);
+    location.reload(true);
+}
+
+async function getInstalledAppsCyB() {
+    let res = await cybrowser.executeCyCommand('apps list installed'); // commandsGET
+    return res;
+}
+async function getDisabledAppsCyB() {
+    let res = await cybrowser.executeCyCommand('apps list disabled'); 
+    return res;
+}
+async function getAppUpdatesCyB(baseUrl = defaultBaseUrl) {
+    let res = await cybrowser.executeCyCommand('apps list updates');
+    return res;
+}
+async function disableAppCyB(app, baseUrl = defaultBaseUrl) {
+    let res = await cybrowser.executeCyCommand('apps disable app=' + "'" + app + "'");
+    return res;
+}
+async function enableAppCyB(app, baseUrl = defaultBaseUrl) {
+    let res = await cybrowser.executeCyCommand('apps enable app=' + "'" + app + "'");
+    return res;
+}
+async function uninstallAppCyB(app, baseUrl = defaultBaseUrl) {
+    let res = await cybrowser.executeCyCommand('apps uninstall app=' + "'" + app + "'");
+    return res;
+}
+
+/**
+ * Update an app or all apps.
+ *
+ * @param {String} tabId
+ * @param {String} buttonId
+ * @return null
+ */
+ async function updateAllApps(tabId, buttonId) {
+    let res = await executeCyCommand('apps update app=');
+    renderAllAppUpdates(tabId)
+    checkUpdateApp(buttonId)
+    return res;
+}
+
+/**
+ * Return a list of the apps that have updates in the app store.
+ *
+ * @param {String} buttonId
+ */
+async function checkUpdateApp(buttonId) {
+    let res = await executeCyCommand('apps list updates')
+    const button = document.getElementById(buttonId);
+    if (res.includes("name")) {
+      button.disabled = false;
+    } else {
+      button.disabled = true;
+    }
+}
+    </script>
+  </body>
+</html>
