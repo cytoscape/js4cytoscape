@@ -110,7 +110,8 @@
         <img src="img/logo_mgr_large.png" width="400px"/>
         <p style="margin-left:20px; margin-top:0px;">Visit the <a href="https://apps.cytoscape.org">App Store</a> to find and install new apps.</p>
         <br>
-        <table id ="apps"></table>
+        <table id ="enabledApps"></table>
+        <table id ="disabledApps"></table>
         </div>
 
 
@@ -118,8 +119,8 @@
     <!-- Additional JavaScript -->
     <script type="text/javascript">
       window.onload = 
-        renderInstalledApps('apps');
-        renderDisabledApps('apps');
+        renderInstalledApps('enabledApps');
+        renderDisabledApps('disabledApps');
 
 
       const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
