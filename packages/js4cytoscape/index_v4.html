@@ -206,11 +206,20 @@ async function switchToggleAndReload(checkbox, app) {
 
 async function uninstallAndReload(app) {
     let res = await uninstallAppCyB(app);
-
+    // remove from table
     var table = document.getElementById("enabledApps");
-for (var i = 0, row; row = table.rows[i]; i++) {
-        anamevar = row.cells[0].textContent.replace(/\W/g,"");
-        if (anamevar.includes(app)) {
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        anamevar = row.cells[0].textContent.replace(/\(.*\)/g,"")
+        anamevar = anamevar.replace(/\W/g,"");
+        if (anamevar ==  app) {
+            row.remove();
+        }
+    }
+    var table = document.getElementById("disabledApps");
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        anamevar = row.cells[0].textContent.replace(/\(.*\)/g,"")
+        anamevar = anamevar.replace(/\W/g,"");
+        if (anamevar ==  app) {
             row.remove();
         }
     }
