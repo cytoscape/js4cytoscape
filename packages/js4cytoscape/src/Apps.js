@@ -73,3 +73,14 @@ async function enableApp(app, baseUrl = defaultBaseUrl) {
     let res = await commandsGET('apps enable app=' + "'" + app + "'", baseUrl=baseUrl);
     return res;
 }
+
+/**
+ * Uninstall app from the local Cytoscape instance.
+ *
+ * @param {String} app Name of app
+ * @return {*} 
+ */
+ async function uninstallApp(app, baseUrl = defaultBaseUrl) {
+    let res = await commandsGET('apps uninstall app=' + "'" + app + "'", baseUrl=baseUrl);
+    return res;
+}
