@@ -16,15 +16,16 @@
   }
   a {
     text-decoration: none;
-    font-size: 1.4rem;
+    color: black;
+    font-size: 1rem;
   }
   .center-text {
         text-align: center;
         display: block;
       }
   td {
-      padding: 5px;
-    }
+     /* padding: 5px; */
+  }
   .btn {
     border-radius: 30px;
     border-width: thin;
@@ -47,62 +48,14 @@
     border: 5px;
     padding: 10px;
   }
-
-  /* ON/OFF SWITCH */
-  .onoffswitch {
-        position: relative; width: 95px;
-        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-    }
-    .onoffswitch-checkbox {
-        position: absolute;
-        opacity: 0;
-        pointer-events: none;
-    }
-    .onoffswitch-label {
-        display: block; overflow: hidden; cursor: pointer;
-        border: 2px solid #4d4d4d; border-radius: 20px;
-    }
-    .onoffswitch-inner {
-        display: block; width: 200%; margin-left: -100%;
-        transition: margin 0.3s ease-in 0s;
-    }
-    .onoffswitch-inner:before, .onoffswitch-inner:after {
-        display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
-        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: normal;
-        box-sizing: border-box;
-    }
-    .onoffswitch-inner:before {
-        content: "Enabled";
-        padding-left: 10px;
-        background-color: #F7941E; color: #FFFFFF;
-    }
-    .onoffswitch-inner:after {
-        content: "Disabled";
-        padding-right: 10px;
-        background-color: #FFFFFF; color: #F7941E;
-        text-align: right;
-    }
-    .onoffswitch-switch {
-        display: block; width: 16px; margin: 2px;
-        background: #666666;
-        position: absolute; top: 0; bottom: 0;
-        right: 71px;
-        border: 2px solid #999999; border-radius: 20px;
-        transition: all 0.3s ease-in 0s; 
-    }
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-        margin-left: 0;
-    }
-    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-        right: 0px; 
-    }
+ 
   </style>
 
   <body>
 
     <div class="center">
-        <img src="img/logo_mgr_large.png" width="400px"/>
-        <p style="margin-left:20px; margin-top:0px;">Visit the <a href="https://apps.cytoscape.org">App Store</a> to find, update, and install apps.</p>
+        <img src="img/logo_mgr_large.png" width="250px"/>
+        <p style="margin-left:10px; margin-top:0px;">Visit the <a href="https://apps.cytoscape.org" style="color:blue">App Store</a> to find new apps.</p>
         <br />
         <table id ="enabledApps"></table>
         <table id ="disabledApps"></table>
@@ -150,12 +103,9 @@ function renderInstalledApps(tabId) {
             var aver=app[1];
             var astat=app[2];
             if (aname.length > 0 && !coreApps.includes(aname)){
-                arow = '<tr><td><img src="img/trash.png" height="23px" style="float:left;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
-                arow += '<div class="onoffswitch" style="float:left;"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"' +
-                    'id="'+anamevar+'" tabindex="0" checked onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">' +
-                    '<label class="onoffswitch-label" for="'+anamevar+'">'+
-                    '<span class="onoffswitch-inner"></span>'+
-                    '<span class="onoffswitch-switch"></span></label></div>';    
+                arow = '<tr><td><img src="img/trash.png" height="18px" style="float:left;padding-top:4px;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
+                arow += '<input type="checkbox" id="'+anamevar+'" tabindex="0" checked ' +
+                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle enabled status">';    
                 arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
                 document.getElementById(tabId).innerHTML += arow;
             }
@@ -182,12 +132,9 @@ function renderDisabledApps(tabId) {
             var aver=app[1];
             var astat=app[2];
             if (aname.length > 0 && !coreApps.includes(aname)){
-                arow = '<tr><td><img src="img/trash.png" height="23px" style="float:left;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
-                arow += '<div class="onoffswitch" style="float:left;"><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"' +
-                    'id="'+anamevar+'" tabindex="0" onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">' +
-                    '<label class="onoffswitch-label" for="'+anamevar+'">'+
-                    '<span class="onoffswitch-inner"></span>'+
-                    '<span class="onoffswitch-switch"></span></label></div>';
+                arow = '<tr><td><img src="img/trash.png" height="18px" style="float:left;padding-top:4px;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
+                    arow += '<input type="checkbox" id="'+anamevar+'" tabindex="0" ' +
+                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">';    
                 arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
 
                 document.getElementById(tabId).innerHTML += arow;
