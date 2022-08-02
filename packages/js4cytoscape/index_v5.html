@@ -26,6 +26,9 @@
   td {
      /* padding: 5px; */
   }
+  enablecheck:checked {
+    background-color: #F7941E;
+  }
   .btn {
     border-radius: 30px;
     border-width: thin;
@@ -48,7 +51,7 @@
     border: 5px;
     padding: 10px;
   }
- 
+
   </style>
 
   <body>
@@ -104,7 +107,7 @@ function renderInstalledApps(tabId) {
             var astat=app[2];
             if (aname.length > 0 && !coreApps.includes(aname)){
                 arow = '<tr><td><img src="img/trash.png" height="18px" style="float:left;padding-top:4px;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
-                arow += '<input type="checkbox" id="'+anamevar+'" tabindex="0" checked ' +
+                arow += '<input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
                     'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle enabled status">';    
                 arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
                 document.getElementById(tabId).innerHTML += arow;
