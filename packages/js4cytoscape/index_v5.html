@@ -185,7 +185,7 @@ async function uninstallAndRemove(app) {
     // remove from table
     var table = document.getElementById("enabledApps");
     for (var i = 0, row; row = table.rows[i]; i++) {
-        anamevar = row.cells[2].textContent.replace(/\(.*\)/g,"")
+        anamevar = row.cells[3].textContent.replace(/\(.*\)/g,"")
         anamevar = anamevar.replace(/\W/g,"");
         if (anamevar ==  app) {
             row.remove();
@@ -193,7 +193,7 @@ async function uninstallAndRemove(app) {
     }
     var table = document.getElementById("disabledApps");
     for (var i = 0, row; row = table.rows[i]; i++) {
-        anamevar = row.cells[2].textContent.replace(/\(.*\)/g,"")
+        anamevar = row.cells[3].textContent.replace(/\(.*\)/g,"")
         anamevar = anamevar.replace(/\W/g,"");
         if (anamevar ==  app) {
             row.remove();
