@@ -13,17 +13,20 @@
       }
   body {
     font-size: 1rem;
+    font-family: Helvetica, Arial, sans-serif;
   }
-  a {
+  a.app{
     text-decoration: none;
+    font-size: 1.1rem;
     color: black;
-    font-size: 1rem;
+    vertical-align: top;
   }
   .center-text {
         text-align: center;
         display: block;
       }
   td {
+    vertical-align: top;
      /* padding: 5px; */
   }
   enablecheck:checked {
@@ -57,10 +60,21 @@
   <body>
 
     <div class="center">
-        <img src="img/logo_mgr_large.png" width="250px"/>
-        <p style="margin-left:10px; margin-top:0px;">Visit the <a href="https://apps.cytoscape.org" style="color:blue">App Store</a> to find new apps.</p>
-        <br />
-        <table id ="enabledApps"></table>
+        <p style="margin-left:10px; margin-top:0px;">Manage your installed apps below. <br />Visit 
+            the <a onClick="openAppStore();" style="cursor: pointer; cursor: hand; color:blue; text-decoration:underline;">App Store</a> to find new apps.
+            
+        </p>
+        <table id ="enabledApps">
+            <tr><td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+                <img src="img/trash.png" height="18px" style="float:left;margin:4px 0 0 3px;" onclick="uninstallAllApps()" title="Uninstall all apps"></td>
+                <td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+                <button style="width: 16px;height: 16px; margin-left:4px; margin-top: 5px; background-color: #EEEEEE; border: 1px solid #999999;" 
+                    onclick="disableAllApps()" title="Disable all apps"></button></td>
+                <td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+                    <img src="img/update1.png" height="18px" style="float:left;margin:4px 0 0 3px;" onclick="updateAllApps()" title="Update all apps"></td>
+                <td ></td>
+            </tr>
+        </table>
         <table id ="disabledApps"></table>
     </div>
      
@@ -76,6 +90,14 @@ window.addEventListener('load', function() {
 
     // }
 });
+ 
+function showCybResult(res){
+    alert(res);
+}
+
+function openAppStore(){
+    cybrowser.executeCyCommand('cybrowser dialog url="https://apps.cytoscape.org" id="AppStore" title="App Store" ');
+}
 
 
 const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
@@ -106,10 +128,11 @@ function renderInstalledApps(tabId) {
             var aver=app[1];
             var astat=app[2];
             if (aname.length > 0 && !coreApps.includes(aname)){
-                arow = '<tr><td><img src="img/trash.png" height="18px" style="float:left;padding-top:4px;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
-                arow += '<input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
-                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle enabled status">';    
-                arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
+                arow = '<tr><td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/trash.png" height="18px" style="float:left;margin:4px 0 0 3px;" onclick="uninstallAndRemove(&quot;'+anamevar+'&quot;)" title="Uninstall app"></td>';
+                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
+                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Toggle enabled status"></td>';   
+                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:4px 0 0 3px;" title="No update available"</td>'; 
+                arow += '<td>&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
                 document.getElementById(tabId).innerHTML += arow;
             }
         });
@@ -135,10 +158,11 @@ function renderDisabledApps(tabId) {
             var aver=app[1];
             var astat=app[2];
             if (aname.length > 0 && !coreApps.includes(aname)){
-                arow = '<tr><td><img src="img/trash.png" height="18px" style="float:left;padding-top:4px;" onclick="uninstallAndReload(&quot;'+anamevar+'&quot;)" title="Click to uninstall">';
-                    arow += '<input type="checkbox" id="'+anamevar+'" tabindex="0" ' +
-                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Click to toggle status">';    
-                arow += '&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
+                arow = '<tr><td style="background-color: #EEEEEE; width:25px;height:25px;""><img src="img/trash.png" height="18px" style="float:left;margin:4px 0 0 3px;" onclick="uninstallAndRemove(&quot;'+anamevar+'&quot;)" title="Uninstall app"></td>';
+                arow += '<td style="background-color: #EEEEEE; width:25px;height:25px;""><input type="checkbox" id="'+anamevar+'" tabindex="0" ' +
+                    'onchange="switchToggleAndReload(this, &quot;'+anamevar+'&quot;);" title="Toggle enabled status"></td>';    
+                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:4px 0 0 3px;" onclick="updateAppAndIcon(&quot;'+anamevar+'&quot;)" title="Update app"></td>'; 
+                arow += '<td>&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
 
                 document.getElementById(tabId).innerHTML += arow;
             }
@@ -156,12 +180,12 @@ async function switchToggleAndReload(checkbox, app) {
 //    location.reload(true);
 }
 
-async function uninstallAndReload(app) {
+async function uninstallAndRemove(app) {
     let res = await uninstallAppCyB(app);
     // remove from table
     var table = document.getElementById("enabledApps");
     for (var i = 0, row; row = table.rows[i]; i++) {
-        anamevar = row.cells[0].textContent.replace(/\(.*\)/g,"")
+        anamevar = row.cells[2].textContent.replace(/\(.*\)/g,"")
         anamevar = anamevar.replace(/\W/g,"");
         if (anamevar ==  app) {
             row.remove();
@@ -169,7 +193,7 @@ async function uninstallAndReload(app) {
     }
     var table = document.getElementById("disabledApps");
     for (var i = 0, row; row = table.rows[i]; i++) {
-        anamevar = row.cells[0].textContent.replace(/\(.*\)/g,"")
+        anamevar = row.cells[2].textContent.replace(/\(.*\)/g,"")
         anamevar = anamevar.replace(/\W/g,"");
         if (anamevar ==  app) {
             row.remove();
@@ -177,10 +201,18 @@ async function uninstallAndReload(app) {
     }
 }
 
+async function disableAllApps() {
+    //TODO
+}
+async function uninstallAllApps() {
+    //TODO
+}
+
 async function getInstalledAppsCyB() {
-    let res = await commandsGETLocal('apps list installed'); // commandsGET | cybrowser.executeCyCommand
+    let res = await commandsGETLocal('apps list installed'); // commandsGETLocal | cybrowser.executeCyCommand
     return res;
 }
+
 async function getDisabledAppsCyB() {
     let res = await commandsGETLocal('apps list disabled'); 
     return res;
@@ -201,6 +233,51 @@ async function uninstallAppCyB(app) {
     let res = await cybrowser.executeCyCommand('apps uninstall app=' + "'" + app + "'");
     return res;
 }
+
+
+/***************************
+// FUNCTIONS FOR ONLINE ONLY
+****************************/
+
+async function updateAppAndIcon(app) {
+    let res = await unpdateAppCyB(app);
+    // update and swap update1.png icon back in for row
+    //TODO
+}
+
+async function updateAppCyB(app) {
+    //TODO
+}
+/**
+ * Update an app or all apps.
+ *
+ * @param {String} tabId
+ * @param {String} buttonId
+ * @return null
+ */
+ async function updateAllApps(tabId, buttonId) {
+    let res = await cybrowser.executeCyCommand('apps update app=');
+    renderAllAppUpdates(tabId)
+    checkUpdateApp(buttonId)
+    return res;
+}
+
+/**
+ * Return a list of the apps that have updates in the app store.
+ *
+ * @param {String} buttonId
+ */
+ async function checkUpdateApp(buttonId) {
+    let res = await commandsGETLocal('apps list updates')
+    const button = document.getElementById(buttonId);
+    if (res.includes("name")) {
+      //TODO: swap td for update2.png with onclick="updateAppAndIcon(&quot;'+anamevar+'&quot;)" title="Update app"
+    } else {
+      //do nothing
+    }
+}
+
+
 async function commandsGETLocal(cmdString) {
   const qurl = command2getQueryLocal(cmdString)
   const res = await fetch(qurl, {
@@ -241,35 +318,6 @@ function command2getQueryLocal(cmdString){
         return url + "?" + qargs;
     } else {
         return url;
-    }
-}
-
-/**
- * Update an app or all apps.
- *
- * @param {String} tabId
- * @param {String} buttonId
- * @return null
- */
- async function updateAllApps(tabId, buttonId) {
-    let res = await executeCyCommand('apps update app=');
-    renderAllAppUpdates(tabId)
-    checkUpdateApp(buttonId)
-    return res;
-}
-
-/**
- * Return a list of the apps that have updates in the app store.
- *
- * @param {String} buttonId
- */
-async function checkUpdateApp(buttonId) {
-    let res = await executeCyCommand('apps list updates')
-    const button = document.getElementById(buttonId);
-    if (res.includes("name")) {
-      button.disabled = false;
-    } else {
-      button.disabled = true;
     }
 }
     </script>

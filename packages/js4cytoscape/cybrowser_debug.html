@@ -54,6 +54,8 @@
     <div class="center">
         <br />
         <button onclick='renderInstalledApps("enabledApps");'>getInstalledApps</button>
+        <br />
+        <button onclick='getInstalledAppsViaCallback();'>getInstalledApps via Callback</button>
         <table id ="enabledApps"></table>
     </div>
      
@@ -98,6 +100,14 @@ function renderInstalledApps(tabId) {
 async function getInstalledAppsCyB() {
     let res = await cybrowser.executeCyCommand('apps list installed'); // commandsGET | cybrowser.executeCyCommand
     return res;
+}
+
+function getInstalledAppsViaCallback() {
+    cybrowser.executeCyCommandWithResults('apps list installed', function(res) {alert(res);} ); // commandsGET | cybrowser.executeCyCommand
+}
+ 
+function showCybResult(res){
+    alert(res);
 }
 
     </script>
