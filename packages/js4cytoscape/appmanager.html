@@ -52,7 +52,7 @@
                 <button style="width: 16px;height: 16px; margin: 0px 0 0px 4px ; background-color: #EEEEEE; border: 1px solid #999999;" 
                     onclick="disableAllApps()" title="DISABLE ALL APPS"></button></td>
                 <td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
-                    <img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" onclick="updateAllApps()" title="UPDATE ALL APPS"></td>
+                    <img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No updates available"></td>
                 <td >&nbsp;&nbsp;<a href="#" class="app" title="Visit App Store page">Test App</a> (v3.7)</td>
             </tr>
         </table>
@@ -274,6 +274,10 @@ function updateAppRow(row) {
         newappinfo = appinfo.replace(/\(.*\)/,newversion);
         row.cells[3].textContent = newappinfo;
     }
+    // update to row too
+    table.row[0].cells[2].children[0].src = "img/update1.png";
+    table.row[0].cells[2].children[0].title = "No updates available";
+    table.row[0].cells[2].children[0].removeAttribute('onclick');
 }
 
 function renderUpdatesApps(res) {
@@ -292,6 +296,12 @@ function renderUpdatesApps(res) {
             row.cells[2].children[0].setAttribute('onclick', 'updateAppAndIcon("'+aname+'")');
             row.cells[2].children[0].setAttribute('newversion', newversion);
         });
+    if (array.length > 0){
+        var table = document.getElementById("enabledApps");
+        table.row[0].cells[2].children[0].src = "img/update2.png";
+        table.row[0].cells[2].children[0].title = "UPDATE ALL APPS";
+        table.row[0].cells[2].children[0].setAttribute('onclick', "updateAllApps()");
+    }
 }
     </script>
   </body>
