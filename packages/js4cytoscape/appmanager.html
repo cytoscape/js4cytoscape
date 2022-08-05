@@ -110,7 +110,7 @@ function renderInstalledApps(res) {
                 arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';   
                 arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"</td>'; 
-                arow += '<td>&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
+                arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
                 document.getElementById('enabledApps').innerHTML += arow;
             }
         });
@@ -131,7 +131,7 @@ function renderDisabledApps(res) {
                 arow += '<td style="background-color: #EEEEEE; width:25px;height:25px;""><input type="checkbox" id="'+anamevar+'" tabindex="0" ' +
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';    
                 arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"></td>'; 
-                arow += '<td>&nbsp;&nbsp;<a href="https://apps.cytoscape.org/apps/'+anamevar+'" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
+                arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
                 document.getElementById('disabledApps').innerHTML += arow;
             }
         });    
@@ -238,8 +238,12 @@ function uninstallAppCyB(app) {
 // FUNCTIONS FOR ONLINE ONLY
 ****************************/
 
-function openAppStore(){
-    cybrowser.executeCyCommand('cybrowser dialog url="https://apps.cytoscape.org" id="AppStore" title="App Store" ');
+function openAppStore(app=null){
+    appUrl = "https://apps.cytoscape.org/"
+    if (app != null){
+        appUrl += "apps/"+app
+    }
+    cybrowser.executeCyCommand('cybrowser dialog url="'+appUrl+'" id="AppStore" title="App Store" ');
 }
 
 function updateAppAndIcon(app) {
