@@ -103,7 +103,7 @@ async function getInstalledAppsCyB() {
 }
 
 function getInstalledAppsViaCallback() {
-    cybrowser.executeCyCommandWithResults('apps list installed', function(res) {alert(res);} ); // commandsGET | cybrowser.executeCyCommand
+    cybrowser.executeCyCommandWithResults('apps list installed', 'showCybResult' ); // commandsGET | cybrowser.executeCyCommand
 }
  
 function showCybResult(res){
