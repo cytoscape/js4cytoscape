@@ -46,14 +46,14 @@
             
         </p>
         <table id ="enabledApps">
-            <tr><td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+            <tr style="border-collapse: collapse;"><td style="border-bottom: 3px solid #999;  background-color: #EEDDDD; width:25px;height:25px;">
                 <img src="img/trash.png" height="18px" style="float:left;margin:0px 0 0px 3px;" onclick="uninstallAllApps()" title="UNINSTALL ALL APPS"></td>
-                <td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+                <td style="border-bottom: 3px solid #999;  background-color: #EEDDDD; width:25px;height:25px;">
                 <button style="width: 16px;height: 16px; margin: 0px 0 0px 4px ; background-color: #EEEEEE; border: 1px solid #999999;" 
                     onclick="disableAllApps()" title="DISABLE ALL APPS"></button></td>
-                <td style="align:center; background-color: #EEDDDD; width:25px;height:25px;">
+                <td style="border-bottom: 3px solid #999;  background-color: #EEDDDD; width:25px;height:25px;">
                     <img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No updates available"></td>
-                <td ></td>
+                <td style="border-bottom: 3px solid #999;">&nbsp;&nbsp;(apply to all apps)</td>
             </tr>
         </table>
         <table id ="disabledApps"></table>
@@ -65,13 +65,13 @@ window.addEventListener('load', function() {
     if(window.navigator.userAgent.includes('CyBrowser')){  
         setTimeout(function(){
             getInstalledAppsCyB(); 
-        }, 300);
+        }, 000);
         setTimeout(function(){
             getDisabledAppsCyB(); //a delay between CyBrowser calls is necessary
-        }, 500);
+        }, 100);
         setTimeout(function(){
             getUpdatesAppsCyB(); //a delay between CyBrowser calls is necessary
-        }, 600);
+        }, 200);
     } else {
         alert("Sorry, this page only runs in CyBrowser.");
     }
@@ -98,6 +98,7 @@ function getUpdatesAppsCyB() {
 function renderInstalledApps(res) {  
     // alert(res);
         array = JSON.parse(res);
+        array = array.sort(function(a,b){return a.appName.localeCompare(b.appName)});
         array.forEach(app => {
             var aname=app['appName'];
             if (typeof aname == 'undefined') { aname = "";} //resolve null
@@ -106,10 +107,10 @@ function renderInstalledApps(res) {
             var aver=app['version'];
             var astat=app['status'];
             if (aname.length > 0 && !coreApps.includes(aname)){
-                arow = '<tr><td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/trash.png" height="18px" style="float:left;margin:0px 0 2px 3px;" onclick="uninstallAndRemove(&quot;'+aname+'&quot;)" title="Uninstall app"></td>';
-                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
+                arow = '<tr><td style=" background-color: #EEEEEE; width:25px;height:25px;"><img src="img/trash.png" height="18px" style="float:left;margin:0px 0 2px 3px;" onclick="uninstallAndRemove(&quot;'+aname+'&quot;)" title="Uninstall app"></td>';
+                arow += '<td style=" background-color: #EEEEEE; width:25px;height:25px;"><input type="checkbox" id="'+anamevar+'" name="enablecheck" tabindex="0"  checked ' +
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';   
-                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"</td>'; 
+                arow += '<td style=" background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"</td>'; 
                 arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
                 document.getElementById('enabledApps').innerHTML += arow;
             }
@@ -119,6 +120,7 @@ function renderInstalledApps(res) {
 function renderDisabledApps(res) {  
     // alert(res);
         array = JSON.parse(res);
+        array = array.sort(function(a,b){return a.appName.localeCompare(b.appName)});
         array.forEach(app => {
             var aname=app['appName'];
             if (typeof aname == 'undefined') { aname = "";} //resolve null
@@ -130,7 +132,7 @@ function renderDisabledApps(res) {
                 arow = '<tr><td style="background-color: #EEEEEE; width:25px;height:25px;""><img src="img/trash.png" height="18px" style="float:left;margin:0px 0 2px 3px;" onclick="uninstallAndRemove(&quot;'+aname+'&quot;)" title="Uninstall app"></td>';
                 arow += '<td style="background-color: #EEEEEE; width:25px;height:25px;""><input type="checkbox" id="'+anamevar+'" tabindex="0" ' +
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';    
-                arow += '<td style="align:center; background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"></td>'; 
+                arow += '<td style=" background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"></td>'; 
                 arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
                 document.getElementById('disabledApps').innerHTML += arow;
             }
@@ -267,6 +269,15 @@ function updateAppAndIcon(app) {
     }
 }
 
+function checkUpdateIcons(row){
+    var rowTitle = row.cells[2].children[0].title;
+    if (rowTitle == "Update app"){
+        return 1
+    } else {
+        return 0
+    }
+}
+
 function updateAppRow(row) {
     row.cells[2].children[0].src = "img/update1.png";
     row.cells[2].children[0].title = "No update available";
@@ -278,15 +289,28 @@ function updateAppRow(row) {
         newappinfo = appinfo.replace(/\(.*\)/,newversion);
         row.cells[3].textContent = newappinfo;
     }
-    // update to row too
-    table.row[0].cells[2].children[0].src = "img/update1.png";
-    table.row[0].cells[2].children[0].title = "No updates available";
-    table.row[0].cells[2].children[0].removeAttribute('onclick');
+    // if no more updates available, then reset top row too
+    var updateCount = 0;
+    var table = document.getElementById("enabledApps");
+    for (var i = 1, row; row = table.rows[i]; i++) { //skip top row
+        updateCount += checkUpdateIcons(row);
+    }
+    var table = document.getElementById("disabledApps");
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        updateCount += checkUpdateIcons(row);
+    }
+    if (updateCount == 0) { //may count prior to update
+        var table = document.getElementById("enabledApps");
+        table.rows[0].cells[2].children[0].src = "img/update1.png";
+        table.rows[0].cells[2].children[0].title = "No updates available";
+        table.rows[0].cells[2].children[0].removeAttribute('onclick');
+    }
 }
 
 function renderUpdatesApps(res) {
     // alert(res);
-    // res = '[{"appName": "WikiPathways", "new version":"3.3.10"},{"appName": "Largest Subnetwork", "new version":"1.3"}]'
+    //res = '[{"appName": "WikiPathways","version":"3.3.7","new version":"3.3.10"}]'
+    res = res.replace(/},]/,"}]"); //bug: https://cytoscape.atlassian.net/browse/CYTOSCAPE-12992 
     array = JSON.parse(res);
         array.forEach(app => {
             var aname=app['appName'];
@@ -302,9 +326,9 @@ function renderUpdatesApps(res) {
         });
     if (array.length > 0){
         var table = document.getElementById("enabledApps");
-        table.row[0].cells[2].children[0].src = "img/update2.png";
-        table.row[0].cells[2].children[0].title = "UPDATE ALL APPS";
-        table.row[0].cells[2].children[0].setAttribute('onclick', "updateAllApps()");
+        table.rows[0].cells[2].children[0].src = "img/update2.png";
+        table.rows[0].cells[2].children[0].title = "UPDATE ALL APPS";
+        table.rows[0].cells[2].children[0].setAttribute('onclick', "updateAllApps()");
     }
 }
     </script>
