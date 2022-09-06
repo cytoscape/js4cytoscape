@@ -74,7 +74,7 @@ display: none;
     <div style="width: 100%;">
         <div style="background-color: #FFF; height: 50px;">
           <div class="dropdown" style="float: right;">
-            <button class="hamburger" onclick="toggleMenu()"><img src="img/hamburger.png" alt="menu" style="background-color: white; height: 30px;"></button>
+            <button class="hamburger" onclick="toggleMenu()"><img src="img/hamburger.png" alt="menu" style="background-color: white; height: 35px; margin-top: -3px;"></button>
             <div class="dropdown-content" id="ddc">
                 <a onclick="updateAllApps()">Update all apps</a>
                 <a onclick="enableAllApps()">Enable all apps</a>
@@ -121,12 +121,13 @@ window.addEventListener('load', function() {
     }
 });
  
-const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
-                  "Core Apps", "CyNDEx-2", "CyCL", "Diffusion", "FileTransfer",
-                  "ID Mapper", "JSON Support", "Network Merge", "NetworkAnalyzer",
-                  "OpenCL Prefuse Layout", "PSI-MI Reader", "PSICQUIC Web Service Client",
-                  "SBML Reader", "aMatReader", "copycatLayout", "cyBrowser",
-                  "cyChart", "cyREST"]
+const coreApps = []
+// const coreApps = ["BioPAX Reader",  "Biomart Web Service Client", "CX Support",
+                //   "Core Apps", "CyNDEx-2", "CyCL", "Diffusion", "FileTransfer",
+                //   "ID Mapper", "JSON Support", "Network Merge", "NetworkAnalyzer",
+                //   "OpenCL Prefuse Layout", "PSI-MI Reader", "PSICQUIC Web Service Client",
+                //   "SBML Reader", "aMatReader", "copycatLayout", "cyBrowser",
+                //   "cyChart", "cyREST"]
 
 
 function getInstalledAppsCyB() {
