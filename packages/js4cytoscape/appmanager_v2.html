@@ -12,7 +12,7 @@
     text-align: center;
       }
   body {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-family: Helvetica, Arial, sans-serif;
     /* margin: 0px; */
     /* background-color: #EEE; */
@@ -24,7 +24,7 @@
   a.app{
     text-decoration: none;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: black;
     vertical-align: top;
   }
@@ -44,7 +44,7 @@ right: 0;
 overflow: visible;
 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 text-align: right;
-width: 140px;
+width: 125px;
 /* direction: rtl; */
 z-index: 2;
 }
@@ -54,6 +54,7 @@ color: #000000;
 padding: 5px;
 text-decoration: none;
 background-color: white;
+font-size: 0.9rem;
 }
 .dropdown-content a:hover {
 color: #FFFFFF;
@@ -93,23 +94,28 @@ display: none;
           </p>
         </div>
         <div class="tables" style=" float: both;">
-          <table id ="enabledApps">
+          <table id ="appTable">
             <tr>
                 <th style="font-size: 0.8em; font-weight: bold;" title="Delete">Del.</th>
                 <th style="font-size: 0.8em; font-weight: bold;" title="Enable/Disable">Enb.</th>
                 <th style="font-size: 0.8em; font-weight: bold;" title="Update">Upd.</th>
             </tr>
           </table>
-          <table id ="disabledApps"></table>
         </div>
     </div>    
 <!-- Additional JavaScript -->
 <script type="text/javascript">
 window.addEventListener('load', function() { 
     if(window.navigator.userAgent.includes('CyBrowser')){  
-        getInstalledAppsCyB(); 
-        getDisabledAppsCyB(); 
-        getUpdatesAppsCyB(); 
+        setTimeout(function(){
+            getInstalledAppsCyB(); 
+        }, 000);
+        setTimeout(function(){
+            getDisabledAppsCyB(); //a delay between CyBrowser calls is necessary
+        }, 100);
+        setTimeout(function(){
+            getUpdatesAppsCyB(); //a delay between CyBrowser calls is necessary
+        }, 200);
     } else {
         alert("Sorry, this page only runs in CyBrowser.");
     }
@@ -136,6 +142,7 @@ function getUpdatesAppsCyB() {
 function renderInstalledApps(res) {  
     // alert(res);
         array = JSON.parse(res);
+        console.log(array.length + " enabled apps");
         array = array.sort(function(a,b){return a.appName.localeCompare(b.appName)});
         array.forEach(app => {
             var aname=app['appName'];
@@ -150,7 +157,7 @@ function renderInstalledApps(res) {
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';   
                 arow += '<td style=" background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"</td>'; 
                 arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';        
-                document.getElementById('enabledApps').innerHTML += arow;
+                document.getElementById('appTable').innerHTML += arow;
             }
         });
 }
@@ -158,6 +165,7 @@ function renderInstalledApps(res) {
 function renderDisabledApps(res) {  
     // alert(res);
         array = JSON.parse(res);
+        console.log(array.length + " disabled apps");
         array = array.sort(function(a,b){return a.appName.localeCompare(b.appName)});
         array.forEach(app => {
             var aname=app['appName'];
@@ -172,9 +180,27 @@ function renderDisabledApps(res) {
                     'onchange="toggleStatus(this, &quot;'+aname+'&quot;);" title="Toggle enabled status"></td>';    
                 arow += '<td style=" background-color: #EEEEEE; width:25px;height:25px;"><img src="img/update1.png" height="18px" style="float:left;margin:0px 0 0 3px;" title="No update available"></td>'; 
                 arow += '<td>&nbsp;&nbsp;<a onClick="openAppStore(&quot;'+anamevar+'&quot;);" class="app" title="Visit App Store page">'+aname+'</a> (v'+aver+') </td></tr>';
-                document.getElementById('disabledApps').innerHTML += arow;
+                document.getElementById('appTable').innerHTML += arow;
             }
         });    
+        sortData();
+}
+function sortData() {
+        // Read table body node.
+        var tableData = document.getElementById('appTable');
+
+        // Read table row nodes.
+        var rowData = tableData.getElementsByTagName('tr'); 
+
+        for(var i = 1; i < rowData.length - 1; i++) {
+            for(var j = 1; j < rowData.length - i; j++) {                
+                //Swap row nodes if short condition matches
+                if(rowData.item(j).innerText.toLowerCase() > rowData.item(j+1).innerText.toLowerCase()) {    
+                    // console.log(rowData.item(j).innerText + " > " + rowData.item(j+1).innerText);
+                    tableData.insertBefore(rowData.item(j+1).parentNode,rowData.item(j).parentNode);
+                }
+            }
+        }
 }
 
 function toggleStatus(checkbox, app) {
@@ -188,15 +214,8 @@ function toggleStatus(checkbox, app) {
 function uninstallAndRemove(app) {
     uninstallAppCyB(app);
     // and remove from table
-    var table = document.getElementById("enabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 1, row; row = table.rows[i]; i++) {
-        aname = getAnameByRow(row);
-        if (aname ==  app) {
-            row.remove();
-        }
-    }
-    var table = document.getElementById("disabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
         aname = getAnameByRow(row);
         if (aname ==  app) {
             row.remove();
@@ -209,15 +228,8 @@ function getAnameByRow(row){
     return (aname);
 }
 function getRowByAname(app){
-    var table = document.getElementById("enabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 1, row; row = table.rows[i]; i++) {
-        aname = getAnameByRow(row);
-        if (aname ==  app) {
-            return(row);
-        }
-    }
-    var table = document.getElementById("disabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
         aname = getAnameByRow(row);
         if (aname ==  app) {
             return(row);
@@ -228,17 +240,8 @@ function getRowByAname(app){
 }
 
 function enableAllApps() {
-    var table = document.getElementById("enabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 1, row; row = table.rows[i]; i++) {
-        var aname = getAnameByRow(row);
-        var anamevar = aname.replace(/\W/g,"");
-        if (!document.getElementById(anamevar).checked){
-            document.getElementById(anamevar).checked = true;
-            enableAppCyB(aname);
-        }
-    }
-    var table = document.getElementById("disabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
         var aname = getAnameByRow(row);
         var anamevar = aname.replace(/\W/g,"");
         if (!document.getElementById(anamevar).checked){
@@ -248,17 +251,8 @@ function enableAllApps() {
     }
 }
 function disableAllApps() {
-    var table = document.getElementById("enabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 1, row; row = table.rows[i]; i++) {
-        var aname = getAnameByRow(row);
-        var anamevar = aname.replace(/\W/g,"");
-        if (document.getElementById(anamevar).checked){
-            document.getElementById(anamevar).checked = false;
-            disableAppCyB(aname);
-        }
-    }
-    var table = document.getElementById("disabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
         var aname = getAnameByRow(row);
         var anamevar = aname.replace(/\W/g,"");
         if (document.getElementById(anamevar).checked){
@@ -268,14 +262,8 @@ function disableAllApps() {
     }
 }
 function uninstallAllApps() {
-    var table = document.getElementById("enabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 1, row; row = table.rows[i]; i++) {
-        var aname = getAnameByRow(row);
-        uninstallAppCyB(aname);
-        row.remove();
-    }
-    var table = document.getElementById("disabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
         var aname = getAnameByRow(row);
         uninstallAppCyB(aname);
         row.remove();
@@ -334,11 +322,7 @@ function updateAppAndIcon(app) {
  function updateAllApps() {
     cybrowser.executeCyCommand('apps update app="all"');
     //and clear all green arrows
-    var table = document.getElementById("enabledApps");
-    for (var i = 0, row; row = table.rows[i]; i++) {
-        updateAppRow(row);
-    }
-    var table = document.getElementById("disabledApps");
+    var table = document.getElementById("appTable");
     for (var i = 0, row; row = table.rows[i]; i++) {
         updateAppRow(row);
     }
@@ -363,6 +347,7 @@ function renderUpdatesApps(res) {
     //res = '[{"appName": "WikiPathways","version":"3.3.7","new version":"3.3.10"}]'
     res = res.replace(/},]/,"}]"); //bug: https://cytoscape.atlassian.net/browse/CYTOSCAPE-12992 
     array = JSON.parse(res);
+    console.log(array.length + " apps with updates");
         array.forEach(app => {
             var aname=app['appName'];
             if (typeof aname == 'undefined') { aname = "";} //resolve null
