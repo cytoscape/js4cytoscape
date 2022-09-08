@@ -107,10 +107,12 @@ display: none;
           <div class="dropdown" style="float: right;">
             <button class="hamburger" onclick="toggleMenu()"><img src="img/hamburger.png" alt="menu" style="background-color: white; height: 35px; margin-top: -3px;"></button>
             <div class="dropdown-content" id="ddc">
+                <a onclick="openAppStore()">Show all apps</a>
                 <a onclick="updateAllApps()">Update all apps</a>
                 <a onclick="enableAllApps()">Enable all apps</a>
                 <a onclick="disableAllApps()">Disable all apps</a>
                 <a onclick="uninstallAllApps()">Uninstall all apps</a>
+                <a onclick="window.location.reload(true)">Refresh manager</a>
             </div>
           </div>
 
