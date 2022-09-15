@@ -414,7 +414,7 @@ function openAppStore(app=null){
 function searchAppStore(){
     var query = document.getElementById("search").value
     qUrl = "https://apps.cytoscape.org/"
-    if (query != null){
+    if (query != ""){
         qUrl += "search?q="+query
     }
     cybrowser.executeCyCommand('cybrowser dialog url="'+qUrl+'" id="AppStore" title="App Store" ');
