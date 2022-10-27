@@ -452,9 +452,9 @@ function updateAppRow(row) {
     var newversion = row.cells[2].children[0].getAttribute('newversion');
     if (newversion != null){
         newversion = "(v"+newversion+")";
-        appinfo = row.cells[3].textContent;
+        appinfo = row.cells[3].children[0].nextSibling.textContent;
         newappinfo = appinfo.replace(/\(.*\)/,newversion);
-        row.cells[3].textContent = newappinfo;
+        row.cells[3].children[0].nextSibling.textContent = newappinfo;
     }
 }
 
