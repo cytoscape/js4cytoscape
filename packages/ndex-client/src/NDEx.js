@@ -778,5 +778,13 @@ class NDEx {
     return this._httpPutV3Obj('workspaces/'+workspaceId, undefined, workspaceObj);
   }
 
+  updateCyWebWorkspaceName(workspaceId, newName) {
+    return this._httpPutV3Obj('workspaces/'+workspaceId+'/name', undefined, {'name': newName});
+  }
+
+  updateCyWebWorkspaceNetworks(workspaceId, networkIds) {
+    return this._httpPutV3Obj('workspaces/'+workspaceId+'/networkids', undefined, networkIds);
+  }
+
 }
   module.exports = { NDEx };

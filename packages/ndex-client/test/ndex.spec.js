@@ -171,22 +171,32 @@ describe('testing client', () => {
             .then((newWorkspace) =>{
               // console.log(newgroup);
               expect(newWorkspace.name).to.equal("updated workspace");
-              ndex.deleteCyWebWorkspace(workspaceid).then((foo) => {
-                expect(foo).to.equal('');
-              });
+              ndex.updateCyWebWorkspaceName(workspaceid, 'updated again').then(
+                (rt1) => {
+                  expect (rt1).to.equal('');
+                  ndex.updateCyWebWorkspaceNetworks(workspaceid,["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"])
+                  .then ( ()=>
+                    { 
+                      ndex.getCyWebWorkspace(workspaceid)
+                      .then( (workspace3) => {
+                        expect(workspace3.name).to.equal('updated again');
+                        expect(workspace3.networkIDs.length).to.equal(2);
+                        ndex.deleteCyWebWorkspace(workspaceid).then((foo) => {
+                          expect(foo).to.equal('');
+                        })
+                      })
+                    })   
+                  }) 
+                })
+              })
             });
         });
-      });
 
     }, (err) => {
       console.log('error.....');
       return console.log(err);
     });
-  });
-
-
-
-});
+}); 
 
 describe('Anonymous test', () =>{
   let ndex = new NDEx('http://dev.ndexbio.org/v2');
