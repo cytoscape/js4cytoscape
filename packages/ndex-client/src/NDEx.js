@@ -176,11 +176,11 @@ class NDEx {
       return this._httpPostProtectedObjAux(this._v3baseURL,URL,parameters, data);
     }
 
-    _httpPutObj(URL, parameters, data) {
+    _httpPutObjAux(prefix, URL, parameters, data) {
       let config = {
         method: 'put',
         url: URL,
-        baseURL: this.host
+        baseURL: prefix
       };
 
       this._setAuthHeader(config);
@@ -204,11 +204,28 @@ class NDEx {
       });
     }
 
+    _httpPutObj(URL,parameters, data) {
+      return this._httpPutObjAux(this.host,URL, parameters, data);
+    }
+
+    _httpPutV3Obj(URL,parameters,data) {
+      return this._httpPutObjAux(this._v3baseURL,URL,parameters,data);
+    }
+
+
     _httpDeleteObj(URL, parameters, data) {
+       return this._httpDeleteObjAux(this.host,URL,parameters, data);
+    }
+    
+    _httpDeleteV3Obj(URL, parameters) {
+       return this._httpDeleteObjAux(this._v3baseURL, URL, parameters, undefined);
+    }
+
+    _httpDeleteObjAux(prefix, URL, parameters, data) {
       let config = {
         method: 'delete',
         url: URL,
-        baseURL: this.host
+        baseURL: prefix
       };
 
       this._setAuthHeader(config);
@@ -731,6 +748,42 @@ class NDEx {
 
       return { uuid };
     });
+  }
+
+  createCyWebWorkspace(workspace) {
+    return new Promise((resolve, reject)=> {
+      this._httpPostV3ProtectedObj('workspaces', undefined, workspace).then(
+        (response) => {
+          let uuidr = response.split('/');
+
+          let uuid = uuidr[uuidr.length - 1];
+
+          return resolve(uuid);
+        },
+        (err) => {reject(err);}
+      );
+    });
+
+  }
+
+  getCyWebWorkspace(workspaceId) {
+    return this._httpGetV3ProtectedObj('workspaces/'+ workspaceId, {});
+    }
+
+  deleteCyWebWorkspace(workspaceId) {
+    return this._httpDeleteV3Obj('workspaces/'+ workspaceId, undefined);
+  }
+
+  updateCyWebWorkspace(workspaceId, workspaceObj) {
+    return this._httpPutV3Obj('workspaces/'+workspaceId, undefined, workspaceObj);
+  }
+
+  updateCyWebWorkspaceName(workspaceId, newName) {
+    return this._httpPutV3Obj('workspaces/'+workspaceId+'/name', undefined, {'name': newName});
+  }
+
+  updateCyWebWorkspaceNetworks(workspaceId, networkIds) {
+    return this._httpPutV3Obj('workspaces/'+workspaceId+'/networkids', undefined, networkIds);
   }
 
 }

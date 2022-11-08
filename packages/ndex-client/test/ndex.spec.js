@@ -147,7 +147,56 @@ describe('testing client', () => {
     });
   });
 
-});
+  it('Workspace CRUD operations', () => {
+    return ndex.createCyWebWorkspace({
+      'name': 'workspace 1',
+      'options': {'darkmode':true, 'foo': 24},
+      'networkIDs':["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"]
+    }).then((workspaceid) => {
+      // console.log(networkList);
+      expect(workspaceid.length).to.equal(36);
+
+      return ndex.getCyWebWorkspace(workspaceid).then((workspaceObj)=>{
+        expect(workspaceObj.name).to.equal('workspace 1');
+
+        expect (workspaceObj.options.foo).to.equal(24);
+        
+        expect (workspaceObj.networkIDs.length).to.equal(2);
+
+        ndex.updateCyWebWorkspace(workspaceid, 
+          {'name': 'updated workspace', 'options': {'bar':'something'}, 'networkIDs':['f9c1b960-1330-11e7-b0de-06832d634f41']}
+          ).then((response) =>{
+          expect(response).to.equal('');
+          ndex.getCyWebWorkspace(workspaceid)
+            .then((newWorkspace) =>{
+              // console.log(newgroup);
+              expect(newWorkspace.name).to.equal("updated workspace");
+              ndex.updateCyWebWorkspaceName(workspaceid, 'updated again').then(
+                (rt1) => {
+                  expect (rt1).to.equal('');
+                  ndex.updateCyWebWorkspaceNetworks(workspaceid,["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"])
+                  .then ( ()=>
+                    { 
+                      ndex.getCyWebWorkspace(workspaceid)
+                      .then( (workspace3) => {
+                        expect(workspace3.name).to.equal('updated again');
+                        expect(workspace3.networkIDs.length).to.equal(2);
+                        ndex.deleteCyWebWorkspace(workspaceid).then((foo) => {
+                          expect(foo).to.equal('');
+                        })
+                      })
+                    })   
+                  }) 
+                })
+              })
+            });
+        });
+
+    }, (err) => {
+      console.log('error.....');
+      return console.log(err);
+    });
+}); 
 
 describe('Anonymous test', () =>{
   let ndex = new NDEx('http://dev.ndexbio.org/v2');
@@ -588,7 +637,7 @@ describe('Aspect updates',  () => {
   //   // expect(updatedNode.y).to.equal(1);
   //   await ndexclient.deleteNetwork(network0Id);
   // });
-
+/*
   it('updating a network with out a cartesianLayout aspect adds a cartesian layout aspect', async () => {
     const network = await ndexclient.getRawNetwork(networkWithoutLayoutAspect);
     const network0Id = await ndexclient.createNetworkFromRawCX(network);
@@ -643,4 +692,7 @@ describe('Aspect updates',  () => {
 
     await ndexclient.deleteNetwork(network0Id);
   });
+
+*/
+
 });
