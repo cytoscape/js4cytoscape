@@ -6,7 +6,7 @@ This monorepo was derived from the following repositories:
 
 - [js4cytoscape](https://github.com/cytoscape/js4cytoscape/tree/main/packages/js4cytoscape)
 - [cx-viz-converter](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx-viz-converter)
-- [ndex-js-client](https://github.com/cytoscape/js4cytoscape/tree/main/packages/ndex-js-client)
+- [ndex-client](https://github.com/cytoscape/js4cytoscape/tree/main/packages/ndex-client)
 - [cx2js](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cx2js)
 - [cyannotation-cx2js](https://github.com/cytoscape/js4cytoscape/tree/main/packages/cyannotation-cx2js)
 
