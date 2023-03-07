@@ -9,7 +9,7 @@ const CX1_HEADER = {
 class NDEx {
     constructor(hostprefix) {
       if (hostprefix === undefined || hostprefix === null || hostprefix === '') {
-        throw new Error('NDEx server endpoint base URL is required in client constructor.');
+        throw new Error('NDEx server host name or endpoint base URL is required in client constructor.');
       }
 
       // axios needs http to be at the front of the url.
@@ -17,7 +17,11 @@ class NDEx {
       // with an ambiguous reason
       let httpRegex = new RegExp("^(http|https)://", "i");
       if (!httpRegex.test(hostprefix)) {
-        throw new Error(`"http://" or "https://" must be prefixed to the input url: ${hostprefix}`);
+        // throw new Error(`"http://" or "https://" must be prefixed to the input url: ${hostprefix}`);
+        // we assume it is a host name
+        if ( hostprefix.indexOf('/') > -1 )
+             throw new Error ('"/" are not allowed in host name.');
+         hostprefix = "https://"+ hostprefix + "/v2"; 
       }
 
       this._host = hostprefix;

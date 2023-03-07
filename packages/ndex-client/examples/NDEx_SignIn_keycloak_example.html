@@ -39,9 +39,10 @@
                   silentCheckSsoRedirectUri: window.location.origin + '/packages/ndex-client/examples/silent-check-sso.html'}
                 ).then(function(authenticated) {
                     //alert(authenticated ? 'authenticated' : 'not authenticated');
-                    console.log("init done.");
-           
+                    console.log("init done."); 
                     if ( authenticated) {
+                        console.log("user silently authenticated.");
+                        setInterval(refreshToken, 60000);
                         updateSigninStatus(keycloak.token);
                     } else {
                         authorizeButton.style.display = 'block';
@@ -77,6 +78,12 @@
         keycloak.updateToken(-1).then(function() { printToken(keycloak); })
     }
 
+    function refreshToken() {
+        console.log("timer triggerred. refreshing token.");
+       // handleRefresh(null);
+        printToken(keycloak);
+    }
+
     function handleSignoutClick(event) {
        keycloak.logout();
 
@@ -84,7 +91,7 @@
 
     function handleSummaryClick(event) {
 
-      var ndexOauth = new ndexClient.NDEx('https://dev.ndexbio.org/v2');
+      var ndexOauth = new ndexClient.NDEx('dev.ndexbio.org');
 
       ndexOauth.setAuthToken(keycloak.token);
       // the UUID of the private network you want to test on.

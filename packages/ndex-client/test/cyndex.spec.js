@@ -6,6 +6,7 @@ const { CyNDEx } = require('../src/');
 
 const { repeatRequest} = require('./nockUtil.js');
 
+
 describe('cyndex client tests', () => {
 
   const CORS_HEADER = {
@@ -20,7 +21,7 @@ describe('cyndex client tests', () => {
   const DUMMY_UUID = 'dummy-uuid';
   const DUMMY_TOKEN = 'dummy-token';
 
-  const DEFAULT_SERVER = 'http://public.ndexbio.org/v2'
+  const DEFAULT_SERVER = 'https://www.ndexbio.org/v2'
 
   const getNock = () => {
     return nock(SERVER).defaultReplyHeaders(CORS_HEADER);
@@ -263,6 +264,22 @@ describe('cyndex client tests', () => {
       .reply(repeatRequest);
 
     cyndex.postCXNetworkToCytoscape(DUMMY_CX).then((response) => {
+      expect(response['dummy-field']).to.equal('dummy-value');
+      done();
+    });
+  });
+
+  it('postCX2NetworkToCytoscape', (done) => {
+    const cyndex = new CyNDEx();
+
+    const DUMMY_CX = { 'dummy-field': 'dummy-value' };
+
+    cyndex.setBasicAuth(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+    getNock().post('/v1/networks?format=cx2')
+      .reply(repeatRequest);
+
+    cyndex.postCX2NetworkToCytoscape(DUMMY_CX).then((response) => {
       expect(response['dummy-field']).to.equal('dummy-value');
       done();
     });

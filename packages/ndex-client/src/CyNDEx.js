@@ -20,7 +20,7 @@ class CyNDEx {
   }
 
   getNDExServer() {
-    return this._ndexServer ? this._ndexServer : 'http://public.ndexbio.org';
+    return this._ndexServer ? this._ndexServer : 'https://www.ndexbio.org';
   }
 
   setGoogleAuth(googleAuthObj) {
@@ -147,6 +147,10 @@ class CyNDEx {
 
   postCXNetworkToCytoscape(cx) {
     return this._httpPost('/cyndex2/v1/networks/cx', undefined, cx);
+  }
+
+  postCX2NetworkToCytoscape(cx2_string, title, collection_name) {
+    return this._httpPost('/v1/networks',{ 'format': 'cx2', 'collection': collection_name, 'title':title}, cx2_string);
   }
 
   postCytoscapeNetworkToNDEx(suid = 'current') {

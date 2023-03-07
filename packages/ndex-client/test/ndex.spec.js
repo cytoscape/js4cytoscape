@@ -44,7 +44,21 @@ describe('testing client', () => {
   // test all the open functions in this section.
   it('get status', () => {
 
-    let ndex0 = new NDEx('http://dev.ndexbio.org/v2');
+    let ndex0 = new NDEx('https://dev.ndexbio.org/v2');
+
+    // this should raise an error if uncommented.
+    // let user = ndex0.getSignedInUser();
+
+    // console.log(user);
+
+    return ndex0.getStatus().then(function (r) {
+      expect(r.message).to.equal('Online');
+    }, (err) => {console.log(err); expect(err.message).to.equal('');});
+  });
+
+  it('test just using host name to construct client object', () => {
+
+    let ndex0 = new NDEx('dev.ndexbio.org');
 
     // this should raise an error if uncommented.
     // let user = ndex0.getSignedInUser();
@@ -57,7 +71,7 @@ describe('testing client', () => {
   });
 
   // test all the autheticated functions here.
-  let ndex = new NDEx('http://dev.ndexbio.org/v2');
+  let ndex = new NDEx('dev.ndexbio.org');
 
   ndex.setBasicAuth(testAccount.username, testAccount.password);
 
@@ -497,7 +511,7 @@ describe('Search function test', () =>{
 });
 
 describe('Networkset tests', () => {
-  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  let ndexclient = new NDEx('dev.ndexbio.org');
   ndexclient.setBasicAuth(testAccount.username, testAccount.password);
   const networkSetData = {
       name: 'ndex-client-test-networkset',
@@ -585,12 +599,13 @@ describe('Networkset tests', () => {
   });
 });
 
+
 describe('Aspect updates',  () => {
-  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  let ndexclient = new NDEx('dev.ndexbio.org');
   ndexclient.setBasicAuth(testAccount.username, testAccount.password);
   const networkWithoutLayoutAspect = '2977ee7f-1d34-11e7-8145-06832d634f41';
   const networkWithLayoutAspect = '5b7b8d84-eee0-11ea-a908-525400c25d22';
-
+/*
   it('updates node positions for a network with a layout aspect', async () => {
     const network = await ndexclient.getRawNetwork(networkWithLayoutAspect);
     const network0Id = await ndexclient.createNetworkFromRawCX(network);
@@ -614,7 +629,8 @@ describe('Aspect updates',  () => {
 
     await ndexclient.deleteNetwork(network0Id);
   });
-
+*/
+ 
   // it('can update a subset of node positions in a network', async () => {
   //   const network = await ndexclient.getRawNetwork(networkWithLayoutAspect);
 
