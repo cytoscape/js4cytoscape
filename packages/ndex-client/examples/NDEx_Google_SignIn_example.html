@@ -6,7 +6,7 @@
     <script src="../dist/ndexClient.js"></script>
 </head>
 <body>
-<p>NDEx Google OAuth Sign In Example.</p>
+<p>NDEx Google OAuth Sign In Example. - DEPRECATED</p>
 
 <!--Add buttons to initiate auth sequence and sign out-->
 <button id="authorize-button" style="display: none;">Authorize</button>
@@ -74,11 +74,11 @@
 
     function handleSummaryClick(event) {
 
-      var ndexOauth = new ndexClient('http://dev.ndexbio.org/v2');
+      var ndexOauth = new ndexClient.NDEx('https://dev.ndexbio.org/v2');
 
       ndexOauth.SetGoogleAuth(gapi.auth2);
       // the UUID of the private network you want to test on.
-      var networkUUID = "9025e42a-9e3f-11e7-8676-06832d634f41";
+      var networkUUID = "72ca66c4-180a-11ed-9208-0242c246b7fb";
 
       ndexOauth.getNetworkSummary( networkUUID).then( function (response) {
         var p = document.createElement('pO');
@@ -140,7 +140,7 @@
             anHttpRequest.setRequestHeader('Authorization', "Bearer " + token);
             anHttpRequest.send(null);
         }
-    }
+    } 
 </script>
 <script src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"
