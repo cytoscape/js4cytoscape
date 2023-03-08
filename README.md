@@ -63,3 +63,23 @@ If you need to add a new dependency to a specific sub-project, you should run:
 
 ```npm install PACKAGE-NAME -w packages/SUBPROJECT-NAME```
 
+## Developing individual packages
+
+1. Create a new branch as a working branch.
+2. Make changes in the code.
+3. Update the version attribute in package.json file under that package. For dev releases, its value should be something like "0.4.3-alpha.1".   
+2. Push all changes to Github.
+3. Build that package and release to NPM as a prerelease. For example, to publish this "0.4.3-alpha.1" release of ndex-client to NPM, run these commands
+
+      ```
+      cd ndex-client
+      npm run build
+      npm publish --tag next
+      ```
+ 4. If there are no errors in the prerelease, create a pull request from that branch and merge changes to develop branch.
+ 5. Tag the develop branch with that prerelease using this format `package_name-vsemVerion`. For example,
+    ```
+    git tag -a cx2js-v0.6.7-alpha.0 -m 'cx2js prerelease v0.6.7-alpha.0' 
+    git push origin --tags
+    ```
+ 6. Delete your working branch. 
