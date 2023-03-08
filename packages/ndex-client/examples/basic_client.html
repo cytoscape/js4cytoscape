@@ -15,7 +15,7 @@
 <button id="get-summary-button" style="display: none;">Get Network Summary</button>
 
 <script type="text/javascript">
-  var ndex = new ndexClient.NDEx('http://dev.ndexbio.org/v2');
+  var ndex = new ndexClient.NDEx('dev.ndexbio.org');
 
   ndex.getStatus().then( (response) => {
     var p = document.createElement('p');
