@@ -754,6 +754,10 @@ class NDEx {
     });
   }
 
+  updateNetworkFromRawCX2(uuid, rawCX2) {
+    return this._httpPutV3Obj('networks/'+uuid, undefined, rawCX2);
+  }
+
   createCyWebWorkspace(workspace) {
     return new Promise((resolve, reject)=> {
       this._httpPostV3ProtectedObj('workspaces', undefined, workspace).then(
