@@ -166,11 +166,12 @@ describe('testing client', () => {
       'name': 'workspace 1',
       'options': {'darkmode':true, 'foo': 24},
       'networkIDs':["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"]
-    }).then((workspaceid) => {
+    }).then((updateStatus) => {
       // console.log(networkList);
-      expect(workspaceid.length).to.equal(36);
-
-      return ndex.getCyWebWorkspace(workspaceid).then((workspaceObj)=>{
+      expect(updateStatus.uuid.length).to.equal(36);
+      expect(updateStatus.modificationTime).to.gte(1678944084238);
+      let workspaceid = updateStatus.uuid;
+      return ndex.getCyWebWorkspace(updateStatus.uuid).then((workspaceObj)=>{
         expect(workspaceObj.name).to.equal('workspace 1');
 
         expect (workspaceObj.options.foo).to.equal(24);

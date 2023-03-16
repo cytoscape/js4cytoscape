@@ -762,11 +762,11 @@ class NDEx {
     return new Promise((resolve, reject)=> {
       this._httpPostV3ProtectedObj('workspaces', undefined, workspace).then(
         (response) => {
-          let uuidr = response.split('/');
+         // let uuidr = response.split('/');
 
-          let uuid = uuidr[uuidr.length - 1];
+         // let uuid = uuidr[uuidr.length - 1];
 
-          return resolve(uuid);
+          return resolve(response);
         },
         (err) => {reject(err);}
       );
