@@ -489,7 +489,7 @@ class NDEx {
 
     }
 
-    interConnectQuery(uuid, searchTerms, saveResult, parameters) {
+    interConnectQuery(uuid, searchTerms, saveResult, parameters, outputCX2 = false) {
       let params = {};
 
       if (saveResult !== undefined && saveResult === true) {params.save = true;}
@@ -503,7 +503,13 @@ class NDEx {
         if (parameters.errorWhenLimitIsOver !== undefined) {
           data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
         }
+        if ( parameters.nodeIds !=null) {
+          data.nodeIds = parameters.nodeIds;
+        }
       }
+      if (outputCX2)
+         return this._httpPostV3ProtectedObj('search/networks/' + uuid + '/interconnectquery', params, data);
+         
       return this._httpPostProtectedObj('search/network/' + uuid + '/interconnectquery', params, data);
 
     }
@@ -523,6 +529,16 @@ class NDEx {
 
       return this._httpPostProtectedObj('batch/network/summary', parameter, uuidList);
     }
+
+    getNetworkSummariesV3ByUUIDs(uuidList, accessKey,fmt) {
+      let parameter =  {format:  fmt == undefined ? "FULL" : fmt}
+
+      if(accessKey === undefined) 
+        parameter['accesskey']= accessKey;
+
+      return this._httpPostV3ProtectedObj('/networks/summary', parameter, uuidList);
+    }
+
 
     getNetworkPermissionsByUUIDs(uuidList) {
       return this._httpPostProtectedObj('batch/network/permission', undefined, uuidList);
