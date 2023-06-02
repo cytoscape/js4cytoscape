@@ -118,8 +118,8 @@ describe('testing client', () => {
   it('group CRUD operations', () => {
     return ndex.createGroup({
       'groupName': 'Melanoma Group 1',
-      'image': 'http://example.com/image/group1.jpg',
-      'website': 'http://www.ucsd.edu',
+      'image': 'https://example.com/image/group1.jpg',
+      'website': 'https://www.ucsd.edu',
       'description': 'description of group 1 is missing.'
     }).then((groupid) => {
       // console.log(networkList);
@@ -149,7 +149,7 @@ describe('testing client', () => {
   });
 
   it('get signed in user with wrong password', () => {
-    let ndex0 = new NDEx('http://dev.ndexbio.org/v2');
+    let ndex0 = new NDEx('dev.ndexbio.org');
 
     ndex0.setBasicAuth('cj1', 'foo');
     return ndex0.getSignedInUser().then((user) => {
@@ -166,11 +166,12 @@ describe('testing client', () => {
       'name': 'workspace 1',
       'options': {'darkmode':true, 'foo': 24},
       'networkIDs':["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"]
-    }).then((workspaceid) => {
+    }).then((updateStatus) => {
       // console.log(networkList);
-      expect(workspaceid.length).to.equal(36);
-
-      return ndex.getCyWebWorkspace(workspaceid).then((workspaceObj)=>{
+      expect(updateStatus.uuid.length).to.equal(36);
+      expect(updateStatus.modificationTime).to.gte(1678944084238);
+      let workspaceid = updateStatus.uuid;
+      return ndex.getCyWebWorkspace(updateStatus.uuid).then((workspaceObj)=>{
         expect(workspaceObj.name).to.equal('workspace 1');
 
         expect (workspaceObj.options.foo).to.equal(24);
@@ -213,7 +214,7 @@ describe('testing client', () => {
 }); 
 
 describe('Anonymous test', () =>{
-  let ndex = new NDEx('http://dev.ndexbio.org/v2');
+  let ndex = new NDEx('dev.ndexbio.org');
 
   it('get public network', ()=> {
     return ndex.getRawNetwork('2015e494-1f11-11e7-8156-06832d634f41')
@@ -250,7 +251,7 @@ describe('Anonymous test', () =>{
 });
 
 describe('Authticated network test', () =>{
-  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  let ndexclient = new NDEx('dev.ndexbio.org');
 
   ndexclient.setBasicAuth(testAccount.username, testAccount.password);
 
@@ -305,7 +306,7 @@ describe('Authticated network test', () =>{
 });
 
 describe('Search function test', () =>{
-  let ndexclient = new NDEx('http://dev.ndexbio.org/v2');
+  let ndexclient = new NDEx('dev.ndexbio.org');
 
   ndexclient.setBasicAuth(testAccount.username, testAccount.password);
 
@@ -353,6 +354,15 @@ describe('Search function test', () =>{
   it('interconnect query on network', ()=>{
     return ndexclient.interConnectQuery('86fbe77b-a799-11e7-b522-06832d634f41', 'tpx2 aurka git1').then((r)=> {
       expect(r.length).to.equal(11);
+    }, errorPrinter
+    );
+
+  });
+
+  /* Direct query on 3 starting nodes. return the result in cx2 format. */
+  it('interconnect query on network cx2 version', ()=>{
+    return ndexclient.interConnectQuery('86fbe77b-a799-11e7-b522-06832d634f41', null, false, {"nodeIds":[3,15,26]}, true).then((r)=> {
+      expect(r.length).to.equal(7);
     }, errorPrinter
     );
 
