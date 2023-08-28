@@ -344,6 +344,7 @@ const visualPropertyMap = {
     'NODE_LABEL_POSITION': { 'att': 'labelPosition', 'type': 'labelPosition' },
     
     'NODE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' },
+    'NODE_Z_LOCATION': {'att': 'z-index', 'type': 'number'},
 
     'EDGE_CURVED': { 'att': 'curve-style', 'type': 'string' },
     'EDGE_BEND': { 'att': 'curve-style', 'type': 'edgeBend' },
