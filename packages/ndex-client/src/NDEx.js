@@ -6,6 +6,9 @@ const CX1_HEADER = {
   }]
 };
 
+/**
+ * NDEx client class.
+ */
 class NDEx {
     constructor(hostprefix) {
       if (hostprefix === undefined || hostprefix === null || hostprefix === '') {
@@ -380,6 +383,16 @@ class NDEx {
       return this._httpGetProtectedObj('network/' + uuid + '/summary', parameters);
     }
 
+    getNetworkV3Summary(uuid, accessKey,fmt) {
+      let parameters =  {format:  fmt != null? fmt : "FULL"}
+
+      if (accessKey != null) {
+        parameters ['accesskey'] = accessKey;
+      }
+
+      return this._httpGetV3ProtectedObj('networks/' + uuid + '/summary', parameters);
+    }
+
     createNetworkFromRawCX(rawCX, parameters) {
       return new Promise((resolve, reject) =>{
         this._httpPostProtectedObj('network', parameters, rawCX).then(
@@ -463,7 +476,7 @@ class NDEx {
       return this._httpPostProtectedObj('search/network', params, data);
     }
 
-    neighborhoodQuery(uuid, searchTerms, saveResult, parameters) {
+    neighborhoodQuery(uuid, searchTerms, saveResult, parameters, outputCX2 = false) {
       let params = {};
 
       if (saveResult !== undefined && saveResult === true) {params.save = true;}
@@ -484,7 +497,13 @@ class NDEx {
         if (parameters.directOnly !== undefined) {
           data.directOnly = parameters.directOnly;
         }
+        if ( parameters.nodeIds !=null) {
+          data.nodeIds = parameters.nodeIds;
+        } 
       }
+      if( outputCX2)
+        return this._httpPostV3ProtectedObj('search/network/' + uuid + '/query', params, data);
+
       return this._httpPostProtectedObj('search/network/' + uuid + '/query', params, data);
 
     }
@@ -533,10 +552,10 @@ class NDEx {
     getNetworkSummariesV3ByUUIDs(uuidList, accessKey,fmt) {
       let parameter =  {format:  fmt == undefined ? "FULL" : fmt}
 
-      if(accessKey === undefined) 
+      if(accessKey != null) 
         parameter['accesskey']= accessKey;
 
-      return this._httpPostV3ProtectedObj('/networks/summary', parameter, uuidList);
+      return this._httpPostV3ProtectedObj('batch/networks/summary', parameter, uuidList);
     }
 
 

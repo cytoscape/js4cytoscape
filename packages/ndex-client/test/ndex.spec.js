@@ -27,6 +27,7 @@ describe('input validation', () => {
 
 describe('testing client', () => {
   //this.timeout(5000);
+  
   /*
   it('get status on non-exist server', () => {
     let ndex0 = new NDEx('http://dev11.ndexbio.org/v2');
@@ -38,8 +39,8 @@ describe('testing client', () => {
       expect(err.response).to.be.undefined;
       expect(err.message).to.equal('Network Error');
     });
-  });
-  */
+  }); */
+  
 
   // test all the open functions in this section.
   it('get status', () => {
@@ -75,14 +76,16 @@ describe('testing client', () => {
 
   ndex.setBasicAuth(testAccount.username, testAccount.password);
 
-  it('get signed in user', () => {
-    return ndex.getSignedInUser().then((user) => {
+  it('get signed in user', (done) => {
+    ndex.getSignedInUser().then((user) => {
       // console.log(user);
       expect(user.userName).to.equal('cj1');
       expect(user.externalId).to.equal('08c4b530-e89c-11e6-b7e1-06832d634f41');
-    }, (err) => {
+      done();
+    }).catch((err) => {
       console.log('error.....');
-      return console.log(err);
+      console.log(err);
+      done();
     });
   });
 
@@ -170,6 +173,7 @@ describe('testing client', () => {
       // console.log(networkList);
       expect(updateStatus.uuid.length).to.equal(36);
       expect(updateStatus.modificationTime).to.gte(1678944084238);
+      console.log("workspace 'workspace 1 created.");
       let workspaceid = updateStatus.uuid;
       return ndex.getCyWebWorkspace(updateStatus.uuid).then((workspaceObj)=>{
         expect(workspaceObj.name).to.equal('workspace 1');
@@ -177,11 +181,12 @@ describe('testing client', () => {
         expect (workspaceObj.options.foo).to.equal(24);
         
         expect (workspaceObj.networkIDs.length).to.equal(2);
-
+        console.log ("workspace 1 object retrieved successfully.");
         ndex.updateCyWebWorkspace(workspaceid, 
           {'name': 'updated workspace', 'options': {'bar':'something'}, 'networkIDs':['f9c1b960-1330-11e7-b0de-06832d634f41']}
           ).then((response) =>{
-          expect(response).to.equal('');
+          expect(response.uuid).to.equal(workspaceid);
+          console.log("Workspace 1 updated successfully.");
           ndex.getCyWebWorkspace(workspaceid)
             .then((newWorkspace) =>{
               // console.log(newgroup);
@@ -198,6 +203,7 @@ describe('testing client', () => {
                         expect(workspace3.networkIDs.length).to.equal(2);
                         ndex.deleteCyWebWorkspace(workspaceid).then((foo) => {
                           expect(foo).to.equal('');
+                          console.log("workspace 1 deleted successfully.");
                         })
                       })
                     })   
@@ -205,6 +211,8 @@ describe('testing client', () => {
                 })
               })
             });
+        }).catch( error => {
+          console.error("error from API call: ", error);
         });
 
     }, (err) => {
@@ -248,7 +256,103 @@ describe('Anonymous test', () =>{
       });
   });
 
+  it('get private network v3 summary through accessKey', ()=> {
+    return ndex.getNetworkV3Summary('9025e42a-9e3f-11e7-8676-06832d634f41',
+      'a93fa15fae6a6c087ec1e2b562deaac930c083ea4cb110110247f5e40f88d46a')
+      .then((summary) => {
+        expect(summary.owner).to.equal('cj1');
+        expect(summary.nodeCount).to.equal(3);
+        expect(summary.name).to.equal('cj test Network for unit test - dont remove');
+        expect(summary.visibility).to.equal('PRIVATE');
+      });
+  });
+
+
+  it('get network v3 full summary', ()=> {
+    return ndex.getNetworkV3Summary('9f2cba30-e61a-11ed-93f7-0242c246b7fb')
+      .then((summary) => {
+        expect(summary.owner).to.equal('cj');
+        expect(summary.nodeCount).to.equal(3);
+        expect(summary.name).to.equal('Network with different type of attributes');
+        expect(summary.visibility).to.equal('PUBLIC');
+        expect(summary.properties.boolean_arr_attr.v).to.deep.equal([true,false]);
+        expect(summary.properties.boolean_arr_attr.t).to.equal('list_of_boolean');
+      });
+  });
+
+  it('get network v3 summary update only', ()=> {
+    return ndex.getNetworkV3Summary('9f2cba30-e61a-11ed-93f7-0242c246b7fb',undefined, 'UPDATE')
+      .then((summary) => {
+        expect(summary).to.not.have.property('owner');
+        expect(summary).to.not.have.property('name');
+        expect(summary).to.not.have.property('properties');
+        expect(summary).to.have.property('modificationTime');
+      });
+  });
+
+  it('get network v3 compact summary (witout properties)', ()=> {
+    return ndex.getNetworkV3Summary('9f2cba30-e61a-11ed-93f7-0242c246b7fb',undefined, 'COMPACT')
+      .then((summary) => {
+        expect(summary.owner).to.equal('cj');
+        expect(summary.nodeCount).to.equal(3);
+        expect(summary.name).to.equal('Network with different type of attributes');
+        expect(summary.visibility).to.equal('PUBLIC');
+        expect(summary).to.not.have.property('properties');
+        expect(summary).to.have.property('modificationTime');
+      });
+  });
+
+  it('get network v3 summary with name, description and properties only', ()=> {
+    return ndex.getNetworkV3Summary('9f2cba30-e61a-11ed-93f7-0242c246b7fb',undefined, 'PROPERTIES')
+      .then((summary) => {
+        expect(summary).to.not.have.property('owner');
+        expect(summary).to.not.have.property('nodeCount');
+        expect(summary.name).to.equal('Network with different type of attributes');
+        expect(summary).to.not.have.property('visibility');
+        expect(summary.description).to.equal(
+          "This example network has attributes on nodes and edges. It has all possible attribute types that Cytoscape can support, and has no visual styles defined.");
+        expect(summary).to.have.property('modificationTime');
+        expect(summary.properties.long_array_attr.v).to.deep.equal([123,454]);
+        expect(summary.properties.long_array_attr.t).to.equal('list_of_long');
+ 
+      });
+  });
+
+  it('get network v3 summaries with updates only', ()=> {
+    return ndex.getNetworkSummariesV3ByUUIDs(['9f2cba30-e61a-11ed-93f7-0242c246b7fb','d1ff3232-9b90-11ea-96e4-525400c25d22'],undefined, 'UPDATE')
+      .then((summaries) => {
+        expect(summaries[0]).to.not.have.property('owner');
+        expect(summaries[0]).to.not.have.property('name');
+        expect(summaries[0]).to.not.have.property('properties');
+        expect(summaries[0]).to.have.property('modificationTime');
+        expect(summaries[0].modificationTime).to.equal(1682723753242);
+        expect(summaries[1]).to.not.have.property('owner');
+        expect(summaries[1].modificationTime).to.equal(1590595444583);
+        expect(summaries[1].uuid).to.equal("d1ff3232-9b90-11ea-96e4-525400c25d22");     
+      });
+  });
+
+
+/*
+  it('get network v3 summaries with name, description and properties only', ()=> {
+    return ndex.getNetworkV3Summary('9f2cba30-e61a-11ed-93f7-0242c246b7fb',undefined, 'PROPERTIES')
+      .then((summary) => {
+        expect(summary).to.not.have.property('owner');
+        expect(summary).to.not.have.property('nodeCount');
+        expect(summary.name).to.equal('Network with different type of attributes');
+        expect(summary).to.not.have.property('visibility');
+        expect(summary.description).to.equal(
+          "This example network has attributes on nodes and edges. It has all possible attribute types that Cytoscape can support, and has no visual styles defined.");
+        expect(summary).to.have.property('modificationTime');
+        expect(summary.properties.long_array_attr.v).to.deep.equal([123,454]);
+        expect(summary.properties.long_array_attr.t).to.equal('list_of_long');
+ 
+      });
+  }); */
+
 });
+
+
 
 describe('Authticated network test', () =>{
   let ndexclient = new NDEx('dev.ndexbio.org');
@@ -354,15 +458,19 @@ describe('Search function test', () =>{
   it('interconnect query on network', ()=>{
     return ndexclient.interConnectQuery('86fbe77b-a799-11e7-b522-06832d634f41', 'tpx2 aurka git1').then((r)=> {
       expect(r.length).to.equal(11);
+      expect(r[3].length, 3); //node counts
+      expect(r[4].length, 2); //edge counts
     }, errorPrinter
     );
 
   });
 
-  /* Direct query on 3 starting nodes. return the result in cx2 format. */
+  // Direct query on 3 starting nodes. return the result in cx2 format. 
   it('interconnect query on network cx2 version', ()=>{
     return ndexclient.interConnectQuery('86fbe77b-a799-11e7-b522-06832d634f41', null, false, {"nodeIds":[3,15,26]}, true).then((r)=> {
       expect(r.length).to.equal(7);
+      expect(r[3].length, 3) //node counts
+      expect(r[4].length, 2) //edge counts;
     }, errorPrinter
     );
 
