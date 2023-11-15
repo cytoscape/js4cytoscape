@@ -332,6 +332,14 @@ describe('Anonymous test', () =>{
       });
   });
 
+  it('get name attribute on selected nodes', ()=> {
+    return ndex.getAttributesOfSelectedNodes('c81ea28a-bdc4-11e7-9235-06832d634f41',{ids:[64,66,68],attributeNames:["name"]})
+      .then((result) => {
+        expect(result["64"]["name"]).to.equal('Node 1');
+        expect(result["66"]["name"]).to.equal('Node 2');
+        expect(result["68"]["name"]).to.equal('Node 3');
+      });
+  });
 
 /*
   it('get network v3 summaries with name, description and properties only', ()=> {

@@ -393,6 +393,22 @@ class NDEx {
       return this._httpGetV3ProtectedObj('networks/' + uuid + '/summary', parameters);
     }
 
+    getAttributesOfSelectedNodes(uuid, {ids: nodeIds, attributeNames: names},accessKey) {
+      let parameters = {
+      };
+
+      if (accessKey != null) {
+        parameters ['accesskey'] = accessKey;
+      }
+
+      let data = {
+        "ids": nodeIds,
+        "attributeNames": names,
+      };
+  
+      return this._httpPostV3ProtectedObj('/search/networks/' + uuid + '/nodes', parameters, data);
+    }
+
     createNetworkFromRawCX(rawCX, parameters) {
       return new Promise((resolve, reject) =>{
         this._httpPostProtectedObj('network', parameters, rawCX).then(
