@@ -101,14 +101,15 @@ class NDEx {
     }
 
     _setAuthHeader(config) {
+      
+      if (config['headers'] === undefined) {config['headers'] = {};}
+      config['headers']['setAuthHeader'] = false;
+
       if (this._authType === 'b') {
         config ['auth'] = { username: this.username,
           password: this.password};
       } else if (this.authenticationType === 'g') {
-        const idToken =  this._getIdToken();
-
-        if (config['headers'] === undefined) {config['headers'] = {};}
-        config['headers']['Authorization'] = 'Bearer ' + idToken;
+        config['headers']['Authorization'] = 'Bearer ' + this._getIdToken();
       }
     }
 
@@ -391,6 +392,22 @@ class NDEx {
       }
 
       return this._httpGetV3ProtectedObj('networks/' + uuid + '/summary', parameters);
+    }
+
+    getAttributesOfSelectedNodes(uuid, {ids: nodeIds, attributeNames: names},accessKey) {
+      let parameters = {
+      };
+
+      if (accessKey != null) {
+        parameters ['accesskey'] = accessKey;
+      }
+
+      let data = {
+        "ids": nodeIds,
+        "attributeNames": names,
+      };
+  
+      return this._httpPostV3ProtectedObj('/search/networks/' + uuid + '/nodes', parameters, data);
     }
 
     createNetworkFromRawCX(rawCX, parameters) {
