@@ -101,14 +101,15 @@ class NDEx {
     }
 
     _setAuthHeader(config) {
+      
+      if (config['headers'] === undefined) {config['headers'] = {};}
+      config['headers']['setAuthHeader'] = false;
+
       if (this._authType === 'b') {
         config ['auth'] = { username: this.username,
           password: this.password};
       } else if (this.authenticationType === 'g') {
-        const idToken =  this._getIdToken();
-
-        if (config['headers'] === undefined) {config['headers'] = {};}
-        config['headers']['Authorization'] = 'Bearer ' + idToken;
+        config['headers']['Authorization'] = 'Bearer ' + this._getIdToken();
       }
     }
 
