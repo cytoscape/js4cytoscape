@@ -701,13 +701,13 @@ class CxToJs {
                     return position;
                 };
 
-              this.getCyVisualAttributeForVP = function (vp, conversionTable) {
-                  var attProps = conversionTable[vp];
-                  if (attProps) {
-                      return attProps.att;
-                  }
-                  return false;
-              };
+                this.getCyVisualAttributeForVP = function (vp, conversionTable) {
+                    var attProps = conversionTable[vp];
+                    if (attProps) {
+                        return attProps.att;
+                    }
+                    return false;
+                };
                 
                 this.getCyVisualAttributeObjForVP = function (vp, conversionTable) {
                     var attProps = conversionTable[vp];
@@ -1548,6 +1548,8 @@ class CxToJs {
                             //var postProcessEdgeProperties = this.postProcessEdgeProperties;
                             var postProcessEdgeBends = this.postProcessEdgeBends;
                             var mappingStyle = this.mappingStyle;
+                            var parseMappingDefinition = this.parseMappingDefinition;
+                            
                             _.forEach(visualProperties, function (vpAspectElement) {
                                 _.forEach(vpAspectElement, function (vpElement) {
                                     //console.log(vpElement);
@@ -1677,8 +1679,10 @@ class CxToJs {
                                                     mappingStyle('node:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
                                                   );  
                                                 } else {   
-                                                  var styles = mappingStyle('node', vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
-                                                  nodeDefaultMappings = nodeDefaultMappings.concat(styles);
+                                                  if (!(vp === 'NODE_LABEL_COLOR' && CX_NUMBER_DATATYPES.includes(parseMappingDefinition(mapping.definition).T))){
+                                                    var styles = mappingStyle('node', vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
+                                                    nodeDefaultMappings = nodeDefaultMappings.concat(styles);      
+                                                  }
                                                 }
                                             }
                                         });
