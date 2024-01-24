@@ -1002,12 +1002,15 @@ class CxToJs {
                 this.mappingFunctionValidator = function(mappingType, visualProperty, definition){
                     // only check the 'passthrough' mapping function
                     if (mappingType === mappingFunctionType['passthrough']){
-                        var vpType = visualPropertyMap[visualProperty]
+                        var vpType = visualPropertyMap[visualProperty].type;
                         var attType = visualPropertyType2AttributeTypeMap[vpType];
+                        var defType = self.parseMappingDefinition(definition).T;
+                        // If attType is an array, the function checks if it includes defType
                         if (Array.isArray(attType)) { 
-                            return attType.includes(definition);
-                        } else if (typeof obj === 'string') {
-                            return definition === attType;
+                            return attType.includes(defType);
+                        // If attType is a string, it checks for direct equality with defType
+                        } else if (typeof attType === 'string') {
+                            return defType === attType;
                         } else {
                             return false;
                         }
@@ -1707,7 +1710,7 @@ class CxToJs {
                                             //console.log(mapping);
                                             //console.log('VP = ' + vp);
                                             // need to check if the nodeSizedLocked is true for NODE_HEIGHT, NODE_WIDTH, and NODE_SIZE
-                                            if(mappingFunctionValidator(mapping.type, vp, mapping.type)){ //validate the mapping function
+                                            if(mappingFunctionValidator(mapping.type, vp, mapping.definition)){ //validate the mapping function
                                                 if (!((vp === 'NODE_HEIGHT' || vp === 'NODE_WIDTH') &&
                                                 vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') &&
                                                 !(vp === 'NODE_SIZE' && (!vpElement.dependencies.nodeSizeLocked || (vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'false')))
@@ -1779,7 +1782,7 @@ class CxToJs {
                                             //console.log('VP = ' + vp);
                                             elementType = 'edge';
                                             var styles = null;
-                                            if (mappingFunctionValidator(mapping.type, vp, mapping.type)){
+                                            if (mappingFunctionValidator(mapping.type, vp, mapping.definition)){
                                                 if (vpElement.dependencies && vpElement.dependencies.arrowColorMatchesEdge === 'true') {
                                                     if (vp !== 'EDGE_STROKE_UNSELECTED_PAINT' && vp !== 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT' &&
                                                     vp !== 'EDGE_TARGET_ARROW_UNSELECTED_PAINT' && vp != 'EDGE_SOURCE_ARROW_SELECTED_PAINT' && vp != 'EDGE_TARGET_ARROW_SELECTED_PAINT' ) {
