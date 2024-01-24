@@ -1679,7 +1679,7 @@ class CxToJs {
                                                     mappingStyle('node:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
                                                   );  
                                                 } else {   
-                                                  if (!(vp === 'NODE_LABEL_COLOR' && CX_NUMBER_DATATYPES.includes(parseMappingDefinition(mapping.definition).T))){
+                                                  if ( (vp !== 'NODE_LABEL_COLOR') || parseMappingDefinition(mapping.definition).T === 'string'){
                                                     var styles = mappingStyle('node', vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
                                                     nodeDefaultMappings = nodeDefaultMappings.concat(styles);      
                                                   }
