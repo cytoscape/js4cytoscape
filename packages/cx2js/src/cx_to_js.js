@@ -721,13 +721,13 @@ class CxToJs {
                     return position;
                 };
 
-            this.getCyVisualAttributeForVP = function (vp, conversionTable) {
-                var attProps = conversionTable[vp];
-                if (attProps) {
-                    return attProps.att;
-                }
-                return false;
-            };
+                this.getCyVisualAttributeForVP = function (vp, conversionTable) {
+                    var attProps = conversionTable[vp];
+                    if (attProps) {
+                        return attProps.att;
+                    }
+                    return false;
+                };
                 
                 this.getCyVisualAttributeObjForVP = function (vp, conversionTable) {
                     var attProps = conversionTable[vp];
@@ -1011,9 +1011,11 @@ class CxToJs {
                         // If attType is a string, it checks for direct equality with defType
                         } else if (typeof attType === 'string') {
                             return defType === attType;
+                        // Otherwise, return false directly
                         } else {
                             return false;
                         }
+                    // do NOT need to check 'discrete' or 'continuous' mapping function, 
                     }
                     return true;
                 }
@@ -1782,7 +1784,7 @@ class CxToJs {
                                             //console.log('VP = ' + vp);
                                             elementType = 'edge';
                                             var styles = null;
-                                            if (mappingFunctionValidator(mapping.type, vp, mapping.definition)){
+                                            if (mappingFunctionValidator(mapping.type, vp, mapping.definition)){ //validate the mapping function
                                                 if (vpElement.dependencies && vpElement.dependencies.arrowColorMatchesEdge === 'true') {
                                                     if (vp !== 'EDGE_STROKE_UNSELECTED_PAINT' && vp !== 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT' &&
                                                     vp !== 'EDGE_TARGET_ARROW_UNSELECTED_PAINT' && vp != 'EDGE_SOURCE_ARROW_SELECTED_PAINT' && vp != 'EDGE_TARGET_ARROW_SELECTED_PAINT' ) {
