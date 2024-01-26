@@ -846,5 +846,16 @@ class NDEx {
     return this._httpPutV3Obj('workspaces/'+workspaceId+'/networkids', undefined, networkIds);
   }
 
+  getUserCyWebWorkspaces() {
+    return new Promise((resolve, reject) => {
+      this.getSignedInUser().then((user) => {
+        this._httpGetV3ProtectedObj('users/'+ user.externalId + '/workspaces', {}).then(
+          (workspaceArray) => {resolve(workspaceArray);}, (err) => {reject(err);}
+        );
+      }, (err) => {reject(err);});
+
+    });
+  }
+
 }
   module.exports = { NDEx };
