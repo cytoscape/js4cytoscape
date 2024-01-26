@@ -1808,11 +1808,16 @@ describe('CX to JS', function () {
       {
         'mappingType': 'PASSTHROUGH',
         'visualProperty': 'NODE_HEIGHT',
-        'definition': 'COL=CD_MemberList_LogSize,T=string'
+        'definition': 'COL=CD_MemberList_LogSize,T=boolean'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_VISIBLE',
+        'definition': 'COL=CD_MemberList_LogSize,T=integer'
       },
     ];
 
-    var expectedResults = [true, true, true, false, true, false];
+    var expectedResults = [true, true, true, false, true, false, false];
 
     for (let i = 0; i < testCases.length; i++){
       var testCase = testCases[i]

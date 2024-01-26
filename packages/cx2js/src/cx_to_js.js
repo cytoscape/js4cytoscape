@@ -376,7 +376,7 @@ const mappingFunctionType = {
 
 const visualPropertyType2AttributeTypeMap = {
     'color': 'string',
-    'opacity': 'boolean',
+    'opacity': CX_NUMBER_DATATYPES,
     'nodeShape': 'string',
     'number': CX_NUMBER_DATATYPES,
     'fontFamily': 'string',
@@ -1001,10 +1001,14 @@ class CxToJs {
                 // validation function of mapping function
                 this.mappingFunctionValidator = function(mappingType, visualProperty, definition){
                     // only check the 'passthrough' mapping function
-                    if (mappingType === mappingFunctionType['passthrough']){
+                    if (mappingType === mappingFunctionType['passthrough'] ){
+                        var defType = self.parseMappingDefinition(definition).T;
+                        // If defType is string, it should always be treated as valid
+                        if (defType === 'string'){
+                            return true;
+                        }
                         var vpType = visualPropertyMap[visualProperty].type;
                         var attType = visualPropertyType2AttributeTypeMap[vpType];
-                        var defType = self.parseMappingDefinition(definition).T;
                         // If attType is an array, the function checks if it includes defType
                         if (Array.isArray(attType)) { 
                             return attType.includes(defType);
