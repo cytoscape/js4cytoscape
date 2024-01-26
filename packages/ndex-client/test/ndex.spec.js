@@ -164,61 +164,71 @@ describe('testing client', () => {
     });
   });
 
-  it('Workspace CRUD operations', () => {
-    return ndex.createCyWebWorkspace({
-      'name': 'workspace 1',
-      'options': {'darkmode':true, 'foo': 24},
-      'networkIDs':["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"]
-    }).then((updateStatus) => {
-      // console.log(networkList);
-      expect(updateStatus.uuid.length).to.equal(36);
-      expect(updateStatus.modificationTime).to.gte(1678944084238);
-      console.log("workspace 'workspace 1 created.");
-      let workspaceid = updateStatus.uuid;
-      return ndex.getCyWebWorkspace(updateStatus.uuid).then((workspaceObj)=>{
-        expect(workspaceObj.name).to.equal('workspace 1');
-
-        expect (workspaceObj.options.foo).to.equal(24);
-        
-        expect (workspaceObj.networkIDs.length).to.equal(2);
-        console.log ("workspace 1 object retrieved successfully.");
-        ndex.updateCyWebWorkspace(workspaceid, 
-          {'name': 'updated workspace', 'options': {'bar':'something'}, 'networkIDs':['f9c1b960-1330-11e7-b0de-06832d634f41']}
-          ).then((response) =>{
-          expect(response.uuid).to.equal(workspaceid);
-          console.log("Workspace 1 updated successfully.");
-          ndex.getCyWebWorkspace(workspaceid)
-            .then((newWorkspace) =>{
-              // console.log(newgroup);
-              expect(newWorkspace.name).to.equal("updated workspace");
-              ndex.updateCyWebWorkspaceName(workspaceid, 'updated again').then(
-                (rt1) => {
-                  expect (rt1).to.equal('');
-                  ndex.updateCyWebWorkspaceNetworks(workspaceid,["8ca5050b-0fed-11e7-a52f-06832d634f41","9025e42a-9e3f-11e7-8676-06832d634f41"])
-                  .then ( ()=>
-                    { 
-                      ndex.getCyWebWorkspace(workspaceid)
-                      .then( (workspace3) => {
-                        expect(workspace3.name).to.equal('updated again');
-                        expect(workspace3.networkIDs.length).to.equal(2);
-                        ndex.deleteCyWebWorkspace(workspaceid).then((foo) => {
-                          expect(foo).to.equal('');
-                          console.log("workspace 1 deleted successfully.");
-                        })
-                      })
-                    })   
-                  }) 
-                })
-              })
-            });
-        }).catch( error => {
-          console.error("error from API call: ", error);
+  it('Workspace CRUD operations', async () => {
+      try {
+        // Create Workspace
+        const createResponse = await ndex.createCyWebWorkspace({
+          name: 'workspace 1',
+          options: { darkmode: true, foo: 24 },
+          networkIDs: [
+            "8ca5050b-0fed-11e7-a52f-06832d634f41",
+            "9025e42a-9e3f-11e7-8676-06832d634f41"
+          ]
         });
-
-    }, (err) => {
-      console.log('error.....');
-      return console.log(err);
+  
+        expect(createResponse.uuid.length).to.equal(36);
+        expect(createResponse.modificationTime).to.be.at.least(1678944084238);
+        console.log("Workspace 'workspace 1' created.");
+        const workspaceId = createResponse.uuid;
+  
+        // Retrieve Workspace
+        const workspaceObj = await ndex.getCyWebWorkspace(workspaceId);
+        expect(workspaceObj.name).to.equal('workspace 1');
+        expect(workspaceObj.options.foo).to.equal(24);
+        expect(workspaceObj.networkIDs.length).to.equal(2);
+        console.log("Workspace 1 object retrieved successfully.");
+  
+        // Update Workspace
+        const updateResponse = await ndex.updateCyWebWorkspace(workspaceId, {
+          name: 'updated workspace',
+          options: { bar: 'something' },
+          networkIDs: ['f9c1b960-1330-11e7-b0de-06832d634f41']
+        });
+        expect(updateResponse.uuid).to.equal(workspaceId);
+        console.log("Workspace 1 updated successfully.");
+  
+        const newWorkspace = await ndex.getCyWebWorkspace(workspaceId);
+        expect(newWorkspace.name).to.equal("updated workspace");
+  
+        // Update Workspace Name
+        await ndex.updateCyWebWorkspaceName(workspaceId, 'updated again');
+        const updatedWorkspace = await ndex.getCyWebWorkspace(workspaceId);
+        expect(updatedWorkspace.name).to.equal('updated again');
+  
+        // Update Workspace Networks
+        await ndex.updateCyWebWorkspaceNetworks(workspaceId, [
+          "8ca5050b-0fed-11e7-a52f-06832d634f41",
+          "9025e42a-9e3f-11e7-8676-06832d634f41"
+        ]);
+  
+        const workspace3 = await ndex.getCyWebWorkspace(workspaceId);
+        expect(workspace3.networkIDs.length).to.equal(2);
+  
+        // Retrieve User Workspaces
+        const workspaceList = await ndex.getUserCyWebWorkspaces();
+        expect(workspaceList.length).to.equal(1);
+  
+        // Delete Workspace
+        const deleteResponse = await ndex.deleteCyWebWorkspace(workspaceId);
+        expect(deleteResponse).to.equal('');
+        console.log("Workspace 1 deleted successfully.");
+  
+      } catch (error) {
+        console.error("Error from API call:", error);
+        throw error; // Rethrow the error for test failure
+      }
     });
+  
 }); 
 
 describe('Anonymous test', () =>{
