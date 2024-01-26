@@ -1000,8 +1000,8 @@ class CxToJs {
                 
                 // validation function of mapping function
                 this.mappingFunctionValidator = function(mappingType, visualProperty, definition){
-                    // only check the 'passthrough' mapping function
-                    if (mappingType === mappingFunctionType['passthrough'] ){
+                    // only check the 'passthrough' mapping function and visualProperty is in the given Map
+                    if (mappingType === mappingFunctionType['passthrough'] && (visualProperty in visualPropertyMap)){
                         var defType = self.parseMappingDefinition(definition).T;
                         // If defType is string, it should always be treated as valid
                         if (defType === 'string'){
