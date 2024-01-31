@@ -1775,6 +1775,57 @@ describe('CX to JS', function () {
     expect(result).to.eql(pan);
   });
 
+  it('cx2js mappingFunctionValidator', function(){
+    var utils = new CyNetworkUtils();
+    var cxToJs = new CxToJs(utils);
+
+    var testCases = [
+      {
+        'mappingType': 'DISCRETE',
+        'visualProperty': 'NODE_LABEL_FONT_SIZE',
+        'definition': 'COL=CD_CommunityName,T=string'
+      },
+      {
+        'mappingType': 'CONTINUOUS',
+        'visualProperty': 'NODE_LABEL_WIDTH',
+        'definition': 'COL=CD_CommunityName,T=string'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_LABEL',
+        'definition': 'COL=CD_CommunityName,T=string'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_LABEL_COLOR',
+        'definition': 'COL=CD_MemberList_LogSize,T=double'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_Z_LOCATION',
+        'definition': 'COL=CD_MemberList_LogSize,T=double'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_HEIGHT',
+        'definition': 'COL=CD_MemberList_LogSize,T=boolean'
+      },
+      {
+        'mappingType': 'PASSTHROUGH',
+        'visualProperty': 'NODE_VISIBLE',
+        'definition': 'COL=CD_MemberList_LogSize,T=integer'
+      },
+    ];
+
+    var expectedResults = [true, true, true, false, true, false, false];
+
+    for (let i = 0; i < testCases.length; i++){
+      var testCase = testCases[i]
+      var res = cxToJs.mappingFunctionValidator(testCase['mappingType'], testCase['visualProperty'], testCase['definition']);
+      expect(res).to.eql(expectedResults[i])
+    }
+  })
+
 });
 
 it('WP2806 style test', function () {

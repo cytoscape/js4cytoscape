@@ -368,6 +368,26 @@ const visualPropertyMap = {
     'EDGE_VISIBLE' : { 'att': 'visibility', 'type': 'visibility' }
 };
 
+const mappingFunctionType = {
+    'continuous': 'CONTINUOUS',
+    'discrete': 'DISCRETE',
+    'passthrough': 'PASSTHROUGH'
+}
+
+const visualPropertyType2AttributeTypeMap = {
+    'color': 'string',
+    'opacity': CX_NUMBER_DATATYPES,
+    'nodeShape': 'string',
+    'number': CX_NUMBER_DATATYPES,
+    'fontFamily': 'string',
+    'string': 'string',
+    'labelPosition': 'string',
+    'visibility': 'boolean',
+    'edgeBend': 'string',
+    'line': 'string',
+    'arrow': 'string'
+}
+
 // conversion table for visual properties that relate to selections
 const selectionVisualPropertyMap = {
     
@@ -701,13 +721,13 @@ class CxToJs {
                     return position;
                 };
 
-              this.getCyVisualAttributeForVP = function (vp, conversionTable) {
-                  var attProps = conversionTable[vp];
-                  if (attProps) {
-                      return attProps.att;
-                  }
-                  return false;
-              };
+                this.getCyVisualAttributeForVP = function (vp, conversionTable) {
+                    var attProps = conversionTable[vp];
+                    if (attProps) {
+                        return attProps.att;
+                    }
+                    return false;
+                };
                 
                 this.getCyVisualAttributeObjForVP = function (vp, conversionTable) {
                     var attProps = conversionTable[vp];
@@ -978,17 +998,43 @@ class CxToJs {
                     return elements;
                 };
                 
+                // validation function of mapping function
+                this.mappingFunctionValidator = function(mappingType, visualProperty, definition){
+                    // only check the 'passthrough' mapping function and visualProperty is in the given Map
+                    if (mappingType === mappingFunctionType['passthrough'] && (visualProperty in visualPropertyMap)){
+                        var defType = self.parseMappingDefinition(definition).T;
+                        // If defType is string, it should always be treated as valid
+                        if (defType === 'string'){
+                            return true;
+                        }
+                        var vpType = visualPropertyMap[visualProperty].type;
+                        var attType = visualPropertyType2AttributeTypeMap[vpType];
+                        // If attType is an array, the function checks if it includes defType
+                        if (Array.isArray(attType)) { 
+                            return attType.includes(defType);
+                        // If attType is a string, it checks for direct equality with defType
+                        } else if (typeof attType === 'string') {
+                            return defType === attType;
+                        // Otherwise, return false directly
+                        } else {
+                            return false;
+                        }
+                    // do NOT need to check 'discrete' or 'continuous' mapping function, 
+                    }
+                    return true;
+                }
+
                 //var parseMappingDefinition = this.parseMappingDefinition
                 // var discreteMappingStyle = this.discreteMappingStyle
                 // var continuousMappingStyle = this.continuousMappingStyle
                 // var passthroughMappingStyle = this.passthroughMappingStyle
                 this.mappingStyle = function (elementType, vp, type, definition, attributeNameMap, conversionTable) {
                     var def = self.parseMappingDefinition(definition);
-                    if (type === 'DISCRETE') {
+                    if (type === mappingFunctionType['discrete']) {
                         return self.discreteMappingStyle(elementType, vp, def, attributeNameMap, conversionTable);
-                    } else if (type === 'CONTINUOUS') {
+                    } else if (type === mappingFunctionType['continuous']) {
                         return self.continuousMappingStyle(elementType, vp, def, attributeNameMap, conversionTable);
-                    } else if (type === 'PASSTHROUGH') {
+                    } else if (type === mappingFunctionType['passthrough']) {
                         return self.passthroughMappingStyle(elementType, vp, def, attributeNameMap, conversionTable);
                     }
                 };
@@ -1548,6 +1594,8 @@ class CxToJs {
                             //var postProcessEdgeProperties = this.postProcessEdgeProperties;
                             var postProcessEdgeBends = this.postProcessEdgeBends;
                             var mappingStyle = this.mappingStyle;
+                            var mappingFunctionValidator = this.mappingFunctionValidator;
+                            
                             _.forEach(visualProperties, function (vpAspectElement) {
                                 _.forEach(vpAspectElement, function (vpElement) {
                                     //console.log(vpElement);
@@ -1668,17 +1716,19 @@ class CxToJs {
                                             //console.log(mapping);
                                             //console.log('VP = ' + vp);
                                             // need to check if the nodeSizedLocked is true for NODE_HEIGHT, NODE_WIDTH, and NODE_SIZE
-                                            if (!((vp === 'NODE_HEIGHT' || vp === 'NODE_WIDTH') &&
-                                            vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') &&
-                                            !(vp === 'NODE_SIZE' && (!vpElement.dependencies.nodeSizeLocked || (vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'false')))
-                                            ) {
-                                                if ( vp.endsWith('_SELECTED_PAINT')) {
-                                                  nodeSelectionMappings = nodeSelectionMappings.concat(
-                                                    mappingStyle('node:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
-                                                  );  
-                                                } else {   
-                                                  var styles = mappingStyle('node', vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
-                                                  nodeDefaultMappings = nodeDefaultMappings.concat(styles);
+                                            if(mappingFunctionValidator(mapping.type, vp, mapping.definition)){ //validate the mapping function
+                                                if (!((vp === 'NODE_HEIGHT' || vp === 'NODE_WIDTH') &&
+                                                vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'true') &&
+                                                !(vp === 'NODE_SIZE' && (!vpElement.dependencies.nodeSizeLocked || (vpElement.dependencies.nodeSizeLocked && vpElement.dependencies.nodeSizeLocked === 'false')))
+                                                ) {
+                                                    if ( vp.endsWith('_SELECTED_PAINT')) {
+                                                    nodeSelectionMappings = nodeSelectionMappings.concat(
+                                                        mappingStyle('node:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
+                                                    );  
+                                                    } else { 
+                                                        var styles = mappingStyle('node', vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
+                                                        nodeDefaultMappings = nodeDefaultMappings.concat(styles);      
+                                                    }
                                                 }
                                             }
                                         });
@@ -1738,41 +1788,41 @@ class CxToJs {
                                             //console.log('VP = ' + vp);
                                             elementType = 'edge';
                                             var styles = null;
-                                            
-                                            if (vpElement.dependencies && vpElement.dependencies.arrowColorMatchesEdge === 'true') {
-                                                if (vp !== 'EDGE_STROKE_UNSELECTED_PAINT' && vp !== 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT' &&
-                                                vp !== 'EDGE_TARGET_ARROW_UNSELECTED_PAINT' && vp != 'EDGE_SOURCE_ARROW_SELECTED_PAINT' && vp != 'EDGE_TARGET_ARROW_SELECTED_PAINT' ) {
-                                                    if (vp ==='EDGE_STROKE_SELECTED_PAINT') {
-                                                      edgeSelectionMappings = edgeSelectionMappings.concat(
-                                                        mappingStyle('edge:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
-                                                       ); 
-                                                      styles = mappingStyle('edge:selected', 'EDGE_TARGET_ARROW_SELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap);
-                                                      edgeSelectionMappings = edgeSelectionMappings.concat(styles);
-                                                      styles = mappingStyle('edge:selected', 'EDGE_SOURCE_ARROW_SELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap, selectionVisualPropertyMap);
-                                                      edgeSelectionMappings = edgeSelectionMappings.concat(styles);
+                                            if (mappingFunctionValidator(mapping.type, vp, mapping.definition)){ //validate the mapping function
+                                                if (vpElement.dependencies && vpElement.dependencies.arrowColorMatchesEdge === 'true') {
+                                                    if (vp !== 'EDGE_STROKE_UNSELECTED_PAINT' && vp !== 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT' &&
+                                                    vp !== 'EDGE_TARGET_ARROW_UNSELECTED_PAINT' && vp != 'EDGE_SOURCE_ARROW_SELECTED_PAINT' && vp != 'EDGE_TARGET_ARROW_SELECTED_PAINT' ) {
+                                                        if (vp ==='EDGE_STROKE_SELECTED_PAINT') {
+                                                        edgeSelectionMappings = edgeSelectionMappings.concat(
+                                                            mappingStyle('edge:selected', vp, mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap)
+                                                        ); 
+                                                        styles = mappingStyle('edge:selected', 'EDGE_TARGET_ARROW_SELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap,selectionVisualPropertyMap);
+                                                        edgeSelectionMappings = edgeSelectionMappings.concat(styles);
+                                                        styles = mappingStyle('edge:selected', 'EDGE_SOURCE_ARROW_SELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap, selectionVisualPropertyMap);
+                                                        edgeSelectionMappings = edgeSelectionMappings.concat(styles);
+                                                        }
+                                                        else { 
+                                                        if (vp === 'EDGE_UNSELECTED_PAINT') {
+                                                            styles = mappingStyle(elementType, 'EDGE_TARGET_ARROW_UNSELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
+                                                            edgeDefaultMappings = edgeDefaultMappings.concat(styles);
+                                                            styles = mappingStyle(elementType, 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap, visualPropertyMap);
+                                                            edgeDefaultMappings = edgeDefaultMappings.concat(styles);
+                                                        
+                                                        } 
+                                                        styles = mappingStyle(elementType, vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
+                                                        edgeDefaultMappings = edgeDefaultMappings.concat(styles);
+                                                        }  
                                                     }
-                                                    else { 
-                                                      if (vp === 'EDGE_UNSELECTED_PAINT') {
-                                                        styles = mappingStyle(elementType, 'EDGE_TARGET_ARROW_UNSELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
-                                                        edgeDefaultMappings = edgeDefaultMappings.concat(styles);
-                                                        styles = mappingStyle(elementType, 'EDGE_SOURCE_ARROW_UNSELECTED_PAINT', mapping.type, mapping.definition, attributeNameMap, visualPropertyMap);
-                                                        edgeDefaultMappings = edgeDefaultMappings.concat(styles);
-                                                    
-                                                      } 
-                                                      styles = mappingStyle(elementType, vp, mapping.type, mapping.definition, attributeNameMap,visualPropertyMap);
-                                                      edgeDefaultMappings = edgeDefaultMappings.concat(styles);
-                                                     }  
-                                                }
-                                            } else {
-                                              if (vp !== 'EDGE_UNSELECTED_PAINT') {
-                                                styles = mappingStyle(elementType, vp, mapping.type, mapping.definition, attributeNameMap, visualPropertyMap);
-                                                const filteredStyles = styles.filter((style)=> {
-                                                    return (!style.css['bend-point-distances'] && !style.css['bend-point-weights']);
-                                                });
-                                                edgeDefaultMappings = edgeDefaultMappings.concat(filteredStyles);
-                                              }  
-                                            }
-                                            
+                                                } else {
+                                                if (vp !== 'EDGE_UNSELECTED_PAINT') {
+                                                    styles = mappingStyle(elementType, vp, mapping.type, mapping.definition, attributeNameMap, visualPropertyMap);
+                                                    const filteredStyles = styles.filter((style)=> {
+                                                        return (!style.css['bend-point-distances'] && !style.css['bend-point-weights']);
+                                                    });
+                                                    edgeDefaultMappings = edgeDefaultMappings.concat(filteredStyles);
+                                                }  
+                                                }                                                
+                                            }                                            
                                         });
                                         /*   _.forEach(vpElement.dependencies, function(value, vp) {
                                             if ( vp === 'arrowColorMatchesEdge') {
