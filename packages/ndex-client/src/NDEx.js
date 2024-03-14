@@ -857,5 +857,8 @@ class NDEx {
     });
   }
 
+  signInFromIdToken(idToken) {
+   return this._httpPostV3ProtectedObj('users/signin', undefined, {idToken: idToken});
+  }
 }
   module.exports = { NDEx };
