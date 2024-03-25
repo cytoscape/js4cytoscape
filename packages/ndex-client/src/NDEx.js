@@ -1,4 +1,4 @@
-const { default: axios } = require('axios');
+import { default as axios } from 'axios';
 
 const CX1_HEADER = {
   numberVerification: [{
@@ -861,4 +861,5 @@ class NDEx {
    return this._httpPostV3ProtectedObj('users/signin', undefined, {idToken: idToken});
   }
 }
-  module.exports = { NDEx };
+
+  export default  NDEx ;

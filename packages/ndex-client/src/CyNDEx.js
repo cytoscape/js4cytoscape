@@ -1,6 +1,6 @@
 const CY_REST_BASE_URL = 'http://127.0.0.1';
 
-const axios = require('axios');
+import { default as axios } from 'axios';
 
 class CyNDEx {
 
@@ -175,4 +175,4 @@ class CyNDEx {
   }
 }
 
-module.exports = { CyNDEx };
+export default CyNDEx ;
