@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NDEx OAuth Sign In Example</title>
+    <meta charset='utf-8'/>
+    <script type="text/javascript" src="http://localhost:8085/js/keycloak.js"></script>
+    <script src="../dist/ndexClient.js"></script>
+</head>
+<body onload="initKeycloak()">
+<p>NDEx Keycloak Sign In Example.</p>
+
+<!--Add buttons to initiate auth sequence and sign out-->
+<button id="authorize-button" style="display: none;">Authorize</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+<button id="refresh-button" style="display: none;">Refresh</button>
+<button id="get-summary-button" style="display: none;">Get Network Summary</button>
+
+<div id="content"></div>
+
+<script type="text/javascript">
+
+
+    var authorizeButton = document.getElementById('authorize-button');
+    var signoutButton = document.getElementById('signout-button');
+    var refreshButton = document.getElementById('refresh-button');
+    var summaryButton = document.getElementById('get-summary-button');
+    var keycloak ;
+    var ndexUser;
+
+    authorizeButton.onclick = handleAuthClick;
+
+    signoutButton.onclick = handleSignoutClick;
+    summaryButton.onclick = handleSummaryClick;
+    refreshButton.onclick = handleRefresh;
+    
+    async function initKeycloak() {
+        try {
+            keycloak = new Keycloak({ url:  'http://localhost:8085',realm: 'ndex', clientId: 'localtestclient' });
+            const authenticated = await keycloak.init(   
+                { onLoad: 'check-sso',
+                  silentCheckSsoRedirectUri: window.location.origin + '/packages/ndex-client/examples/silent-check-sso.html'}
+                );
+            
+            console.log("init done."); 
+            
+            if ( authenticated) {
+                console.log("user silently authenticated.");
+                setInterval(refreshToken, 60000);
+                var idtoken = keycloak.idToken;
+                console.log("id token: " + idtoken);
+                updateSigninStatus(keycloak.token);
+            } else {
+                authorizeButton.style.display = 'block';    
+            }
+        } catch(e) {
+                    console.log(e);
+                    alert('failed to initialize');
+        };
+    }
+
+    async function updateSigninStatus(idtoken) {
+        if (idtoken) {
+            var ndexOauth = new ndexClient.NDEx('http://localhost:8080/ndexbio-rest/v2');
+            ndexUser = await ndexOauth.signInFromIdToken(idtoken);
+
+            var p = document.createElement('pu');
+            p.appendChild(document.createTextNode('Signed in user: ' + JSON.stringify(ndexUser)));
+            document.getElementById('content').appendChild(p);
+
+            authorizeButton.style.display = 'none';
+            signoutButton.style.display = 'block';
+            refreshButton.style.display = 'block';
+            summaryButton.style.display = 'block';
+
+            printToken(keycloak);
+        } else {
+            authorizeButton.style.display = 'block';
+            signoutButton.style.display = 'none';
+            summaryButton.style.display = 'none';
+        }
+    }
+
+    function handleAuthClick(event) {
+        console.log(keycloak);
+        keycloak.login();
+
+    }
+
+    function handleRefresh(event) {
+        keycloak.updateToken(-1).then(function() { printToken(keycloak); })
+    }
+
+    function refreshToken() {
+        console.log("timer triggerred. refreshing token.");
+       // handleRefresh(null);
+        printToken(keycloak);
+    }
+
+    function handleSignoutClick(event) {
+       keycloak.logout();
+
+    }
+
+    function handleSummaryClick(event) {
+
+      var ndexOauth = new ndexClient.NDEx('http://localhost:8080/ndexbio-rest/v2');
+
+      ndexOauth.setAuthToken(keycloak.token);
+      // the UUID of the private network you want to test on.
+      var networkUUID = "060665c9-62d6-11ee-b68a-7ab751f46320";
+
+      ndexOauth.getNetworkSummary( networkUUID).then( function (response) {
+        var p = document.createElement('pO');
+        p.appendChild(document.createTextNode('Summary: ' + JSON.stringify(response)));
+        document.getElementById('content').appendChild(p);
+      }, (err) => {
+        console.log(err);
+      })
+
+    }
+
+    // Load the API and make an API call.  Display the results on the screen.
+    function printToken(kc) {
+        var content = JSON.stringify(kc.tokenParsed, null, 2);    
+
+        var p = document.createElement('p');
+        p.appendChild(document.createTextNode(content));
+        document.getElementById('content').appendChild(p);
+
+        p = document.createElement('p');
+        p.appendChild(document.createTextNode('Access token: ' + kc.token));
+        //p.appendChild(document.createTextNode('Id token: ' + kc.idtoken));
+        document.getElementById('content').appendChild(p);
+
+        p = document.createElement('p');
+        var d = new Date(kc.tokenParsed.exp * 1000);
+        var ele = document.createTextNode('Expires at: ' + d);
+        p.style.color = "#FF0000";
+        p.appendChild(ele);
+        document.getElementById('content').appendChild(p);
+
+    }
+
+</script>
+</body>
+</html>

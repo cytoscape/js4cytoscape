@@ -1,4 +1,4 @@
-const axios = require('axios');
+import { default as axios } from 'axios';
 
 const CX1_HEADER = {
   numberVerification: [{
@@ -857,5 +857,9 @@ class NDEx {
     });
   }
 
+  signInFromIdToken(idToken) {
+   return this._httpPostV3ProtectedObj('users/signin', undefined, {idToken: idToken});
+  }
 }
-  module.exports = { NDEx };
+
+  export default  NDEx ;
