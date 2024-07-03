@@ -46,7 +46,7 @@
             if ( authenticated) {
                 console.log("user silently authenticated.");
                 setInterval(refreshToken, 60000);
-                var idtoken = keycloak.idToken;
+                var idtoken = keycloak.idToken; 
                 console.log("id token: " + idtoken);
                 updateSigninStatus(keycloak.token);
             } else {
