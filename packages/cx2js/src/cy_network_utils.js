@@ -3,13 +3,14 @@ let _ = require('lodash');
 class CyNetworkUtils {
 
     constructor() {
-       
+
     }
 
     rawCXtoNiceCX(rawCX) {
 
         var niceCX = {};
         niceCX['edges'] = {};
+        niceCX['nodes'] = {};
 
         for (var i = 0; i < rawCX.length; i++) {
             var fragment = rawCX[i];
@@ -262,20 +263,20 @@ class CyNetworkUtils {
     }
 
     stringifyFunctionTerm(functionTerm) {
-        
+
         var abbreviate = this.abbreviate;
         var _stringifyFunctionTerm = function (functionTerm) {
             var params = [];
-                _.forEach(functionTerm.args, function (parameter) {
-                    if (parameter.f) {
-                        params.push(_stringifyFunctionTerm(parameter));
-                    } else {
-                        params.push(parameter);
-                    }
-                });
-                return abbreviate(functionTerm.f) + '(' + params.join(', ') + ')';
-            
-        };  
+            _.forEach(functionTerm.args, function (parameter) {
+                if (parameter.f) {
+                    params.push(_stringifyFunctionTerm(parameter));
+                } else {
+                    params.push(parameter);
+                }
+            });
+            return abbreviate(functionTerm.f) + '(' + params.join(', ') + ')';
+
+        };
         return _stringifyFunctionTerm(functionTerm);
     }
 
@@ -354,7 +355,7 @@ class CyNetworkUtils {
                 return pureFunctionName;
         }
     }
-    
+
 
     createCXFunctionTerm(oldJSONNetwork, jsonFunctionTerm) {
         var functionTerm = { 'f': this.getBaseTermStr(oldJSONNetwork, jsonFunctionTerm.functionTermId) };
