@@ -8,9 +8,9 @@ class CyNetworkUtils {
 
     rawCXtoNiceCX(rawCX) {
 
-        var niceCX = {};
-        niceCX['edges'] = {};
-        niceCX['nodes'] = {};
+        var niceCX = {'edges': {},
+                      'nodes':{}
+                     };
 
         for (var i = 0; i < rawCX.length; i++) {
             var fragment = rawCX[i];
