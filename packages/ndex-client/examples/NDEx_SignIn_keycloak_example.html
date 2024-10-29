@@ -3,7 +3,7 @@
 <head>
     <title>NDEx OAuth Sign In Example</title>
     <meta charset='utf-8'/>
-    <script type="text/javascript" src="https://dev.ndexbio.org/auth2/js/keycloak.js"></script>
+    <script type="text/javascript" src="https://dev1.ndexbio.org/auth2/js/keycloak.js"></script>
     <script src="../dist/ndexClient.js"></script>
 </head>
 <body onload="initKeycloak()">
@@ -33,7 +33,7 @@
     refreshButton.onclick = handleRefresh;
     
     function initKeycloak() {
-            keycloak = new Keycloak({ url:  'https://dev.ndexbio.org/auth2',realm: 'ndex', clientId: 'localtestclient' });
+            keycloak = new Keycloak({ url:  'https://dev1.ndexbio.org/auth2',realm: 'ndex', clientId: 'cytoscapendex' });
             keycloak.init(   
                 { onLoad: 'check-sso',
                   silentCheckSsoRedirectUri: window.location.origin + '/packages/ndex-client/examples/silent-check-sso.html'}
@@ -53,8 +53,33 @@
                 });
     }
 
-    function updateSigninStatus(idtoken) {
+    async function updateSigninStatus(idtoken) {
         if (idtoken) {
+            var ndexOauth = new ndexClient.NDEx('dev1.ndexbio.org');
+            // sign in to NDEx and catch errors if any  
+            try {
+                ndexUser = await ndexOauth.signInFromIdToken(idtoken);
+            }
+            catch (err) {
+                console.log(err);
+                if ( err.response.status == 401) {
+                    if ( err.response.data.errorCode == 'NDEx_User_Account_Not_Verified') {
+                        let userConfirmed =  confirm('Please verify your email address before signing in. \nClick OK if you already verified your email address. Click Cancel to stay as anonymous.');
+                        if ( userConfirmed) {
+                            window.location.reload();
+                        } else {
+                            keycloak.logout(window.location.origin + '/packages/ndex-client/examples/NDEx_SignIn_keycloak_example.html');
+                        }
+                    }   
+                    else {
+                        alert('Failed to sign in to NDEx. Error: ' + JSON.stringify(err.response.data));
+                    }
+                }
+                else {
+                    alert('Failed to sign in to NDEx. Error: ' + JSON.stringify(err));
+                }
+                return;
+            }
             authorizeButton.style.display = 'none';
             signoutButton.style.display = 'block';
             refreshButton.style.display = 'block';
@@ -91,7 +116,7 @@
 
     function handleSummaryClick(event) {
 
-      var ndexOauth = new ndexClient.NDEx('dev.ndexbio.org');
+      var ndexOauth = new ndexClient.NDEx('dev1.ndexbio.org');
 
       ndexOauth.setAuthToken(keycloak.token);
       // the UUID of the private network you want to test on.
