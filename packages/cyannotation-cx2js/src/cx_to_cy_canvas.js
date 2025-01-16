@@ -4,7 +4,7 @@ class CxToCyCanvas {
 
     self.cx2js = cx2js;
 
-    this._findIntersection = function(p1, p2, p3, p4) {
+    this._findIntersection = function (p1, p2, p3, p4) {
       var denominator =
         (p4["y"] - p3["y"]) * (p2["x"] - p1["x"]) -
         (p4["x"] - p3["x"]) * (p2["y"] - p1["y"]);
@@ -19,12 +19,12 @@ class CxToCyCanvas {
       return { x: x, y: y };
     };
 
-    this._epsilon = function(v) {
+    this._epsilon = function (v) {
       if (Math.abs(v) < 1.0e-10) return 0.0;
       return v;
     };
 
-    this._circleX = function(sides, angle, rot) {
+    this._circleX = function (sides, angle, rot) {
       var coeff = angle / sides;
       if (rot && sides % 2 == 0) {
         if (sides == 8) {
@@ -34,7 +34,7 @@ class CxToCyCanvas {
       } else return this._epsilon(Math.cos(2 * coeff * Math.PI - Math.PI / 2));
     };
 
-    this._circleY = function(sides, angle, rot) {
+    this._circleY = function (sides, angle, rot) {
       var coeff = angle / sides;
       if (rot && sides % 2 == 0) {
         if (sides == 8) {
@@ -44,7 +44,7 @@ class CxToCyCanvas {
       } else return this._epsilon(Math.sin(2 * coeff * Math.PI - Math.PI / 2));
     };
 
-    this._regularPolygonShapeFunction = function(shapeMap, sides, ctx) {
+    this._regularPolygonShapeFunction = function (shapeMap, sides, ctx) {
       ctx.beginPath();
       var width = parseFloat(shapeMap["width"]) / 2;
       var height = parseFloat(shapeMap["height"]) / 2;
@@ -75,7 +75,7 @@ class CxToCyCanvas {
       ctx.stroke();
     };
 
-    this._starShapeFunction = function(shapeMap, sides, ctx) {
+    this._starShapeFunction = function (shapeMap, sides, ctx) {
       ctx.beginPath();
       var width = parseFloat(shapeMap["width"]) / 2;
       var height = parseFloat(shapeMap["height"]) / 2;
@@ -130,11 +130,11 @@ class CxToCyCanvas {
       ctx.stroke();
     };
 
-    this._scaleCustomPoint = function(value, min, max, scale) {
+    this._scaleCustomPoint = function (value, min, max, scale) {
       return (scale * (min + value)) / (max - min);
     };
 
-    this._quadraticCurveBoundingBox = function(x1, y1, x2, y2, x3, y3) {
+    this._quadraticCurveBoundingBox = function (x1, y1, x2, y2, x3, y3) {
       var brx, bx, x, bry, by, y, px, py;
 
       // solve quadratic for bounds by BM67 normalizing equation
@@ -172,7 +172,7 @@ class CxToCyCanvas {
       return extent;
     };
 
-    this._evalBez = function(p0, p1, p2, p3, t) {
+    this._evalBez = function (p0, p1, p2, p3, t) {
       var p =
         p0 * (1 - t) * (1 - t) * (1 - t) +
         3 * p1 * t * (1 - t) * (1 - t) +
@@ -181,7 +181,7 @@ class CxToCyCanvas {
       return p;
     };
 
-    this._bezierCurveBoundingBox = function(
+    this._bezierCurveBoundingBox = function (
       px0,
       py0,
       px1,
@@ -259,7 +259,7 @@ class CxToCyCanvas {
     };
 
     this._shapeFunctions = {
-      RECTANGLE: function(shapeMap, ctx) {
+      RECTANGLE: function (shapeMap, ctx) {
         ctx.beginPath();
         ctx.rect(
           shapeMap["x"],
@@ -278,7 +278,7 @@ class CxToCyCanvas {
         }
         ctx.stroke();
       },
-      ROUNDEDRECTANGLE: function(shapeMap, ctx) {
+      ROUNDEDRECTANGLE: function (shapeMap, ctx) {
         var width = parseFloat(shapeMap["width"]);
         var height = parseFloat(shapeMap["height"]);
         var tenthWidth = width * 0.1;
@@ -311,7 +311,7 @@ class CxToCyCanvas {
         }
         ctx.stroke();
       },
-      ELLIPSE: function(shapeMap, ctx) {
+      ELLIPSE: function (shapeMap, ctx) {
         var halfWidth = parseFloat(shapeMap["width"]) / 2;
         var halfHeight = parseFloat(shapeMap["height"]) / 2;
         var x = parseFloat(shapeMap["x"]) + halfWidth;
@@ -329,25 +329,25 @@ class CxToCyCanvas {
         }
         ctx.stroke();
       },
-      STAR5: function(shapeMap, ctx) {
+      STAR5: function (shapeMap, ctx) {
         self._starShapeFunction(shapeMap, 5, ctx);
       },
-      STAR6: function(shapeMap, ctx) {
+      STAR6: function (shapeMap, ctx) {
         self._starShapeFunction(shapeMap, 6, ctx);
       },
-      TRIANGLE: function(shapeMap, ctx) {
+      TRIANGLE: function (shapeMap, ctx) {
         self._regularPolygonShapeFunction(shapeMap, 3, ctx);
       },
-      PENTAGON: function(shapeMap, ctx) {
+      PENTAGON: function (shapeMap, ctx) {
         self._regularPolygonShapeFunction(shapeMap, 5, ctx);
       },
-      HEXAGON: function(shapeMap, ctx) {
+      HEXAGON: function (shapeMap, ctx) {
         self._regularPolygonShapeFunction(shapeMap, 6, ctx);
       },
-      OCTAGON: function(shapeMap, ctx) {
+      OCTAGON: function (shapeMap, ctx) {
         self._regularPolygonShapeFunction(shapeMap, 8, ctx);
       },
-      PARALLELOGRAM: function(shapeMap, ctx) {
+      PARALLELOGRAM: function (shapeMap, ctx) {
         var x = parseFloat(shapeMap["x"]);
         var y = parseFloat(shapeMap["y"]);
 
@@ -368,176 +368,179 @@ class CxToCyCanvas {
           ctx.fill();
         }
       },
-      CUSTOM: function(shapeMap, ctx) {
-        var x = parseFloat(shapeMap["x"]);
-        var y = parseFloat(shapeMap["y"]);
+      CUSTOM: function (shapeMap, ctx) {
+        const customShape = shapeMap["customShape"];
+        if (customShape) {
+          var x = parseFloat(shapeMap["x"]);
+          var y = parseFloat(shapeMap["y"]);
 
-        var width = parseFloat(shapeMap["width"]);
-        var height = parseFloat(shapeMap["height"]);
+          var width = parseFloat(shapeMap["width"]);
+          var height = parseFloat(shapeMap["height"]);
 
-        var customShape = shapeMap["customShape"];
-        var shapeArgs = customShape.split(" ");
 
-        let minX = Number.MAX_VALUE;
-        let minY = Number.MAX_VALUE;
+          var shapeArgs = customShape.split(" ");
 
-        let maxX = Number.MIN_VALUE;
-        let maxY = Number.MIN_VALUE;
+          let minX = Number.MAX_VALUE;
+          let minY = Number.MAX_VALUE;
 
-        let lastX;
-        let lastY;
+          let maxX = Number.MIN_VALUE;
+          let maxY = Number.MIN_VALUE;
 
-        for (let i = 0; i < shapeArgs.length; i++) {
-          if (shapeArgs[i] == "M") {
-            let mx = parseFloat(shapeArgs[i + 1]);
-            let my = parseFloat(shapeArgs[i + 2]);
-            minX = Math.min(minX, mx);
-            minY = Math.min(minY, my);
-            maxX = Math.max(maxX, mx);
-            maxY = Math.max(maxY, my);
-            lastX = mx;
-            lastY = my;
-            i += 2;
-          } else if (shapeArgs[i] == "L") {
-            let lx = parseFloat(shapeArgs[i + 1]);
-            let ly = parseFloat(shapeArgs[i + 2]);
-            minX = Math.min(minX, lx);
-            minY = Math.min(minY, ly);
-            maxX = Math.max(maxX, lx);
-            maxY = Math.max(maxY, ly);
-            lastX = lx;
-            lastY = ly;
-            i += 2;
-          } else if (shapeArgs[i] == "Q") {
-            let q1 = parseFloat(shapeArgs[i + 1]);
-            let q2 = parseFloat(shapeArgs[i + 2]);
-            let q3 = parseFloat(shapeArgs[i + 3]);
-            let q4 = parseFloat(shapeArgs[i + 4]);
+          let lastX;
+          let lastY;
 
-            let extent = self._quadraticCurveBoundingBox(
-              lastX,
-              lastY,
-              q1,
-              q2,
-              q3,
-              q4
-            );
+          for (let i = 0; i < shapeArgs.length; i++) {
+            if (shapeArgs[i] == "M") {
+              let mx = parseFloat(shapeArgs[i + 1]);
+              let my = parseFloat(shapeArgs[i + 2]);
+              minX = Math.min(minX, mx);
+              minY = Math.min(minY, my);
+              maxX = Math.max(maxX, mx);
+              maxY = Math.max(maxY, my);
+              lastX = mx;
+              lastY = my;
+              i += 2;
+            } else if (shapeArgs[i] == "L") {
+              let lx = parseFloat(shapeArgs[i + 1]);
+              let ly = parseFloat(shapeArgs[i + 2]);
+              minX = Math.min(minX, lx);
+              minY = Math.min(minY, ly);
+              maxX = Math.max(maxX, lx);
+              maxY = Math.max(maxY, ly);
+              lastX = lx;
+              lastY = ly;
+              i += 2;
+            } else if (shapeArgs[i] == "Q") {
+              let q1 = parseFloat(shapeArgs[i + 1]);
+              let q2 = parseFloat(shapeArgs[i + 2]);
+              let q3 = parseFloat(shapeArgs[i + 3]);
+              let q4 = parseFloat(shapeArgs[i + 4]);
 
-            minX = Math.min(minX, extent.left);
-            minX = Math.min(minX, extent.right);
+              let extent = self._quadraticCurveBoundingBox(
+                lastX,
+                lastY,
+                q1,
+                q2,
+                q3,
+                q4
+              );
 
-            minY = Math.min(minY, extent.bottom);
-            minY = Math.min(minY, extent.top);
+              minX = Math.min(minX, extent.left);
+              minX = Math.min(minX, extent.right);
 
-            maxX = Math.max(maxX, extent.left);
-            maxX = Math.max(maxX, extent.right);
+              minY = Math.min(minY, extent.bottom);
+              minY = Math.min(minY, extent.top);
 
-            maxY = Math.max(maxY, extent.bottom);
-            maxY = Math.max(maxY, extent.top);
+              maxX = Math.max(maxX, extent.left);
+              maxX = Math.max(maxX, extent.right);
 
-            lastX = q3;
-            lastY = q4;
+              maxY = Math.max(maxY, extent.bottom);
+              maxY = Math.max(maxY, extent.top);
 
-            i += 4;
-          } else if (shapeArgs[i] == "C") {
-            let c1 = parseFloat(shapeArgs[i + 1]);
-            let c2 = parseFloat(shapeArgs[i + 2]);
-            let c3 = parseFloat(shapeArgs[i + 3]);
-            let c4 = parseFloat(shapeArgs[i + 4]);
-            let c5 = parseFloat(shapeArgs[i + 5]);
-            let c6 = parseFloat(shapeArgs[i + 6]);
+              lastX = q3;
+              lastY = q4;
 
-            let extent = self._bezierCurveBoundingBox(
-              lastX,
-              lastY,
-              c1,
-              c2,
-              c3,
-              c4,
-              c5,
-              c6
-            );
+              i += 4;
+            } else if (shapeArgs[i] == "C") {
+              let c1 = parseFloat(shapeArgs[i + 1]);
+              let c2 = parseFloat(shapeArgs[i + 2]);
+              let c3 = parseFloat(shapeArgs[i + 3]);
+              let c4 = parseFloat(shapeArgs[i + 4]);
+              let c5 = parseFloat(shapeArgs[i + 5]);
+              let c6 = parseFloat(shapeArgs[i + 6]);
 
-            minX = Math.min(minX, extent.left);
-            minX = Math.min(minX, extent.right);
+              let extent = self._bezierCurveBoundingBox(
+                lastX,
+                lastY,
+                c1,
+                c2,
+                c3,
+                c4,
+                c5,
+                c6
+              );
 
-            minY = Math.min(minY, extent.bottom);
-            minY = Math.min(minY, extent.top);
+              minX = Math.min(minX, extent.left);
+              minX = Math.min(minX, extent.right);
 
-            maxX = Math.max(maxX, extent.left);
-            maxX = Math.max(maxX, extent.right);
+              minY = Math.min(minY, extent.bottom);
+              minY = Math.min(minY, extent.top);
 
-            maxY = Math.max(maxY, extent.bottom);
-            maxY = Math.max(maxY, extent.top);
+              maxX = Math.max(maxX, extent.left);
+              maxX = Math.max(maxX, extent.right);
 
-            lastX = c5;
-            lastY = c6;
+              maxY = Math.max(maxY, extent.bottom);
+              maxY = Math.max(maxY, extent.top);
 
-            i += 6;
+              lastX = c5;
+              lastY = c6;
+
+              i += 6;
+            }
           }
-        }
 
-        let scaleX = width / (maxX - minX);
-        let scaleY = height / (maxY - minY);
+          let scaleX = width / (maxX - minX);
+          let scaleY = height / (maxY - minY);
 
-        let baseX = x - scaleX * minX;
-        let baseY = y - scaleY * minY;
+          let baseX = x - scaleX * minX;
+          let baseY = y - scaleY * minY;
 
-        ctx.beginPath();
+          ctx.beginPath();
 
-        for (let i = 0; i < shapeArgs.length; i++) {
-          if (shapeArgs[i] == "NZ") {
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.mozFillRule = "nonzero";
-          } else if (shapeArgs[i] == "EO") {
-            ctx.closePath();
-            ctx.beginPath();
-            ctx.mozFillRule = "evenodd";
-          } else if (shapeArgs[i] == "M") {
-            let mx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-            let my = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-            ctx.moveTo(mx, my);
-            i += 2;
-          } else if (shapeArgs[i] == "L") {
-            let lx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-            let ly = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-            ctx.lineTo(lx, ly);
-            i += 2;
-          } else if (shapeArgs[i] == "Q") {
-            let q1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-            let q2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-            let q3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
-            let q4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
-            ctx.quadraticCurveTo(q1, q2, q3, q4);
-            i += 4;
-          } else if (shapeArgs[i] == "C") {
-            let c1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
-            let c2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
-            let c3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
-            let c4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
-            let c5 = baseX + scaleX * parseFloat(shapeArgs[i + 5]);
-            let c6 = baseY + scaleY * parseFloat(shapeArgs[i + 6]);
-            ctx.bezierCurveTo(c1, c2, c3, c4, c5, c6);
-            i += 6;
-          } else if (shapeArgs[i] == "Z") {
-            //ctx.beginPath();
+          for (let i = 0; i < shapeArgs.length; i++) {
+            if (shapeArgs[i] == "NZ") {
+              ctx.closePath();
+              ctx.beginPath();
+              ctx.mozFillRule = "nonzero";
+            } else if (shapeArgs[i] == "EO") {
+              ctx.closePath();
+              ctx.beginPath();
+              ctx.mozFillRule = "evenodd";
+            } else if (shapeArgs[i] == "M") {
+              let mx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+              let my = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+              ctx.moveTo(mx, my);
+              i += 2;
+            } else if (shapeArgs[i] == "L") {
+              let lx = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+              let ly = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+              ctx.lineTo(lx, ly);
+              i += 2;
+            } else if (shapeArgs[i] == "Q") {
+              let q1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+              let q2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+              let q3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
+              let q4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
+              ctx.quadraticCurveTo(q1, q2, q3, q4);
+              i += 4;
+            } else if (shapeArgs[i] == "C") {
+              let c1 = baseX + scaleX * parseFloat(shapeArgs[i + 1]);
+              let c2 = baseY + scaleY * parseFloat(shapeArgs[i + 2]);
+              let c3 = baseX + scaleX * parseFloat(shapeArgs[i + 3]);
+              let c4 = baseY + scaleY * parseFloat(shapeArgs[i + 4]);
+              let c5 = baseX + scaleX * parseFloat(shapeArgs[i + 5]);
+              let c6 = baseY + scaleY * parseFloat(shapeArgs[i + 6]);
+              ctx.bezierCurveTo(c1, c2, c3, c4, c5, c6);
+              i += 6;
+            } else if (shapeArgs[i] == "Z") {
+              //ctx.beginPath();
+            }
           }
+          ctx.closePath();
+          if (shapeMap["fillColor"]) {
+            let fillColor = self._colorFromInt(
+              shapeMap["fillColor"],
+              shapeMap["fillOpacity"]
+            );
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+          }
+          ctx.stroke();
         }
-        ctx.closePath();
-        if (shapeMap["fillColor"]) {
-          let fillColor = self._colorFromInt(
-            shapeMap["fillColor"],
-            shapeMap["fillOpacity"]
-          );
-          ctx.fillStyle = fillColor;
-          ctx.fill();
-        }
-        ctx.stroke();
       }
     };
 
-    this._colorFromInt = function(num, alpha) {
+    this._colorFromInt = function (num, alpha) {
       num >>>= 0;
       var b = num & 0xff,
         g = (num & 0xff00) >>> 8,
@@ -575,12 +578,12 @@ class CxToCyCanvas {
 
   getAnnotationElementsFromNiceCX(niceCX) {
     if (niceCX["networkAttributes"]) {
-        return niceCX["networkAttributes"]["elements"].filter(function(element) {
-          return element["n"] == "__Annotations";
-        });
-      } else {
-          return [];
-      }
+      return niceCX["networkAttributes"]["elements"].filter(function (element) {
+        return element["n"] == "__Annotations";
+      });
+    } else {
+      return [];
+    }
   }
 
   drawAnnotationsFromAnnotationElements(cytoscapeInstance, annotationElements) {
@@ -620,11 +623,11 @@ class CxToCyCanvas {
       var topAnnotations = [];
       var bottomAnnotations = [];
 
-      annotationElements.forEach(function(element) {
-        element["v"].forEach(function(annotation) {
+      annotationElements.forEach(function (element) {
+        element["v"].forEach(function (annotation) {
           var annotationKVList = annotation.split("|");
           var annotationMap = {};
-          annotationKVList.forEach(function(annotationKV) {
+          annotationKVList.forEach(function (annotationKV) {
             var kvPair = annotationKV.split("=");
             annotationMap[kvPair[0]] = kvPair[1];
           });
@@ -638,7 +641,7 @@ class CxToCyCanvas {
           }
         });
       });
-      var zOrderCompare = function(a, b) {
+      var zOrderCompare = function (a, b) {
         let annotationA = indexedAnnotations[a];
         let annotationB = indexedAnnotations[b];
         return parseInt(annotationB["z"]) - parseInt(annotationA["z"]);
@@ -651,25 +654,27 @@ class CxToCyCanvas {
         { context: topCtx, annotations: topAnnotations },
         { context: bottomCtx, annotations: bottomAnnotations }
       ];
-      contextAnnotationMap.forEach(function(contextAnnotationPair) {
+      contextAnnotationMap.forEach(function (contextAnnotationPair) {
         let ctx = contextAnnotationPair.context;
-        contextAnnotationPair.annotations.forEach(function(annotationUUID) {
+        contextAnnotationPair.annotations.forEach(function (annotationUUID) {
           let annotationMap = indexedAnnotations[annotationUUID];
           if (
             annotationMap["type"] ==
-              "org.cytoscape.view.presentation.annotations.ShapeAnnotation" ||
+            "org.cytoscape.view.presentation.annotations.ShapeAnnotation" ||
             annotationMap["type"] ==
-              "org.cytoscape.view.presentation.annotations.BoundedTextAnnotation"
+            "org.cytoscape.view.presentation.annotations.BoundedTextAnnotation"
           ) {
             //ctx.beginPath();
+            const zoom = annotationMap["zoom"] ? parseFloat(annotationMap["zoom"]) : 1;
+            
             ctx.lineWidth = annotationMap["edgeThickness"];
 
             annotationMap["width"] =
               parseFloat(annotationMap["width"]) /
-              parseFloat(annotationMap["zoom"]);
+              zoom;
             annotationMap["height"] =
               parseFloat(annotationMap["height"]) /
-              parseFloat(annotationMap["zoom"]);
+              zoom;
             if (shapeFunctions[annotationMap["shapeType"]]) {
               ctx.strokeStyle = colorFromInt(
                 annotationMap["edgeColor"],
@@ -755,16 +760,16 @@ class CxToCyCanvas {
               ) {
                 fontFamily =
                   cx2js.JavaLogicalFontConstants.FONT_STACK_MAP[
-                    annotationMap["fontFamily"]
+                  annotationMap["fontFamily"]
                   ];
               } else if (
                 cx2js.CommonOSFontConstants.FONT_STACK_MAP[
-                  annotationMap["fontFamily"]
+                annotationMap["fontFamily"]
                 ]
               ) {
                 fontFamily =
                   cx2js.CommonOSFontConstants.FONT_STACK_MAP[
-                    annotationMap["fontFamily"]
+                  annotationMap["fontFamily"]
                   ];
               } else {
                 fontFamily = "sans-serif";
