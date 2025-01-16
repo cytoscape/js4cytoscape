@@ -603,6 +603,9 @@ class CxToCyCanvas {
     const topCanvas = topLayer.getCanvas();
     const topCtx = topCanvas.getContext("2d");
 
+    self.topLayer =  topLayer;
+    self.bottomLayer = bottomLayer;
+
     cytoscapeInstance.on("render cyCanvas.resize", evt => {
       var colorFromInt = this._colorFromInt;
       var shapeFunctions = this._shapeFunctions;
@@ -794,6 +797,15 @@ class CxToCyCanvas {
   drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX) {
     const annotationElements = this.getAnnotationElementsFromNiceCX(niceCX);
     this.drawAnnotationsFromAnnotationElements(cytoscapeInstance, annotationElements);
+  }
+
+  clearAnnotationsFromCanvas() {
+    if(self.topLayer !== undefined) {
+      self.topLayer.clear();
+    }
+    if(self.bottomLayer !== undefined) {
+      self.bottomLayer.clear();
+    }
   }
 }
 
