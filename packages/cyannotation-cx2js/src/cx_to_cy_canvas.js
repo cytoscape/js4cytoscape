@@ -377,7 +377,6 @@ class CxToCyCanvas {
           var width = parseFloat(shapeMap["width"]);
           var height = parseFloat(shapeMap["height"]);
 
-
           var shapeArgs = customShape.split(" ");
 
           let minX = Number.MAX_VALUE;
@@ -537,7 +536,7 @@ class CxToCyCanvas {
           }
           ctx.stroke();
         }
-      }
+      },
     };
 
     this._colorFromInt = function (num, alpha) {
@@ -559,13 +558,13 @@ class CxToCyCanvas {
 
   drawBackground(cytoscapeInstance, cxBGColor) {
     const backgroundLayer = cytoscapeInstance.cyCanvas({
-      zIndex: -2
+      zIndex: -2,
     });
 
     const backgroundCanvas = backgroundLayer.getCanvas();
     const backgroundCtx = backgroundCanvas.getContext("2d");
 
-    cytoscapeInstance.on("render cyCanvas.resize", evt => {
+    cytoscapeInstance.on("render cyCanvas.resize", (evt) => {
       backgroundCtx.fillStyle = cxBGColor;
       backgroundCtx.fillRect(
         0,
@@ -590,11 +589,11 @@ class CxToCyCanvas {
     const cx2js = this.cx2js;
     //console.log("setting up annotations");
     const bottomLayer = cytoscapeInstance.cyCanvas({
-      zIndex: -1
+      zIndex: -1,
     });
 
     const topLayer = cytoscapeInstance.cyCanvas({
-      zIndex: 1
+      zIndex: 1,
     });
 
     const bottomCanvas = bottomLayer.getCanvas();
@@ -603,10 +602,10 @@ class CxToCyCanvas {
     const topCanvas = topLayer.getCanvas();
     const topCtx = topCanvas.getContext("2d");
 
-    self.topLayer =  topLayer;
+    self.topLayer = topLayer;
     self.bottomLayer = bottomLayer;
 
-    cytoscapeInstance.on("render cyCanvas.resize", evt => {
+    cytoscapeInstance.on("render cyCanvas.resize", (evt) => {
       var colorFromInt = this._colorFromInt;
       var shapeFunctions = this._shapeFunctions;
       //console.log("render cyCanvas.resize event");
@@ -655,7 +654,7 @@ class CxToCyCanvas {
 
       var contextAnnotationMap = [
         { context: topCtx, annotations: topAnnotations },
-        { context: bottomCtx, annotations: bottomAnnotations }
+        { context: bottomCtx, annotations: bottomAnnotations },
       ];
       contextAnnotationMap.forEach(function (contextAnnotationPair) {
         let ctx = contextAnnotationPair.context;
@@ -663,21 +662,20 @@ class CxToCyCanvas {
           let annotationMap = indexedAnnotations[annotationUUID];
           if (
             annotationMap["type"] ==
-            "org.cytoscape.view.presentation.annotations.ShapeAnnotation" ||
+              "org.cytoscape.view.presentation.annotations.ShapeAnnotation" ||
             annotationMap["type"] ==
-            "org.cytoscape.view.presentation.annotations.BoundedTextAnnotation"
+              "org.cytoscape.view.presentation.annotations.BoundedTextAnnotation"
           ) {
             //ctx.beginPath();
-            const zoom = annotationMap["zoom"] ? parseFloat(annotationMap["zoom"]) : 1;
-            
+            const zoom = annotationMap["zoom"]
+              ? parseFloat(annotationMap["zoom"])
+              : 1;
+
             ctx.lineWidth = annotationMap["edgeThickness"];
 
-            annotationMap["width"] =
-              parseFloat(annotationMap["width"]) /
-              zoom;
+            annotationMap["width"] = parseFloat(annotationMap["width"]) / zoom;
             annotationMap["height"] =
-              parseFloat(annotationMap["height"]) /
-              zoom;
+              parseFloat(annotationMap["height"]) / zoom;
             if (shapeFunctions[annotationMap["shapeType"]]) {
               ctx.strokeStyle = colorFromInt(
                 annotationMap["edgeColor"],
@@ -750,9 +748,10 @@ class CxToCyCanvas {
               parseFloat(annotationMap["y"]) + annotationMap["height"] / 2;
           }
           if (text && textX && textY) {
-            const zoom = annotationMap["zoom"] ? parseFloat(annotationMap["zoom"]) : 1;
-            const fontSize =
-              parseFloat(annotationMap["fontSize"]) / zoom;
+            const zoom = annotationMap["zoom"]
+              ? parseFloat(annotationMap["zoom"])
+              : 1;
+            const fontSize = parseFloat(annotationMap["fontSize"]) / zoom;
             var fontFamily;
 
             if (annotationMap["fontFamily"]) {
@@ -763,16 +762,16 @@ class CxToCyCanvas {
               ) {
                 fontFamily =
                   cx2js.JavaLogicalFontConstants.FONT_STACK_MAP[
-                  annotationMap["fontFamily"]
+                    annotationMap["fontFamily"]
                   ];
               } else if (
                 cx2js.CommonOSFontConstants.FONT_STACK_MAP[
-                annotationMap["fontFamily"]
+                  annotationMap["fontFamily"]
                 ]
               ) {
                 fontFamily =
                   cx2js.CommonOSFontConstants.FONT_STACK_MAP[
-                  annotationMap["fontFamily"]
+                    annotationMap["fontFamily"]
                   ];
               } else {
                 fontFamily = "sans-serif";
@@ -792,18 +791,26 @@ class CxToCyCanvas {
       topCtx.restore();
       bottomCtx.restore();
     });
+
+    return {
+      topLayer: topLayer,
+      bottomLayer: bottomLayer,
+    };
   }
 
   drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX) {
     const annotationElements = this.getAnnotationElementsFromNiceCX(niceCX);
-    this.drawAnnotationsFromAnnotationElements(cytoscapeInstance, annotationElements);
+    this.drawAnnotationsFromAnnotationElements(
+      cytoscapeInstance,
+      annotationElements
+    );
   }
 
   clearAnnotationsFromCanvas() {
-    if(self.topLayer !== undefined) {
+    if (self.topLayer !== undefined) {
       self.topLayer.clear();
     }
-    if(self.bottomLayer !== undefined) {
+    if (self.bottomLayer !== undefined) {
       self.bottomLayer.clear();
     }
   }
