@@ -1,6 +1,6 @@
 {
   "name": "@js4cytoscape/cyannotation-cx2js",
-  "version": "0.8.6",
+  "version": "0.8.7-alpha.3",
   "license": "MIT",
   "description": "Renders Cytoscape Desktop annotations from CX files via cytoscape.js-canvas",
   "repository": {

@@ -602,8 +602,8 @@ class CxToCyCanvas {
     const topCanvas = topLayer.getCanvas();
     const topCtx = topCanvas.getContext("2d");
 
-    self.topLayer = topLayer;
-    self.bottomLayer = bottomLayer;
+    this.topLayer = topLayer;
+    this.bottomLayer = bottomLayer;
 
     cytoscapeInstance.on("render cyCanvas.resize", (evt) => {
       var colorFromInt = this._colorFromInt;
@@ -800,7 +800,7 @@ class CxToCyCanvas {
 
   drawAnnotationsFromNiceCX(cytoscapeInstance, niceCX) {
     const annotationElements = this.getAnnotationElementsFromNiceCX(niceCX);
-    this.drawAnnotationsFromAnnotationElements(
+    return this.drawAnnotationsFromAnnotationElements(
       cytoscapeInstance,
       annotationElements
     );

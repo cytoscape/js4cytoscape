@@ -1,41 +1,41 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
-const { env } = require('process');
-const isProd = env.NODE_ENV === 'production';
+const { env } = require("process");
+const isProd = env.NODE_ENV === "production";
 
-const pkg = require('./package.json');
-const camelcase = require('camelcase');
+const pkg = require("./package.json");
+const camelcase = require("camelcase");
 
 let conf = {
-  devtool: isProd ? false : 'inline-source-map',
+  devtool: "source-map",
 
-  mode: 'production',
+  mode: "production",
 
-  entry: './src/index.js',
+  entry: "./src/index.js",
 
   output: {
-    filename: 'bundle.js',
-    library: camelcase( pkg.name ),
-    libraryTarget: 'umd'
+    filename: "bundle.js",
+    library: camelcase(pkg.name),
+    libraryTarget: "umd",
   },
 
-  externals: isProd ? Object.keys( pkg.dependencies || {} ) : [],
+  externals: isProd ? Object.keys(pkg.dependencies || {}) : [],
 
   module: {
     rules: [
-      { 
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
             options: {
-              presets: ['@babel/preset-env']
-            }
+              presets: ["@babel/preset-env"],
+            },
           },
         ],
-      }
-    ]
+      },
+    ],
   },
 
   optimization: {
@@ -49,7 +49,7 @@ let conf = {
         },
       }),
     ],
-  }
+  },
 };
 
 module.exports = conf;
