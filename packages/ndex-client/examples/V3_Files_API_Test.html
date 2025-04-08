@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NDEx V3-Files API Test</title>
+    <meta charset='utf-8'/>
+    <script type="text/javascript" src="https://dev1.ndexbio.org/auth2/js/keycloak.js"></script>
+    <script src="../dist/ndexClient.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 1200px;
+        }
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #content {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        .api-section {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .api-section h3 {
+            margin-top: 0;
+        }
+        .results {
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        input {
+            padding: 6px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body onload="initKeycloak()">
+<h1>NDEx V3-Files API Test</h1>
+<p>Use this page to test the NDEx V3-Files APIs. You must sign in first.</p>
+
+<!-- Authentication buttons -->
+<button id="authorize-button" style="display: none;">Sign In</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+<button id="refresh-button" style="display: none;">Refresh Token</button>
+
+<div id="auth-status"></div>
+
+<!-- API Testing Sections -->
+<div id="api-sections" style="display: none;">
+    <h2>V3-Files API Testing</h2>
+    
+    <!-- Get Count -->
+    <div class="api-section">
+        <h3>Get Count</h3>
+        <button id="get-count-button">Get Files Count</button>
+        <div id="get-count-result" class="results"></div>
+    </div>
+    
+    <!-- Get Trash -->
+    <div class="api-section">
+        <h3>Get Trash</h3>
+        <button id="get-trash-button">Get Trash Contents</button>
+        <div id="get-trash-result" class="results"></div>
+    </div>
+    
+    <!-- Folder Operations -->
+    <div class="api-section">
+        <h3>Folder Operations</h3>
+        <div>
+            <button id="get-folders-button">Get Folders</button>
+            <input type="number" id="folders-limit" placeholder="Limit (optional)" min="1">
+            <div id="get-folders-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="create-folder-button">Create New Folder</button>
+            <input type="text" id="new-folder-name" placeholder="Folder Name" required>
+            <input type="text" id="parent-folder-id" placeholder="Parent Folder ID (optional)">
+            <div id="create-folder-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="get-folder-button">Get Folder</button>
+            <input type="text" id="get-folder-id" placeholder="Folder ID" required>
+            <input type="text" id="folder-access-key" placeholder="Access Key (optional)">
+            <div id="get-folder-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="update-folder-button">Update Folder</button>
+            <input type="text" id="update-folder-id" placeholder="Folder ID" required>
+            <input type="text" id="update-folder-name" placeholder="New Name">
+            <input type="text" id="update-parent-id" placeholder="New Parent ID (optional)">
+            <div id="update-folder-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="delete-folder-button">Delete Folder</button>
+            <input type="text" id="delete-folder-id" placeholder="Folder ID" required>
+            <div id="delete-folder-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="get-folder-count-button">Get Folder Count</button>
+            <input type="text" id="folder-count-id" placeholder="Folder ID" required>
+            <input type="text" id="folder-count-access-key" placeholder="Access Key (optional)">
+            <div id="get-folder-count-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="get-folder-list-button">Get Folder List</button>
+            <input type="text" id="folder-list-id" placeholder="Folder ID" required>
+            <input type="text" id="folder-list-access-key" placeholder="Access Key (optional)">
+            <div id="get-folder-list-result" class="results"></div>
+        </div>
+    </div>
+    
+    <!-- Shortcut Operations -->
+    <div class="api-section">
+        <h3>Shortcut Operations</h3>
+        <div>
+            <button id="get-shortcuts-button">Get Shortcuts</button>
+            <input type="number" id="shortcuts-limit" placeholder="Limit (optional)" min="1">
+            <div id="get-shortcuts-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="create-shortcut-button">Create New Shortcut</button>
+            <input type="text" id="new-shortcut-name" placeholder="Shortcut Name" required>
+            <input type="text" id="shortcut-parent-id" placeholder="Parent Folder ID" required>
+            <input type="text" id="shortcut-target-id" placeholder="Target ID" required>
+            <div id="create-shortcut-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="get-shortcut-button">Get Shortcut</button>
+            <input type="text" id="get-shortcut-id" placeholder="Shortcut ID" required>
+            <input type="text" id="shortcut-access-key" placeholder="Access Key (optional)">
+            <div id="get-shortcut-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="update-shortcut-button">Update Shortcut</button>
+            <input type="text" id="update-shortcut-id" placeholder="Shortcut ID" required>
+            <input type="text" id="update-shortcut-name" placeholder="New Name" required>
+            <div id="update-shortcut-result" class="results"></div>
+        </div>
+        
+        <div>
+            <button id="delete-shortcut-button">Delete Shortcut</button>
+            <input type="text" id="delete-shortcut-id" placeholder="Shortcut ID" required>
+            <div id="delete-shortcut-result" class="results"></div>
+        </div>
+    </div>
+    
+    <!-- Copy File -->
+    <div class="api-section">
+        <h3>Copy File</h3>
+        <button id="copy-file-button">Copy File</button>
+        <input type="text" id="from-uuid" placeholder="From UUID" required>
+        <input type="text" id="to-path" placeholder="To Path" required>
+        <input type="text" id="file-type" placeholder="Type (network, folder, etc.)" required>
+        <input type="text" id="copy-access-key" placeholder="Access Key (optional)">
+        <div id="copy-file-result" class="results"></div>
+    </div>
+</div>
+
+<div id="content"></div>
+
+<script type="text/javascript">
+    // Authentication elements
+    var authorizeButton = document.getElementById('authorize-button');
+    var signoutButton = document.getElementById('signout-button');
+    var refreshButton = document.getElementById('refresh-button');
+    var apiSections = document.getElementById('api-sections');
+    var authStatus = document.getElementById('auth-status');
+    var keycloak;
+    var ndexClient;
+
+    // Button event listeners
+    authorizeButton.onclick = handleAuthClick;
+    signoutButton.onclick = handleSignoutClick;
+    refreshButton.onclick = handleRefresh;
+    
+    // Initialize Keycloak
+    function initKeycloak() {
+        keycloak = new Keycloak({ 
+            url: 'https://dev1.ndexbio.org/auth2',
+            realm: 'ndex', 
+            clientId: 'cytoscapendex' 
+        });
+            
+        keycloak.init({ 
+            onLoad: 'check-sso',
+            silentCheckSsoRedirectUri: window.location.origin + '/packages/ndex-client/examples/silent-check-sso.html'
+        }).then(function(authenticated) {
+            console.log("init done."); 
+            if (authenticated) {
+                console.log("user silently authenticated.");
+                setInterval(refreshToken, 60000);
+                updateSigninStatus(keycloak.token);
+            } else {
+                authorizeButton.style.display = 'block';
+                authStatus.innerHTML = '<p>Not authenticated. Please sign in.</p>';
+            }    
+        }).catch(function(e) {
+            console.log(e);
+            alert('Failed to initialize Keycloak');
+        });
+    }
+
+    // Update sign in status and initialize NDEx client
+    async function updateSigninStatus(idtoken) {
+        if (idtoken) {
+            var ndexOauth = new ndexClient.NDEx('dev1.ndexbio.org');
+            try {
+                ndexUser = await ndexOauth.signInFromIdToken(idtoken);
+                ndexClient = ndexOauth; // Store for later use
+                
+                // Make sure we set the auth token properly for all future requests
+                ndexClient.setAuthToken(idtoken);
+                
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                refreshButton.style.display = 'block';
+                apiSections.style.display = 'block';
+                
+                authStatus.innerHTML = '<p>Authenticated as: ' + ndexUser.userName + '</p>';
+                
+                // Setup API event listeners
+                setupAPIEventListeners();
+            }
+            catch (err) {
+                console.log(err);
+                if (err.response && err.response.status == 401) {
+                    if (err.response.data.errorCode == 'NDEx_User_Account_Not_Verified') {
+                        let userConfirmed = confirm('Please verify your email address before signing in. \nClick OK if you already verified your email address. Click Cancel to stay as anonymous.');
+                        if (userConfirmed) {
+                            window.location.reload();
+                        } else {
+                            keycloak.logout(window.location.origin + '/packages/ndex-client/examples/V3_Files_API_Test.html');
+                        }
+                    } else {
+                        alert('Failed to sign in to NDEx. Error: ' + JSON.stringify(err.response.data));
+                    }
+                } else {
+                    alert('Failed to sign in to NDEx. Error: ' + JSON.stringify(err));
+                }
+                return;
+            }
+        } else {
+            authorizeButton.style.display = 'block';
+            signoutButton.style.display = 'none';
+            refreshButton.style.display = 'none';
+            apiSections.style.display = 'none';
+        }
+    }
+
+    function handleAuthClick(event) {
+        keycloak.login();
+    }
+
+    function handleRefresh(event) {
+        keycloak.updateToken(-1).then(function() { 
+            // Make sure we update the token in the ndexClient
+            if (ndexClient) {
+                ndexClient.setAuthToken(keycloak.token);
+            }
+            updateSigninStatus(keycloak.token);
+            authStatus.innerHTML += '<p>Token refreshed.</p>';
+        });
+    }
+
+    function refreshToken() {
+        console.log("Timer triggered. Refreshing token.");
+        keycloak.updateToken(30).then(function() {
+            console.log("Token refreshed automatically.");
+            // Make sure we update the token in the ndexClient
+            if (ndexClient) {
+                ndexClient.setAuthToken(keycloak.token);
+            }
+        }).catch(function() {
+            console.log("Failed to refresh token automatically.");
+        });
+    }
+
+    function handleSignoutClick(event) {
+        keycloak.logout();
+    }
+
+    function setupAPIEventListeners() {
+        // Get Count
+        document.getElementById('get-count-button').addEventListener('click', function() {
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getCount().then(function(response) {
+                document.getElementById('get-count-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-count-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Trash
+        document.getElementById('get-trash-button').addEventListener('click', function() {
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getTrash().then(function(response) {
+                document.getElementById('get-trash-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-trash-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Folders
+        document.getElementById('get-folders-button').addEventListener('click', function() {
+            const limit = document.getElementById('folders-limit').value || undefined;
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getFolders(limit).then(function(response) {
+                document.getElementById('get-folders-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-folders-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Create New Folder
+        document.getElementById('create-folder-button').addEventListener('click', function() {
+            const folderName = document.getElementById('new-folder-name').value;
+            const parentFolderId = document.getElementById('parent-folder-id').value || undefined;
+            
+            if (!folderName) {
+                alert("Folder name is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.createNewFolder(folderName, parentFolderId).then(function(response) {
+                document.getElementById('create-folder-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('create-folder-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Folder
+        document.getElementById('get-folder-button').addEventListener('click', function() {
+            const folderId = document.getElementById('get-folder-id').value;
+            const accessKey = document.getElementById('folder-access-key').value || undefined;
+            
+            if (!folderId) {
+                alert("Folder ID is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getFolder(folderId, accessKey).then(function(response) {
+                document.getElementById('get-folder-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-folder-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Update Folder
+        document.getElementById('update-folder-button').addEventListener('click', function() {
+            const folderId = document.getElementById('update-folder-id').value;
+            const folderName = document.getElementById('update-folder-name').value;
+            const parentId = document.getElementById('update-parent-id').value || undefined;
+            
+            if (!folderId) {
+                alert("Folder ID is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.updateFolder(folderId, folderName, parentId).then(function(response) {
+                document.getElementById('update-folder-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('update-folder-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Delete Folder
+        document.getElementById('delete-folder-button').addEventListener('click', function() {
+            const folderId = document.getElementById('delete-folder-id').value;
+            
+            if (!folderId) {
+                alert("Folder ID is required");
+                return;
+            }
+            
+            if (confirm("Are you sure you want to delete this folder?")) {
+                // Make sure the client has the latest token before each call
+                ndexClient.setAuthToken(keycloak.token);
+                ndexClient.deleteFolder(folderId).then(function(response) {
+                    document.getElementById('delete-folder-result').innerText = "Folder deleted successfully";
+                }).catch(function(error) {
+                    document.getElementById('delete-folder-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+                });
+            }
+        });
+        
+        // Get Folder Count
+        document.getElementById('get-folder-count-button').addEventListener('click', function() {
+            const folderId = document.getElementById('folder-count-id').value;
+            const accessKey = document.getElementById('folder-count-access-key').value || undefined;
+            
+            if (!folderId) {
+                alert("Folder ID is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getFolderCount(folderId, accessKey).then(function(response) {
+                document.getElementById('get-folder-count-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-folder-count-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Folder List
+        document.getElementById('get-folder-list-button').addEventListener('click', function() {
+            const folderId = document.getElementById('folder-list-id').value;
+            const accessKey = document.getElementById('folder-list-access-key').value || undefined;
+            
+            if (!folderId) {
+                alert("Folder ID is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getFolderList(folderId, accessKey).then(function(response) {
+                document.getElementById('get-folder-list-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-folder-list-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Shortcuts
+        document.getElementById('get-shortcuts-button').addEventListener('click', function() {
+            const limit = document.getElementById('shortcuts-limit').value || undefined;
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getShortcuts(limit).then(function(response) {
+                document.getElementById('get-shortcuts-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-shortcuts-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Create New Shortcut
+        document.getElementById('create-shortcut-button').addEventListener('click', function() {
+            const name = document.getElementById('new-shortcut-name').value;
+            const parentId = document.getElementById('shortcut-parent-id').value;
+            const targetId = document.getElementById('shortcut-target-id').value;
+            
+            if (!name || !parentId || !targetId) {
+                alert("All fields are required for creating a shortcut");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.createNewShortcut(name, parentId, targetId).then(function(response) {
+                document.getElementById('create-shortcut-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('create-shortcut-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Get Shortcut
+        document.getElementById('get-shortcut-button').addEventListener('click', function() {
+            const shortcutId = document.getElementById('get-shortcut-id').value;
+            const accessKey = document.getElementById('shortcut-access-key').value || undefined;
+            
+            if (!shortcutId) {
+                alert("Shortcut ID is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.getShortcut(shortcutId, accessKey).then(function(response) {
+                document.getElementById('get-shortcut-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('get-shortcut-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Update Shortcut
+        document.getElementById('update-shortcut-button').addEventListener('click', function() {
+            const shortcutId = document.getElementById('update-shortcut-id').value;
+            const name = document.getElementById('update-shortcut-name').value;
+            
+            if (!shortcutId) {
+                alert("Shortcut ID is required");
+                return;
+            }
+            
+            if (!name) {
+                alert("New name is required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.updateShortcut(shortcutId, name).then(function(response) {
+                document.getElementById('update-shortcut-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('update-shortcut-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+        
+        // Delete Shortcut
+        document.getElementById('delete-shortcut-button').addEventListener('click', function() {
+            const shortcutId = document.getElementById('delete-shortcut-id').value;
+            
+            if (!shortcutId) {
+                alert("Shortcut ID is required");
+                return;
+            }
+            
+            if (confirm("Are you sure you want to delete this shortcut?")) {
+                // Make sure the client has the latest token before each call
+                ndexClient.setAuthToken(keycloak.token);
+                ndexClient.delteShortcut(shortcutId).then(function(response) {
+                    document.getElementById('delete-shortcut-result').innerText = "Shortcut deleted successfully";
+                }).catch(function(error) {
+                    document.getElementById('delete-shortcut-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+                });
+            }
+        });
+        
+        // Copy File
+        document.getElementById('copy-file-button').addEventListener('click', function() {
+            const fromUuid = document.getElementById('from-uuid').value;
+            const toPath = document.getElementById('to-path').value;
+            const fileType = document.getElementById('file-type').value;
+            const accessKey = document.getElementById('copy-access-key').value || undefined;
+            
+            if (!fromUuid || !toPath || !fileType) {
+                alert("From UUID, To Path, and Type are required");
+                return;
+            }
+            
+            // Make sure the client has the latest token before each call
+            ndexClient.setAuthToken(keycloak.token);
+            ndexClient.copyFile(fromUuid, toPath, fileType, accessKey).then(function(response) {
+                document.getElementById('copy-file-result').innerText = JSON.stringify(response, null, 2);
+            }).catch(function(error) {
+                document.getElementById('copy-file-result').innerText = "Error: " + JSON.stringify(error, null, 2);
+            });
+        });
+    }
+</script>
+</body>
+</html> 

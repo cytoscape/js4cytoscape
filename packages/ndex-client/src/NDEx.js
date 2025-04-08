@@ -860,6 +860,147 @@ class NDEx {
   signInFromIdToken(idToken) {
    return this._httpPostV3ProtectedObj('users/signin', undefined, {idToken: idToken});
   }
+
+  // V3-Files APIs
+  copyFile(fromUuid, toPath, type, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters ['accesskey'] = accessKey;
+    }
+    return this._httpPostV3ProtectedObj('files/copy', parameters, {from: fromUuid, to: toPath, type: type});
+  }
+
+  getCount() {
+    return this._httpGetV3ProtectedObj('files/count', {});
+  }
+
+  getTrash(){
+    return this._httpGetV3ProtectedObj('files/trash', {});
+  }
+
+  restoreFile(networkIds, folderIds, shortcutIds) {
+    let data = {};
+    if (networkIds !== undefined) {
+      data['networkIds'] = networkIds;
+    }
+    if (folderIds !== undefined) {
+      data['folderIds'] = folderIds;
+    }
+    if (shortcutIds !== undefined) {
+      data['shortcutIds'] = shortcutIds;
+    }
+    return this._httpPostV3ProtectedObj('files/trash/restore', undefined, data);
+  }
+  // Sharing
+  addMember(){
+    return this._httpPostV3ProtectedObj('files/sharing/add_member', undefined, {});
+  }
+
+  removeMember(){
+
+  }
+
+  updateMember(){
+
+  }
+
+  transferOwnership(uuid,type,toUser){
+
+  }
+
+  share(){
+
+  }
+
+  unshare(){
+    
+  }
+
+  // Folder
+  getFolders(limit){
+    let parameters = {};
+
+    if (limit !== undefined) {
+      parameters ['limit'] = limit;
+    }
+    return this._httpGetV3ProtectedObj('files/folders', parameters);
+  }
+  
+  createNewFolder(name, parentFolderId) {
+    return this._httpPostV3ProtectedObj('files/folders', undefined, {name: name, parent: parentFolderId});
+  }
+
+  getFolder(folderId, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters ['accesskey'] = accessKey;
+    }
+    return this._httpGetV3ProtectedObj('files/folders/' + folderId, parameters);
+  }
+
+  updateFolder(folderId, name, parentFolderId) {
+    return this._httpPutV3Obj('files/folders/' + folderId, undefined, {name: name, parent: parentFolderId});
+  }
+
+  deleteFolder(folderId) {
+    return this._httpDeleteV3Obj('files/folders/' + folderId, undefined);
+  }
+
+  getFolderCount(folderId, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters ['accesskey'] = accessKey;
+    }
+    return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/count', parameters);
+  }
+
+  getFolderList(folderId, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters ['accesskey'] = accessKey;
+    }
+    return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/list', parameters);
+  }
+
+  // Sortcut
+  getShortcuts(limit){
+    let parameters = {};
+
+    if (limit !== undefined) {
+      parameters ['limit'] = limit;
+    }
+    return this._httpGetV3ProtectedObj('files/shortcuts', parameters);
+  }
+
+  createNewShortcut(name, parentFolderId, targetId) {
+    return this._httpPostV3ProtectedObj('files/shortcuts', undefined, {name: name, parent: parentFolderId, target: targetId});
+  }
+
+  getShortcut(shortcutId, accessKey) {
+    let parameters = {};
+
+    if (accessKey !== undefined) {
+      parameters ['accesskey'] = accessKey;
+    }
+    return this._httpGetV3ProtectedObj('files/shortcuts/' + shortcutId, parameters);
+  }
+  
+  updateShortcut(shortcutId, name) {
+    let parameters = {};
+    if (name !== undefined) {
+      parameters['name'] = name;
+    }
+    return this._httpPutV3Obj('files/shortcuts/' + shortcutId, parameters);
+  }
+
+  delteShortcut(shortcutId) {
+    return this._httpDeleteV3Obj('files/shortcuts/' + shortcutId, undefined);
+  }
+
 }
 
-  export default  NDEx ;
+export default  NDEx;
