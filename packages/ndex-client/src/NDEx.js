@@ -906,7 +906,7 @@ class NDEx {
   }
 
   transferOwnership(uuid,type,toUser){
-
+    
   }
 
   share(){
@@ -989,12 +989,8 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/shortcuts/' + shortcutId, parameters);
   }
   
-  updateShortcut(shortcutId, name) {
-    let parameters = {};
-    if (name !== undefined) {
-      parameters['name'] = name;
-    }
-    return this._httpPutV3Obj('files/shortcuts/' + shortcutId, parameters);
+  updateShortcut(shortcutId, name, parentFolderId, targetId) {
+    return this._httpPutV3Obj('files/shortcuts/' + shortcutId, undefined, {name: name, parent: parentFolderId, target: targetId});
   }
 
   delteShortcut(shortcutId) {
