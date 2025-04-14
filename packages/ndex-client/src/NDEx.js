@@ -868,7 +868,7 @@ class NDEx {
     if (accessKey !== undefined) {
       parameters ['accesskey'] = accessKey;
     }
-    return this._httpPostV3ProtectedObj('files/copy', parameters, {from: fromUuid, to: toPath, type: type});
+    return this._httpPostV3ProtectedObj('files/copy', parameters, {from_uuid: fromUuid, type: type, to_path: toPath,});
   }
 
   getCount() {
@@ -880,41 +880,71 @@ class NDEx {
   }
 
   restoreFile(networkIds, folderIds, shortcutIds) {
-    let data = {};
-    if (networkIds !== undefined) {
-      data['networkIds'] = networkIds;
-    }
-    if (folderIds !== undefined) {
-      data['folderIds'] = folderIds;
-    }
-    if (shortcutIds !== undefined) {
-      data['shortcutIds'] = shortcutIds;
-    }
-    return this._httpPostV3ProtectedObj('files/trash/restore', undefined, data);
+    return this._httpPostV3ProtectedObj('files/trash/restore', undefined, {networks: networkIds, folders: folderIds, shortcuts: shortcutIds});
   }
   // Sharing
-  addMember(){
-    return this._httpPostV3ProtectedObj('files/sharing/add_member', undefined, {});
+  _validateSharingData(data, membersValidation) {
+    if (!Array.isArray(data)) throw new Error("Data must be an array");
+
+    data.forEach((entry, i) => {
+      if (!entry.uuid || typeof entry.uuid !== 'string') {
+        throw new Error(`Entry ${i} is missing a valid uuid`);
+      }
+      if (!entry.type || typeof entry.type !== 'string') {
+        throw new Error(`Entry ${i} is missing a valid type`);
+      }
+      
+      if (membersValidation === 'object') {
+        if (
+          typeof entry.members !== 'object' ||
+          Array.isArray(entry.members) ||
+          entry.members === null
+        ) {
+          throw new Error(`Entry ${i} has invalid members`);
+        }
+      } else if (membersValidation === 'array') {
+        if (!entry.members || !Array.isArray(entry.members)) {
+          throw new Error(`Entry ${i} has invalid members`);
+        }
+      }
+    });
+    
+    return data;
+  }
+  
+  addMember(data){
+    data = this._validateSharingData(data, 'object');
+    return this._httpPostV3ProtectedObj('files/sharing/add_member', undefined, data);
   }
 
-  removeMember(){
-
+  removeMember(data){
+    data = this._validateSharingData(data, 'array');
+    return this._httpPostV3ProtectedObj('files/sharing/remove_member', undefined, data);
   }
 
-  updateMember(){
-
+  updateMember(data){
+    data = this._validateSharingData(data, 'object');
+    return this._httpPostV3ProtectedObj('files/sharing/update_member', undefined, data);
   }
 
   transferOwnership(uuid,type,toUser){
-    
-  }
-
-  share(){
 
   }
 
-  unshare(){
-    
+  listShares(limit){
+    let parameters = {};
+    if(limit !== undefined){
+      parameters['limit'] = limit;
+    }
+    return this._httpGetV3ProtectedObj('files/sharing/list', parameters);
+  }
+  
+  share(uuid,type){
+    return this._httpPostV3ProtectedObj('files/sharing/share', undefined, {uuid: uuid, type: type});
+  }
+
+  unshare(uuid,type){
+    return this._httpPostV3ProtectedObj('files/sharing/unshare', undefined, {uuid: uuid, type: type});
   }
 
   // Folder
@@ -927,7 +957,7 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/folders', parameters);
   }
   
-  createNewFolder(name, parentFolderId) {
+  createFolder(name, parentFolderId) {
     return this._httpPostV3ProtectedObj('files/folders', undefined, {name: name, parent: parentFolderId});
   }
 
@@ -976,7 +1006,7 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/shortcuts', parameters);
   }
 
-  createNewShortcut(name, parentFolderId, targetId) {
+  createShortcut(name, parentFolderId, targetId) {
     return this._httpPostV3ProtectedObj('files/shortcuts', undefined, {name: name, parent: parentFolderId, target: targetId});
   }
 
