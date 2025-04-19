@@ -987,11 +987,14 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/count', parameters);
   }
 
-  getFolderList(folderId, accessKey) {
+  getFolderList(folderId, accessKey, format) {
     let parameters = {};
 
     if (accessKey !== undefined) {
       parameters ['accesskey'] = accessKey;
+    }
+    if (format !== undefined) {
+      parameters['format'] = format;
     }
     return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/list', parameters);
   }
