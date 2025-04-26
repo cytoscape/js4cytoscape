@@ -879,56 +879,33 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/trash', {});
   }
 
+  emptyTrash() {
+    return this._httpDeleteV3Obj('files/trash', undefined);
+  }
+
   restoreFile(networkIds, folderIds, shortcutIds) {
     return this._httpPostV3ProtectedObj('files/trash/restore', undefined, {networks: networkIds, folders: folderIds, shortcuts: shortcutIds});
   }
-  // Sharing
-  _validateSharingData(data, membersValidation) {
-    if (!Array.isArray(data)) throw new Error("Data must be an array");
+  // Sharing  
+  //add, remove, update member
+  updateMember(files, members){
+    return this._httpPostV3ProtectedObj('files/sharing/members', undefined, {files: files, members: members});
+  }
 
-    data.forEach((entry, i) => {
-      if (!entry.uuid || typeof entry.uuid !== 'string') {
-        throw new Error(`Entry ${i} is missing a valid uuid`);
-      }
-      if (!entry.type || typeof entry.type !== 'string') {
-        throw new Error(`Entry ${i} is missing a valid type`);
-      }
-      
-      if (membersValidation === 'object') {
-        if (
-          typeof entry.members !== 'object' ||
-          Array.isArray(entry.members) ||
-          entry.members === null
-        ) {
-          throw new Error(`Entry ${i} has invalid members`);
-        }
-      } else if (membersValidation === 'array') {
-        if (!entry.members || !Array.isArray(entry.members)) {
-          throw new Error(`Entry ${i} has invalid members`);
-        }
-      }
-    });
+  listMembers(files){
+    return this._httpGetV3ProtectedObj('files/sharing/members/list', files);
+  }
+
+  _validateShareData(data){
+    // must be object
+    if (typeof data !== 'object') {
+      throw new Error('Data must be an object');
+    }
     
-    return data;
-  }
-  
-  addMember(data){
-    data = this._validateSharingData(data, 'object');
-    return this._httpPostV3ProtectedObj('files/sharing/add_member', undefined, data);
   }
 
-  removeMember(data){
-    data = this._validateSharingData(data, 'array');
-    return this._httpPostV3ProtectedObj('files/sharing/remove_member', undefined, data);
-  }
-
-  updateMember(data){
-    data = this._validateSharingData(data, 'object');
-    return this._httpPostV3ProtectedObj('files/sharing/update_member', undefined, data);
-  }
-
-  transferOwnership(uuid,type,toUser){
-
+  transferOwnership(files, newOwner){
+    return this._httpPostV3ProtectedObj('files/sharing/transfer_ownership', undefined, {files: files, new_owner: newOwner});
   }
 
   listShares(limit){
@@ -936,15 +913,15 @@ class NDEx {
     if(limit !== undefined){
       parameters['limit'] = limit;
     }
-    return this._httpGetV3ProtectedObj('files/sharing/list', parameters);
+    return this._httpPostV3ProtectedObj('files/sharing/list', parameters);
   }
   
-  share(uuid,type){
-    return this._httpPostV3ProtectedObj('files/sharing/share', undefined, {uuid: uuid, type: type});
+  share(files){
+    return this._httpPostV3ProtectedObj('files/sharing/share', undefined, {files: files});
   }
 
-  unshare(uuid,type){
-    return this._httpPostV3ProtectedObj('files/sharing/unshare', undefined, {uuid: uuid, type: type});
+  unshare(files){
+    return this._httpPostV3ProtectedObj('files/sharing/unshare', undefined, {files: files});
   }
 
   // Folder
@@ -1009,8 +986,8 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/shortcuts', parameters);
   }
 
-  createShortcut(name, parentFolderId, targetId) {
-    return this._httpPostV3ProtectedObj('files/shortcuts', undefined, {name: name, parent: parentFolderId, target: targetId});
+  createShortcut(name, parentFolderId, targetId, tagetType) {
+    return this._httpPostV3ProtectedObj('files/shortcuts', undefined, {name: name, parent: parentFolderId, target: targetId, targetType: tagetType});
   }
 
   getShortcut(shortcutId, accessKey) {
@@ -1022,8 +999,8 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/shortcuts/' + shortcutId, parameters);
   }
   
-  updateShortcut(shortcutId, name, parentFolderId, targetId) {
-    return this._httpPutV3Obj('files/shortcuts/' + shortcutId, undefined, {name: name, parent: parentFolderId, target: targetId});
+  updateShortcut(shortcutId, name, parentFolderId, targetId, tagetType) {
+    return this._httpPutV3Obj('files/shortcuts/' + shortcutId, undefined, {name: name, parent: parentFolderId, target: targetId, targetType: tagetType});
   }
 
   delteShortcut(shortcutId) {
