@@ -584,6 +584,10 @@ class NDEx {
       return this._httpPostProtectedObj('batch/network/export', undefined, exportJob);
     }
 
+    moveNetworks(networkIds, folderId){
+      return this._httpPostProtectedObj('batch/network/move', undefined, {targetFolder:folderId, networks: networkIds});
+    }
+
     /* network set functions */
     createNetworkSet({name, description}){
       return new Promise((resolve, reject)=> {
