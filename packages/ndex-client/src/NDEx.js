@@ -585,7 +585,11 @@ class NDEx {
     }
 
     moveNetworks(networkIds, folderId){
-      return this._httpPostProtectedObj('batch/network/move', undefined, {targetFolder:folderId, networks: networkIds});
+      return this._httpPostV3ProtectedObj('batch/networks/move', undefined, {targetFolder:folderId, networks: networkIds});
+    }
+
+    setNetworksVisibility(files, visibility){
+      return this._httpPostV3ProtectedObj('batch/networks/visibility', undefined, {files: files, visibility: visibility});
     }
 
     /* network set functions */

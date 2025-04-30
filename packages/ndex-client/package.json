@@ -1,6 +1,6 @@
 {
   "name": "@js4cytoscape/ndex-client",
-  "version": "0.5.0-alpha.6",
+  "version": "0.5.0-alpha.8",
   "description": "NDEx client library",
   "repository": {
     "type": "git",
