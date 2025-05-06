@@ -394,6 +394,10 @@ class NDEx {
       return this._httpGetV3ProtectedObj('networks/' + uuid + '/summary', parameters);
     }
 
+    getNetworkDOI(uuid, key, email){
+      return this._httpGetV3ProtectedObj('networks/' + uuid + '/DOI', {key: key, email: email});
+    }
+
     getAttributesOfSelectedNodes(uuid, {ids: nodeIds, attributeNames: names},accessKey) {
       let parameters = {
       };
@@ -423,6 +427,10 @@ class NDEx {
           (err) => {reject(err);}
         );
       });
+    }
+
+    copyNetwork(uuid){
+      return this._httpPostV3ProtectedObj('networks/'+uuid+'/copy', undefined, {});
     }
 
     updateNetworkFromRawCX(uuid, rawcx) {
@@ -891,6 +899,10 @@ class NDEx {
     return this._httpDeleteV3Obj('files/trash', undefined);
   }
 
+  permanentlyDeleteFile(fileId) {
+    return this._httpDeleteV3Obj('files/trash/'+fileId, undefined);
+  }
+
   restoreFile(networkIds, folderIds, shortcutIds) {
     return this._httpPostV3ProtectedObj('files/trash/restore', undefined, {networks: networkIds, folders: folderIds, shortcuts: shortcutIds});
   }
@@ -904,12 +916,31 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/sharing/members/list', files);
   }
 
-  _validateShareData(data){
-    // must be object
-    if (typeof data !== 'object') {
-      throw new Error('Data must be an object');
+  _validateShareData(data) {
+    // Check if data is an object and has files property
+    if (typeof data !== 'object' || data === null || data.files === undefined) {
+      throw new Error('Data must be an object with a "files" property');
     }
     
+    // Check if files is an object
+    if (typeof data.files !== 'object' || data.files === null) {
+      throw new Error('The "files" property must be an object');
+    }
+    
+    // Check each key-value pair in files
+    const validValues = ['NETWORK', 'FOLDER', 'SHORTCUT'];
+    
+    for (const [uuid, fileType] of Object.entries(data.files)) {
+      // Validate UUID format (basic validation)
+      if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
+        throw new Error(`Invalid UUID format: ${uuid}`);
+      }
+      
+      // Validate file type
+      if (!validValues.includes(fileType)) {
+        throw new Error(`Invalid file type for ${uuid}: ${fileType}. Must be one of: ${validValues.join(', ')}`);
+      }
+    }
   }
 
   transferOwnership(files, newOwner){
@@ -972,7 +1003,7 @@ class NDEx {
     return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/count', parameters);
   }
 
-  getFolderList(folderId, accessKey, format) {
+  getFolderList(folderId, accessKey, format, type) {
     let parameters = {};
 
     if (accessKey !== undefined) {
@@ -980,6 +1011,9 @@ class NDEx {
     }
     if (format !== undefined) {
       parameters['format'] = format;
+    }
+    if (type !== undefined) {
+      parameters['type'] = type;
     }
     return this._httpGetV3ProtectedObj('files/folders/' + folderId + '/list', parameters);
   }
