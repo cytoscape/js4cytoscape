@@ -593,11 +593,19 @@ class NDEx {
     }
 
     moveNetworks(networkIds, folderId){
-      return this._httpPostV3ProtectedObj('batch/networks/move', undefined, {targetFolder:folderId, networks: networkIds});
+      if(Object.isArray(networkIds)){
+        return this._httpPostV3ProtectedObj('batch/networks/move', undefined, {targetFolder:folderId, networks: networkIds});
+      }else{
+        throw new Error('Invalid networkIds');
+      }
     }
 
     setNetworksVisibility(files, visibility){
-      return this._httpPostV3ProtectedObj('batch/networks/visibility', undefined, {files: files, visibility: visibility});
+      if(this._validateShareData(files)){ 
+        return this._httpPostV3ProtectedObj('batch/networks/visibility', undefined, {items: files, visibility: visibility});
+      }else{
+        throw new Error('Invalid share data');
+      }
     }
 
     /* network set functions */
@@ -877,6 +885,18 @@ class NDEx {
    return this._httpPostV3ProtectedObj('users/signin', undefined, {idToken: idToken});
   }
 
+  // Permission and AccessKey APIs
+
+  //Todo:permission APIs
+
+  getAccessKey(uuid){
+    return this._httpGetProtectedObj('networks/'+uuid+'/accesskey', {});
+  }
+
+  updateAccessKey(uuid, action){
+    return this._httpPutObj('networks/'+uuid+'/accesskey', {action: action});
+  }
+
   // V3-Files APIs
   copyFile(fromUuid, toPath, type, accessKey) {
     let parameters = {};
@@ -908,14 +928,6 @@ class NDEx {
   }
   // Sharing  
   //add, remove, update member
-  updateMember(files, members){
-    return this._httpPostV3ProtectedObj('files/sharing/members', undefined, {files: files, members: members});
-  }
-
-  listMembers(files){
-    return this._httpGetV3ProtectedObj('files/sharing/members/list', files);
-  }
-
   _validateShareData(data) {
     // Check if data is an object and has files property
     if (typeof data !== 'object' || data === null || data.files === undefined) {
@@ -942,9 +954,42 @@ class NDEx {
       }
     }
   }
+  _validateMemberData(data){
+    if(typeof data !== 'object' || data === null || data.members === undefined){
+      throw new Error('Data must be an object with a "members" property');
+    }
+    const validValues = ['READ', 'WRITE'];
+    for (const [uuid, permission] of Object.entries(data.members)) {
+      if (!validValues.includes(permission)) {
+        throw new Error(`Invalid permission for ${uuid}: ${permission}. Must be one of: ${validValues.join(', ')}`);
+      }
+      if(typeof uuid !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)){
+        throw new Error(`Invalid UUID format: ${uuid}`);
+      }
+    }
+    
+  }
+
+  updateMember(files, members){
+    if(this._validateShareData(files) && this._validateMemberData(members)){
+      return this._httpPostV3ProtectedObj('files/sharing/members', undefined, {files: files, members: members});
+    }else{
+      throw new Error('Invalid share data');
+    }
+  }
+
+  listMembers(files){
+    return this._httpGetV3ProtectedObj('files/sharing/members/list', files);
+  }
+
+
 
   transferOwnership(files, newOwner){
-    return this._httpPostV3ProtectedObj('files/sharing/transfer_ownership', undefined, {files: files, new_owner: newOwner});
+    if(this._validateShareData(files)){
+      return this._httpPostV3ProtectedObj('files/sharing/transfer_ownership', undefined, {files: files, new_owner: newOwner});
+    } else {
+      throw new Error('Invalid share data');
+    }
   }
 
   listShares(limit){
@@ -956,11 +1001,19 @@ class NDEx {
   }
   
   share(files){
-    return this._httpPostV3ProtectedObj('files/sharing/share', undefined, {files: files});
+    if(this._validateShareData(files)){
+      return this._httpPostV3ProtectedObj('files/sharing/share', undefined, {files: files});
+    }else{
+      throw new Error('Invalid share data');
+    }
   }
 
   unshare(files){
-    return this._httpPostV3ProtectedObj('files/sharing/unshare', undefined, {files: files});
+    if(this._validateShareData(files)){
+      return this._httpPostV3ProtectedObj('files/sharing/unshare', undefined, {files: files});
+    }else{
+      throw new Error('Invalid share data');
+    }
   }
 
   // Folder
