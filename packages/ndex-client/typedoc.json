@@ -1,0 +1,50 @@
+{
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "docs-site/docs/api",
+  "name": "NDEx JavaScript Client API Reference",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "readme": "none",
+  "plugin": [
+    "typedoc-plugin-markdown"
+  ],
+  "theme": "markdown",
+  "entryDocument": "index.md",
+  "hidePageTitle": true,
+  "hideBreadcrumbs": true,
+  "hideInPageTOC": true,
+  "disableSources": false,
+  "sourceLinkTemplate": "https://github.com/js4cytoscape/js4cytoscape/blob/main/packages/ndex-client/{path}#L{line}",
+  "gitRevision": "main",
+  "sort": [
+    "source-order"
+  ],
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace",
+    "Enum",
+    "EnumMember", 
+    "Class",
+    "Interface",
+    "TypeAlias",
+    "Constructor",
+    "Property",
+    "Variable",
+    "Function",
+    "Accessor",
+    "Method",
+    "Parameter",
+    "TypeParameter",
+    "TypeLiteral",
+    "CallSignature",
+    "ConstructorSignature",
+    "IndexSignature",
+    "GetSignature",
+    "SetSignature"
+  ]
+}

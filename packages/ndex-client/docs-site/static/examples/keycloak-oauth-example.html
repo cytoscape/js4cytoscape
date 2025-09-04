@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NDEx Keycloak OAuth Authentication Example</title>
+    <meta charset='utf-8'/>
+    <script src="https://dev1.ndexbio.org/auth2/js/keycloak.js"></script>
+    <!-- Load the modern NDEx client -->
+    <script src="https://unpkg.com/@js4cytoscape/ndex-client/dist/index.global.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .button:hover { background: #0056b3; }
+        .button:disabled { background: #ccc; cursor: not-allowed; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .info { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        .warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+        .result-box {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin: 5px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        details {
+            margin: 10px 0;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>NDEx Keycloak OAuth Authentication Example</h1>
+    <p>This example demonstrates OAuth authentication with NDEx using Keycloak and accessing private networks.</p>
+    
+    <div class="result-box info" style="margin: 20px 0;">
+        <h3>Authentication Methods for NDEx</h3>
+        <p><strong>OAuth (Recommended for Web Applications):</strong> Use OAuth authentication for browser-based applications where users sign in through the Keycloak interface. This provides secure, user-friendly authentication with proper token management.</p>
+        <p><strong>Basic Authentication:</strong> Use username/password authentication primarily for server-side scripts, automation, and command-line tools where OAuth flow is not practical.</p>
+        <p><strong>This example uses OAuth</strong> - the preferred method for web applications.</p>
+    </div>
+    
+    <!-- Status Display -->
+    <div id="status" class="result-box info">
+        <strong>Status:</strong> Initializing Keycloak...
+    </div>
+    
+    <!-- Authentication Controls -->
+    <div id="auth-controls">
+        <button id="login-btn" class="button" style="display: none;">Sign In with NDEx</button>
+        <button id="logout-btn" class="button" style="display: none;">Sign Out</button>
+        <button id="refresh-btn" class="button" style="display: none;">Refresh Token</button>
+        <button id="get-networks-btn" class="button" style="display: none;">Show Recent Networks</button>
+        <button id="get-network-btn" class="button" style="display: none;">Get First Network Summary</button>
+        <button id="clear-results-btn" class="button" onclick="clearResults()">Clear Results</button>
+        <div id="networks-help" class="result-box info" style="display: none; margin: 10px 0; padding: 8px; font-size: 13px;">
+            <strong>Note:</strong> Shows your 10 most recently modified networks. For the full list, visit <a href="https://www.ndexbio.org" target="_blank">NDEx.org</a>.
+        </div>
+    </div>
+    
+    <!-- Results Display -->
+    <div id="results"></div>
+    
+    <script>
+        let keycloak;
+        let ndexClient;
+        let currentUser; // Store authenticated user info
+        
+        // Update status display
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `result-box ${type}`;
+            statusDiv.innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+        
+        // Initialize Keycloak
+        async function initKeycloak() {
+            try {
+                updateStatus('Initializing Keycloak...', 'info');
+                
+                keycloak = new Keycloak({
+                    url: 'https://dev1.ndexbio.org/auth2',
+                    realm: 'ndex', 
+                    clientId: 'cytoscapendex'
+                });
+                
+                const authenticated = await keycloak.init({
+                    onLoad: 'check-sso',
+                    silentCheckSsoRedirectUri: window.location.origin + window.location.pathname.replace('keycloak-oauth-example.html', 'silent-check-sso.html')
+                });
+                
+                if (authenticated) {
+                    updateStatus('User already authenticated, signing in to NDEx...', 'info');
+                    await handleAuthenticated();
+                    // Refresh token display every minute for debugging
+                    setInterval(displayTokenInfo, 60000);
+                } else {
+                    updateStatus('Ready to sign in', 'info');
+                    showLoginButton();
+                }
+            } catch (error) {
+                console.error('Keycloak initialization failed:', error);
+                updateStatus('Authentication initialization failed: ' + error.message, 'error');
+                displayError('Keycloak initialization failed', error);
+            }
+        }
+        
+        // Handle successful authentication
+        async function handleAuthenticated() {
+            try {
+                // Create NDEx client with OAuth token  
+                // The global build exposes named exports on NDExClient
+                const { NDExClient: NDExClientClass } = window.NDExClient;
+                ndexClient = new NDExClientClass({
+                    baseURL: 'https://dev1.ndexbio.org',
+                    auth: {
+                        type: 'oauth',
+                        idToken: keycloak.token
+                    }
+                });
+                
+                // Authenticate with NDEx and get user info
+                const user = await ndexClient.user.authenticate();
+                currentUser = user; // Store user info for later use
+                
+                updateStatus(`Successfully authenticated as ${user.userName}`, 'success');
+                showAuthenticatedUI();
+                displayUserInfo(user);
+                displayTokenInfo();
+                
+            } catch (error) {
+                console.error('NDEx authentication failed:', error);
+                
+                if (error.response?.status === 401) {
+                    const errorData = error.response.data;
+                    const errorCode = errorData?.errorCode;
+                    
+                    if (errorCode === 'NDEx_User_Account_Not_Verified') {
+                        updateStatus('Email verification required', 'warning');
+                        const confirmed = confirm(
+                            'Please verify your email address before signing in.\\n' +
+                            'Click OK if you already verified your email address. Click Cancel to sign out.'
+                        );
+                        if (confirmed) {
+                            window.location.reload();
+                        } else {
+                            keycloak.logout(window.location.href);
+                        }
+                    } else {
+                        updateStatus('NDEx authentication failed', 'error');
+                        displayError('NDEx Authentication Failed', errorData || error);
+                    }
+                } else {
+                    updateStatus('Unexpected authentication error', 'error');
+                    displayError('Unexpected Authentication Error', error);
+                }
+            }
+        }
+        
+        // Global variable to store user's networks
+        let userNetworks = [];
+        
+        // Get user's networks
+        async function getUserNetworks() {
+            try {
+                updateStatus('Fetching your networks...', 'info');
+                
+                // Get latest 10 networks from user account using stored user UUID
+                const networks = await ndexClient.user.getAccountPageNetworks(
+                    currentUser.externalId, // Use stored user UUID
+                    0,                      // offset
+                    10                      // limit - latest 10 networks
+                );
+                
+                userNetworks = networks;
+                updateStatus(`Found ${networks.length} networks in your account`, 'success');
+                displayUserNetworks(networks);
+                
+            } catch (error) {
+                console.error('Failed to get user networks:', error);
+                updateStatus('Failed to get user networks', 'error');
+                displayError('Failed to Get User Networks', error);
+            }
+        }
+        
+        // Get first network summary
+        async function getFirstNetworkSummary() {
+            try {
+                if (userNetworks.length === 0) {
+                    updateStatus('No networks available. Please get your networks first.', 'warning');
+                    displayError('No Networks Available', {
+                        message: 'Please click "Show Recent Networks" first to load your networks.'
+                    });
+                    return;
+                }
+                
+                updateStatus('Fetching first network summary...', 'info');
+                
+                const firstNetwork = userNetworks[0];
+                const networkUUID = firstNetwork.externalId;
+                const summary = await ndexClient.networks.getNetworkSummary(networkUUID);
+                
+                // Debug: log the summary structure
+                console.log('Network summary received:', summary);
+                console.log('nodeCount:', summary.nodeCount, 'type:', typeof summary.nodeCount);
+                console.log('edgeCount:', summary.edgeCount, 'type:', typeof summary.edgeCount);
+                
+                updateStatus(`Successfully retrieved summary for "${firstNetwork.name}"`, 'success');
+                displayNetworkSummary(summary, true);
+                
+            } catch (error) {
+                console.error('Failed to get network summary:', error);
+                updateStatus('Failed to get network summary', 'error');
+                displayError('Failed to Get Network Summary', error);
+            }
+        }
+        
+        // UI Helper Functions
+        function showLoginButton() {
+            document.getElementById('login-btn').style.display = 'inline-block';
+        }
+        
+        function showAuthenticatedUI() {
+            document.getElementById('login-btn').style.display = 'none';
+            document.getElementById('logout-btn').style.display = 'inline-block';
+            document.getElementById('refresh-btn').style.display = 'inline-block'; 
+            document.getElementById('get-networks-btn').style.display = 'inline-block';
+            document.getElementById('get-network-btn').style.display = 'inline-block';
+            document.getElementById('networks-help').style.display = 'block';
+        }
+        
+        function displayUserInfo(user) {
+            const results = document.getElementById('results');
+            results.innerHTML += `
+                <div class="result-box success">
+                    <h3>Authentication Successful</h3>
+                    <p><strong>Username:</strong> ${user.userName}</p>
+                    <p><strong>Name:</strong> ${user.firstName || 'N/A'} ${user.lastName || ''}</p>
+                    <p><strong>Email:</strong> ${user.emailAddress}</p>
+                    <p><strong>Verified:</strong> ${user.isVerified ? 'Yes' : 'No'}</p>
+                    <p><strong>User UUID:</strong> ${user.externalId}</p>
+                    <details>
+                        <summary>Full User Object</summary>
+                        <pre>${JSON.stringify(user, null, 2)}</pre>
+                    </details>
+                </div>
+            `;
+        }
+        
+        function displayTokenInfo() {
+            const results = document.getElementById('results');
+            const expirationDate = new Date(keycloak.tokenParsed.exp * 1000);
+            const now = new Date();
+            const timeUntilExpiry = Math.max(0, Math.floor((expirationDate - now) / 1000 / 60));
+            
+            // Remove previous token info
+            const existingTokenInfo = document.querySelector('#token-info');
+            if (existingTokenInfo) {
+                existingTokenInfo.remove();
+            }
+            
+            results.innerHTML += `
+                <div id="token-info" class="result-box info">
+                    <h4>Token Information (for debugging)</h4>
+                    <p><strong>Access Token (Copy for debugging):</strong></p>
+                    <textarea readonly>${keycloak.token}</textarea>
+                    <p><strong>Expires:</strong> <span style="color: ${timeUntilExpiry < 5 ? 'red' : 'inherit'};">
+                        ${expirationDate.toLocaleString()} (${timeUntilExpiry} minutes remaining)</span></p>
+                    <details>
+                        <summary>Parsed Token Claims</summary>
+                        <pre>${JSON.stringify(keycloak.tokenParsed, null, 2)}</pre>
+                    </details>
+                </div>
+            `;
+        }
+        
+        function displayUserNetworks(networks) {
+            const results = document.getElementById('results');
+            
+            if (networks.length === 0) {
+                results.innerHTML += `
+                    <div class="result-box warning">
+                        <h3>Your Networks</h3>
+                        <p>No networks found in your account.</p>
+                        <p><em>Try creating a network or check if you're signed in to the correct account.</em></p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const networksTable = networks.map((network, index) => {
+                const creationDate = new Date(network.creationTime);
+                const modificationDate = new Date(network.modificationTime);
+                return `
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px; font-weight: bold;">${index + 1}</td>
+                        <td style="padding: 8px; max-width: 200px; word-wrap: break-word;">${network.name}</td>
+                        <td style="padding: 8px; text-align: center;">${network.nodeCount.toLocaleString()}</td>
+                        <td style="padding: 8px; text-align: center;">${network.edgeCount.toLocaleString()}</td>
+                        <td style="padding: 8px; text-align: center;">${network.visibility}</td>
+                        <td style="padding: 8px; font-size: 12px;">${modificationDate.toLocaleDateString()}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            results.innerHTML += `
+                <div class="result-box success">
+                    <h3>Your Recent Networks (${networks.length} shown)</h3>
+                    <p>Displaying your ${networks.length} most recently modified networks (limited to 10 for this demo). Click "Get First Network Summary" to view details of the first network.</p>
+                    <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 14px;">
+                        <thead>
+                            <tr style="background: #f8f9fa; font-weight: bold;">
+                                <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">#</th>
+                                <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Name</th>
+                                <th style="padding: 10px; text-align: center; border-bottom: 2px solid #dee2e6;">Nodes</th>
+                                <th style="padding: 10px; text-align: center; border-bottom: 2px solid #dee2e6;">Edges</th>
+                                <th style="padding: 10px; text-align: center; border-bottom: 2px solid #dee2e6;">Visibility</th>
+                                <th style="padding: 10px; text-align: center; border-bottom: 2px solid #dee2e6;">Modified</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${networksTable}
+                        </tbody>
+                    </table>
+                    <details>
+                        <summary>Full Networks JSON Response</summary>
+                        <pre style="max-height: 300px; overflow-y: auto;">${JSON.stringify(networks, null, 2)}</pre>
+                    </details>
+                </div>
+            `;
+        }
+        
+        function displayNetworkSummary(summary, isFirstNetwork = false) {
+            const results = document.getElementById('results');
+            const creationDate = summary.creationTime ? new Date(summary.creationTime) : null;
+            const modificationDate = summary.modificationTime ? new Date(summary.modificationTime) : null;
+            const title = isFirstNetwork ? 'First Network Summary (via Unified Service → v3 API)' : 'Network Summary';
+            
+            results.innerHTML += `
+                <div class="result-box warning">
+                    <h3>${title}</h3>
+                    <p><strong>Name:</strong> ${summary.name}</p>
+                    <p><strong>UUID:</strong> ${summary.externalId}</p>
+                    <p><strong>Description:</strong> ${summary.description || 'No description'}</p>
+                    <p><strong>Nodes:</strong> ${(summary.nodeCount || 0).toLocaleString()}</p>
+                    <p><strong>Edges:</strong> ${(summary.edgeCount || 0).toLocaleString()}</p>
+                    <p><strong>Owner:</strong> ${summary.owner}</p>
+                    <p><strong>Visibility:</strong> ${summary.visibility}</p>
+                    <p><strong>Created:</strong> ${creationDate ? creationDate.toLocaleString() : 'Unknown'}</p>
+                    <p><strong>Modified:</strong> ${modificationDate ? modificationDate.toLocaleString() : 'Unknown'}</p>
+                    ${summary.properties ? `<p><strong>Properties:</strong> ${Object.keys(summary.properties).length} custom properties</p>` : ''}
+                    <details>
+                        <summary>Full Network Summary JSON</summary>
+                        <pre>${JSON.stringify(summary, null, 2)}</pre>
+                    </details>
+                </div>
+            `;
+        }
+        
+        function displayError(title, error) {
+            const results = document.getElementById('results');
+            const errorMessage = error.response?.data?.message || error.message || 'Unknown error';
+            const errorDetails = error.response?.data || error;
+            
+            results.innerHTML += `
+                <div class="result-box error">
+                    <h3>Error: ${title}</h3>
+                    <p><strong>Error:</strong> ${errorMessage}</p>
+                    <details>
+                        <summary>Error Details</summary>
+                        <pre>${JSON.stringify(errorDetails, null, 2)}</pre>
+                    </details>
+                </div>
+            `;
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // Event Handlers
+        document.getElementById('login-btn').onclick = () => {
+            updateStatus('Redirecting to sign in...', 'info');
+            keycloak.login();
+        };
+        
+        document.getElementById('logout-btn').onclick = () => {
+            updateStatus('Signing out...', 'info');
+            keycloak.logout(window.location.href);
+        };
+        
+        document.getElementById('refresh-btn').onclick = () => {
+            updateStatus('Refreshing token...', 'info');
+            keycloak.updateToken(-1).then(() => {
+                updateStatus('Token refreshed successfully', 'success');
+                displayTokenInfo();
+            }).catch(error => {
+                updateStatus('Token refresh failed', 'error');
+                displayError('Token Refresh Failed', error);
+            });
+        };
+        
+        document.getElementById('get-networks-btn').onclick = getUserNetworks;
+        document.getElementById('get-network-btn').onclick = getFirstNetworkSummary;
+        
+        // Debug function to check what's available
+        function debugGlobalScope() {
+            console.log('Available in window.NDExClient:', window.NDExClient);
+            console.log('Type of window.NDExClient:', typeof window.NDExClient);
+            if (window.NDExClient) {
+                console.log('Keys in window.NDExClient:', Object.keys(window.NDExClient));
+            }
+        }
+        
+        // Initialize when page loads
+        window.onload = () => {
+            debugGlobalScope();
+            initKeycloak();
+        };
+    </script>
+</body>
+</html>

@@ -890,11 +890,11 @@ class NDEx {
   //Todo:permission APIs
 
   getAccessKey(uuid){
-    return this._httpGetProtectedObj('network/'+uuid+'/accesskey', {});
+    return this._httpGetProtectedObj('networks/'+uuid+'/accesskey', {});
   }
 
   updateAccessKey(uuid, action){
-    return this._httpPutObj('network/'+uuid+'/accesskey', {action: action});
+    return this._httpPutObj('networks/'+uuid+'/accesskey', {action: action});
   }
 
   // V3-Files APIs

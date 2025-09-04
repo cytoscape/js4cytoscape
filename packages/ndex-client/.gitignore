@@ -35,3 +35,19 @@ node_modules
 .nyc_output/
 
 yarn.lock
+
+# Build output
+dist/
+
+# Generated documentation
+docs/
+docs-site/docs/api/
+
+# Docusaurus build artifacts
+docs-site/build/
+docs-site/.docusaurus/
+
+# Debug and legacy files
+debug-response.js
+debug-integration-test.js
+jsdoc.json

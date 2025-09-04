@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Documentation builds
+docs/
+docs-site/build/
+docs-site/node_modules/
+
+# Test artifacts
+*.log
+*.coverage
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+__tests__/**/*.js.map
+
+# Backup files
+*.bak
+*.bak*
+
+# CX test files
+**/*.cx
+**/*.cx2
+**/*.sif.cx
