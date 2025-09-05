@@ -46,5 +46,11 @@
     "IndexSignature",
     "GetSignature",
     "SetSignature"
-  ]
+  ],
+  "sanitizeComments": true,
+  "excludeNotDocumented": false,
+  "textContentMappings": {
+    "title.indexPage": "API Reference",
+    "title.memberPage": "{name}"
+  }
 }

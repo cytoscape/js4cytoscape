@@ -138,6 +138,11 @@ const config = {
 
   markdown: {
     mermaid: true,
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
 };

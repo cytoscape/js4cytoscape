@@ -39,9 +39,11 @@ yarn.lock
 # Build output
 dist/
 
-# Generated documentation
-docs/
+# Generated documentation (TypeDoc output)
 docs-site/docs/api/
+
+# Old docs directory (if using legacy TypeDoc setup)
+# docs/
 
 # Docusaurus build artifacts
 docs-site/build/
