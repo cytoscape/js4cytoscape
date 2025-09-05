@@ -50,9 +50,17 @@ jobs:
             echo "packages=[]" >> $GITHUB_OUTPUT
           else
             echo "has-docs=true" >> $GITHUB_OUTPUT
-            # Convert array to JSON format
-            packages_json=$(printf '%s\n' "${packages_with_docs[@]}" | jq -R . | jq -s .)
-            echo "packages=$packages_json" >> $GITHUB_OUTPUT
+            # Convert array to JSON format properly
+            packages_json="["
+            for i in "${!packages_with_docs[@]}"; do
+              if [ $i -gt 0 ]; then
+                packages_json+=","
+              fi
+              packages_json+="\"${packages_with_docs[$i]}\""
+            done
+            packages_json+="]"
+            echo "packages=${packages_json}" >> $GITHUB_OUTPUT
+            echo "Generated JSON: ${packages_json}"
           fi
 
   build:
