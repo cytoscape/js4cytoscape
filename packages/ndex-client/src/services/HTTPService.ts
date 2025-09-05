@@ -184,7 +184,6 @@ export class HTTPService {
    * @param options.onProgress - Progress callback that receives percentage (0-100)
    *   Called periodically during upload with current progress
    * @param options.version - API version to use ('v2' or 'v3', defaults to 'v2')
-   * @param options.config - Additional Axios configuration options
    * 
    * @returns Promise resolving to upload result
    * 

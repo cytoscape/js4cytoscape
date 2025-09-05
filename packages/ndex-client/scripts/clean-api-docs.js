@@ -13,41 +13,71 @@ function cleanMarkdownFile(filePath) {
   try {
     let content = fs.readFileSync(filePath, 'utf8');
     
-    // Fix common MDX parsing issues
-    content = content
-      // First, wrap the entire content in a code-friendly way
-      // Convert code blocks to safer format
-      .replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-        const cleanCode = code
-          .replace(/'/g, "\\'")
-          .replace(/\{/g, "\\{")
-          .replace(/\}/g, "\\}")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
-        return '```' + (lang || '') + '\n' + cleanCode + '```';
-      })
-      // Fix inline code with problematic characters
-      .replace(/`([^`]*['{}<>][^`]*)`/g, (match, code) => {
-        const cleanCode = code
-          .replace(/'/g, "\\'")
-          .replace(/\{/g, "\\{")
-          .replace(/\}/g, "\\}")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
-        return '`' + cleanCode + '`';
-      })
-      // Escape standalone curly braces outside of code blocks
-      .replace(/(?<!`[^`]*)\{(?![^`]*`)/g, '\\{')
-      .replace(/(?<!`[^`]*)\}(?![^`]*`)/g, '\\}')
-      // Escape standalone angle brackets outside of code blocks  
-      .replace(/(?<!`[^`]*)<(?![^`]*`)/g, '&lt;')
-      .replace(/(?<!`[^`]*)(>)(?![^`]*`)/g, '&gt;')
-      // Fix table cells with angle brackets
-      .replace(/\|([^|]*)<([^|>]*)>([^|]*)\|/g, '|$1&lt;$2&gt;$3|')
-      // Escape apostrophes in plain text (not in code)
-      .replace(/(?<!`[^`]*)'(?![^`]*`)/g, "\\'")
-      // Add frontmatter if missing
-      .replace(/^(?!---\n)/, '---\nsidebar_position: 1\n---\n\n');
+    // Split content into lines for easier processing
+    let lines = content.split('\n');
+    let inCodeBlock = false;
+    let codeBlockDelimiter = '';
+    
+    lines = lines.map((line, index) => {
+      // Track code block state
+      if (line.startsWith('```')) {
+        if (!inCodeBlock) {
+          inCodeBlock = true;
+          codeBlockDelimiter = line;
+        } else if (line === '```' || line.startsWith('```')) {
+          inCodeBlock = false;
+          codeBlockDelimiter = '';
+        }
+        return line;
+      }
+      
+      // Skip processing inside code blocks
+      if (inCodeBlock) {
+        return line;
+      }
+      
+      // Process non-code lines
+      let processedLine = line;
+      
+      // Handle inline code first - protect it
+      const codeSegments = [];
+      let codeIndex = 0;
+      
+      // Extract inline code to protect it
+      processedLine = processedLine.replace(/`([^`]+)`/g, (match, code) => {
+        const placeholder = `__CODE_SEGMENT_${codeIndex}__`;
+        codeSegments[codeIndex] = '`' + code + '`';
+        codeIndex++;
+        return placeholder;
+      });
+      
+      // Now safely process the rest of the line
+      processedLine = processedLine
+        // Escape curly braces that might be JSX expressions
+        .replace(/\{/g, '\\{')
+        .replace(/\}/g, '\\}')
+        // Escape angle brackets  
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        // Escape apostrophes
+        .replace(/'/g, "\\'")
+        // Fix common TypeScript/JSDoc patterns
+        .replace(/\\\{([^}]*)\\\}/g, '\\{$1\\}'); // Keep already escaped
+      
+      // Restore inline code segments
+      codeSegments.forEach((segment, idx) => {
+        processedLine = processedLine.replace(`__CODE_SEGMENT_${idx}__`, segment);
+      });
+      
+      return processedLine;
+    });
+    
+    content = lines.join('\n');
+    
+    // Add frontmatter if missing
+    if (!content.startsWith('---\n')) {
+      content = '---\nsidebar_position: 1\n---\n\n' + content;
+    }
 
     fs.writeFileSync(filePath, content, 'utf8');
     console.log(`✓ Cleaned ${path.relative(API_DOCS_DIR, filePath)}`);
