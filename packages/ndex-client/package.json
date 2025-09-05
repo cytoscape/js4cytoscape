@@ -31,7 +31,7 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:docs": "typedoc",
-    "docs:api": "npm run build:docs",
+    "docs:api": "npm run build:docs && node scripts/clean-api-docs.js",
     "docs:site": "cd docs-site && npm install && npm run build",
     "docs:serve": "cd docs-site && npm run start",
     "docs:build": "npm run docs:api && npm run docs:site",

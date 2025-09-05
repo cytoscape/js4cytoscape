@@ -20,6 +20,7 @@
   "disableSources": false,
   "sourceLinkTemplate": "https://github.com/js4cytoscape/js4cytoscape/blob/main/packages/ndex-client/{path}#L{line}",
   "gitRevision": "main",
+  "excludeNotDocumented": false,
   "sort": [
     "source-order"
   ],
@@ -46,11 +47,5 @@
     "IndexSignature",
     "GetSignature",
     "SetSignature"
-  ],
-  "sanitizeComments": true,
-  "excludeNotDocumented": false,
-  "textContentMappings": {
-    "title.indexPage": "API Reference",
-    "title.memberPage": "{name}"
-  }
+  ]
 }
