@@ -163,7 +163,7 @@ export class HTTPService {
   }
 
 
-  /**
+  /*
    * Upload a file to the NDEx API with progress tracking support
    * 
    * This method handles file uploads using multipart/form-data encoding and supports
@@ -177,9 +177,7 @@ export class HTTPService {
    *   - `Buffer` (Node.js): Binary data as Buffer for server-side uploads
    *   - `string`: Text content that will be converted to Blob (useful for CX/CX2 JSON)
    * @param options - Upload configuration options
-   * @param options.filename - Custom filename for the upload. Defaults:
-   *   - File objects: uses `file.name`
-   *   - Other types: 'file.cx2'
+   *
    * @param options.contentType - MIME type for string content (default: 'application/json')
    * @param options.onProgress - Progress callback that receives percentage (0-100)
    *   Called periodically during upload with current progress
@@ -225,27 +223,26 @@ export class HTTPService {
     endpoint: string,
     file: File | Blob | Buffer | string,
     options: {
-      filename?: string;
       contentType?: string;
       onProgress?: (progress: number) => void;
       version?: 'v2' | 'v3';
     } = {}
   ): Promise<T> {
-    const { version, onProgress, filename, contentType, ...config } = options;
+    const { version, onProgress, contentType, ...config } = options;
     const url = this.buildUrl(endpoint, version);
 
     const formData = new FormData();
     
     if (file instanceof File) {
-      formData.append('file', file, filename || file.name);
+      formData.append('file', file, file.name);
     } else if (file instanceof Blob) {
-      formData.append('file', file, filename || 'file.cx2');
+      formData.append('file', file, 'file.cx2');
     } else if (typeof file === 'string') {
       const blob = new Blob([file], { type: contentType || 'application/json' });
-      formData.append('file', blob, filename || 'file.cx2');
+      formData.append('file', blob,'file.cx2');
     } else {
       // Buffer (Node.js environment)
-      formData.append('file', file as any, filename || 'file.cx2');
+      formData.append('file', file as any, 'file.cx2');
     }
 
     try {
