@@ -58,7 +58,7 @@ This project uses a hybrid documentation approach combining:
 # Build complete documentation site (API + narrative)
 npm run docs:build
 
-# Build only API reference (TypeDoc)
+# Build only API reference (TypeDoc with cleanup)
 npm run docs:api
 
 # Serve documentation locally for development
@@ -69,6 +69,26 @@ npm run docs:clean
 ```
 
 The documentation site will be available at `http://localhost:3000` when served locally.
+
+#### GitHub Pages Deployment
+
+Documentation is automatically deployed to GitHub Pages via GitHub Actions on pushes to `main` or `ndex3-major-refactor` branches. The live documentation is available at:
+- **Live Documentation**: [https://cytoscape.github.io/js4cytoscape/ndex-client/](https://cytoscape.github.io/js4cytoscape/ndex-client/)
+
+The deployment workflow:
+1. Auto-detects packages with documentation in the monorepo
+2. Builds API reference using TypeDoc with MDX compatibility cleanup
+3. Builds the complete Docusaurus site
+4. Deploys to GitHub Pages
+
+To test the complete build process locally before pushing:
+```bash
+# Test the full documentation pipeline
+npm run docs:clean  # Clean previous build artifacts
+npm run docs:api    # Generates API docs with cleanup
+npm run docs:build  # Builds complete site
+npm run docs:serve  # Serves locally at http://localhost:3000
+```
 
 **Documentation Structure:**
 - **Getting Started** - Installation, authentication, first network

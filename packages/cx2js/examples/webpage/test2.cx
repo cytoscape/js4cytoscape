@@ -1,0 +1,3597 @@
+[{"numberVerification":[{"longNumber":281474976710655}]},{"metaData":[{"name":"nodes","elementCount":30,"idCounter":248,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"edges","elementCount":57,"idCounter":248,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"networkAttributes","elementCount":4,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"nodeAttributes","elementCount":88,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"edgeAttributes","elementCount":285,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"cartesianLayout","elementCount":30,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"cyVisualProperties","elementCount":3,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"cyHiddenAttributes","elementCount":1,"version":"1.0","consistencyGroup":1,"properties":[]},{"name":"citations","elementCount":161,"idCounter":248,"properties":[]},{"name":"edgeCitations","elementCount":57,"properties":[]},{"name":"@context","elementCount":1,"properties":[]}]},
+{"@context":[{ }]},
+ {"nodes":[{
+  "@id" : 63,
+  "n" : "PLCB3"
+}, {
+  "@id" : 60,
+  "n" : "PLCB2"
+}, {
+  "@id" : 57,
+  "n" : "PLCB1"
+}, {
+  "@id" : 56,
+  "n" : "GNA14"
+}, {
+  "@id" : 53,
+  "n" : "AKAP13"
+}, {
+  "@id" : 50,
+  "n" : "ARHGEF1"
+}, {
+  "@id" : 49,
+  "n" : "GNA12"
+}, {
+  "@id" : 46,
+  "n" : "DAG"
+}, {
+  "@id" : 237,
+  "n" : "GNA13"
+}, {
+  "@id" : 41,
+  "n" : "Ca2+"
+}, {
+  "@id" : 167,
+  "n" : "PKN1"
+}, {
+  "@id" : 161,
+  "n" : "PRKCG"
+}, {
+  "@id" : 96,
+  "n" : "F2"
+}, {
+  "@id" : 158,
+  "n" : "PRKCB"
+}, {
+  "@id" : 153,
+  "n" : "VASP"
+}, {
+  "@id" : 87,
+  "n" : "TRPC6"
+}, {
+  "@id" : 150,
+  "n" : "RHOA"
+}, {
+  "@id" : 20,
+  "n" : "F2R"
+}, {
+  "@id" : 19,
+  "n" : "GRK3"
+}, {
+  "@id" : 80,
+  "n" : "GNAQ"
+}, {
+  "@id" : 15,
+  "n" : "ROCK2"
+}, {
+  "@id" : 11,
+  "n" : "MYL2"
+}, {
+  "@id" : 10,
+  "n" : "ROCK1"
+}, {
+  "@id" : 73,
+  "n" : "GNA11"
+}, {
+  "@id" : 136,
+  "n" : "ZYX"
+}, {
+  "@id" : 7,
+  "n" : "NOS3"
+}, {
+  "@id" : 6,
+  "n" : "PRKCD"
+}, {
+  "@id" : 66,
+  "n" : "GNA15"
+}, {
+  "@id" : 1,
+  "n" : "ARHGDIA"
+}, {
+  "@id" : 0,
+  "n" : "PRKCA"
+}]},
+ {"edges":[{
+  "@id" : 88,
+  "s" : 56,
+  "t" : 87,
+  "i" : "Activation"
+}, {
+  "@id" : 64,
+  "s" : 56,
+  "t" : 63,
+  "i" : "Activation"
+}, {
+  "@id" : 61,
+  "s" : 56,
+  "t" : 60,
+  "i" : "Activation"
+}, {
+  "@id" : 58,
+  "s" : 56,
+  "t" : 57,
+  "i" : "Activation"
+}, {
+  "@id" : 242,
+  "s" : 53,
+  "t" : 150,
+  "i" : "RasGef"
+}, {
+  "@id" : 245,
+  "s" : 50,
+  "t" : 150,
+  "i" : "RasGef"
+}, {
+  "@id" : 54,
+  "s" : 49,
+  "t" : 53,
+  "i" : "Activation"
+}, {
+  "@id" : 51,
+  "s" : 49,
+  "t" : 50,
+  "i" : "Activation"
+}, {
+  "@id" : 176,
+  "s" : 46,
+  "t" : 6,
+  "i" : "Activation"
+}, {
+  "@id" : 47,
+  "s" : 46,
+  "t" : 0,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 174,
+  "s" : 46,
+  "t" : 161,
+  "i" : "Activation"
+}, {
+  "@id" : 172,
+  "s" : 46,
+  "t" : 158,
+  "i" : "Activation"
+}, {
+  "@id" : 170,
+  "s" : 46,
+  "t" : 0,
+  "i" : "Activation"
+}, {
+  "@id" : 44,
+  "s" : 41,
+  "t" : 0,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 42,
+  "s" : 41,
+  "t" : 7,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 162,
+  "s" : 41,
+  "t" : 161,
+  "i" : "Activation"
+}, {
+  "@id" : 159,
+  "s" : 41,
+  "t" : 158,
+  "i" : "Activation"
+}, {
+  "@id" : 156,
+  "s" : 41,
+  "t" : 0,
+  "i" : "Activation"
+}, {
+  "@id" : 123,
+  "s" : 96,
+  "t" : 20,
+  "i" : "Activation"
+}, {
+  "@id" : 110,
+  "s" : 96,
+  "t" : 20,
+  "i" : "Activation"
+}, {
+  "@id" : 97,
+  "s" : 96,
+  "t" : 20,
+  "i" : "Activation"
+}, {
+  "@id" : 137,
+  "s" : 96,
+  "t" : 136,
+  "i" : "Activation"
+}, {
+  "@id" : 168,
+  "s" : 150,
+  "t" : 167,
+  "i" : "Activation"
+}, {
+  "@id" : 164,
+  "s" : 150,
+  "t" : 10,
+  "i" : "Activation"
+}, {
+  "@id" : 151,
+  "s" : 150,
+  "t" : 10,
+  "i" : "Activation"
+}, {
+  "@id" : 238,
+  "s" : 20,
+  "t" : 237,
+  "i" : "RasGef"
+}, {
+  "@id" : 230,
+  "s" : 20,
+  "t" : 56,
+  "i" : "RasGef"
+}, {
+  "@id" : 223,
+  "s" : 20,
+  "t" : 66,
+  "i" : "RasGef"
+}, {
+  "@id" : 216,
+  "s" : 20,
+  "t" : 80,
+  "i" : "RasGef"
+}, {
+  "@id" : 209,
+  "s" : 20,
+  "t" : 73,
+  "i" : "RasGef"
+}, {
+  "@id" : 202,
+  "s" : 20,
+  "t" : 80,
+  "i" : "RasGef"
+}, {
+  "@id" : 195,
+  "s" : 20,
+  "t" : 73,
+  "i" : "RasGef"
+}, {
+  "@id" : 188,
+  "s" : 20,
+  "t" : 66,
+  "i" : "RasGef"
+}, {
+  "@id" : 181,
+  "s" : 20,
+  "t" : 56,
+  "i" : "RasGef"
+}, {
+  "@id" : 178,
+  "s" : 20,
+  "t" : 49,
+  "i" : "RasGef"
+}, {
+  "@id" : 36,
+  "s" : 19,
+  "t" : 20,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 31,
+  "s" : 19,
+  "t" : 20,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 26,
+  "s" : 19,
+  "t" : 20,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 21,
+  "s" : 19,
+  "t" : 20,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 94,
+  "s" : 80,
+  "t" : 87,
+  "i" : "Activation"
+}, {
+  "@id" : 85,
+  "s" : 80,
+  "t" : 63,
+  "i" : "Activation"
+}, {
+  "@id" : 83,
+  "s" : 80,
+  "t" : 60,
+  "i" : "Activation"
+}, {
+  "@id" : 81,
+  "s" : 80,
+  "t" : 57,
+  "i" : "Activation"
+}, {
+  "@id" : 16,
+  "s" : 15,
+  "t" : 11,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 12,
+  "s" : 10,
+  "t" : 11,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 92,
+  "s" : 73,
+  "t" : 87,
+  "i" : "Activation"
+}, {
+  "@id" : 78,
+  "s" : 73,
+  "t" : 63,
+  "i" : "Activation"
+}, {
+  "@id" : 76,
+  "s" : 73,
+  "t" : 60,
+  "i" : "Activation"
+}, {
+  "@id" : 74,
+  "s" : 73,
+  "t" : 57,
+  "i" : "Activation"
+}, {
+  "@id" : 154,
+  "s" : 136,
+  "t" : 153,
+  "i" : "Activation"
+}, {
+  "@id" : 8,
+  "s" : 6,
+  "t" : 7,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 90,
+  "s" : 66,
+  "t" : 87,
+  "i" : "Activation"
+}, {
+  "@id" : 71,
+  "s" : 66,
+  "t" : 63,
+  "i" : "Activation"
+}, {
+  "@id" : 69,
+  "s" : 66,
+  "t" : 60,
+  "i" : "Activation"
+}, {
+  "@id" : 67,
+  "s" : 66,
+  "t" : 57,
+  "i" : "Activation"
+}, {
+  "@id" : 4,
+  "s" : 0,
+  "t" : 1,
+  "i" : "Phosphorylation"
+}, {
+  "@id" : 2,
+  "s" : 0,
+  "t" : 1,
+  "i" : "Phosphorylation"
+}]},
+ {"networkAttributes":[{"n":"name","v":"Copy of PAR1 network INDRA-assembled via BioPAX"}, {"n":"description","v":"<div>dadada</div>"}, {"n":"version","v":"1.0"}, {"n":"reference","v":"\n                  "}]},
+ {"nodeAttributes":[{
+  "po" : 63,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q01970"
+}, {
+  "po" : 63,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9056"
+}, {
+  "po" : 63,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 60,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q00722"
+}, {
+  "po" : 60,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9055"
+}, {
+  "po" : 60,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 57,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q9NQ66"
+}, {
+  "po" : 57,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:15917"
+}, {
+  "po" : 57,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 56,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/O95837"
+}, {
+  "po" : 56,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4382"
+}, {
+  "po" : 56,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 53,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q12802"
+}, {
+  "po" : 53,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:371"
+}, {
+  "po" : 53,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 50,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q92888"
+}, {
+  "po" : 50,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:681"
+}, {
+  "po" : 50,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 49,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q03113"
+}, {
+  "po" : 49,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4380"
+}, {
+  "po" : 49,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 46,
+  "n" : "ChEBI",
+  "v" : "http://identifiers.org/chebi/18035"
+}, {
+  "po" : 46,
+  "n" : "type",
+  "v" : "chemical"
+}, {
+  "po" : 237,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q14344"
+}, {
+  "po" : 237,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4381"
+}, {
+  "po" : 237,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 41,
+  "n" : "ChEBI",
+  "v" : "http://identifiers.org/chebi/30412"
+}, {
+  "po" : 41,
+  "n" : "type",
+  "v" : "chemical"
+}, {
+  "po" : 167,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q16512"
+}, {
+  "po" : 167,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9405"
+}, {
+  "po" : 167,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 161,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P05129"
+}, {
+  "po" : 161,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9402"
+}, {
+  "po" : 161,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 96,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P00734"
+}, {
+  "po" : 96,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:3535"
+}, {
+  "po" : 96,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 158,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P05771"
+}, {
+  "po" : 158,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9395"
+}, {
+  "po" : 158,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 153,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P50552"
+}, {
+  "po" : 153,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:12652"
+}, {
+  "po" : 153,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 87,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q9Y210"
+}, {
+  "po" : 87,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:12338"
+}, {
+  "po" : 87,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 150,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P61586"
+}, {
+  "po" : 150,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:667"
+}, {
+  "po" : 150,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 20,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P25116"
+}, {
+  "po" : 20,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:3537"
+}, {
+  "po" : 20,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 19,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P35626"
+}, {
+  "po" : 19,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:290"
+}, {
+  "po" : 19,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 80,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P50148"
+}, {
+  "po" : 80,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4390"
+}, {
+  "po" : 80,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 15,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/O75116"
+}, {
+  "po" : 15,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:10252"
+}, {
+  "po" : 15,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 11,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P10916"
+}, {
+  "po" : 11,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:7583"
+}, {
+  "po" : 11,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 10,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q13464"
+}, {
+  "po" : 10,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:10251"
+}, {
+  "po" : 10,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 73,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P29992"
+}, {
+  "po" : 73,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4379"
+}, {
+  "po" : 73,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 136,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q15942"
+}, {
+  "po" : 136,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:13200"
+}, {
+  "po" : 136,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 7,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P29474"
+}, {
+  "po" : 7,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:7876"
+}, {
+  "po" : 7,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 6,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/Q05655"
+}, {
+  "po" : 6,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9399"
+}, {
+  "po" : 6,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 66,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P30679"
+}, {
+  "po" : 66,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:4383"
+}, {
+  "po" : 66,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 1,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P52565"
+}, {
+  "po" : 1,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:678"
+}, {
+  "po" : 1,
+  "n" : "type",
+  "v" : "protein"
+}, {
+  "po" : 0,
+  "n" : "UniProt",
+  "v" : "http://identifiers.org/uniprot/P17252"
+}, {
+  "po" : 0,
+  "n" : "HGNC",
+  "v" : "http://identifiers.org/hgnc/HGNC:9393"
+}, {
+  "po" : 0,
+  "n" : "type",
+  "v" : "protein"
+}]},
+ {"edgeAttributes":[{
+  "po" : 88,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA14\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"obj\": {\"name\": \"TRPC6\", \"db_refs\": {\"UP\": \"Q9Y210\", \"HGNC\": \"12338\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_92bae52fa7d429d2d98cc724538db766\", \"epistemics\": {\"direct\": true}}], \"id\": \"d7b37fa7-5078-42ce-8801-f7152561f7ac\"}"
+}, {
+  "po" : 88,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 88,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 88,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA14(bound: [GTP, True]), TRPC6())"
+}, {
+  "po" : 88,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 64,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA14\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"obj\": {\"name\": \"PLCB3\", \"db_refs\": {\"UP\": \"Q01970\", \"HGNC\": \"9056\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"202bbb67-60f1-4201-b01a-4dd5a27e5624\"}"
+}, {
+  "po" : 64,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 64,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 64,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA14(bound: [GTP, True]), PLCB3())"
+}, {
+  "po" : 64,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 61,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA14\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"obj\": {\"name\": \"PLCB2\", \"db_refs\": {\"UP\": \"Q00722\", \"HGNC\": \"9055\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"f10c9cad-ae37-4e7b-b1b6-0ab49a4a0190\"}"
+}, {
+  "po" : 61,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 61,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 61,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA14(bound: [GTP, True]), PLCB2())"
+}, {
+  "po" : 61,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 58,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA14\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"obj\": {\"name\": \"PLCB1\", \"db_refs\": {\"UP\": \"Q9NQ66\", \"HGNC\": \"15917\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"fd753804-1f5e-4636-a9ff-61090ca8ca4e\"}"
+}, {
+  "po" : 58,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 58,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 58,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA14(bound: [GTP, True]), PLCB1())"
+}, {
+  "po" : 58,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 242,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"AKAP13\", \"db_refs\": {\"UP\": \"Q12802\", \"HGNC\": \"371\"}}, \"ras\": {\"name\": \"RHOA\", \"db_refs\": {\"UP\": \"P61586\", \"HGNC\": \"667\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10364236\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0c5fe30b054ba8cddbd346a68dd8c4dc\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10480888\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0c5fe30b054ba8cddbd346a68dd8c4dc\", \"epistemics\": {\"direct\": true}}], \"id\": \"9a52b242-fc6d-464c-a260-93908f609ac5\"}"
+}, {
+  "po" : 242,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 242,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 242,
+  "n" : "INDRA statement",
+  "v" : "RasGef(AKAP13, RHOA)"
+}, {
+  "po" : 242,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 245,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"ARHGEF1\", \"db_refs\": {\"UP\": \"Q92888\", \"HGNC\": \"681\"}}, \"ras\": {\"name\": \"RHOA\", \"db_refs\": {\"UP\": \"P61586\", \"HGNC\": \"667\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10364236\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_2d06d68c50149f4f3a6527a678999186\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10480888\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_2d06d68c50149f4f3a6527a678999186\", \"epistemics\": {\"direct\": true}}], \"id\": \"1b018eca-603f-4395-b8d1-43744bb14859\"}"
+}, {
+  "po" : 245,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 245,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 245,
+  "n" : "INDRA statement",
+  "v" : "RasGef(ARHGEF1, RHOA)"
+}, {
+  "po" : 245,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 54,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA12\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"Q03113\", \"HGNC\": \"4380\"}}, \"obj\": {\"name\": \"AKAP13\", \"db_refs\": {\"UP\": \"Q12802\", \"HGNC\": \"371\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10480888\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_dc574642ff5860bd105ecd8dcedc2879\", \"epistemics\": {\"direct\": true}}], \"id\": \"ce7baaf7-3aba-4731-a3d8-dfdf9212791c\"}"
+}, {
+  "po" : 54,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 54,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 54,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA12(bound: [GTP, True]), AKAP13())"
+}, {
+  "po" : 54,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 51,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA12\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"Q03113\", \"HGNC\": \"4380\"}}, \"obj\": {\"name\": \"ARHGEF1\", \"db_refs\": {\"UP\": \"Q92888\", \"HGNC\": \"681\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10480888\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1f95ca941efd6041283a5f3ed4bb60c\", \"epistemics\": {\"direct\": true}}], \"id\": \"5858aacc-0077-4281-bc30-404f7096bccb\"}"
+}, {
+  "po" : 51,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 51,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 51,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA12(bound: [GTP, True]), ARHGEF1())"
+}, {
+  "po" : 51,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 176,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"DAG\", \"db_refs\": {\"CHEBI\": \"18035\"}}, \"obj\": {\"name\": \"PRKCD\", \"db_refs\": {\"UP\": \"Q05655\", \"HGNC\": \"9399\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17210830\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_5c64d09d1b077745f6b764124d6a279b\", \"epistemics\": {\"direct\": true}}], \"id\": \"488cae15-5dac-4b1e-ad44-ab0fc19a8a2d\"}"
+}, {
+  "po" : 176,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 176,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 176,
+  "n" : "INDRA statement",
+  "v" : "Activation(DAG(), PRKCD())"
+}, {
+  "po" : 176,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 47,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"DAG\", \"db_refs\": {\"CHEBI\": \"18035\"}}, \"sub\": {\"name\": \"PRKCA\", \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"residue\": \"S\", \"position\": \"657\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_9cc856b0dcb95ffaf3b1cdad7399a6a1\", \"epistemics\": {\"direct\": true}}], \"id\": \"44a440d1-a69c-4446-a06f-dcc9613a6834\"}"
+}, {
+  "po" : 47,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 47,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 47,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(DAG(), PRKCA(), S, 657)"
+}, {
+  "po" : 47,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 174,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"DAG\", \"db_refs\": {\"CHEBI\": \"18035\"}}, \"obj\": {\"name\": \"PRKCG\", \"db_refs\": {\"UP\": \"P05129\", \"HGNC\": \"9402\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_f1d9a82faa590d362ab7fbfd5b7f2ec7\", \"epistemics\": {\"direct\": true}}], \"id\": \"7e48e41c-42b1-4aa4-ae83-eac48cb948f1\"}"
+}, {
+  "po" : 174,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 174,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 174,
+  "n" : "INDRA statement",
+  "v" : "Activation(DAG(), PRKCG())"
+}, {
+  "po" : 174,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 172,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"DAG\", \"db_refs\": {\"CHEBI\": \"18035\"}}, \"obj\": {\"name\": \"PRKCB\", \"db_refs\": {\"UP\": \"P05771\", \"HGNC\": \"9395\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_f1d9a82faa590d362ab7fbfd5b7f2ec7\", \"epistemics\": {\"direct\": true}}], \"id\": \"bb3fe2a6-c377-432a-ad19-f160709659f2\"}"
+}, {
+  "po" : 172,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 172,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 172,
+  "n" : "INDRA statement",
+  "v" : "Activation(DAG(), PRKCB())"
+}, {
+  "po" : 172,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 170,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"DAG\", \"db_refs\": {\"CHEBI\": \"18035\"}}, \"obj\": {\"name\": \"PRKCA\", \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_f1d9a82faa590d362ab7fbfd5b7f2ec7\", \"epistemics\": {\"direct\": true}}], \"id\": \"5a5c223f-6313-49ad-9d65-a9055332c7fd\"}"
+}, {
+  "po" : 170,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 170,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 170,
+  "n" : "INDRA statement",
+  "v" : "Activation(DAG(), PRKCA())"
+}, {
+  "po" : 170,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 44,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"Ca2+\", \"db_refs\": {\"CHEBI\": [\"30412\", \"22988\", \"60240\", \"77746\", \"39123\", \"29108\", \"22988\", \"3308\", \"48760\", \"48760\", \"3308\"]}}, \"sub\": {\"name\": \"PRKCA\", \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"residue\": \"S\", \"position\": \"657\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_53f1c08325dc319b4ae275f1fb5fb18d\", \"epistemics\": {\"direct\": true}}], \"id\": \"4fb67589-e64d-4517-b559-23ae730ae73a\"}"
+}, {
+  "po" : 44,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 44,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 44,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(Ca2+(), PRKCA(), S, 657)"
+}, {
+  "po" : 44,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 42,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"Ca2+\", \"db_refs\": {\"CHEBI\": [\"30412\", \"22988\", \"60240\", \"77746\", \"39123\", \"29108\", \"22988\", \"3308\", \"48760\", \"48760\", \"3308\"]}}, \"sub\": {\"name\": \"NOS3\", \"db_refs\": {\"UP\": \"P29474\", \"HGNC\": \"7876\"}}, \"residue\": \"S\", \"position\": \"1179\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17210830\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_54338c8fe7bf0c2a51f317cd7d8c9ab5\", \"epistemics\": {\"direct\": true}}], \"id\": \"96e669aa-0e2e-409c-a29d-ceada9ae78e8\"}"
+}, {
+  "po" : 42,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 42,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 42,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(Ca2+(), NOS3(), S, 1179)"
+}, {
+  "po" : 42,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 162,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"Ca2+\", \"db_refs\": {\"CHEBI\": [\"30412\", \"22988\", \"60240\", \"77746\", \"39123\", \"29108\", \"22988\", \"3308\", \"48760\", \"48760\", \"3308\"]}}, \"obj\": {\"name\": \"PRKCG\", \"db_refs\": {\"UP\": \"P05129\", \"HGNC\": \"9402\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_b919baedc607ffadcdc7efa244788812\", \"epistemics\": {\"direct\": true}}], \"id\": \"cdb99e94-b71f-44aa-b97c-a1bd9b874655\"}"
+}, {
+  "po" : 162,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 162,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 162,
+  "n" : "INDRA statement",
+  "v" : "Activation(Ca2+(), PRKCG())"
+}, {
+  "po" : 162,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 159,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"Ca2+\", \"db_refs\": {\"CHEBI\": [\"30412\", \"22988\", \"60240\", \"77746\", \"39123\", \"29108\", \"22988\", \"3308\", \"48760\", \"48760\", \"3308\"]}}, \"obj\": {\"name\": \"PRKCB\", \"db_refs\": {\"UP\": \"P05771\", \"HGNC\": \"9395\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_b919baedc607ffadcdc7efa244788812\", \"epistemics\": {\"direct\": true}}], \"id\": \"826bb700-1b63-4e3e-88d5-aa9c1f3f8ce1\"}"
+}, {
+  "po" : 159,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 159,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 159,
+  "n" : "INDRA statement",
+  "v" : "Activation(Ca2+(), PRKCB())"
+}, {
+  "po" : 159,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 156,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"Ca2+\", \"db_refs\": {\"CHEBI\": [\"30412\", \"22988\", \"60240\", \"77746\", \"39123\", \"29108\", \"22988\", \"3308\", \"48760\", \"48760\", \"3308\"]}}, \"obj\": {\"name\": \"PRKCA\", \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_b919baedc607ffadcdc7efa244788812\", \"epistemics\": {\"direct\": true}}], \"id\": \"50b0f7c1-a9e5-4e6e-b441-9a9425646a01\"}"
+}, {
+  "po" : 156,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 156,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 156,
+  "n" : "INDRA statement",
+  "v" : "Activation(Ca2+(), PRKCA())"
+}, {
+  "po" : 156,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 123,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"F2\", \"db_refs\": {\"UP\": \"P00734\", \"HGNC\": \"3535\"}}, \"obj\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1313429\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7608215\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"19690217\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1310695\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1717851\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7683662\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1654318\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1672265\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8145852\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1652467\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8206902\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}], \"id\": \"bdf2edb3-46cd-4c15-ac4d-c06c1908c290\"}"
+}, {
+  "po" : 123,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 123,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 123,
+  "n" : "INDRA statement",
+  "v" : "Activation(F2(), F2R())"
+}, {
+  "po" : 123,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 110,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"F2\", \"db_refs\": {\"UP\": \"P00734\", \"HGNC\": \"3535\"}}, \"obj\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1313429\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7608215\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8136362\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1310695\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1717851\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7683662\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1672265\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1654318\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8145852\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1652467\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8206902\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_a1fad13eebdab8e868d424cf49b5ce5f\", \"epistemics\": {\"direct\": true}}], \"id\": \"d075aa9e-eede-423c-886e-b5e6ffc05acd\"}"
+}, {
+  "po" : 110,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 110,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 110,
+  "n" : "INDRA statement",
+  "v" : "Activation(F2(), F2R())"
+}, {
+  "po" : 110,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 97,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"F2\", \"db_refs\": {\"UP\": \"P00734\", \"HGNC\": \"3535\"}}, \"obj\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1313429\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7608215\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1310695\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1717851\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"17376866\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7683662\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1672265\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1654318\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8145852\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1652467\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8206902\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_423f50d16da55b0ffc17b734f020d513\", \"epistemics\": {\"direct\": true}}], \"id\": \"980d0e3e-31fe-439f-9e8f-5442788cc565\"}"
+}, {
+  "po" : 97,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 97,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 97,
+  "n" : "INDRA statement",
+  "v" : "Activation(F2(), F2R())"
+}, {
+  "po" : 97,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 137,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"F2\", \"db_refs\": {\"UP\": \"P00734\", \"HGNC\": \"3535\"}}, \"obj\": {\"name\": \"ZYX\", \"db_refs\": {\"UP\": \"Q15942\", \"HGNC\": \"13200\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1313429\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7608215\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"19690217\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1310695\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1717851\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7683662\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1654318\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1672265\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8145852\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"1652467\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8206902\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_771bad39e5c0b5f944da02c82f0c6b01\", \"epistemics\": {\"direct\": true}}], \"id\": \"23f94457-5e0e-4673-a5a4-7993f931d4f8\"}"
+}, {
+  "po" : 137,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 137,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 137,
+  "n" : "INDRA statement",
+  "v" : "Activation(F2(), ZYX())"
+}, {
+  "po" : 137,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 168,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"RHOA\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P61586\", \"HGNC\": \"667\"}}, \"obj\": {\"name\": \"PKN1\", \"db_refs\": {\"UP\": \"Q16512\", \"HGNC\": \"9405\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"18713748\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_accc33de3b7399cd61deb07531773752\", \"epistemics\": {\"direct\": true}}], \"id\": \"65af1d40-144c-48f5-ad72-421ece2e744c\"}"
+}, {
+  "po" : 168,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 168,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 168,
+  "n" : "INDRA statement",
+  "v" : "Activation(RHOA(bound: [GTP, True]), PKN1())"
+}, {
+  "po" : 168,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 164,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"RHOA\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P61586\", \"HGNC\": \"667\"}}, \"obj\": {\"name\": \"ROCK1\", \"db_refs\": {\"UP\": \"Q13464\", \"HGNC\": \"10251\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10364236\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_f977637859d570cb423a19dca5fa6169\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"18713748\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_f977637859d570cb423a19dca5fa6169\", \"epistemics\": {\"direct\": true}}], \"id\": \"3281ad9f-0a24-4b24-9214-75cfac882218\"}"
+}, {
+  "po" : 164,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 164,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 164,
+  "n" : "INDRA statement",
+  "v" : "Activation(RHOA(bound: [GTP, True]), ROCK1())"
+}, {
+  "po" : 164,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 151,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"RHOA\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P61586\", \"HGNC\": \"667\"}}, \"obj\": {\"name\": \"ROCK1\", \"db_refs\": {\"UP\": \"Q13464\", \"HGNC\": \"10251\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"14528298\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_4b41751d37ea3d214666aa8b902ed843\", \"epistemics\": {\"direct\": true}}], \"id\": \"5ec44eb4-536d-4cb8-a179-58ff22419ca2\"}"
+}, {
+  "po" : 151,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 151,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 151,
+  "n" : "INDRA statement",
+  "v" : "Activation(RHOA(bound: [GTP, True]), ROCK1())"
+}, {
+  "po" : 151,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 238,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA13\", \"mods\": [{\"mod_type\": \"palmitoylation\", \"residue\": \"C\", \"position\": \"37\", \"is_modified\": true}, {\"mod_type\": \"palmitoylation\", \"residue\": \"C\", \"position\": \"18\", \"is_modified\": true}, {\"mod_type\": \"palmitoylation\", \"residue\": \"C\", \"position\": \"14\", \"is_modified\": true}], \"db_refs\": {\"UP\": \"Q14344\", \"HGNC\": \"4381\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10922491\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_05f0377fa17bcdbe6a2f87e735af6eef\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"14528298\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_05f0377fa17bcdbe6a2f87e735af6eef\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8290554\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_05f0377fa17bcdbe6a2f87e735af6eef\", \"epistemics\": {\"direct\": true}}], \"id\": \"68108f06-8e8a-45fb-b53d-a9611a707db6\"}"
+}, {
+  "po" : 238,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 238,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 238,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA13)"
+}, {
+  "po" : 238,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 230,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA14\", \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"52c46529-98fb-45d2-a464-eb400bf2046a\"}"
+}, {
+  "po" : 230,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 230,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 230,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA14)"
+}, {
+  "po" : 230,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 223,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA15\", \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"89ca43c7-c957-4cff-bd7d-a5593ebe3bce\"}"
+}, {
+  "po" : 223,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 223,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 223,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA15)"
+}, {
+  "po" : 223,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 216,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNAQ\", \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"ae8e04cd-ef88-407f-b0ef-ec2be0880382\"}"
+}, {
+  "po" : 216,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 216,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 216,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNAQ)"
+}, {
+  "po" : 216,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 209,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA11\", \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"793ce1ee-ff6a-42b8-9f4d-5daca42c2a99\"}"
+}, {
+  "po" : 209,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 209,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 209,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA11)"
+}, {
+  "po" : 209,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 202,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNAQ\", \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"d39c90a5-8152-4811-86d4-7dd9fbab65cd\"}"
+}, {
+  "po" : 202,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 202,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 202,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNAQ)"
+}, {
+  "po" : 202,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 195,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA11\", \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"075e9f17-5e5e-427b-b588-bcf006e8f64c\"}"
+}, {
+  "po" : 195,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 195,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 195,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA11)"
+}, {
+  "po" : 195,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 188,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA15\", \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"b9ebe3cd-de4e-4f7c-9af3-98717db19d91\"}"
+}, {
+  "po" : 188,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 188,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 188,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA15)"
+}, {
+  "po" : 188,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 181,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA14\", \"db_refs\": {\"UP\": \"O95837\", \"HGNC\": \"4382\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8132575\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8458876\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"9296496\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7729552\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8982657\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_3473f136002585727ca2570378b7a3be\", \"epistemics\": {\"direct\": true}}], \"id\": \"c30834ba-1669-4094-970c-b6b5721bf87c\"}"
+}, {
+  "po" : 181,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 181,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 181,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA14)"
+}, {
+  "po" : 181,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 178,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"RasGef\", \"gef\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"ras\": {\"name\": \"GNA12\", \"db_refs\": {\"UP\": \"Q03113\", \"HGNC\": \"4380\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"10364236\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_abcc0396cbf0f794b232ed851a234b1e\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8290554\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_abcc0396cbf0f794b232ed851a234b1e\", \"epistemics\": {\"direct\": true}}], \"id\": \"c26d0925-61e1-4a82-b3f1-485e36872461\"}"
+}, {
+  "po" : 178,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 178,
+  "n" : "type",
+  "v" : "RasGef"
+}, {
+  "po" : 178,
+  "n" : "INDRA statement",
+  "v" : "RasGef(F2R, GNA12)"
+}, {
+  "po" : 178,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 36,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"GRK3\", \"db_refs\": {\"UP\": \"P35626\", \"HGNC\": \"290\"}}, \"sub\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"residue\": \"S\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"7961693\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10893235\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8955127\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10861009\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}], \"id\": \"31fb734e-e36c-4f21-846f-4310b5b37c79\"}"
+}, {
+  "po" : 36,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 36,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 36,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(GRK3(), F2R(), S)"
+}, {
+  "po" : 36,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 31,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"GRK3\", \"db_refs\": {\"UP\": \"P35626\", \"HGNC\": \"290\"}}, \"sub\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"residue\": \"T\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"7961693\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10893235\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8955127\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10861009\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_376b3c5cfaf9e037e9ad5c79cfeaad26\", \"epistemics\": {\"direct\": true}}], \"id\": \"ad8d697c-adc4-423e-ac0b-729e902a096b\"}"
+}, {
+  "po" : 31,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 31,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 31,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(GRK3(), F2R(), T)"
+}, {
+  "po" : 31,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 26,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"GRK3\", \"db_refs\": {\"UP\": \"P35626\", \"HGNC\": \"290\"}}, \"sub\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"residue\": \"S\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"8288570\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7961693\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10893235\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8955127\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}], \"id\": \"24f5b01a-2eac-4a38-83a0-5991ad9e9a05\"}"
+}, {
+  "po" : 26,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 26,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 26,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(GRK3(), F2R(), S)"
+}, {
+  "po" : 26,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 21,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"GRK3\", \"db_refs\": {\"UP\": \"P35626\", \"HGNC\": \"290\"}}, \"sub\": {\"name\": \"F2R\", \"db_refs\": {\"UP\": \"P25116\", \"HGNC\": \"3537\"}}, \"residue\": \"T\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"8288570\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"7961693\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"10893235\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"8955127\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_89fe8af6e73b6cd043a2d586c6faf550\", \"epistemics\": {\"direct\": true}}], \"id\": \"481c26ed-b7bc-449f-903e-c3b36e8ef5d8\"}"
+}, {
+  "po" : 21,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 21,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 21,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(GRK3(), F2R(), T)"
+}, {
+  "po" : 21,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 94,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNAQ\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"obj\": {\"name\": \"TRPC6\", \"db_refs\": {\"UP\": \"Q9Y210\", \"HGNC\": \"12338\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_92bae52fa7d429d2d98cc724538db766\", \"epistemics\": {\"direct\": true}}], \"id\": \"b4dd1152-0621-4ec0-94f9-c72f1c5f8b04\"}"
+}, {
+  "po" : 94,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 94,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 94,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNAQ(bound: [GTP, True]), TRPC6())"
+}, {
+  "po" : 94,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 85,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNAQ\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"obj\": {\"name\": \"PLCB3\", \"db_refs\": {\"UP\": \"Q01970\", \"HGNC\": \"9056\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"caf2d02e-0124-4922-85b6-ff53a4e34219\"}"
+}, {
+  "po" : 85,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 85,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 85,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNAQ(bound: [GTP, True]), PLCB3())"
+}, {
+  "po" : 85,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 83,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNAQ\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"obj\": {\"name\": \"PLCB2\", \"db_refs\": {\"UP\": \"Q00722\", \"HGNC\": \"9055\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"d69a2b83-ad9d-4a49-9da2-54ae102ff038\"}"
+}, {
+  "po" : 83,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 83,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 83,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNAQ(bound: [GTP, True]), PLCB2())"
+}, {
+  "po" : 83,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 81,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNAQ\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P50148\", \"HGNC\": \"4390\"}}, \"obj\": {\"name\": \"PLCB1\", \"db_refs\": {\"UP\": \"Q9NQ66\", \"HGNC\": \"15917\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"6c318688-e0f9-467c-848a-e9fb32497697\"}"
+}, {
+  "po" : 81,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 81,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 81,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNAQ(bound: [GTP, True]), PLCB1())"
+}, {
+  "po" : 81,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 16,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"ROCK2\", \"db_refs\": {\"UP\": \"O75116\", \"HGNC\": \"10252\"}}, \"sub\": {\"name\": \"MYL2\", \"db_refs\": {\"UP\": \"P10916\", \"HGNC\": \"7583\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"14528298\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_1aaed6e8b5968e5108c9779a6adaa4b1\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"11307824\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_1aaed6e8b5968e5108c9779a6adaa4b1\", \"epistemics\": {\"direct\": true}}], \"id\": \"e6005fe1-326d-499f-879e-5aca7091df26\"}"
+}, {
+  "po" : 16,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 16,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 16,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(ROCK2(), MYL2())"
+}, {
+  "po" : 16,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 12,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"ROCK1\", \"db_refs\": {\"UP\": \"Q13464\", \"HGNC\": \"10251\"}}, \"sub\": {\"name\": \"MYL2\", \"db_refs\": {\"UP\": \"P10916\", \"HGNC\": \"7583\"}}, \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"14528298\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_1aaed6e8b5968e5108c9779a6adaa4b1\", \"epistemics\": {\"direct\": true}}, {\"source_api\": \"biopax\", \"pmid\": \"11307824\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_1aaed6e8b5968e5108c9779a6adaa4b1\", \"epistemics\": {\"direct\": true}}], \"id\": \"e4b26adc-fb9f-4c6e-84d7-e63df47dc2c7\"}"
+}, {
+  "po" : 12,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 12,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 12,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(ROCK1(), MYL2())"
+}, {
+  "po" : 12,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 92,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA11\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"obj\": {\"name\": \"TRPC6\", \"db_refs\": {\"UP\": \"Q9Y210\", \"HGNC\": \"12338\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_92bae52fa7d429d2d98cc724538db766\", \"epistemics\": {\"direct\": true}}], \"id\": \"67d108dc-2587-4ad8-8f9f-67a85c9e9d7e\"}"
+}, {
+  "po" : 92,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 92,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 92,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA11(bound: [GTP, True]), TRPC6())"
+}, {
+  "po" : 92,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 78,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA11\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"obj\": {\"name\": \"PLCB3\", \"db_refs\": {\"UP\": \"Q01970\", \"HGNC\": \"9056\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"57944919-15be-4ed5-9d49-89fb64519dc4\"}"
+}, {
+  "po" : 78,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 78,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 78,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA11(bound: [GTP, True]), PLCB3())"
+}, {
+  "po" : 78,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 76,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA11\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"obj\": {\"name\": \"PLCB2\", \"db_refs\": {\"UP\": \"Q00722\", \"HGNC\": \"9055\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"5f2979ab-2a6b-420f-9e66-329e1705d1d3\"}"
+}, {
+  "po" : 76,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 76,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 76,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA11(bound: [GTP, True]), PLCB2())"
+}, {
+  "po" : 76,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 74,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA11\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P29992\", \"HGNC\": \"4379\"}}, \"obj\": {\"name\": \"PLCB1\", \"db_refs\": {\"UP\": \"Q9NQ66\", \"HGNC\": \"15917\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"6ff4b99b-5c02-48e0-b3e2-5362a2509675\"}"
+}, {
+  "po" : 74,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 74,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 74,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA11(bound: [GTP, True]), PLCB1())"
+}, {
+  "po" : 74,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 154,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"ZYX\", \"db_refs\": {\"UP\": \"Q15942\", \"HGNC\": \"13200\"}}, \"obj\": {\"name\": \"VASP\", \"db_refs\": {\"UP\": \"P50552\", \"HGNC\": \"12652\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"19690217\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_e875895b3e50e1ec36e7e8cc67467b53\", \"epistemics\": {\"direct\": true}}], \"id\": \"42d30228-9dd1-436d-9d69-8344c6d18a2b\"}"
+}, {
+  "po" : 154,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 154,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 154,
+  "n" : "INDRA statement",
+  "v" : "Activation(ZYX(), VASP())"
+}, {
+  "po" : 154,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 8,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"PRKCD\", \"db_refs\": {\"UP\": \"Q05655\", \"HGNC\": \"9399\"}}, \"sub\": {\"name\": \"NOS3\", \"db_refs\": {\"UP\": \"P29474\", \"HGNC\": \"7876\"}}, \"residue\": \"S\", \"position\": \"1179\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17210830\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_83e9b4d55f775b5b8fb3d5f18ce80dfc\", \"epistemics\": {\"direct\": true}}], \"id\": \"e04fc2c3-bc9d-447a-9373-ea2be80fb4ba\"}"
+}, {
+  "po" : 8,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 8,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 8,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(PRKCD(), NOS3(), S, 1179)"
+}, {
+  "po" : 8,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 90,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA15\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"obj\": {\"name\": \"TRPC6\", \"db_refs\": {\"UP\": \"Q9Y210\", \"HGNC\": \"12338\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_92bae52fa7d429d2d98cc724538db766\", \"epistemics\": {\"direct\": true}}], \"id\": \"b8eade37-98bc-4c4e-b5b8-186512ca31b8\"}"
+}, {
+  "po" : 90,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 90,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 90,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA15(bound: [GTP, True]), TRPC6())"
+}, {
+  "po" : 90,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 71,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA15\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"obj\": {\"name\": \"PLCB3\", \"db_refs\": {\"UP\": \"Q01970\", \"HGNC\": \"9056\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"3053c426-dd83-4c05-b4ef-4121eb125eb6\"}"
+}, {
+  "po" : 71,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 71,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 71,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA15(bound: [GTP, True]), PLCB3())"
+}, {
+  "po" : 71,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 69,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA15\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"obj\": {\"name\": \"PLCB2\", \"db_refs\": {\"UP\": \"Q00722\", \"HGNC\": \"9055\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"3b8b4f62-912c-4fb0-9982-10c37145981a\"}"
+}, {
+  "po" : 69,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 69,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 69,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA15(bound: [GTP, True]), PLCB2())"
+}, {
+  "po" : 69,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 67,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Activation\", \"subj\": {\"name\": \"GNA15\", \"bound_conditions\": [{\"is_bound\": true, \"agent\": {\"name\": \"GTP\", \"db_refs\": {\"CHEBI\": \"15996\"}}}], \"db_refs\": {\"UP\": \"P30679\", \"HGNC\": \"4383\"}}, \"obj\": {\"name\": \"PLCB1\", \"db_refs\": {\"UP\": \"Q9NQ66\", \"HGNC\": \"15917\"}}, \"obj_activity\": \"activity\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"1328213\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_0b300940058011d8406189ea5e0070c5\", \"epistemics\": {\"direct\": true}}], \"id\": \"d3759d7f-aebc-4ad3-a711-f28892a910a7\"}"
+}, {
+  "po" : 67,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 67,
+  "n" : "type",
+  "v" : "Activation"
+}, {
+  "po" : 67,
+  "n" : "INDRA statement",
+  "v" : "Activation(GNA15(bound: [GTP, True]), PLCB1())"
+}, {
+  "po" : 67,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 4,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"PRKCA\", \"mods\": [{\"mod_type\": \"phosphorylation\", \"residue\": \"S\", \"position\": \"657\", \"is_modified\": true}], \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"sub\": {\"name\": \"ARHGDIA\", \"db_refs\": {\"UP\": \"P52565\", \"HGNC\": \"678\"}}, \"residue\": \"S\", \"position\": \"101\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_497a0f041a9792c8c52dc799d9fad1b4\", \"epistemics\": {\"direct\": true}}], \"id\": \"96246a83-0bd0-4e3d-939f-3b6aa7a381af\"}"
+}, {
+  "po" : 4,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 4,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 4,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(PRKCA(mods: (phosphorylation, S, 657)), ARHGDIA(), S, 101)"
+}, {
+  "po" : 4,
+  "n" : "polarity",
+  "v" : "positive"
+}, {
+  "po" : 2,
+  "n" : "INDRA json",
+  "v" : "{\"type\": \"Phosphorylation\", \"enz\": {\"name\": \"PRKCA\", \"mods\": [{\"mod_type\": \"phosphorylation\", \"residue\": \"S\", \"position\": \"657\", \"is_modified\": true}], \"db_refs\": {\"UP\": \"P17252\", \"HGNC\": \"9393\"}}, \"sub\": {\"name\": \"ARHGDIA\", \"db_refs\": {\"UP\": \"P52565\", \"HGNC\": \"678\"}}, \"residue\": \"S\", \"position\": \"174\", \"evidence\": [{\"source_api\": \"biopax\", \"pmid\": \"17197445\", \"source_id\": \"http://pathwaycommons.org/pc2/Catalysis_497a0f041a9792c8c52dc799d9fad1b4\", \"epistemics\": {\"direct\": true}}], \"id\": \"73e1a6da-2b05-4c59-8366-c9b2195de3ee\"}"
+}, {
+  "po" : 2,
+  "n" : "Belief score",
+  "v" : "1.00"
+}, {
+  "po" : 2,
+  "n" : "type",
+  "v" : "Modification"
+}, {
+  "po" : 2,
+  "n" : "INDRA statement",
+  "v" : "Phosphorylation(PRKCA(mods: (phosphorylation, S, 657)), ARHGDIA(), S, 174)"
+}, {
+  "po" : 2,
+  "n" : "polarity",
+  "v" : "positive"
+}]},
+ {"cartesianLayout":[{
+  "node" : 63,
+  "x" : -395.0485534667969,
+  "y" : -170.30287170410156
+}, {
+  "node" : 60,
+  "x" : -397.7232971191406,
+  "y" : -115.00912475585938
+}, {
+  "node" : 57,
+  "x" : -419.7906494140625,
+  "y" : -221.1931915283203
+}, {
+  "node" : 56,
+  "x" : -487.4120178222656,
+  "y" : -89.24069213867188
+}, {
+  "node" : 53,
+  "x" : -556.3576280809731,
+  "y" : -384.99505615234375
+}, {
+  "node" : 50,
+  "x" : -542.2841796875,
+  "y" : -286.0260314941406
+}, {
+  "node" : 49,
+  "x" : -632.122314453125,
+  "y" : -336.7325439453125
+}, {
+  "node" : 46,
+  "x" : -917.5333251953125,
+  "y" : 85.53234884513333
+}, {
+  "node" : 237,
+  "x" : -513.5419921875,
+  "y" : -40.271480560302734
+}, {
+  "node" : 41,
+  "x" : -817.2691040039062,
+  "y" : 140.39681265128567
+}, {
+  "node" : 167,
+  "x" : -338.3082275390625,
+  "y" : -294.26922607421875
+}, {
+  "node" : 161,
+  "x" : -738.3125610351562,
+  "y" : 114.26923391593411
+}, {
+  "node" : 96,
+  "x" : -908.087158203125,
+  "y" : -149.19455697762058
+}, {
+  "node" : 158,
+  "x" : -733.4757690429688,
+  "y" : 48.18299886954739
+}, {
+  "node" : 153,
+  "x" : -677.0379028320312,
+  "y" : -89.51864624023438
+}, {
+  "node" : 87,
+  "x" : -591.76806640625,
+  "y" : -175.75022888183594
+}, {
+  "node" : 150,
+  "x" : -458.94927978515625,
+  "y" : -336.7804260253906
+}, {
+  "node" : 20,
+  "x" : -762.70166015625,
+  "y" : -195.62820434570312
+}, {
+  "node" : 19,
+  "x" : -895.221092436442,
+  "y" : -308.3768615722656
+}, {
+  "node" : 80,
+  "x" : -510.65704345703125,
+  "y" : -211.9105987548828
+}, {
+  "node" : 15,
+  "x" : -345.0201185010581,
+  "y" : -423.400703217855
+}, {
+  "node" : 11,
+  "x" : -270.0635986328125,
+  "y" : -358.702461030355
+}, {
+  "node" : 10,
+  "x" : -340.1494445800781,
+  "y" : -361.00848388671875
+}, {
+  "node" : 73,
+  "x" : -498.11285400390625,
+  "y" : -168.84092712402344
+}, {
+  "node" : 136,
+  "x" : -771.3876342773438,
+  "y" : -86.3981172777505
+}, {
+  "node" : 7,
+  "x" : -585.8524780273438,
+  "y" : 130.99556753409817
+}, {
+  "node" : 6,
+  "x" : -740.6368408203125,
+  "y" : -18.97108056770847
+}, {
+  "node" : 66,
+  "x" : -492.2614440917969,
+  "y" : -131.0818328857422
+}, {
+  "node" : 1,
+  "x" : -656.825927734375,
+  "y" : 230.18279287589505
+}, {
+  "node" : 0,
+  "x" : -812.7589111328125,
+  "y" : 233.14029714835598
+}]},
+ {"cyVisualProperties":[{
+  "properties_of" : "network",
+  "properties" : {
+    "NETWORK_BACKGROUND_PAINT" : "#FFFFFF",
+    "NETWORK_CENTER_X_LOCATION" : "0.0",
+    "NETWORK_CENTER_Y_LOCATION" : "0.0",
+    "NETWORK_CENTER_Z_LOCATION" : "0.0",
+    "NETWORK_DEPTH" : "0.0",
+    "NETWORK_EDGE_SELECTION" : "true",
+    "NETWORK_HEIGHT" : "400.0",
+    "NETWORK_NODE_SELECTION" : "true",
+    "NETWORK_SCALE_FACTOR" : "1.0",
+    "NETWORK_SIZE" : "550.0",
+    "NETWORK_WIDTH" : "550.0"
+  }
+}, {
+  "properties_of" : "nodes:default",
+  "properties" : {
+    "COMPOUND_NODE_PADDING" : "10.0",
+    "COMPOUND_NODE_SHAPE" : "ROUND_RECTANGLE",
+    "NODE_BORDER_PAINT" : "#CCCCCC",
+    "NODE_BORDER_STROKE" : "SOLID",
+    "NODE_BORDER_TRANSPARENCY" : "255",
+    "NODE_BORDER_WIDTH" : "0.0",
+    "NODE_CUSTOMGRAPHICS_1" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_2" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_3" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_4" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_5" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_6" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_7" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_8" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_9" : "org.cytoscape.ding.customgraphics.NullCustomGraphics,0,[ Remove Graphics ],",
+    "NODE_CUSTOMGRAPHICS_POSITION_1" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_2" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_3" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_4" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_5" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_6" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_7" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_8" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_POSITION_9" : "C,C,c,0.00,0.00",
+    "NODE_CUSTOMGRAPHICS_SIZE_1" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_2" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_3" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_4" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_5" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_6" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_7" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_8" : "50.0",
+    "NODE_CUSTOMGRAPHICS_SIZE_9" : "50.0",
+    "NODE_CUSTOMPAINT_1" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_1, name=Node Custom Paint 1)",
+    "NODE_CUSTOMPAINT_2" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_2, name=Node Custom Paint 2)",
+    "NODE_CUSTOMPAINT_3" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_3, name=Node Custom Paint 3)",
+    "NODE_CUSTOMPAINT_4" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_4, name=Node Custom Paint 4)",
+    "NODE_CUSTOMPAINT_5" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_5, name=Node Custom Paint 5)",
+    "NODE_CUSTOMPAINT_6" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_6, name=Node Custom Paint 6)",
+    "NODE_CUSTOMPAINT_7" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_7, name=Node Custom Paint 7)",
+    "NODE_CUSTOMPAINT_8" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_8, name=Node Custom Paint 8)",
+    "NODE_CUSTOMPAINT_9" : "DefaultVisualizableVisualProperty(id=NODE_CUSTOMPAINT_9, name=Node Custom Paint 9)",
+    "NODE_DEPTH" : "0.0",
+    "NODE_FILL_COLOR" : "#89D0F5",
+    "NODE_HEIGHT" : "35.0",
+    "NODE_LABEL_COLOR" : "#000000",
+    "NODE_LABEL_FONT_FACE" : "SansSerif,plain,12",
+    "NODE_LABEL_FONT_SIZE" : "12",
+    "NODE_LABEL_POSITION" : "C,C,c,0.00,0.00",
+    "NODE_LABEL_TRANSPARENCY" : "255",
+    "NODE_LABEL_WIDTH" : "200.0",
+    "NODE_NESTED_NETWORK_IMAGE_VISIBLE" : "true",
+    "NODE_PAINT" : "#1E90FF",
+    "NODE_SELECTED" : "false",
+    "NODE_SELECTED_PAINT" : "#FFFF00",
+    "NODE_SHAPE" : "ROUND_RECTANGLE",
+    "NODE_SIZE" : "35.0",
+    "NODE_TRANSPARENCY" : "170",
+    "NODE_VISIBLE" : "true",
+    "NODE_WIDTH" : "75.0",
+    "NODE_X_LOCATION" : "0.0",
+    "NODE_Y_LOCATION" : "0.0",
+    "NODE_Z_LOCATION" : "0.0"
+  },
+  "dependencies" : {
+    "nodeCustomGraphicsSizeSync" : "true",
+    "nodeSizeLocked" : "true"
+  },
+  "mappings" : {
+    "NODE_FILL_COLOR" : {
+      "type" : "DISCRETE",
+      "definition" : "COL=type,T=string,K=0=chemical,V=0=#33FFCC,K=1=protein,V=1=#99FF00"
+    },
+    "NODE_LABEL" : {
+      "type" : "PASSTHROUGH",
+      "definition" : "COL=name,T=string"
+    },
+    "NODE_SHAPE" : {
+      "type" : "DISCRETE",
+      "definition" : "COL=type,T=string,K=0=chemical,V=0=HEXAGON,K=1=protein,V=1=ELLIPSE"
+    }
+  }
+}, {
+  "properties_of" : "edges:default",
+  "properties" : {
+    "EDGE_CURVED" : "true",
+    "EDGE_LABEL_COLOR" : "#000000",
+    "EDGE_LABEL_FONT_FACE" : "Dialog,plain,10",
+    "EDGE_LABEL_FONT_SIZE" : "10",
+    "EDGE_LABEL_TRANSPARENCY" : "255",
+    "EDGE_LABEL_WIDTH" : "200.0",
+    "EDGE_LINE_TYPE" : "SOLID",
+    "EDGE_PAINT" : "#323232",
+    "EDGE_SELECTED" : "false",
+    "EDGE_SELECTED_PAINT" : "#FF0000",
+    "EDGE_SOURCE_ARROW_SELECTED_PAINT" : "#FFFF00",
+    "EDGE_SOURCE_ARROW_SHAPE" : "NONE",
+    "EDGE_SOURCE_ARROW_UNSELECTED_PAINT" : "#000000",
+    "EDGE_STROKE_SELECTED_PAINT" : "#FF0000",
+    "EDGE_STROKE_UNSELECTED_PAINT" : "#848484",
+    "EDGE_TARGET_ARROW_SELECTED_PAINT" : "#FFFF00",
+    "EDGE_TARGET_ARROW_SHAPE" : "DELTA",
+    "EDGE_TARGET_ARROW_UNSELECTED_PAINT" : "#000000",
+    "EDGE_TRANSPARENCY" : "255",
+    "EDGE_UNSELECTED_PAINT" : "#404040",
+    "EDGE_VISIBLE" : "true",
+    "EDGE_WIDTH" : "2.0"
+  },
+  "dependencies" : {
+    "arrowColorMatchesEdge" : "true"
+  },
+  "mappings" : {
+    "EDGE_UNSELECTED_PAINT" : {
+      "type" : "DISCRETE",
+      "definition" : "COL=shared interaction,T=string,K=0=Phosphorylation,V=0=#00CC33,K=1=Activation,V=1=#0033FF,K=2=RasGef,V=2=#FF0000"
+    }
+  }
+}]},
+ {"cyHiddenAttributes":[{
+  "n" : "layoutAlgorithm",
+  "v" : "Prefuse Force Directed Layout"
+}]},
+ {"citations":[{
+  "@id" : 3,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 5,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 9,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17210830",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 13,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:14528298",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 14,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:11307824",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 17,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:14528298",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 18,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:11307824",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 22,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8288570",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 23,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7961693",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 24,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10893235",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 25,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8955127",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 27,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8288570",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 28,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7961693",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 29,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10893235",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 30,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8955127",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 32,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7961693",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 33,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10893235",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 34,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8955127",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 35,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10861009",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 37,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7961693",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 38,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10893235",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 39,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8955127",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 40,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10861009",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 43,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17210830",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 45,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 48,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 52,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10480888",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 55,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10480888",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 59,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 62,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 65,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 68,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 70,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 72,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 75,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 77,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 79,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 82,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 84,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 86,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 89,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 91,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 93,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 95,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17197445",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 98,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1313429",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 99,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7608215",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 100,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1310695",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 101,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1717851",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 102,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 103,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17376866",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 104,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7683662",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 105,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1672265",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 106,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1654318",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 107,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8145852",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 108,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1652467",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 109,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8206902",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 111,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1313429",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 112,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7608215",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 113,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8136362",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 114,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1310695",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 115,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1717851",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 116,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 117,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7683662",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 118,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1672265",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 119,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1654318",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 120,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8145852",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 121,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1652467",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 122,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8206902",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 124,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1313429",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 125,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7608215",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 126,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:19690217",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 127,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1310695",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 128,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1717851",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 129,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 130,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7683662",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 131,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1654318",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 132,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1672265",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 133,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8145852",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 134,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1652467",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 135,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8206902",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 138,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1313429",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 139,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7608215",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 140,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:19690217",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 141,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1310695",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 142,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1717851",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 143,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 144,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7683662",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 145,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1654318",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 146,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1672265",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 147,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8145852",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 148,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1652467",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 149,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8206902",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 152,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:14528298",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 155,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:19690217",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 157,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 160,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 163,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 165,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10364236",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 166,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:18713748",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 169,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:18713748",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 171,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 173,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 175,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 177,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:17210830",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 179,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10364236",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 180,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8290554",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 182,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 183,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 184,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 185,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 186,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 187,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 189,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 190,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 191,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 192,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 193,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 194,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 196,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 197,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 198,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 199,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 200,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 201,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 203,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 204,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 205,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 206,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 207,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 208,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 210,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 211,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 212,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 213,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 214,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 215,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 217,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 218,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 219,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 220,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 221,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 222,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 224,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 225,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 226,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 227,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 228,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 229,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 231,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:1328213",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 232,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8132575",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 233,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8458876",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 234,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:9296496",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 235,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:7729552",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 236,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8982657",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 239,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10922491",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 240,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:14528298",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 241,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:8290554",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 243,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10364236",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 244,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10480888",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 246,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10364236",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}, {
+  "@id" : 247,
+  "dc:title" : null,
+  "dc:contributor" : null,
+  "dc:identifier" : "pmid:10480888",
+  "dc:type" : null,
+  "dc:description" : null,
+  "attributes" : [ ]
+}]},
+ {"edgeCitations":[{
+  "po" : [ 2 ],
+  "citations" : [ 3 ]
+}, {
+  "po" : [ 4 ],
+  "citations" : [ 5 ]
+}, {
+  "po" : [ 8 ],
+  "citations" : [ 9 ]
+}, {
+  "po" : [ 12 ],
+  "citations" : [ 13, 14 ]
+}, {
+  "po" : [ 16 ],
+  "citations" : [ 17, 18 ]
+}, {
+  "po" : [ 21 ],
+  "citations" : [ 22, 23, 24, 25 ]
+}, {
+  "po" : [ 26 ],
+  "citations" : [ 27, 28, 29, 30 ]
+}, {
+  "po" : [ 31 ],
+  "citations" : [ 32, 33, 34, 35 ]
+}, {
+  "po" : [ 36 ],
+  "citations" : [ 37, 38, 39, 40 ]
+}, {
+  "po" : [ 42 ],
+  "citations" : [ 43 ]
+}, {
+  "po" : [ 44 ],
+  "citations" : [ 45 ]
+}, {
+  "po" : [ 47 ],
+  "citations" : [ 48 ]
+}, {
+  "po" : [ 51 ],
+  "citations" : [ 52 ]
+}, {
+  "po" : [ 54 ],
+  "citations" : [ 55 ]
+}, {
+  "po" : [ 58 ],
+  "citations" : [ 59 ]
+}, {
+  "po" : [ 61 ],
+  "citations" : [ 62 ]
+}, {
+  "po" : [ 64 ],
+  "citations" : [ 65 ]
+}, {
+  "po" : [ 67 ],
+  "citations" : [ 68 ]
+}, {
+  "po" : [ 69 ],
+  "citations" : [ 70 ]
+}, {
+  "po" : [ 71 ],
+  "citations" : [ 72 ]
+}, {
+  "po" : [ 74 ],
+  "citations" : [ 75 ]
+}, {
+  "po" : [ 76 ],
+  "citations" : [ 77 ]
+}, {
+  "po" : [ 78 ],
+  "citations" : [ 79 ]
+}, {
+  "po" : [ 81 ],
+  "citations" : [ 82 ]
+}, {
+  "po" : [ 83 ],
+  "citations" : [ 84 ]
+}, {
+  "po" : [ 85 ],
+  "citations" : [ 86 ]
+}, {
+  "po" : [ 88 ],
+  "citations" : [ 89 ]
+}, {
+  "po" : [ 90 ],
+  "citations" : [ 91 ]
+}, {
+  "po" : [ 92 ],
+  "citations" : [ 93 ]
+}, {
+  "po" : [ 94 ],
+  "citations" : [ 95 ]
+}, {
+  "po" : [ 97 ],
+  "citations" : [ 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109 ]
+}, {
+  "po" : [ 110 ],
+  "citations" : [ 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122 ]
+}, {
+  "po" : [ 123 ],
+  "citations" : [ 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135 ]
+}, {
+  "po" : [ 137 ],
+  "citations" : [ 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149 ]
+}, {
+  "po" : [ 151 ],
+  "citations" : [ 152 ]
+}, {
+  "po" : [ 154 ],
+  "citations" : [ 155 ]
+}, {
+  "po" : [ 156 ],
+  "citations" : [ 157 ]
+}, {
+  "po" : [ 159 ],
+  "citations" : [ 160 ]
+}, {
+  "po" : [ 162 ],
+  "citations" : [ 163 ]
+}, {
+  "po" : [ 164 ],
+  "citations" : [ 165, 166 ]
+}, {
+  "po" : [ 168 ],
+  "citations" : [ 169 ]
+}, {
+  "po" : [ 170 ],
+  "citations" : [ 171 ]
+}, {
+  "po" : [ 172 ],
+  "citations" : [ 173 ]
+}, {
+  "po" : [ 174 ],
+  "citations" : [ 175 ]
+}, {
+  "po" : [ 176 ],
+  "citations" : [ 177 ]
+}, {
+  "po" : [ 178 ],
+  "citations" : [ 179, 180 ]
+}, {
+  "po" : [ 181 ],
+  "citations" : [ 182, 183, 184, 185, 186, 187 ]
+}, {
+  "po" : [ 188 ],
+  "citations" : [ 189, 190, 191, 192, 193, 194 ]
+}, {
+  "po" : [ 195 ],
+  "citations" : [ 196, 197, 198, 199, 200, 201 ]
+}, {
+  "po" : [ 202 ],
+  "citations" : [ 203, 204, 205, 206, 207, 208 ]
+}, {
+  "po" : [ 209 ],
+  "citations" : [ 210, 211, 212, 213, 214, 215 ]
+}, {
+  "po" : [ 216 ],
+  "citations" : [ 217, 218, 219, 220, 221, 222 ]
+}, {
+  "po" : [ 223 ],
+  "citations" : [ 224, 225, 226, 227, 228, 229 ]
+}, {
+  "po" : [ 230 ],
+  "citations" : [ 231, 232, 233, 234, 235, 236 ]
+}, {
+  "po" : [ 238 ],
+  "citations" : [ 239, 240, 241 ]
+}, {
+  "po" : [ 242 ],
+  "citations" : [ 243, 244 ]
+}, {
+  "po" : [ 245 ],
+  "citations" : [ 246, 247 ]
+}]},
+{"status":[{"error":"","success":true}]}]
