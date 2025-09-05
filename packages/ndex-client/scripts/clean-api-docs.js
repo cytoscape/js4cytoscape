@@ -15,17 +15,37 @@ function cleanMarkdownFile(filePath) {
     
     // Fix common MDX parsing issues
     content = content
-      // Escape problematic apostrophes in code blocks and inline code
-      .replace(/`([^`]*)'([^`]*)`/g, '`$1\\\'$2`')
-      // Fix JSX-like syntax that might conflict with MDX
-      .replace(/<([a-zA-Z]+)([^>]*?)\/>/g, '\\<$1$2/\\>')
-      // Escape unmatched angle brackets
-      .replace(/(<)(?![a-zA-Z\/])/g, '\\<')
-      .replace(/(?<![a-zA-Z\/])(>)/g, '\\>')
-      // Fix table formatting issues
-      .replace(/\|(\s*)<([^>]+)>(\s*)\|/g, '|$1\\<$2\\>$3|')
-      // Escape curly braces that might be interpreted as JSX expressions
-      .replace(/\{([^}]*)\}/g, '\\{$1\\}')
+      // First, wrap the entire content in a code-friendly way
+      // Convert code blocks to safer format
+      .replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+        const cleanCode = code
+          .replace(/'/g, "\\'")
+          .replace(/\{/g, "\\{")
+          .replace(/\}/g, "\\}")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+        return '```' + (lang || '') + '\n' + cleanCode + '```';
+      })
+      // Fix inline code with problematic characters
+      .replace(/`([^`]*['{}<>][^`]*)`/g, (match, code) => {
+        const cleanCode = code
+          .replace(/'/g, "\\'")
+          .replace(/\{/g, "\\{")
+          .replace(/\}/g, "\\}")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+        return '`' + cleanCode + '`';
+      })
+      // Escape standalone curly braces outside of code blocks
+      .replace(/(?<!`[^`]*)\{(?![^`]*`)/g, '\\{')
+      .replace(/(?<!`[^`]*)\}(?![^`]*`)/g, '\\}')
+      // Escape standalone angle brackets outside of code blocks  
+      .replace(/(?<!`[^`]*)<(?![^`]*`)/g, '&lt;')
+      .replace(/(?<!`[^`]*)(>)(?![^`]*`)/g, '&gt;')
+      // Fix table cells with angle brackets
+      .replace(/\|([^|]*)<([^|>]*)>([^|]*)\|/g, '|$1&lt;$2&gt;$3|')
+      // Escape apostrophes in plain text (not in code)
+      .replace(/(?<!`[^`]*)'(?![^`]*`)/g, "\\'")
       // Add frontmatter if missing
       .replace(/^(?!---\n)/, '---\nsidebar_position: 1\n---\n\n');
 
