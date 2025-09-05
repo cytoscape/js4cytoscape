@@ -1,15 +1,13 @@
 # NDEx JavaScript Client
 
-A modern TypeScript/JavaScript client library for the NDEx (Network Data Exchange) API.
+A TypeScript/JavaScript client library for the NDEx (Network Data Exchange) API.
 
 ## Features
 
-- 🎯 **Modern TypeScript** - Full type safety and IntelliSense support
 - 🚀 **Multiple Formats** - ESM, CJS, and UMD builds
 - 🔒 **Authentication** - Basic auth and OAuth support
 - 🌐 **Version Support** - Compatible with NDEx API v2 and v3
 - 📦 **Lightweight** - Optimized bundle sizes
-- 🧪 **Well Tested** - Comprehensive unit and integration tests
 
 ## Installation
 
