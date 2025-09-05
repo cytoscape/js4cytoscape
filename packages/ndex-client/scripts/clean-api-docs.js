@@ -13,20 +13,31 @@ function cleanMarkdownFile(filePath) {
   try {
     let content = fs.readFileSync(filePath, 'utf8');
     
+    // First, do global fixes for the most problematic patterns
+    content = content
+      // Convert complex TypeScript types in tables to simpler format
+      .replace(/\|([^|]*)`([^`]*``[^`]*)`([^|]*)\|/g, '|$1**$2**$3|')
+      // Fix double backticks that cause parsing issues
+      .replace(/``([^`]+)``/g, '"$1"')
+      // Remove backslashes that are causing issues
+      .replace(/\\(\{|\})/g, '$1')
+      // Convert problematic inline code in table cells to bold text
+      .replace(/\|([^|]*)`([^`]*[\{\}\\|&][^`]*)`([^|]*)\|/g, '|$1**$2**$3|')
+      // Clean up remaining backslashes in tables
+      .replace(/\|([^|]*)\\([^|]*)\|/g, '|$1$2|');
+    
     // Split content into lines for easier processing
     let lines = content.split('\n');
     let inCodeBlock = false;
-    let codeBlockDelimiter = '';
+    let inTable = false;
     
     lines = lines.map((line, index) => {
       // Track code block state
       if (line.startsWith('```')) {
         if (!inCodeBlock) {
           inCodeBlock = true;
-          codeBlockDelimiter = line;
-        } else if (line === '```' || line.startsWith('```')) {
+        } else {
           inCodeBlock = false;
-          codeBlockDelimiter = '';
         }
         return line;
       }
@@ -36,38 +47,30 @@ function cleanMarkdownFile(filePath) {
         return line;
       }
       
-      // Process non-code lines
+      // Detect table lines
+      inTable = line.includes('|') && (line.includes(':------') || line.trim().startsWith('|'));
+      
       let processedLine = line;
       
-      // Handle inline code first - protect it
-      const codeSegments = [];
-      let codeIndex = 0;
-      
-      // Extract inline code to protect it
-      processedLine = processedLine.replace(/`([^`]+)`/g, (match, code) => {
-        const placeholder = `__CODE_SEGMENT_${codeIndex}__`;
-        codeSegments[codeIndex] = '`' + code + '`';
-        codeIndex++;
-        return placeholder;
-      });
-      
-      // Now safely process the rest of the line
-      processedLine = processedLine
-        // Escape curly braces that might be JSX expressions
-        .replace(/\{/g, '\\{')
-        .replace(/\}/g, '\\}')
-        // Escape angle brackets  
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        // Escape apostrophes
-        .replace(/'/g, "\\'")
-        // Fix common TypeScript/JSDoc patterns
-        .replace(/\\\{([^}]*)\\\}/g, '\\{$1\\}'); // Keep already escaped
-      
-      // Restore inline code segments
-      codeSegments.forEach((segment, idx) => {
-        processedLine = processedLine.replace(`__CODE_SEGMENT_${idx}__`, segment);
-      });
+      // For table lines, be extra aggressive about cleaning
+      if (inTable) {
+        processedLine = processedLine
+          // Remove all remaining backticks in table cells
+          .replace(/\|([^|]*)`([^`]*)`([^|]*)\|/g, '|$1**$2**$3|')
+          // Clean up any remaining complex characters
+          .replace(/[\{\}]/g, '')
+          .replace(/\\/g, '')
+          .replace(/&lt;|&gt;/g, '');
+      } else {
+        // For non-table lines, do gentler processing
+        processedLine = processedLine
+          // Escape curly braces that might be JSX expressions
+          .replace(/\{/g, '\\{')
+          .replace(/\}/g, '\\}')
+          // Convert angle brackets to entities
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
       
       return processedLine;
     });
