@@ -513,3 +513,12 @@ export interface AccessKeyResponse {
  */
 export type AccessKeyAction = 'enable' | 'disable';
 
+/**
+ * NDEx object update status - returned from network creation and update operations
+ * Corresponds to server-side NdexObjectUpdateStatus class
+ */
+export interface NDExObjectUpdateStatus {
+  uuid: string;
+  modificationTime: number; // Timestamp in milliseconds
+}
+

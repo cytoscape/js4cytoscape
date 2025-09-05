@@ -9,7 +9,8 @@ import {
   CX2Edge,
   CX1Edge,
   CX2MetaData,
-  NetworkPermission
+  NetworkPermission,
+  NDExObjectUpdateStatus
 } from '../types';
 import { CX2Network } from '../models/CX2Network';
 
@@ -573,47 +574,34 @@ export class UnifiedNetworkService {
   /**
    * Create network from raw CX2 data (migrated from original NDEx.js)
    * 
-   * Creates a new network in NDEx from raw CX2 network data. This is an unstable function
-   * for uploading CX2 format networks directly to NDEx using the V3 API. The function
-   * extracts the network UUID from the response location header.
+   * Creates a new network on NDEx from raw CX2 data using the V3 API.
+   * This function delegates to the NetworkServiceV3 implementation.
    * 
-   * @param rawCX2 - Raw CX2 network data as an object or CX2Network instance
-   * @param makePublic - Whether to make the network public (default: false = private)
-   * @returns Promise resolving to an object containing the UUID of the created network
+   * @param cx2Data - Raw CX2 network data as an object or CX2Network instance
+   * @param options - Creation options including visibility and folderId
+   * @param options.visibility - Network visibility: 'PUBLIC' or 'PRIVATE' (default: 'PRIVATE')
+   * @param options.folderId - UUID of the folder to create the network in. If omitted, network is created in user's home directory
+   * @returns Promise resolving to NDExObjectUpdateStatus with uuid and modificationTime
    * 
    * @example
    * ```typescript
-   * // Create private network from raw CX2 data
+   * // Create private network from raw CX2 data in user's home directory
    * const result = await client.networks.createNetworkFromRawCX2(cx2Data);
    * console.log(result.uuid); // "12345678-1234-1234-1234-123456789abc"
    * 
-   * // Create public network from raw CX2 data
-   * const publicResult = await client.networks.createNetworkFromRawCX2(cx2Data, true);
+   * // Create public network from raw CX2 data in a specific folder
+   * const publicResult = await client.networks.createNetworkFromRawCX2(cx2Data, { 
+   *   visibility: 'PUBLIC', 
+   *   folderId: '87654321-4321-4321-4321-876543210fed'
+   * });
    * console.log(publicResult.uuid);
    * ```
    */
   async createNetworkFromRawCX2(
-    rawCX2: CX2NetworkType | any,
-    makePublic: boolean = false
-  ): Promise<{ uuid: string }> {
-    const params = {
-      visibility: makePublic ? 'PUBLIC' as const : 'PRIVATE' as const
-    };
-
-    const endpoint = 'networks';
-    const response = await this.http.post<string>(endpoint, rawCX2, { 
-      version: 'v3',
-      params 
-    });
-
-    // Extract UUID from response location header (e.g., "/v3/networks/12345" -> "12345")
-    const uuid = response.split('/').pop();
-    
-    if (!uuid) {
-      throw new Error('Failed to extract network UUID from response');
-    }
-    
-    return { uuid };
+    cx2Data: CX2NetworkType | CX2Network,
+    options: { visibility?: 'PUBLIC' | 'PRIVATE'; folderId?: string } = {}
+  ): Promise<NDExObjectUpdateStatus> {
+    return this.v3.createNetworkFromCX2(cx2Data, options);
   }
 
   /**

@@ -198,8 +198,8 @@ export class NDExClient {
 
 }
 
-// Default export - New modern client
-export default NDExClient;
+// Main export - New modern client (named export for better tree-shaking)
+// Users should import as: import { NDExClient } from '@js4cytoscape/ndex-client'
 
 // Version information - imported from package.json to ensure consistency
 import { version as packageVersion } from '../package.json';

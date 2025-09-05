@@ -5,7 +5,8 @@ import {
   SearchParameters, 
   PaginationParams,
   AccessParams,
-  CX2Network as CX2NetworkType
+  CX2Network as CX2NetworkType,
+  NDExObjectUpdateStatus
 } from '../types';
 import { CX2Network } from '../models/CX2Network';
 
@@ -199,14 +200,14 @@ export class NetworkServiceV3 {
    */
   async createNetworkFromCX2(
     cx2Data: CX2NetworkType | CX2Network, 
-    options: { visibility?: 'PUBLIC' | 'PRIVATE'; name?: string } = {}
-  ): Promise<{ uuid: string }> {
-    const endpoint = 'networks/cx2';
+    options: { visibility?: 'PUBLIC' | 'PRIVATE'; folderId?: string } = {}
+  ): Promise<NDExObjectUpdateStatus> {
+    const endpoint = 'networks';
     
     // Convert CX2Network object to plain object if needed
     const data = cx2Data instanceof CX2Network ? JSON.parse(cx2Data.toJSON()) : cx2Data;
     
-    return this.http.post<{ uuid: string }>(endpoint, data, { 
+    return this.http.post<NDExObjectUpdateStatus>(endpoint, data, { 
       version: 'v3',
       params: options
     });
@@ -218,13 +219,13 @@ export class NetworkServiceV3 {
   async updateNetworkCX2(
     networkUUID: string, 
     cx2Data: CX2NetworkType | CX2Network
-  ): Promise<void> {
-    const endpoint = `networks/${networkUUID}/cx2`;
+  ): Promise<NDExObjectUpdateStatus> {
+    const endpoint = `networks/${networkUUID}`;
     
     // Convert CX2Network object to plain object if needed
     const data = cx2Data instanceof CX2Network ? JSON.parse(cx2Data.toJSON()) : cx2Data;
     
-    return this.http.put<void>(endpoint, data, { version: 'v3' });
+    return this.http.put<NDExObjectUpdateStatus>(endpoint, data, { version: 'v3' });
   }
 
   /**
