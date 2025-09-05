@@ -23,7 +23,7 @@ const config = {
   organizationName: 'Cytoscape', // Usually your GitHub org/user name.
   projectName: 'ndex-client', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
