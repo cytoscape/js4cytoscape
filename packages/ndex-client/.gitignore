@@ -53,3 +53,11 @@ docs-site/.docusaurus/
 debug-response.js
 debug-integration-test.js
 jsdoc.json
+
+# Test configuration with credentials - DO NOT COMMIT
+test/testconfig.js
+
+# New documentation architecture
+docs-root/api/
+docs-root/docusaurus/build/
+docs-root/docusaurus/.docusaurus/

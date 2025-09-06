@@ -1,5 +1,6 @@
 ---
 title: Get Started
+slug: /
 ---
 
 # Getting Started with NDEx JavaScript Client

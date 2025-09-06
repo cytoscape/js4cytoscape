@@ -1,6 +1,6 @@
 {
   "name": "@js4cytoscape/ndex-client",
-  "version": "0.6.0-alpha.1",
+  "version": "0.6.0-alpha.2",
   "description": "NDEx client library - Modern TypeScript implementation",
   "repository": {
     "type": "git",
@@ -31,11 +31,11 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:docs": "typedoc",
-    "docs:api": "npm run build:docs && node scripts/clean-api-docs.js",
-    "docs:site": "cd docs-site && npm install && npm run build",
-    "docs:serve": "cd docs-site && npm run start",
+    "docs:api": "npm run build:docs",
+    "docs:site": "cd docs-root/guide && npm install && npm run build",
+    "docs:serve": "cd docs-root/guide && npm run start",
     "docs:build": "npm run docs:api && npm run docs:site",
-    "docs:clean": "rimraf docs docs-site/build docs-site/docs/api",
+    "docs:clean": "rimraf docs-root/api docs-root/guide/build",
     "test": "npm run test:unit",
     "test:unit": "jest --config jest.unit.config.js",
     "test:integration": "jest --config jest.integration.config.js",
@@ -88,8 +88,9 @@
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
     "tsup": "^8.0.2",
-    "typedoc": "^0.25.12",
-    "typedoc-plugin-markdown": "^3.17.1",
+    "typedoc": "^0.28.12",
+    "typedoc-material-theme": "^1.4.0",
+    "typedoc-plugin-markdown": "^4.8.1",
     "typescript": "^5.4.2"
   },
   "peerDependencies": {

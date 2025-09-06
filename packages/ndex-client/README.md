@@ -46,55 +46,117 @@ console.log('User:', user.data);
 
 ## Documentation
 
-### Client Documentation
+### Documentation Architecture
 
-This project uses a hybrid documentation approach combining:
-- **Narrative Documentation** - Guides, tutorials, and examples built with [Docusaurus](https://docusaurus.io/)
-- **API Reference** - Auto-generated from TypeScript source code using [TypeDoc](https://typedoc.org/)
+This project uses a **hybrid documentation architecture** that separates concerns for optimal user experience:
+
+```
+docs-root/
+├── index.html                   # Main landing page with navigation
+├── api/                         # TypeDoc HTML output (standalone)
+│   ├── index.html               # API reference home
+│   ├── classes/                 # Class documentation
+│   ├── interfaces/              # Interface documentation
+│   └── enums/                   # Enum documentation
+├── guide/                       # Docusaurus site (user guides)
+│   ├── docs/                    # Narrative documentation source
+│   ├── build/                   # Built Docusaurus site
+│   └── docusaurus.config.js    # Docusaurus configuration
+└── assets/                      # Shared resources
+```
+
+**Key Benefits:**
+- 🎯 **No MDX Escaping Issues** - TypeDoc generates clean HTML directly
+- 🔧 **Independent Tools** - Each tool works in its optimal format
+- 🚀 **Better Performance** - Static HTML for API docs, optimized React for guides
+- 🛠️ **Easier Maintenance** - Tool updates don't break each other
+
+### Local Development
 
 #### Building Documentation
 
 ```bash
-# Build complete documentation site (API + narrative)
+# Build complete documentation (API + user guides)
 npm run docs:build
 
-# Build only API reference (TypeDoc with cleanup)
+# Build only API reference (clean TypeDoc HTML)
 npm run docs:api
 
-# Serve documentation locally for development
-npm run docs:serve
+# Build only user guides (Docusaurus)
+npm run docs:site
 
-# Clean documentation files
+# Clean all documentation build artifacts
 npm run docs:clean
 ```
 
-The documentation site will be available at `http://localhost:3000` when served locally.
+#### Serving Locally
 
-#### GitHub Pages Deployment
-
-Documentation is automatically deployed to GitHub Pages via GitHub Actions on pushes to `main` or `ndex3-major-refactor` branches. The live documentation is available at:
-- **Live Documentation**: [https://cytoscape.github.io/js4cytoscape/ndex-client/](https://cytoscape.github.io/js4cytoscape/ndex-client/)
-
-The deployment workflow:
-1. Auto-detects packages with documentation in the monorepo
-2. Builds API reference using TypeDoc with MDX compatibility cleanup
-3. Builds the complete Docusaurus site
-4. Deploys to GitHub Pages
-
-To test the complete build process locally before pushing:
 ```bash
-# Test the full documentation pipeline
-npm run docs:clean  # Clean previous build artifacts
-npm run docs:api    # Generates API docs with cleanup
-npm run docs:build  # Builds complete site
-npm run docs:serve  # Serves locally at http://localhost:3000
+# Option 1: Serve complete documentation site (recommended for testing)
+cd docs-root && python3 -m http.server 8000
+# Visit: http://localhost:8000/
+
+# Option 2: Serve only Docusaurus in development mode
+npm run docs:serve
+# Visit: http://localhost:3000/ (Docusaurus dev server)
 ```
 
-**Documentation Structure:**
-- **Getting Started** - Installation, authentication, first network
-- **User Guides** - Working with networks, user management, file operations  
-- **Examples** - Code examples and integration patterns
-- **API Reference** - Complete TypeScript API documentation
+**Local Documentation URLs:**
+- **Main Landing Page**: `http://localhost:8000/`
+- **User Guides**: `http://localhost:8000/guide/build/` 
+- **API Reference**: `http://localhost:8000/api/`
+
+#### Development Workflow
+
+```bash
+# 1. Clean previous builds
+npm run docs:clean
+
+# 2. Generate API documentation
+npm run docs:api
+
+# 3. Build user guides with local API links
+cd docs-root/guide && npm run build:local
+
+# 4. Serve complete site for testing
+cd .. && python3 -m http.server 8000
+```
+
+### GitHub Pages Deployment
+
+Documentation is automatically deployed via GitHub Actions on pushes to `main` or `ndex3-major-refactor` branches.
+
+**Live Documentation**: [https://cytoscape.org/js4cytoscape/ndex-client/](https://cytoscape.org/js4cytoscape/ndex-client/)
+
+#### Deployment Workflow
+
+1. **Package Detection** - Auto-detects packages with `docs-root/` directories
+2. **API Documentation** - Generates clean TypeDoc HTML (no MDX processing needed)
+3. **User Guides** - Builds Docusaurus with production API links
+4. **Site Assembly** - Combines both into unified documentation site
+5. **GitHub Pages** - Deploys to `gh-pages` branch
+
+#### Environment-Aware Configuration
+
+The system automatically uses the correct API reference URLs:
+- **Local**: `http://localhost:8000/api/` 
+- **Production**: `https://cytoscape.org/js4cytoscape/ndex-client/api/`
+
+```javascript
+// docs-root/guide/docusaurus.config.js
+const isLocal = process.env.DOCUSAURUS_LOCAL === 'true';
+const siteUrl = isLocal ? 'http://localhost:8000' : 'https://cytoscape.org';
+const basePath = isLocal ? '' : '/js4cytoscape/ndex-client';
+const apiUrl = `${siteUrl}${basePath}/api/`;
+```
+
+### Documentation Content Structure
+
+- **Landing Page** (`docs-root/index.html`) - Professional overview with navigation
+- **Getting Started** - Installation, authentication, first network (serves as Docusaurus home)
+- **User Guides** - Working with networks, user management
+- **Examples** - Code examples and integration patterns  
+- **API Reference** - Complete TypeScript API documentation (TypeDoc HTML)
 
 #### Online Documentation
 
@@ -249,14 +311,25 @@ src/
 ├── types/                  # TypeScript definitions
 └── models/                 # Data models
 
-docs-site/                  # Documentation site (Docusaurus)
-├── docs/                   # Narrative documentation
-│   ├── getting-started/    # Installation, auth, first network
-│   ├── guides/            # User guides and workflows
-│   ├── examples/          # Code examples
-│   └── api/               # API reference (generated)
-├── docusaurus.config.js   # Docusaurus configuration
-└── package.json           # Documentation dependencies
+docs-root/                  # New hybrid documentation architecture
+├── index.html             # Main landing page with navigation
+├── api/                   # TypeDoc HTML output (generated)
+│   ├── index.html         # API reference home
+│   ├── classes/           # Class documentation
+│   ├── interfaces/        # Interface documentation
+│   └── enums/             # Enum documentation
+├── guide/                 # Docusaurus site for user guides
+│   ├── docs/              # Narrative documentation source
+│   │   ├── getting-started.md    # Installation, auth (serves as home)
+│   │   ├── getting-started/      # Authentication, first network
+│   │   ├── guides/               # User guides and workflows  
+│   │   └── examples/             # Code examples
+│   ├── build/             # Built Docusaurus site (generated)
+│   ├── docusaurus.config.js     # Docusaurus configuration
+│   └── package.json       # Documentation dependencies
+└── assets/                # Shared documentation resources
+
+docs-site/                  # Legacy documentation (to be removed)
 
 __tests__/
 ├── unit/                   # Fast unit tests

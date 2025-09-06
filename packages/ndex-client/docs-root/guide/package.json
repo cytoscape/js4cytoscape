@@ -5,15 +5,14 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "npm run docs:api && docusaurus build",
-    "build:fast": "docusaurus build",
+    "build": "docusaurus build",
+    "build:local": "DOCUSAURUS_LOCAL=true docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "docs:api": "cd .. && npm run docs:api"
+    "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
     "@docusaurus/core": "^3.0.0",

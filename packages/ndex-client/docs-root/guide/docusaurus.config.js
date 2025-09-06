@@ -6,6 +6,13 @@
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
+// Configure base URL for different environments  
+const isLocal = typeof process !== 'undefined' && process.env.DOCUSAURUS_LOCAL === 'true';
+const siteUrl = isLocal ? 'http://localhost:8000' : 'https://cytoscape.org';
+const basePath = isLocal ? '' : '/js4cytoscape/ndex-client';
+// Use full URL with target="_self" to force same-tab navigation
+const apiUrl = `${siteUrl}${basePath}/api/`;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'NDEx JavaScript Client',
@@ -13,10 +20,10 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://cytoscape.org',
+  url: siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/js4cytoscape/ndex-client/',
+  baseUrl: `${basePath}/guide/build/`,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -43,7 +50,8 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/js4cytoscape/js4cytoscape/tree/ndex3-major-refactor/packages/ndex-client/docs-site/',
+          editUrl: 'https://github.com/js4cytoscape/js4cytoscape/tree/ndex3-major-refactor/packages/ndex-client/docs-root/guide/',
+          routeBasePath: '/', // Serve docs at the site root
         },
         blog: false,
         theme: {
@@ -69,12 +77,13 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Documentation',
+            label: "User's Guide",
           },
           {
-            to: '/docs/api',
+            href: apiUrl,
             label: 'API Reference',
-            position: 'left'
+            position: 'left',
+            target: '_self'
           },
           {
             href: 'https://github.com/js4cytoscape/js4cytoscape/tree/main/packages/ndex-client',
@@ -96,11 +105,12 @@ const config = {
             items: [
               {
                 label: 'Getting Started',
-                to: '/docs/getting-started/installation',
+                to: '/',
               },
               {
                 label: 'API Reference',
-                to: '/docs/api',
+                href: apiUrl,
+                target: '_self'
               },
             ],
           },

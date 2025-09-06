@@ -13,7 +13,6 @@ export * from './types';
 export { CX2Network } from './models/CX2Network';
 
 // Core Services
-export { HTTPService } from './services/HTTPService';
 export { NetworkServiceV2 } from './services/NetworkServiceV2';
 export { NetworkServiceV3 } from './services/NetworkServiceV3';
 export { UnifiedNetworkService } from './services/UnifiedNetworkService';
@@ -203,5 +202,29 @@ export class NDExClient {
 
 // Version information - imported from package.json to ensure consistency
 import { version as packageVersion } from '../package.json';
+
+/**
+ * Library version string imported from package.json
+ * 
+ * Provides programmatic access to the current library version for:
+ * - Runtime version checking and validation
+ * - Debugging and error reporting
+ * - Logging and telemetry
+ * - Version-dependent feature detection
+ * 
+ * @example
+ * ```typescript
+ * import { NDExClient, version } from '@js4cytoscape/ndex-client';
+ * 
+ * console.log(`Using NDEx Client v${version}`);
+ * 
+ * // In error reports
+ * const errorReport = {
+ *   error: err.message,
+ *   libraryVersion: version,
+ *   timestamp: new Date().toISOString()
+ * };
+ * ```
+ */
 export const version = packageVersion;
 

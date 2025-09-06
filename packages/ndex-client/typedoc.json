@@ -2,21 +2,15 @@
   "entryPoints": [
     "src/index.ts"
   ],
-  "out": "docs-site/docs/api",
+  "out": "docs-root/api",
   "name": "NDEx JavaScript Client API Reference",
   "includeVersion": true,
   "excludePrivate": true,
   "excludeProtected": false,
+  "excludeInternal": true,
   "excludeExternals": true,
   "readme": "none",
-  "plugin": [
-    "typedoc-plugin-markdown"
-  ],
-  "theme": "markdown",
-  "entryDocument": "index.md",
-  "hidePageTitle": true,
-  "hideBreadcrumbs": true,
-  "hideInPageTOC": true,
+  "theme": "default",
   "disableSources": false,
   "sourceLinkTemplate": "https://github.com/js4cytoscape/js4cytoscape/blob/main/{path}#L{line}",
   "gitRevision": "main",
@@ -47,5 +41,6 @@
     "IndexSignature",
     "GetSignature",
     "SetSignature"
-  ]
+  ],
+  "customCss": "./docs-root/assets/api-custom.css"
 }

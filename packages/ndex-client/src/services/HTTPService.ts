@@ -20,6 +20,7 @@ import { version } from '../../package.json';
  * 
  * @note User-Agent header is set to 'NDEx-JS-Client/${version}' but only works in Node.js.
  *       Browsers will ignore custom User-Agent headers for security reasons.
+ * @internal
  */
 export class HTTPService {
   private axiosInstance: AxiosInstance;

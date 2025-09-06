@@ -5,6 +5,7 @@ on:
     branches: [ main, ndex3-major-refactor ]
     paths:
       - 'packages/**/src/**'
+      - 'packages/**/docs-root/**'
       - 'packages/**/docs-site/**'
       - 'packages/**/package.json'
       - 'packages/**/tsconfig.json'
@@ -37,8 +38,8 @@ jobs:
           for package_dir in packages/*/; do
             package_name=$(basename "$package_dir")
             if [ -f "$package_dir/package.json" ]; then
-              # Check if package has docs scripts or docs-site directory
-              if grep -q '"docs:' "$package_dir/package.json" || [ -d "$package_dir/docs-site" ]; then
+              # Check if package has docs scripts or docs-root directory
+              if grep -q '"docs:' "$package_dir/package.json" || [ -d "$package_dir/docs-root" ] || [ -d "$package_dir/docs-site" ]; then
                 packages_with_docs+=("$package_name")
                 echo "Found package with docs: $package_name"
               fi
@@ -101,27 +102,41 @@ jobs:
         run: npm run docs:api
         working-directory: packages/${{ matrix.package }}
 
-      - name: Check if package has docs-site
-        id: check-docs-site
+      - name: Check if package has docs-root
+        id: check-docs-root
         run: |
-          if [ -d "packages/${{ matrix.package }}/docs-site" ]; then
+          if [ -d "packages/${{ matrix.package }}/docs-root" ]; then
+            echo "has-docs-root=true" >> $GITHUB_OUTPUT
+          elif [ -d "packages/${{ matrix.package }}/docs-site" ]; then
             echo "has-docs-site=true" >> $GITHUB_OUTPUT
           else
-            echo "has-docs-site=false" >> $GITHUB_OUTPUT
+            echo "has-docs=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Install docs-site dependencies
-        if: steps.check-docs-site.outputs.has-docs-site == 'true'
+      - name: Build unified documentation (new structure)
+        if: steps.check-docs-root.outputs.has-docs-root == 'true'
+        run: npm run docs:build
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Install docs-site dependencies (legacy)
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
         run: npm ci
         working-directory: packages/${{ matrix.package }}/docs-site
 
-      - name: Build Docusaurus site
-        if: steps.check-docs-site.outputs.has-docs-site == 'true'
+      - name: Build Docusaurus site (legacy)
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
         run: npm run build
         working-directory: packages/${{ matrix.package }}/docs-site
 
-      - name: Upload build artifact
-        if: steps.check-docs-site.outputs.has-docs-site == 'true'
+      - name: Upload unified docs artifact
+        if: steps.check-docs-root.outputs.has-docs-root == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/docs-root
+
+      - name: Upload legacy docs artifact
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: docs-${{ matrix.package }}
