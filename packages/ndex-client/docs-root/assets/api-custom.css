@@ -1,0 +1,45 @@
+/* Custom styles for NDEx JavaScript Client API Documentation */
+
+:root {
+  --ndex-primary: #2e7d32;
+  --ndex-primary-light: #4caf50;
+  --ndex-primary-dark: #1b5e20;
+}
+
+/* Logo and branding */
+.tsd-page-title {
+  color: var(--ndex-primary) !important;
+}
+
+/* Improve code blocks */
+pre {
+  border-radius: 6px;
+  border: 1px solid rgba(46, 125, 50, 0.1);
+}
+
+/* Enhance search functionality */
+.tsd-search input {
+  border-radius: 20px;
+  border: 1px solid rgba(46, 125, 50, 0.3);
+}
+
+.tsd-search input:focus {
+  border-color: var(--ndex-primary);
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+}
+
+/* Improve navigation */
+.tsd-navigation a {
+  transition: color 0.2s ease;
+}
+
+.tsd-navigation a:hover {
+  color: var(--ndex-primary-light) !important;
+}
+
+/* Custom footer styling */
+.tsd-page-footer {
+  border-top: 2px solid var(--ndex-primary);
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
