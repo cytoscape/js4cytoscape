@@ -207,14 +207,13 @@ describe('HTTPService', () => {
       mockAxiosInstance.post.mockResolvedValue({ data: { success: true }, status: 200 });
       
       await httpService.uploadFile('networks', content, {
-        filename: 'network.cx2',
         contentType: 'application/json'
       });
       
       expect(formDataSpy).toHaveBeenCalledWith(
         'file',
         expect.any(Blob),
-        'network.cx2'
+        'file.cx2'
       );
       
       formDataSpy.mockRestore();
