@@ -13,54 +13,29 @@ function cleanMarkdownFile(filePath) {
   try {
     let content = fs.readFileSync(filePath, 'utf8');
     
-    // This is a radical approach - convert all TypeDoc files to plain text
-    // to eliminate ALL MDX parsing issues
-    
-    // Extract code blocks first
-    const codeBlocks = [];
-    let codeBlockIndex = 0;
-    content = content.replace(/```[\s\S]*?```/g, (match) => {
-      const placeholder = `__CODE_BLOCK_${codeBlockIndex}__`;
-      codeBlocks[codeBlockIndex] = match;
-      codeBlockIndex++;
-      return placeholder;
-    });
-    
-    // Completely sanitize everything else
+    // Minimal cleaning approach - preserve markdown syntax but fix MDX compatibility issues
     content = content
-      // Remove ALL special characters that cause MDX issues
-      .replace(/[`{}[\]<>\\|]/g, '')
-      // Replace problematic punctuation
-      .replace(/:/g, ' - ')
-      .replace(/;/g, ', ')
+      // Fix JSX-style tags that might conflict with MDX
+      .replace(/<(\w+)>/g, '\\<$1\\>')
+      .replace(/<\/(\w+)>/g, '\\</$1\\>')
+      // Fix curly braces that might be interpreted as JSX expressions
+      .replace(/\{([^}]+)\}/g, '\\{$1\\}')
       // Clean up excessive whitespace
-      .replace(/\s+/g, ' ')
-      .replace(/^\s+/gm, '')
-      .replace(/\s+$/gm, '')
-      // Fix line breaks
-      .replace(/ - \s*/g, '\n\n**')
-      .replace(/\*\*\s*\*\*/g, '**')
-      // Add proper paragraph breaks
-      .replace(/(\w)\s+([A-Z][a-z])/g, '$1\n\n$2')
-      // Clean up markdown formatting
-      .replace(/\*\*\*+/g, '**')
-      .replace(/\*\* \*\*/g, '**')
-      // Make headers more readable
-      .replace(/^([A-Z][A-Za-z\s]+)$/gm, '## $1')
-      .replace(/^## ## /gm, '## ');
+      .replace(/\n\n\n+/g, '\n\n')
+      .replace(/^\s+$/gm, '')
+      // Fix broken links format
+      .replace(/\]\(\s*([^)]+)\s*\)/g, ']($1)')
+      // Ensure proper spacing around headers
+      .replace(/^(#+)\s*/gm, '$1 ')
+      .replace(/^(#{1,6})\s+(.+)$/gm, '$1 $2');
     
-    // Restore code blocks
-    codeBlocks.forEach((block, index) => {
-      content = content.replace(`__CODE_BLOCK_${index}__`, '\n\n' + block + '\n\n');
-    });
-    
-    // Add frontmatter
+    // Add frontmatter if not present
     if (!content.startsWith('---\n')) {
       content = '---\nsidebar_position: 1\n---\n\n' + content;
     }
     
     // Ensure proper line endings
-    content = content.replace(/\n\n\n+/g, '\n\n').trim() + '\n';
+    content = content.trim() + '\n';
 
     fs.writeFileSync(filePath, content, 'utf8');
     console.log(`✓ Cleaned ${path.relative(API_DOCS_DIR, filePath)}`);
