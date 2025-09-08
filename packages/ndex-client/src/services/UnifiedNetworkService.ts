@@ -13,6 +13,7 @@ import {
   NDExObjectUpdateStatus
 } from '../types';
 import { CX2Network } from '../models/CX2Network';
+import { NDExFileType } from './FilesService';
 
 /**
  * UnifiedNetworkService - Provides access to both V2/V3 network services
@@ -28,7 +29,14 @@ export class UnifiedNetworkService {
   }
 
   /**
-   * Get network summary using specified API version
+   * Get network summary using V3 API
+   * 
+   * Retrieves comprehensive summary information for a network including metadata,
+   * statistics, permissions, and other network properties using the V3 API.
+   * 
+   * @param networkUUID - The UUID of the network to get summary for
+   * @param options - Access options including optional access key for private networks
+   * @returns Promise resolving to NetworkSummaryV3 object containing network summary information
    */
   async getNetworkSummary(
     networkUUID: string, 
@@ -79,9 +87,11 @@ export class UnifiedNetworkService {
   
   /**
    * Delete network
+   * @param networkUUID - The UUID of the network to delete
+   * @param permanent - If true, permanently delete the network. If false (default), soft delete to trash for 30 days
    */
-  async deleteNetwork(networkUUID: string): Promise<void> {
-    return this.v2Service.deleteNetwork(networkUUID);
+  async deleteNetwork(networkUUID: string, permanent: boolean = false): Promise<void> {
+    return this.v3Service.deleteNetwork(networkUUID, permanent);
   }
 
 
@@ -316,24 +326,47 @@ export class UnifiedNetworkService {
   }
 
   /**
-   * Set networks visibility (migrated from original NDEx.js)
+   * Set visibility for multiple files (networks, folders, shortcuts)
    * 
-   * Changes visibility settings for multiple networks using the V3 API.
-   * Requires proper file validation to ensure data integrity.
+   * Changes visibility settings for multiple NDEx objects using the V3 API.
+   * This function can update visibility for any combination of networks, folders, and shortcuts.
+   * Files are validated to ensure proper UUID format and valid file types.
    * 
-   * @param files - Object containing files with their types (must have 'files' property)
-   * @param visibility - Visibility setting (e.g., 'PUBLIC', 'PRIVATE')
-   * @returns Promise resolving when visibility is updated
+   * @param files - Object containing a 'files' property with UUID-to-filetype mappings
+   * @param files.files - Record where keys are UUIDs and values are NDExFileType ('NETWORK', 'FOLDER', or 'SHORTCUT')
+   * @param visibility - Visibility setting: 'PUBLIC' or 'PRIVATE'
+   * @returns Promise resolving when visibility is successfully updated
+   * @throws Error if files validation fails or API request fails
+   * 
+   * @example
+   * ```typescript
+   * // Set multiple files to public visibility
+   * await client.networks.setNetworksVisibility({
+   *   files: {
+   *     '12345678-1234-1234-1234-123456789abc': 'NETWORK',
+   *     '87654321-4321-4321-4321-876543210fed': 'FOLDER',
+   *     '11111111-2222-3333-4444-555555555555': 'SHORTCUT'
+   *   }
+   * }, 'PUBLIC');
+   * 
+   * // Set networks to private visibility
+   * await client.networks.setNetworksVisibility({
+   *   files: {
+   *     'network-uuid-1': 'NETWORK',
+   *     'network-uuid-2': 'NETWORK'
+   *   }
+   * }, 'PRIVATE');
+   * ```
    */
   async setNetworksVisibility(
-    files: { files: Record<string, 'NETWORK' | 'FOLDER' | 'SHORTCUT'> },
+    files: { files: Record<string, NDExFileType> },
     visibility: string
   ): Promise<any> {
     this.validateShareData(files);
 
-    const endpoint = 'batch/networks/visibility';
+    const endpoint = 'batch/files/setvisibility';
     const data = {
-      items: files,
+      files: files,
       visibility: visibility
     };
 
@@ -383,10 +416,10 @@ export class UnifiedNetworkService {
    * Validates the structure and content of file data used in sharing operations.
    * Ensures proper UUID format and valid file types.
    * 
-   * @param data - Data object to validate (must contain 'files' property)
+   * @param data - Data object containing files property with UUID keys and NDExFileType values
    * @throws Error if validation fails
    */
-  private validateShareData(data: any): void {
+  private validateShareData(data: { files: Record<string, NDExFileType> }): void {
     // Check if data is an object and has files property
     if (typeof data !== 'object' || data === null || data.files === undefined) {
       throw new Error('Data must be an object with a "files" property');
@@ -397,18 +430,11 @@ export class UnifiedNetworkService {
       throw new Error('The "files" property must be an object');
     }
     
-    // Check each key-value pair in files
-    const validValues = ['NETWORK', 'FOLDER', 'SHORTCUT'];
-    
-    for (const [uuid, fileType] of Object.entries(data.files)) {
+    // Check each UUID key format
+    for (const uuid of Object.keys(data.files)) {
       // Validate UUID format (basic validation)
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
         throw new Error(`Invalid UUID format: ${uuid}`);
-      }
-      
-      // Validate file type
-      if (!validValues.includes(fileType as string)) {
-        throw new Error(`Invalid file type for ${uuid}: ${fileType}. Must be one of: ${validValues.join(', ')}`);
       }
     }
   }

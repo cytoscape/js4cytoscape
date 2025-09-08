@@ -172,13 +172,24 @@ export class NDExClient {
     return this.httpService.getConfig();
   }
 
+  /**
+   * Get current authentication type
+   * @returns The type of authentication configured ('basic' | 'oauth'), or undefined if no auth is configured
+   */
+  getAuthType(): 'basic' | 'oauth' | undefined {
+    return this.httpService.getAuthType();
+  }
 
   /**
-   * Access to low-level HTTP service for advanced usage
+   * Set ID token for OAuth authentication
+   * Creates OAuth auth configuration if no auth is currently configured
+   * @param idToken - The ID token to set
    */
-  get http(): HTTPService {
-    return this.httpService;
+  setIdToken(idToken: string): void {
+    this.httpService.setIdToken(idToken);
   }
+
+
 
   /**
    * Access to version-specific network services for advanced usage

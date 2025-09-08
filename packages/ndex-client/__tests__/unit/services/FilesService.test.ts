@@ -499,7 +499,12 @@ describe('FilesService', () => {
         const mockResponse = { id: 'shortcut-123' };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.createShortcut('My Shortcut', 'parent-folder', 'target-id', 'NETWORK');
+        const result = await filesService.createShortcut({
+          name: 'My Shortcut',
+          parent: 'parent-folder',
+          target: 'target-id',
+          targetType: 'NETWORK'
+        });
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/shortcuts',

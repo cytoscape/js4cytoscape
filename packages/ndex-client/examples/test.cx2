@@ -11,7 +11,7 @@
       },
       {
         "name": "networkAttributes",
-        "elementCount": 0
+        "elementCount": 1
       },
       {
         "name": "nodes",
@@ -42,7 +42,7 @@
   {
     "attributeDeclarations": [
       {
-        "networkAttributes": {},
+        "networkAttributes": {"name": {"d":"string"}},
         "nodes": {
           "Proteins": {
             "d": "string"
@@ -93,7 +93,7 @@
     ]
   },
   {
-    "networkAttributes": []
+    "networkAttributes": [{"name": "simple music 1"}]
   },
   {
     "nodes": [

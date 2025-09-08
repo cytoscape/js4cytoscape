@@ -284,5 +284,17 @@ export class NetworkServiceV3 {
     return this.http.get<any>(endpoint, { version: 'v3' });
   }
 
+/**
+   * Delete network
+   * @param networkUUID - The UUID of the network to delete
+   * @param permanent - If true, permanently delete the network. If false (default), soft delete to trash for 30 days
+   */
+  async deleteNetwork(networkUUID: string, permanent: boolean = false): Promise<void> {
+    const params = new URLSearchParams();
+    params.append('permanent', permanent.toString());
+
+    const endpoint = `networks/${networkUUID}?${params.toString()}`;
+    return this.http.delete<void>(endpoint, { version: 'v3' });
+  }
 
 }

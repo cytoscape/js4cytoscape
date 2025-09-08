@@ -240,11 +240,26 @@ describe('NDExClient', () => {
   });
 
 
-  describe('service accessors', () => {
-    it('should provide access to http service', () => {
-      expect(client.http).toBe(mockHttpService);
+  describe('auth methods', () => {
+    it('should provide getAuthType method', () => {
+      mockHttpService.getAuthType = jest.fn().mockReturnValue('basic');
+      
+      const result = client.getAuthType();
+      
+      expect(mockHttpService.getAuthType).toHaveBeenCalled();
+      expect(result).toBe('basic');
     });
 
+    it('should provide setIdToken method', () => {
+      mockHttpService.setIdToken = jest.fn();
+      
+      client.setIdToken('test-token');
+      
+      expect(mockHttpService.setIdToken).toHaveBeenCalledWith('test-token');
+    });
+  });
+
+  describe('service accessors', () => {
     it('should provide access to v2 services', () => {
       const result = client.v2;
       expect(result).toHaveProperty('networks');

@@ -1,8 +1,10 @@
 import { HTTPService } from './HTTPService';
 
 // Type definitions for better type safety
+export type NDExFileType = 'NETWORK' | 'FOLDER' | 'SHORTCUT';
+
 interface ShareData {
-  files: Record<string, 'NETWORK' | 'FOLDER' | 'SHORTCUT'>;
+  files: Record<string, NDExFileType>;
 }
 
 interface MemberData {
@@ -17,6 +19,13 @@ interface UpdateMemberRequest {
 interface TransferOwnershipRequest {
   files: ShareData['files'];
   new_owner: string;
+}
+
+interface CreateShortcutOptions {
+  name: string;
+  target: string;
+  targetType: NDExFileType;
+  parent?: string;
 }
 
 /**
@@ -212,8 +221,39 @@ export class FilesService {
     return this.http.get('files/shortcuts', {params: parameters, version: 'v3'});
   }
 
-  createShortcut(name: string, parentFolderId?: string, targetId?: string, targetType?: string): Promise<any> {
-    return this.http.post('files/shortcuts', { name: name, parent: parentFolderId, target: targetId, targetType }, { version: 'v3' });
+  /**
+   * Create a shortcut to an existing NDEx object
+   * 
+   * Creates a shortcut (reference) to an existing network, folder, or shortcut.
+   * The shortcut can be placed in a specific folder or in the user's home directory.
+   * 
+   * @param options - Shortcut creation options
+   * @param options.name - Display name for the shortcut
+   * @param options.target - UUID of the target object to create a shortcut to
+   * @param options.targetType - Type of the target object ('NETWORK', 'FOLDER', or 'SHORTCUT')
+   * @param options.parent - Optional UUID of the parent folder. If omitted, shortcut is created in user's home directory
+   * @returns Promise resolving to the created shortcut information
+   * 
+   * @example
+   * ```typescript
+   * // Create shortcut to a network in home directory
+   * await client.files.createShortcut({
+   *   name: "My Important Network Shortcut",
+   *   target: "12345678-1234-1234-1234-123456789abc",
+   *   targetType: "NETWORK"
+   * });
+   * 
+   * // Create shortcut to a folder within another folder
+   * await client.files.createShortcut({
+   *   name: "Research Folder Shortcut",
+   *   target: "87654321-4321-4321-4321-876543210fed",
+   *   targetType: "FOLDER",
+   *   parent: "11111111-2222-3333-4444-555555555555"
+   * });
+   * ```
+   */
+  createShortcut(options: CreateShortcutOptions): Promise<any> {
+    return this.http.post('files/shortcuts', options, { version: 'v3' });
   }
 
   getShortcut(shortcutId: string, accessKey?: string): Promise<any> {

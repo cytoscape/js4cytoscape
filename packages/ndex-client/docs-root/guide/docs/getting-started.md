@@ -245,7 +245,7 @@ if (client.hasAuthInfo()) {
   console.log('✅ Authentication configured');
   
   // Get authentication type
-  const authType = client.http.getAuthType();
+  const authType = client.getAuthType();
   console.log('Auth type:', authType); // 'basic' or 'oauth'
 } else {
   console.log('❌ No authentication configured');
