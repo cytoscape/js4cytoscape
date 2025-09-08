@@ -6,7 +6,8 @@ import {
   PaginationParams,
   AccessParams,
   CX2Network as CX2NetworkType,
-  NDExObjectUpdateStatus
+  NDExObjectUpdateStatus,
+  Visibility
 } from '../types';
 import { CX2Network } from '../models/CX2Network';
 
@@ -200,7 +201,7 @@ export class NetworkServiceV3 {
    */
   async createNetworkFromCX2(
     cx2Data: CX2NetworkType | CX2Network, 
-    options: { visibility?: 'PUBLIC' | 'PRIVATE'; folderId?: string } = {}
+    options: { visibility?: Visibility; folderId?: string } = {}
   ): Promise<NDExObjectUpdateStatus> {
     const endpoint = 'networks';
     
@@ -235,7 +236,7 @@ export class NetworkServiceV3 {
     file: File | Blob | string,
     options: {
       filename?: string;
-      visibility?: 'PUBLIC' | 'PRIVATE';
+      visibility?: Visibility;
       name?: string;
       onProgress?: (progress: number) => void;
     } = {}

@@ -397,7 +397,7 @@ const cx2Network = [
 
 // Upload network
 try {
-  const result = await client.networks.createNetworkFromRawCX2(cx2Network, true); // true = make public
+  const result = await client.networks.createNetworkFromRawCX2(cx2Network, { visibility: 'PUBLIC' });
   console.log('✅ Network uploaded successfully!');
   console.log('Network UUID:', result.uuid);
 } catch (error) {
@@ -413,7 +413,7 @@ import fs from 'fs';
 // Load CX2 file
 const cx2Data = JSON.parse(fs.readFileSync('my-network.cx2', 'utf8'));
 
-const result = await client.networks.createNetworkFromRawCX2(cx2Data, false); // false = private
+const result = await client.networks.createNetworkFromRawCX2(cx2Data, { visibility: 'PRIVATE' });
 console.log('Network ID:', result.uuid);
 ```
 
@@ -586,7 +586,7 @@ async function networkWorkflow() {
       { "edges": [{"id": 0, "s": 0, "t": 1, "v": {"i": "binds"}}] },
       { "status": [{"success": true}] }
     ];
-    const uploadResult = await client.networks.createNetworkFromRawCX2(cx2Data, false);
+    const uploadResult = await client.networks.createNetworkFromRawCX2(cx2Data, { visibility: 'PRIVATE' });
     const networkUUID = uploadResult.uuid;
     console.log('📤 Uploaded network:', networkUUID);
 

@@ -10,7 +10,8 @@ import {
   CX1Edge,
   CX2MetaData,
   NetworkPermission,
-  NDExObjectUpdateStatus
+  NDExObjectUpdateStatus,
+  Visibility
 } from '../types';
 import { CX2Network } from '../models/CX2Network';
 import { NDExFileType } from './FilesService';
@@ -334,7 +335,7 @@ export class UnifiedNetworkService {
    * 
    * @param files - Object containing a 'files' property with UUID-to-filetype mappings
    * @param files.files - Record where keys are UUIDs and values are NDExFileType ('NETWORK', 'FOLDER', or 'SHORTCUT')
-   * @param visibility - Visibility setting: 'PUBLIC' or 'PRIVATE'
+   * @param visibility - Visibility setting: 'PUBLIC', 'PRIVATE', or 'UNLISTED'
    * @returns Promise resolving when visibility is successfully updated
    * @throws Error if files validation fails or API request fails
    * 
@@ -360,7 +361,7 @@ export class UnifiedNetworkService {
    */
   async setNetworksVisibility(
     files: { files: Record<string, NDExFileType> },
-    visibility: string
+    visibility: Visibility
   ): Promise<any> {
     this.validateShareData(files);
 
@@ -605,7 +606,7 @@ export class UnifiedNetworkService {
    * 
    * @param cx2Data - Raw CX2 network data as an object or CX2Network instance
    * @param options - Creation options including visibility and folderId
-   * @param options.visibility - Network visibility: 'PUBLIC' or 'PRIVATE' (default: 'PRIVATE')
+   * @param options.visibility - Network visibility: 'PUBLIC', 'PRIVATE', or 'UNLISTED' (default: 'PRIVATE')
    * @param options.folderId - UUID of the folder to create the network in. If omitted, network is created in user's home directory
    * @returns Promise resolving to NDExObjectUpdateStatus with uuid and modificationTime
    * 
@@ -617,7 +618,7 @@ export class UnifiedNetworkService {
    * 
    * // Create public network from raw CX2 data in a specific folder
    * const publicResult = await client.networks.createNetworkFromRawCX2(cx2Data, { 
-   *   visibility: 'PUBLIC', 
+   *   visibility: 'PUBLIC' as Visibility, 
    *   folderId: '87654321-4321-4321-4321-876543210fed'
    * });
    * console.log(publicResult.uuid);
@@ -625,7 +626,7 @@ export class UnifiedNetworkService {
    */
   async createNetworkFromRawCX2(
     cx2Data: CX2NetworkType | CX2Network,
-    options: { visibility?: 'PUBLIC' | 'PRIVATE'; folderId?: string } = {}
+    options: { visibility?: Visibility; folderId?: string } = {}
   ): Promise<NDExObjectUpdateStatus> {
     return this.v3.createNetworkFromCX2(cx2Data, options);
   }

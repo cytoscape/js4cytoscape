@@ -6,7 +6,9 @@ import {
   AccessParams,
   CX1MetaDataResponse,
   AccessKeyResponse,
-  AccessKeyAction
+  AccessKeyAction,
+  Visibility,
+  Permission
 } from '../types';
 
 /**
@@ -146,7 +148,7 @@ export class NetworkServiceV2 {
    */
   async createNetworkFromRawCX1(
     rawCX: any[],
-    options: { visibility?: 'PUBLIC' | 'PRIVATE' } = {}
+    options: { visibility?: Visibility } = {}
   ): Promise<string> {
     const endpoint = 'network';
     const response = await this.http.post<string>(endpoint, rawCX, { 
@@ -271,7 +273,7 @@ export class NetworkServiceV2 {
   async grantNetworkPermission(
     networkUUID: string, 
     userUUID: string, 
-    permission: 'READ' | 'WRITE' | 'ADMIN'
+    permission: Permission
   ): Promise<void> {
     const endpoint = `networks/${networkUUID}/permission`;
     const permissionData = {
@@ -319,7 +321,7 @@ export class NetworkServiceV2 {
    */
   async makeNetworkPublic(networkUUID: string): Promise<void> {
     const endpoint = `networks/${networkUUID}/systemproperty`;
-    const properties = { visibility: 'PUBLIC' };
+    const properties = { visibility: 'PUBLIC' as Visibility };
     return this.http.put<void>(endpoint, properties, { version: 'v2' });
   }
 
@@ -328,7 +330,7 @@ export class NetworkServiceV2 {
    */
   async makeNetworkPrivate(networkUUID: string): Promise<void> {
     const endpoint = `networks/${networkUUID}/systemproperty`;
-    const properties = { visibility: 'PRIVATE' };
+    const properties = { visibility: 'PRIVATE' as Visibility };
     return this.http.put<void>(endpoint, properties, { version: 'v2' });
   }
 

@@ -47,7 +47,7 @@ const cx2Network = [
   }
 ];
 
-const result = await client.createNetworkFromRawCX2(cx2Network, true);
+const result = await client.createNetworkFromRawCX2(cx2Network, { visibility: 'PUBLIC' });
 ```
 
 ### Legacy CX Format
@@ -232,19 +232,41 @@ const files = {
   'uuid3': 'NETWORK'
 };
 
+// Visibility options: 'PUBLIC', 'PRIVATE', or 'UNLISTED'
 await client.setNetworksVisibility(files, 'PUBLIC');
+```
+
+## Network Visibility
+
+Networks can have three visibility levels:
+
+- **PUBLIC**: Anyone can discover and view the network
+- **PRIVATE**: Only the owner and specifically invited users can access
+- **UNLISTED**: Anyone with the direct link can view, but not discoverable in search
+
+```typescript
+// Example: Create network with specific visibility
+const result = await client.createNetworkFromRawCX2(cx2Data, {
+  visibility: 'UNLISTED',  // or 'PUBLIC' or 'PRIVATE'
+  folderId: 'optional-folder-uuid'
+});
 ```
 
 ## Network Permissions
 
 ### Check Permissions
 
+Permission levels available:
+- **READ**: View and download network content
+- **WRITE**: All READ permissions + modify network content and metadata  
+- **ADMIN**: All WRITE permissions + delete network and manage user permissions
+
 ```typescript
 const networkUUIDs = ['uuid1', 'uuid2'];
 
 const permissions = await client.getNetworkPermissionsByUUIDs(networkUUIDs);
 permissions.forEach(perm => {
-  console.log(`Network ${perm.networkUUID}: ${perm.permission}`);
+  console.log(`Network ${perm.networkUUID}: ${perm.permission}`); // 'READ', 'WRITE', or 'ADMIN'
 });
 ```
 

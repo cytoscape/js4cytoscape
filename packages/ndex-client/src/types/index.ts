@@ -49,6 +49,74 @@ export interface NDExUser {
 // Network Types
 // ============================================================================
 
+/**
+ * Visibility settings for networks, folders, and shortcuts.
+ * Based on YouTube's permission model.
+ * 
+ * ## Visibility Type Definitions:
+ * 
+ * **PUBLIC**
+ * - Accessibility: Anyone can discover and view the content
+ * - Searchability: Appears in search results and can be found through search engines  
+ * - Sharing: Can be shared freely with anyone
+ * - Visibility: Shows up on the owner's public profile
+ * 
+ * **PRIVATE**
+ * - Accessibility: Only the owner and specifically invited users can view the content
+ * - Searchability: Does not appear in any search results (internal or external)
+ * - Sharing: Even with a direct link, uninvited users cannot access the content
+ * - Visibility: Does not appear on the owner's public profile
+ * 
+ * **UNLISTED**
+ * - Accessibility: Anyone with the direct link can view the content
+ * - Searchability: Does not appear in search results unless added to a public collection
+ * - Sharing: Can be shared via direct link without requiring special permissions
+ * - Visibility: Does not appear on the owner's public profile
+ * 
+ * @example
+ * ```typescript
+ * const network: NetworkSummaryV3 = {
+ *   externalId: "12345",
+ *   name: "Sample Network",
+ *   visibility: "UNLISTED" // Only accessible via direct link
+ * };
+ * ```
+ */
+export type Visibility = 'PUBLIC' | 'PRIVATE' | 'UNLISTED';
+
+/**
+ * Permission levels for network and folder access control.
+ * 
+ * ## Permission Level Definitions:
+ * 
+ * **READ**
+ * - View the network/folder content
+ * - Download network data
+ * - Access network metadata and summary information
+ * 
+ * **WRITE** 
+ * - All READ permissions
+ * - Modify network content and metadata
+ * - Update network properties and attributes
+ * 
+ * **ADMIN**
+ * - All WRITE permissions  
+ * - Delete networks/folders
+ * - Manage permissions for other users
+ * - Transfer ownership
+ * 
+ * @example
+ * ```typescript
+ * const permission: NetworkPermission = {
+ *   uuid: "permission-uuid",
+ *   permission: "WRITE",
+ *   memberUUID: "user-uuid",
+ *   resourceUUID: "network-uuid"
+ * };
+ * ```
+ */
+export type Permission = 'READ' | 'WRITE' | 'ADMIN';
+
 export interface CX1MetaDataItem {
   name: string;
   elementCount: number;
@@ -74,6 +142,9 @@ export interface CX2NetworkProperties {
   };
 }
 
+/**
+ * @deprecated Since NDEx version 3.0, all networks/folders and shortcuts are indexed in the system by default.
+ */
 export enum NetworkIndexLevel {
   NONE = 'NONE',
   BASIC = 'BASIC',
@@ -86,7 +157,7 @@ export interface NetworkSummaryV2 {
   description?: string;
   nodeCount: number;
   edgeCount: number;
-  visibility: 'PUBLIC' | 'PRIVATE';
+  visibility: Visibility;
   owner: string;
   ownerUUID: string;
   creationTime: number;
@@ -166,7 +237,7 @@ export interface NetworkSummaryV3 extends Omit<NetworkSummaryV2, 'properties'> {
 
 export interface NetworkPermission {
   uuid: string;
-  permission: 'READ' | 'WRITE' | 'ADMIN';
+  permission: Permission;
   memberUUID: string;
   memberAccountName?: string;
   resourceUUID: string;

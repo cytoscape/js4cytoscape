@@ -1,5 +1,5 @@
 import { NDExClient } from '../../src/index';
-import { NDExClientConfig, NetworkSummaryV2 } from '../../src/types';
+import { NDExClientConfig, NetworkSummaryV2, Visibility } from '../../src/types';
 
 /**
  * Shared test utilities and mock data for unit and integration tests
@@ -12,7 +12,7 @@ export const mockNetworkSummaryV2 = (): NetworkSummaryV2 => ({
   description: 'A test network for unit tests',
   nodeCount: 10,
   edgeCount: 15,
-  visibility: 'PUBLIC',
+  visibility: 'PUBLIC' as Visibility,
   owner: 'testuser',
   ownerUUID: 'test-owner-uuid',
   creationTime: Date.now(),

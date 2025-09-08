@@ -1,4 +1,5 @@
 import { HTTPService } from './HTTPService';
+import { Permission } from '../types';
 
 // Type definitions for better type safety
 export type NDExFileType = 'NETWORK' | 'FOLDER' | 'SHORTCUT';
@@ -8,7 +9,7 @@ interface ShareData {
 }
 
 interface MemberData {
-  members: Record<string, 'READ' | 'WRITE'>;
+  members: Record<string, Permission>;
 }
 
 interface UpdateMemberRequest {
@@ -111,15 +112,9 @@ export class FilesService {
     }
   }
 
-  private _validateMemberData(data: any): void {
-    if (typeof data !== 'object' || data === null || data.members === undefined) {
-      throw new Error('Data must be an object with a "members" property');
-    }
-    const validValues = ['READ', 'WRITE'];
-    for (const [uuid, permission] of Object.entries(data.members)) {
-      if (!validValues.includes(permission as string)) {
-        throw new Error(`Invalid permission for ${uuid}: ${permission}. Must be one of: ${validValues.join(', ')}`);
-      }
+  private _validateMemberData(data: MemberData): void {
+    // Only need to validate UUID format - TypeScript ensures permission values are correct
+    for (const uuid of Object.keys(data.members)) {
       if (typeof uuid !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
         throw new Error(`Invalid UUID format: ${uuid}`);
       }
