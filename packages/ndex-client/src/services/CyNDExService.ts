@@ -8,6 +8,7 @@ import {
   CyNDExStatusResponse,
   CX2ImportParams
 } from '../types/cytoscape';
+import { AuthType } from '../constants';
 
 /**
  * CyNDEx Service - Cytoscape-NDEx Bridge
@@ -120,7 +121,7 @@ export class CyNDExService {
   setBasicAuth(username: string, password: string): void {
     if (username?.trim() && password) {
       this.authConfig = {
-        type: 'basic',
+        type: AuthType.BASIC,
         username: username.trim(),
         password: password
       };
@@ -135,7 +136,7 @@ export class CyNDExService {
   setAuthToken(idToken: string): void {
     if (idToken?.trim()) {
       this.authConfig = {
-        type: 'oauth',
+        type: AuthType.OAUTH,
         idToken: idToken.trim()
       };
     }
@@ -168,12 +169,12 @@ export class CyNDExService {
     if (!this.authConfig) return {};
 
     switch (this.authConfig.type) {
-      case 'basic':
+      case AuthType.BASIC:
         return {
           username: this.authConfig.username!,
           password: this.authConfig.password!
         };
-      case 'oauth':
+      case AuthType.OAUTH:
         return {
           idToken: this.authConfig.idToken!
         };

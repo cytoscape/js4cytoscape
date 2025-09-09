@@ -6,9 +6,9 @@ import {
   PaginationParams,
   AccessParams,
   CX2Network as CX2NetworkType,
-  NDExObjectUpdateStatus,
-  Visibility
+  NDExObjectUpdateStatus
 } from '../types';
+import { Visibility } from '../constants';
 import { CX2Network } from '../models/CX2Network';
 
 /**

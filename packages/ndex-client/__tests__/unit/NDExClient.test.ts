@@ -1,4 +1,4 @@
-import { NDExClient } from '../../src/index';
+import { NDExClient, AuthType } from '../../src/index';
 import { HTTPService } from '../../src/services/HTTPService';
 import { UserService } from '../../src/services/UserService';
 import { AdminService } from '../../src/services/AdminService';
@@ -147,7 +147,7 @@ describe('NDExClient', () => {
 
     it('should return false for incomplete BasicAuth', () => {
       mockHttpService.getConfig.mockReturnValue({ 
-        auth: { type: 'basic', username: 'user' } as any 
+        auth: { type: AuthType.BASIC, username: 'user' } as any 
       });
       
       const result = client.hasAuthInfo();
@@ -157,7 +157,7 @@ describe('NDExClient', () => {
 
     it('should return true for valid BasicAuth', () => {
       mockHttpService.getConfig.mockReturnValue({
-        auth: { type: 'basic', username: 'user', password: 'pass' }
+        auth: { type: AuthType.BASIC, username: 'user', password: 'pass' }
       });
       
       const result = client.hasAuthInfo();
@@ -167,7 +167,7 @@ describe('NDExClient', () => {
 
     it('should return false for incomplete OAuthAuth', () => {
       mockHttpService.getConfig.mockReturnValue({ 
-        auth: { type: 'oauth' } as any 
+        auth: { type: AuthType.OAUTH } as any 
       });
       
       const result = client.hasAuthInfo();
@@ -177,7 +177,7 @@ describe('NDExClient', () => {
 
     it('should return true for valid OAuthAuth', () => {
       mockHttpService.getConfig.mockReturnValue({
-        auth: { type: 'oauth', idToken: 'token123' }
+        auth: { type: AuthType.OAUTH, idToken: 'token123' }
       });
       
       const result = client.hasAuthInfo();

@@ -7,12 +7,12 @@ Manage user accounts, authentication, and user-related operations.
 ### Authenticate and Get Current User
 
 ```typescript
-import { NDExClient } from '@js4cytoscape/ndex-client';
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
 
 const client = new NDExClient({
   baseURL: 'https://www.ndexbio.org',
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: 'your-username',
     password: 'your-password'
   }
@@ -252,7 +252,7 @@ class UserManager {
   constructor(baseURL: string, username: string, password: string) {
     this.client = new NDExClient({
       baseURL,
-      auth: { type: 'basic', username, password }
+      auth: { type: AuthType.BASIC, username, password }
     });
   }
 

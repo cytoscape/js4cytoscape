@@ -6,10 +6,9 @@ import {
   AccessParams,
   CX1MetaDataResponse,
   AccessKeyResponse,
-  AccessKeyAction,
-  Visibility,
-  Permission
+  AccessKeyAction
 } from '../types';
+import { Visibility, Permission } from '../constants';
 
 /**
  * NetworkServiceV2 - NDEx API v2 network operations

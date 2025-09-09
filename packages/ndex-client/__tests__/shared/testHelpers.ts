@@ -1,5 +1,5 @@
-import { NDExClient } from '../../src/index';
-import { NDExClientConfig, NetworkSummaryV2, Visibility } from '../../src/types';
+import { NDExClient, AuthType, Visibility } from '../../src/index';
+import { NDExClientConfig, NetworkSummaryV2 } from '../../src/types';
 
 /**
  * Shared test utilities and mock data for unit and integration tests
@@ -12,7 +12,7 @@ export const mockNetworkSummaryV2 = (): NetworkSummaryV2 => ({
   description: 'A test network for unit tests',
   nodeCount: 10,
   edgeCount: 15,
-  visibility: 'PUBLIC' as Visibility,
+  visibility: Visibility.PUBLIC,
   owner: 'testuser',
   ownerUUID: 'test-owner-uuid',
   creationTime: Date.now(),
@@ -56,21 +56,21 @@ export const createTestClient = (config?: Partial<NDExClientConfig>): NDExClient
 // Common test patterns
 export const testAuthScenarios = {
   validBasicAuth: {
-    type: 'basic' as const,
+    type: AuthType.BASIC,
     username: 'testuser',
     password: 'testpass'
   },
   validOAuth: {
-    type: 'oauth' as const,
+    type: AuthType.OAUTH,
     idToken: 'test-token-123'
   },
   invalidBasicAuth: {
-    type: 'basic' as const,
+    type: AuthType.BASIC,
     username: '',
     password: ''
   },
   invalidOAuth: {
-    type: 'oauth' as const,
+    type: AuthType.OAUTH,
     idToken: ''
   }
 };

@@ -9,6 +9,11 @@
 // Core Types
 export * from './types';
 
+// Constants
+export * from './constants';
+
+import { AuthType } from './constants';
+
 // Models
 export { CX2Network } from './models/CX2Network';
 
@@ -146,12 +151,12 @@ export class NDExClient {
     if (!auth) return false;
     
     // Check for BasicAuth structure
-    if (auth.type === 'basic') {
+    if (auth.type === AuthType.BASIC) {
       return !!(auth as BasicAuth).username && !!(auth as BasicAuth).password;
     }
     
     // Check for OAuthAuth structure  
-    if (auth.type === 'oauth') {
+    if (auth.type === AuthType.OAUTH) {
       return !!(auth as OAuthAuth).idToken;
     }
     
@@ -174,9 +179,9 @@ export class NDExClient {
 
   /**
    * Get current authentication type
-   * @returns The type of authentication configured ('basic' | 'oauth'), or undefined if no auth is configured
+   * @returns The type of authentication configured (AuthType), or undefined if no auth is configured
    */
-  getAuthType(): 'basic' | 'oauth' | undefined {
+  getAuthType(): AuthType | undefined {
     return this.httpService.getAuthType();
   }
 

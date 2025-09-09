@@ -47,7 +47,9 @@ const cx2Network = [
   }
 ];
 
-const result = await client.createNetworkFromRawCX2(cx2Network, { visibility: 'PUBLIC' });
+import { Visibility } from '@js4cytoscape/ndex-client';
+
+const result = await client.createNetworkFromRawCX2(cx2Network, { visibility: Visibility.PUBLIC });
 ```
 
 ### Legacy CX Format
@@ -232,8 +234,8 @@ const files = {
   'uuid3': 'NETWORK'
 };
 
-// Visibility options: 'PUBLIC', 'PRIVATE', or 'UNLISTED'
-await client.setNetworksVisibility(files, 'PUBLIC');
+// Visibility options: Visibility.PUBLIC, Visibility.PRIVATE, or Visibility.UNLISTED
+await client.setNetworksVisibility(files, Visibility.PUBLIC);
 ```
 
 ## Network Visibility
@@ -247,7 +249,7 @@ Networks can have three visibility levels:
 ```typescript
 // Example: Create network with specific visibility
 const result = await client.createNetworkFromRawCX2(cx2Data, {
-  visibility: 'UNLISTED',  // or 'PUBLIC' or 'PRIVATE'
+  visibility: Visibility.UNLISTED,  // or Visibility.PUBLIC or Visibility.PRIVATE
   folderId: 'optional-folder-uuid'
 });
 ```

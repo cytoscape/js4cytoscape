@@ -2,6 +2,8 @@
  * Type definitions for CyNDEx (Cytoscape-NDEx Bridge) operations
  */
 
+import { AuthType } from '../constants';
+
 /**
  * Configuration for CyNDEx service
  */
@@ -19,7 +21,7 @@ export interface CyNDExConfig {
  * This is used as parameters passed to Cytoscape for NDEx authentication
  */
 export interface CyNDExAuthConfig {
-  type: 'basic' | 'oauth';
+  type: AuthType;
   username?: string;
   password?: string;
   idToken?: string;

@@ -6,18 +6,23 @@
 // Export Cytoscape-related types
 export * from './cytoscape';
 
+// Import constants for local use in this file
+import { AuthType, Visibility, Permission, VPMappingType } from '../constants';
+
 // ============================================================================
 // Authentication Types
 // ============================================================================
 
+// AuthType is imported from constants
+
 export interface BasicAuth {
-  type: 'basic';
+  type: typeof AuthType.BASIC;
   username: string;
   password: string;
 }
 
 export interface OAuthAuth {
-  type: 'oauth';
+  type: typeof AuthType.OAUTH;
   idToken: string;  // ID token from OAuth provider
 }
 
@@ -49,73 +54,11 @@ export interface NDExUser {
 // Network Types
 // ============================================================================
 
-/**
- * Visibility settings for networks, folders, and shortcuts.
- * Based on YouTube's permission model.
- * 
- * ## Visibility Type Definitions:
- * 
- * **PUBLIC**
- * - Accessibility: Anyone can discover and view the content
- * - Searchability: Appears in search results and can be found through search engines  
- * - Sharing: Can be shared freely with anyone
- * - Visibility: Shows up on the owner's public profile
- * 
- * **PRIVATE**
- * - Accessibility: Only the owner and specifically invited users can view the content
- * - Searchability: Does not appear in any search results (internal or external)
- * - Sharing: Even with a direct link, uninvited users cannot access the content
- * - Visibility: Does not appear on the owner's public profile
- * 
- * **UNLISTED**
- * - Accessibility: Anyone with the direct link can view the content
- * - Searchability: Does not appear in search results unless added to a public collection
- * - Sharing: Can be shared via direct link without requiring special permissions
- * - Visibility: Does not appear on the owner's public profile
- * 
- * @example
- * ```typescript
- * const network: NetworkSummaryV3 = {
- *   externalId: "12345",
- *   name: "Sample Network",
- *   visibility: "UNLISTED" // Only accessible via direct link
- * };
- * ```
- */
-export type Visibility = 'PUBLIC' | 'PRIVATE' | 'UNLISTED';
+// Visibility is imported from constants
 
-/**
- * Permission levels for network and folder access control.
- * 
- * ## Permission Level Definitions:
- * 
- * **READ**
- * - View the network/folder content
- * - Download network data
- * - Access network metadata and summary information
- * 
- * **WRITE** 
- * - All READ permissions
- * - Modify network content and metadata
- * - Update network properties and attributes
- * 
- * **ADMIN**
- * - All WRITE permissions  
- * - Delete networks/folders
- * - Manage permissions for other users
- * - Transfer ownership
- * 
- * @example
- * ```typescript
- * const permission: NetworkPermission = {
- *   uuid: "permission-uuid",
- *   permission: "WRITE",
- *   memberUUID: "user-uuid",
- *   resourceUUID: "network-uuid"
- * };
- * ```
- */
-export type Permission = 'READ' | 'WRITE' | 'ADMIN';
+// Permission is imported from constants
+
+// NDExFileType is imported from constants
 
 export interface CX1MetaDataItem {
   name: string;
@@ -322,10 +265,7 @@ export interface CX2EdgeBypass {
 // CX2 Visual Property Types - Based on server-side CxVisualProperty class
 // ============================================================================
 
-/**
- * Visual Property Mapping Types
- */
-export type VPMappingType = 'DISCRETE' | 'CONTINUOUS' | 'PASSTHROUGH';
+// VPMappingType is imported from constants
 
 /**
  * Mapping Definition for visual property mappings

@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { HTTPService } from '../../../src/services/HTTPService';
 import { NDExClientConfig } from '../../../src/types';
+import { AuthType } from '../../../src/index';
 
 // Mock axios
 jest.mock('axios');
@@ -71,7 +72,7 @@ describe('HTTPService', () => {
 
     it('should include basic auth headers when auth is provided', () => {
       const config: NDExClientConfig = {
-        auth: { type: 'basic', username: 'user', password: 'pass' }
+        auth: { type: AuthType.BASIC, username: 'user', password: 'pass' }
       };
       
       new HTTPService(config);
@@ -85,7 +86,7 @@ describe('HTTPService', () => {
 
     it('should include OAuth headers when auth is provided', () => {
       const config: NDExClientConfig = {
-        auth: { type: 'oauth', idToken: 'token123' }
+        auth: { type: AuthType.OAUTH, idToken: 'token123' }
       };
       
       new HTTPService(config);
@@ -331,18 +332,18 @@ describe('HTTPService', () => {
   describe('auth methods', () => {
     it('should return correct auth type for basic auth', () => {
       const service = new HTTPService({ 
-        auth: { type: 'basic', username: 'user', password: 'pass' } 
+        auth: { type: AuthType.BASIC, username: 'user', password: 'pass' } 
       });
       
-      expect(service.getAuthType()).toBe('basic');
+      expect(service.getAuthType()).toBe(AuthType.BASIC);
     });
 
     it('should return correct auth type for oauth', () => {
       const service = new HTTPService({ 
-        auth: { type: 'oauth', idToken: 'token123' } 
+        auth: { type: AuthType.OAUTH, idToken: 'token123' } 
       });
       
-      expect(service.getAuthType()).toBe('oauth');
+      expect(service.getAuthType()).toBe(AuthType.OAUTH);
     });
 
     it('should return undefined when no auth is configured', () => {
@@ -353,7 +354,7 @@ describe('HTTPService', () => {
 
     it('should return idToken for oauth auth', () => {
       const service = new HTTPService({ 
-        auth: { type: 'oauth', idToken: 'token123' } 
+        auth: { type: AuthType.OAUTH, idToken: 'token123' } 
       });
       
       expect(service.getIdToken()).toBe('token123');
@@ -361,7 +362,7 @@ describe('HTTPService', () => {
 
     it('should return undefined for basic auth', () => {
       const service = new HTTPService({ 
-        auth: { type: 'basic', username: 'user', password: 'pass' } 
+        auth: { type: AuthType.BASIC, username: 'user', password: 'pass' } 
       });
       
       expect(service.getIdToken()).toBeUndefined();
@@ -371,7 +372,7 @@ describe('HTTPService', () => {
       const service = new HTTPService();
       service.setIdToken('newtoken123');
       
-      expect(service.getAuthType()).toBe('oauth');
+      expect(service.getAuthType()).toBe(AuthType.OAUTH);
       expect(service.getIdToken()).toBe('newtoken123');
     });
   });

@@ -15,12 +15,12 @@ Most straightforward for server-side applications and scripts.
 ### Setup
 
 ```typescript
-import { NDExClient } from '@js4cytoscape/ndex-client';
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
 
 const client = new NDExClient({
   baseURL: 'https://www.ndexbio.org',
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: 'your-username',
     password: 'your-password'
   }
@@ -32,11 +32,13 @@ const client = new NDExClient({
 You can also configure authentication after creating the client:
 
 ```typescript
+import { AuthType } from '@js4cytoscape/ndex-client';
+
 const client = new NDExClient();
 
 client.updateConfig({
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: 'your-username', 
     password: 'your-password'
   }
@@ -54,10 +56,12 @@ Recommended for browser applications with Google Sign-In.
 ### Setup
 
 ```typescript
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
+
 const client = new NDExClient({
   baseURL: 'https://www.ndexbio.org',
   auth: {
-    type: 'oauth',
+    type: AuthType.OAUTH,
     idToken: 'your-google-id-token'
   }
 });
@@ -74,7 +78,7 @@ async function handleAuthenticated() {
   const client = new NDExClient({
     baseURL: 'https://www.ndexbio.org',
     auth: {
-      type: 'oauth',
+      type: AuthType.OAUTH,
       idToken: keycloak.token  // Use the Keycloak token
     }
   });
@@ -91,7 +95,7 @@ You can also update an existing client:
 // Update existing client with OAuth token
 client.updateConfig({
   auth: {
-    type: 'oauth',
+    type: AuthType.OAUTH,
     idToken: keycloak.token
   }
 });
@@ -108,7 +112,7 @@ if (client.hasAuthInfo()) {
   
   // Get authentication type
   const authType = client.getAuthType();
-  console.log('Auth type:', authType); // 'basic' or 'oauth'
+  console.log('Auth type:', authType); // AuthType.BASIC or AuthType.OAUTH
 } else {
   console.log('❌ No authentication configured');
 }
@@ -145,10 +149,12 @@ NDEX_BASE_URL=https://www.ndexbio.org
 
 ```typescript
 // Load from environment
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
+
 const client = new NDExClient({
   baseURL: process.env.NDEX_BASE_URL,
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: process.env.NDEX_USERNAME!,
     password: process.env.NDEX_PASSWORD!
   }
@@ -167,7 +173,7 @@ Never commit credentials to version control. Always use environment variables or
 // ✅ Good - Use environment variables
 const client = new NDExClient({
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: process.env.NDEX_USERNAME!,
     password: process.env.NDEX_PASSWORD!
   }
@@ -178,7 +184,7 @@ const client = new NDExClient({
 // ❌ Bad - Hardcoded credentials
 const client = new NDExClient({
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: 'myusername',
     password: 'mypassword'  // Never do this!
   }

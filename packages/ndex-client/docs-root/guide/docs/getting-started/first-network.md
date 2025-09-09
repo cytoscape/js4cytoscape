@@ -7,12 +7,12 @@ Learn how to upload, retrieve, and manage networks using the NDEx client.
 ### From CX2 Data
 
 ```typescript
-import { NDExClient } from '@js4cytoscape/ndex-client';
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
 
 const client = new NDExClient({
   baseURL: 'https://www.ndexbio.org',
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: process.env.NDEX_USERNAME!,
     password: process.env.NDEX_PASSWORD!
   }
@@ -218,13 +218,13 @@ async function safeNetworkOperation(networkUUID: string) {
 ## Complete Example
 
 ```typescript
-import { NDExClient } from '@js4cytoscape/ndex-client';
+import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
 
 async function networkWorkflow() {
   const client = new NDExClient({
     baseURL: 'https://www.ndexbio.org',
     auth: {
-      type: 'basic',
+      type: AuthType.BASIC,
       username: process.env.NDEX_USERNAME!,
       password: process.env.NDEX_PASSWORD!
     }

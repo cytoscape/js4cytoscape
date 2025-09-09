@@ -4,6 +4,7 @@ import {
   PaginationParams,
   NetworkSummaryV2
 } from '../types';
+import { AuthType } from '../constants';
 
 /**
  * UserService - NDEx user-related operations
@@ -34,12 +35,12 @@ export class UserService {
       throw new Error('Authentication parameters are missing in NDEx client.');
     }
     
-    if (authType === 'basic') {
+    if (authType === AuthType.BASIC) {
       // For basic auth, use the standard user endpoint with valid parameter
       const endpoint = 'user';
       const params = { valid: true };
       return this.http.get<NDExUser>(endpoint, { params });
-    } else if (authType === 'oauth') {
+    } else if (authType === AuthType.OAUTH) {
       // For OAuth, use the signin endpoint with ID token (v3 API)
       const idToken = this.http.getIdToken();
       if (!idToken) {

@@ -1,8 +1,5 @@
 import { HTTPService } from './HTTPService';
-import { Permission } from '../types';
-
-// Type definitions for better type safety
-export type NDExFileType = 'NETWORK' | 'FOLDER' | 'SHORTCUT';
+import { Permission, NDExFileType } from '../constants';
 
 interface ShareData {
   files: Record<string, NDExFileType>;
@@ -12,15 +9,6 @@ interface MemberData {
   members: Record<string, Permission>;
 }
 
-interface UpdateMemberRequest {
-  files: ShareData['files'];
-  members: MemberData['members'];
-}
-
-interface TransferOwnershipRequest {
-  files: ShareData['files'];
-  new_owner: string;
-}
 
 interface CreateShortcutOptions {
   name: string;

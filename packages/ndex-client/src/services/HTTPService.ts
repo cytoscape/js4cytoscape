@@ -12,6 +12,7 @@ import {
   NDExValidationError,
   NDExServerError
 } from '../types';
+import { AuthType } from '../constants';
 import { version } from '../../package.json';
 
 /**
@@ -65,13 +66,13 @@ export class HTTPService {
       return {};
     }
 
-    if (this.config.auth.type === 'basic') {
+    if (this.config.auth.type === AuthType.BASIC) {
       // Basic authentication: encode username:password in base64
       const credentials = btoa(`${this.config.auth.username}:${this.config.auth.password}`);
       return {
         'Authorization': `Basic ${credentials}`,
       };
-    } else if (this.config.auth.type === 'oauth') {
+    } else if (this.config.auth.type === AuthType.OAUTH) {
       // OAuth Bearer token
       return {
         'Authorization': `Bearer ${this.config.auth.idToken}`,
@@ -415,9 +416,9 @@ export class HTTPService {
 
   /**
    * Get current authentication type
-   * @returns The type of authentication configured ('basic' | 'oauth'), or undefined if no auth is configured
+   * @returns The type of authentication configured (AuthType), or undefined if no auth is configured
    */
-  getAuthType(): 'basic' | 'oauth' | undefined {
+  getAuthType(): AuthType | undefined {
     return this.config.auth?.type;
   }
 
@@ -426,7 +427,7 @@ export class HTTPService {
    * @returns The ID token if OAuth auth is configured, undefined otherwise
    */
   getIdToken(): string | undefined {
-    return this.config.auth?.type === 'oauth' ? this.config.auth.idToken : undefined;
+    return this.config.auth?.type === AuthType.OAUTH ? this.config.auth.idToken : undefined;
   }
 
   /**
@@ -436,7 +437,7 @@ export class HTTPService {
    */
   setIdToken(idToken: string): void {
     this.updateConfig({
-      auth: { type: 'oauth', idToken }
+      auth: { type: AuthType.OAUTH, idToken }
     });
   }
 }

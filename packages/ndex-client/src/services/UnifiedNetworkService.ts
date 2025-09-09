@@ -10,11 +10,10 @@ import {
   CX1Edge,
   CX2MetaData,
   NetworkPermission,
-  NDExObjectUpdateStatus,
-  Visibility
+  NDExObjectUpdateStatus
 } from '../types';
+import { Visibility, NDExFileType } from '../constants';
 import { CX2Network } from '../models/CX2Network';
-import { NDExFileType } from './FilesService';
 
 /**
  * UnifiedNetworkService - Provides access to both V2/V3 network services
@@ -412,28 +411,17 @@ export class UnifiedNetworkService {
   }
 
   /**
-   * Validate share data format (helper method for file operations)
+   * Validate UUID format in file data (helper method for file operations)
    * 
-   * Validates the structure and content of file data used in sharing operations.
-   * Ensures proper UUID format and valid file types.
+   * Validates that all UUID keys in the files object follow proper UUID format.
+   * TypeScript ensures object structure and file type validity at compile time.
    * 
    * @param data - Data object containing files property with UUID keys and NDExFileType values
-   * @throws Error if validation fails
+   * @throws Error if UUID validation fails
    */
   private validateShareData(data: { files: Record<string, NDExFileType> }): void {
-    // Check if data is an object and has files property
-    if (typeof data !== 'object' || data === null || data.files === undefined) {
-      throw new Error('Data must be an object with a "files" property');
-    }
-    
-    // Check if files is an object
-    if (typeof data.files !== 'object' || data.files === null) {
-      throw new Error('The "files" property must be an object');
-    }
-    
-    // Check each UUID key format
+    // Validate UUID format for each key
     for (const uuid of Object.keys(data.files)) {
-      // Validate UUID format (basic validation)
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
         throw new Error(`Invalid UUID format: ${uuid}`);
       }

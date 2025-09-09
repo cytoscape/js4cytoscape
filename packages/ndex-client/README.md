@@ -27,9 +27,11 @@ const client = new NDExClient({
 });
 
 // Authenticate (optional for public operations)
+import { AuthType } from 'ndex-client';
+
 client.updateConfig({
   auth: {
-    type: 'basic',
+    type: AuthType.BASIC,
     username: 'your-username',
     password: 'your-password'
   }
