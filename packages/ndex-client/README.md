@@ -227,12 +227,23 @@ npm run test:coverage
 - ✅ 70% coverage requirement
 - ✅ Focus on business logic and error handling
 
-#### Integration Tests (Real API)
+#### Integration Tests (Dual Environment)
 ```bash
-# Run integration tests (~1-2s)
+# Run integration tests in both environments (~2-3s)
 npm run test:integration
 
-# Run all tests (unit + integration)  
+# Run specific environments
+npm run test:integration:node      # Node.js environment only
+npm run test:integration:browser   # Browser/jsdom environment only
+
+# Development with watch mode
+npm run test:watch:integration:node     # Watch Node.js tests
+npm run test:watch:integration:browser  # Watch browser tests
+
+# Coverage for both environments
+npm run test:coverage:integration
+
+# Run all tests (unit + integration)
 npm run test:all
 
 # CI command with full coverage
@@ -240,10 +251,12 @@ npm run test:ci
 ```
 
 **Integration tests:**
-- ✅ Real API calls to NDEx servers
+- ✅ **Dual Environment Testing** - Node.js and browser (jsdom) environments
+- ✅ Real API calls to NDEx servers in both environments
 - ✅ Uses credentials from `test/testconfig.js`
-- ✅ Validates end-to-end functionality
-- ✅ 60% coverage requirement
+- ✅ Validates end-to-end functionality across environments
+- ✅ 60% coverage requirement for each environment
+- ✅ Environment-specific behavior validation (User-Agent headers, window object, etc.)
 
 #### Test Configuration
 

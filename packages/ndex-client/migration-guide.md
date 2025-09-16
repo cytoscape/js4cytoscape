@@ -407,6 +407,46 @@ async function example() {
 }
 ```
 
+## Testing Improvements
+
+The new implementation features a comprehensive dual-environment testing architecture:
+
+### Old Testing (Legacy)
+```bash
+# Mocha-based testing with 53% coverage
+npm test  # Limited unit tests, no environment separation
+```
+
+### New Testing (Modern)
+```bash
+# Jest-based testing with dual-environment support
+
+# Fast unit tests (70% coverage)
+npm test                    # Default: unit tests only
+npm run test:unit          # Explicit unit tests
+npm run test:watch         # Watch mode for development
+
+# Dual-environment integration tests (60% coverage each)
+npm run test:integration           # Both Node.js and browser environments
+npm run test:integration:node      # Node.js environment only
+npm run test:integration:browser   # Browser/jsdom environment only
+
+# Watch modes for development
+npm run test:watch:integration:node     # Watch Node.js integration tests
+npm run test:watch:integration:browser  # Watch browser integration tests
+
+# Comprehensive testing
+npm run test:all           # All tests (unit + integration)
+npm run test:ci           # CI with full coverage reports
+```
+
+### Testing Benefits
+- ✅ **Cross-Platform Validation** - Tests run in both Node.js and browser environments
+- ✅ **Real API Testing** - Integration tests make actual API calls
+- ✅ **Environment-Specific Validation** - Tests User-Agent headers, window objects, etc.
+- ✅ **Fast Development Loop** - Unit tests provide immediate feedback
+- ✅ **Comprehensive Coverage** - 102 total tests across all environments
+
 ## Best Practices
 
 1. **Use Appropriate API Version**: Prefer V3 APIs for new features, use V2 for legacy compatibility

@@ -1,7 +1,12 @@
 import { NDExClient } from '../../../src/index';
 import { createIntegrationTestClient, authenticateTestClient, integrationConfig } from '../config/testConfig';
 
-describe('UserService Integration Tests', () => {
+// Environment detection
+const isNodeJS = typeof window === 'undefined';
+const isBrowser = typeof window !== 'undefined';
+const testEnv = process.env.INTEGRATION_TEST_ENV || (isNodeJS ? 'node' : 'browser');
+
+describe(`UserService Integration Tests (${testEnv.toUpperCase()})`, () => {
   let client: NDExClient;
 
   beforeEach(() => {
@@ -9,19 +14,51 @@ describe('UserService Integration Tests', () => {
   });
 
   describe('Authentication', () => {
-    it('should authenticate user with basic auth', async () => {
+    it('should authenticate user with basic auth and verify user details', async () => {
       await authenticateTestClient(client);
-      
+
       const result = await client.user.authenticate();
-      
-      // Check for actual user data structure - may vary by server
+
+      // Verify the authenticated user data
       expect(result).toBeDefined();
-      if (result.externalId) {
-        expect(result).toHaveProperty('externalId');
+      expect(result).toHaveProperty('userName');
+
+      // Verify username matches the one used in basic auth
+      expect(result.userName).toBe(integrationConfig.credentials.username);
+
+      // Verify specific user details
+      expect(result.firstName).toBe('Ji');
+      expect(result.lastName).toBe('Che');
+
+      // Additional standard user properties
+      expect(result).toHaveProperty('externalId');
+      expect(result.externalId).toBeDefined();
+    });
+
+    it(`should authenticate user with basic auth in ${testEnv} environment`, async () => {
+      await authenticateTestClient(client);
+
+      const result = await client.user.authenticate();
+
+      // Verify authentication works in current environment
+      expect(result).toBeDefined();
+      expect(result.userName).toBe(integrationConfig.credentials.username);
+      expect(result.firstName).toBe('Ji');
+      expect(result.lastName).toBe('Che');
+
+      // Environment-specific checks
+      if (testEnv === 'node') {
+        // Node.js specific: User-Agent header can be set, window is undefined
+        expect(typeof window).toBe('undefined');
+      } else if (testEnv === 'browser') {
+        // Browser specific: window object exists, User-Agent header restricted
+        expect(typeof window).toBe('object');
+        expect(window).toBeDefined();
       }
-      if (result.userName) {
-        expect(result).toHaveProperty('userName');
-      }
+
+      // Common checks
+      const config = client.getConfig();
+      expect(config.baseURL).toBe(integrationConfig.baseURL);
     });
 
     it('should get current user profile', async () => {

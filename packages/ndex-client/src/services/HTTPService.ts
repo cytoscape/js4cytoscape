@@ -69,7 +69,11 @@ export class HTTPService {
 
     if (this.config.auth.type === AuthType.BASIC) {
       // Basic authentication: encode username:password in base64
-      const credentials = btoa(`${this.config.auth.username}:${this.config.auth.password}`);
+      // Use Buffer.from in Node.js, btoa in browser
+      const authString = `${this.config.auth.username}:${this.config.auth.password}`;
+      const credentials = typeof window !== 'undefined' && typeof btoa !== 'undefined'
+        ? btoa(authString)
+        : Buffer.from(authString, 'utf-8').toString('base64');
       return {
         'Authorization': `Basic ${credentials}`,
       };
