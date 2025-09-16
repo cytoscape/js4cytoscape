@@ -1,10 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { 
-  NDExClientConfig, 
-  APIResponse, 
-  APIError, 
-  BasicAuth, 
-  OAuthAuth,
+import {
+  NDExClientConfig,
+  APIResponse,
   NDExError,
   NDExNetworkError,
   NDExAuthError,
@@ -49,11 +46,15 @@ export class HTTPService {
       headers['User-Agent'] = `NDEx-JS-Client/${version}`;
     }
 
-    this.axiosInstance = axios.create({
-      baseURL: this.config.baseURL,
-      timeout: this.config.timeout,
-      headers,
-    });
+    const axiosConfig: any = { headers };
+    if (this.config.baseURL) {
+      axiosConfig.baseURL = this.config.baseURL;
+    }
+    if (this.config.timeout) {
+      axiosConfig.timeout = this.config.timeout;
+    }
+
+    this.axiosInstance = axios.create(axiosConfig);
 
     this.setupInterceptors();
   }
@@ -230,7 +231,7 @@ export class HTTPService {
       version?: 'v2' | 'v3';
     } = {}
   ): Promise<T> {
-    const { version, onProgress, contentType, ...config } = options;
+    const { version, onProgress, contentType } = options;
     const url = this.buildUrl(endpoint, version);
 
     const formData = new FormData();
@@ -248,16 +249,20 @@ export class HTTPService {
     }
 
     try {
-      const response = await this.axiosInstance.post<APIResponse<T>>(url, formData, {
+      const config: any = {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        onUploadProgress: onProgress ? (progressEvent) => {
+      };
+
+      if (onProgress) {
+        config.onUploadProgress = (progressEvent: any) => {
           const progress = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
           onProgress(progress);
-        } : undefined,
-        ...config,
-      });
+        };
+      }
+
+      const response = await this.axiosInstance.post<APIResponse<T>>(url, formData, config);
 
       return this.handleResponse<T>(response);
     } catch (error) {

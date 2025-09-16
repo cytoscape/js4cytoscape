@@ -136,7 +136,7 @@ export class CX2Network implements CX2NetworkType {
   addNodeAttribute(nodeId: number, attributeName: string, value: any): void {
 
     //find the nodes with the given ID
-    const node = this.nodes.find(n => n.id === nodeId);
+    const node = this.nodes?.find(n => n.id === nodeId);
     //set the node attribute
     if (node) {
       if (!node.v) {
@@ -152,7 +152,7 @@ export class CX2Network implements CX2NetworkType {
    */
   addEdgeAttribute(edgeId: number, attributeName: string, value: any): void {
     //similar to addNodeAttribute
-    const edge = this.edges.find(e => e.id === edgeId);
+    const edge = this.edges?.find(e => e.id === edgeId);
     if (edge) {
       if (!edge.v) {
         edge.v = {};
@@ -235,7 +235,7 @@ export class CX2Network implements CX2NetworkType {
    * Get network name from attributes
    */
   getNetworkName(): string | undefined {
-    return this.networkAttributes?.find(attr => 'name' in attr)?.name;
+    return this.networkAttributes?.find(attr => 'name' in attr)?.['name'];
   }
 
   /**

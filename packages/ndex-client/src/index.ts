@@ -58,14 +58,14 @@ import { NDExClientConfig, BasicAuth, OAuthAuth } from './types';
  *   debug: true
  * });
  * 
- * // Authenticate
- * await client.user.authenticate({ username: 'user', password: 'pass' });
- * 
+ * // Authenticate (requires auth config in constructor)
+ * const user = await client.user.authenticate();
+ *
  * // Search networks
  * const results = await client.networks.searchNetworks({ searchString: 'pathway' });
- * 
+ *
  * // Get network as CX2
- * const network = await client.networks.getNetworkAsCX2Object('network-uuid');
+ * const network = await client.networks.getRawCX2Network('network-uuid');
  * 
  * // User operations
  * const profile = await client.user.getCurrentUser();
@@ -98,7 +98,7 @@ export class NDExClient {
     this.files = new FilesService(this.httpService);
     this.workspace = new WorkspaceService(this.httpService);
     this.user = new UserService(this.httpService);
-    this.admin = new AdminService(this.httpService);
+    this.admin = new AdminService();
   }
 
 
@@ -106,7 +106,7 @@ export class NDExClient {
    * Clear authentication
    */
   logout(): void {
-    this.httpService.updateConfig({ auth: undefined });
+    this.httpService.updateConfig({});
   }
 
   /**

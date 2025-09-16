@@ -49,7 +49,7 @@ const cx2Network = [
 
 import { Visibility } from '@js4cytoscape/ndex-client';
 
-const result = await client.createNetworkFromRawCX2(cx2Network, { visibility: Visibility.PUBLIC });
+const result = await client.networks.createNetworkFromRawCX2(cx2Network, { visibility: Visibility.PUBLIC });
 ```
 
 ### Legacy CX Format
@@ -76,7 +76,7 @@ const cxNetwork = [
   ]}
 ];
 
-const networkUUID = await client.createNetworkFromRawCX(cxNetwork);
+const result = await client.networks.createNetworkFromRawCX2(cxNetwork);
 ```
 
 ## Network Metadata
@@ -87,19 +87,19 @@ const networkUUID = await client.createNetworkFromRawCX(cxNetwork);
 const networkUUID = 'your-network-uuid';
 
 // Get CX2 metadata
-const cx2Meta = await client.getCX2MetaData(networkUUID);
+const cx2Meta = await client.networks.getCX2MetaData(networkUUID);
 console.log('Available aspects:', cx2Meta.map(m => m.name));
 
 // Get specific aspect data
-const nodes = await client.getAspectElements(networkUUID, 'nodes', 100);
-const edges = await client.getAspectElements(networkUUID, 'edges', 100);
+const nodes = await client.networks.getAspectElements(networkUUID, 'nodes', 100);
+const edges = await client.networks.getAspectElements(networkUUID, 'edges', 100);
 ```
 
 ### Network Attributes
 
 ```typescript
 // Get network attributes
-const attributes = await client.getAspectElements(networkUUID, 'networkAttributes');
+const attributes = await client.networks.getAspectElements(networkUUID, 'networkAttributes');
 console.log('Network attributes:', attributes);
 
 // Common network attributes
@@ -128,7 +128,7 @@ Find nodes and their neighbors:
 const networkUUID = 'your-network-uuid';
 
 // Find neighbors of specific proteins
-const neighborhoodResult = await client.neighborhoodQuery(
+const neighborhoodResult = await client.networks.neighborhoodQuery(
   networkUUID,
   'EGFR TP53',  // search terms
   false,        // don't save result
@@ -149,7 +149,7 @@ Find paths between specific nodes:
 
 ```typescript
 // Find connections between proteins
-const interconnectResult = await client.interConnectQuery(
+const interconnectResult = await client.networks.interConnectQuery(
   networkUUID,
   'EGFR KRAS',  // find paths between these
   false,        // don't save result
@@ -248,7 +248,7 @@ Networks can have three visibility levels:
 
 ```typescript
 // Example: Create network with specific visibility
-const result = await client.createNetworkFromRawCX2(cx2Data, {
+const result = await client.networks.createNetworkFromRawCX2(cx2Data, {
   visibility: Visibility.UNLISTED,  // or Visibility.PUBLIC or Visibility.PRIVATE
   folderId: 'optional-folder-uuid'
 });
@@ -339,7 +339,7 @@ async function robustNetworkOperation(networkUUID: string) {
   
   while (retryCount < maxRetries) {
     try {
-      const result = await client.getCX2Network(networkUUID);
+      const result = await client.networks.getRawCX2Network(networkUUID);
       return result;
     } catch (error) {
       retryCount++;

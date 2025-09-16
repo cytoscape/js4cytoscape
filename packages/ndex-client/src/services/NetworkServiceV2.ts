@@ -106,23 +106,23 @@ export class NetworkServiceV2 {
     const params: Record<string, string> = {};
 
     if (start !== undefined) {
-      params.start = start.toString();
+      params['start'] = start.toString();
     }
     if (size !== undefined) {
-      params.limit = size.toString();
+      params['limit'] = size.toString();
     }
 
     const data: Record<string, any> = { searchString: searchTerms };
 
     if (optionalParameters !== undefined) {
       if (optionalParameters.permission !== undefined) {
-        data.permission = optionalParameters.permission;
+        data['permission'] = optionalParameters['permission'];
       }
-      if (optionalParameters.includeGroups !== undefined) {
-        data.includeGroups = optionalParameters.includeGroups;
+      if (optionalParameters['includeGroups'] !== undefined) {
+        data['includeGroups'] = optionalParameters['includeGroups'];
       }
-      if (optionalParameters.accountName !== undefined) {
-        data.accountName = optionalParameters.accountName;
+      if (optionalParameters['accountName'] !== undefined) {
+        data['accountName'] = optionalParameters['accountName'];
       }
     }
 
@@ -158,7 +158,11 @@ export class NetworkServiceV2 {
     // Extract UUID from response URL (e.g., "/v2/network/12345" -> "12345")
     const uuidr = response.split('/');
     const uuid = uuidr[uuidr.length - 1];
-    
+
+    if (!uuid) {
+      throw new Error('Failed to extract UUID from response');
+    }
+
     return uuid;
   }
 

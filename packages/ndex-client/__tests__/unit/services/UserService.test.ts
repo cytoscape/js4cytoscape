@@ -1,6 +1,6 @@
 import { UserService } from '../../../src/services/UserService';
 import { HTTPService } from '../../../src/services/HTTPService';
-import { NDExUser, ServiceResponse } from '../../../src/types';
+import { NDExUser, ServiceResponse, UserHomeContent, NetworkSummaryV2, Folder, NetworkShortcut } from '../../../src/types';
 
 // Mock HTTPService
 jest.mock('../../../src/services/HTTPService');
@@ -319,6 +319,165 @@ describe('UserService', () => {
       
       expect(mockHttpService.delete).toHaveBeenCalledWith('user/user-123');
       expect(result).toBeUndefined();
+    });
+  });
+
+  describe('getUserHomeContent', () => {
+    it('should make GET request to user home endpoint with default format', async () => {
+      const userIdStr = 'user-123';
+      const mockHomeContent: UserHomeContent = {
+        networks: [
+          {
+            externalId: 'network-1',
+            name: 'Test Network',
+            nodeCount: 10,
+            edgeCount: 5,
+            visibility: 'PUBLIC',
+            owner: 'testuser',
+            ownerUUID: 'user-123',
+            creationTime: Date.now(),
+            modificationTime: Date.now(),
+            isReadOnly: false,
+            isValid: true,
+            hasLayout: true,
+            hasSample: false,
+            updatedBy: 'testuser'
+          } as NetworkSummaryV2
+        ],
+        folders: [
+          {
+            externalId: 'folder-1',
+            name: 'Test Folder',
+            ownerId: 'user-123',
+            creationTime: Date.now(),
+            modificationTime: Date.now()
+          }
+        ],
+        shortcuts: [
+          {
+            externalId: 'shortcut-1',
+            name: 'Test Shortcut',
+            targetNetworkUUID: 'network-2',
+            ownerId: 'user-123',
+            creationTime: Date.now(),
+            modificationTime: Date.now()
+          }
+        ]
+      };
+      
+      mockHttpService.get.mockResolvedValue(mockHomeContent);
+      
+      const result = await userService.getUserHomeContent(userIdStr);
+      
+      expect(mockHttpService.get).toHaveBeenCalledWith(
+        'users/user-123/home',
+        { params: { format: 'update' }, version: 'v3' }
+      );
+      expect(result).toEqual(mockHomeContent);
+    });
+
+    it('should make GET request with custom format parameter', async () => {
+      const userIdStr = 'user-456';
+      const format = 'minimal';
+      const mockHomeContent: UserHomeContent = {
+        networks: [],
+        folders: [],
+        shortcuts: []
+      };
+      
+      mockHttpService.get.mockResolvedValue(mockHomeContent);
+      
+      const result = await userService.getUserHomeContent(userIdStr, format);
+      
+      expect(mockHttpService.get).toHaveBeenCalledWith(
+        'users/user-456/home',
+        { params: { format: 'minimal' }, version: 'v3' }
+      );
+      expect(result).toEqual(mockHomeContent);
+    });
+
+    it('should return home content with all expected structure', async () => {
+      const userIdStr = 'user-789';
+      const mockHomeContent: UserHomeContent = {
+        networks: [
+          {
+            externalId: 'network-1',
+            name: 'Network One',
+            description: 'First network',
+            nodeCount: 100,
+            edgeCount: 200,
+            visibility: 'PRIVATE',
+            owner: 'testuser',
+            ownerUUID: 'user-789',
+            creationTime: 1640995200000,
+            modificationTime: 1640995300000,
+            isReadOnly: false,
+            isValid: true,
+            hasLayout: true,
+            hasSample: false,
+            updatedBy: 'testuser'
+          } as NetworkSummaryV2,
+          {
+            externalId: 'network-2',
+            name: 'Network Two',
+            nodeCount: 50,
+            edgeCount: 75,
+            visibility: 'PUBLIC',
+            owner: 'testuser',
+            ownerUUID: 'user-789',
+            creationTime: 1640995400000,
+            modificationTime: 1640995500000,
+            isReadOnly: true,
+            isValid: true,
+            hasLayout: false,
+            hasSample: true,
+            updatedBy: 'testuser'
+          } as NetworkSummaryV2
+        ],
+        folders: [
+          {
+            externalId: 'folder-1',
+            name: 'Research Folder',
+            description: 'Contains research networks',
+            ownerId: 'user-789',
+            creationTime: 1640995600000,
+            modificationTime: 1640995700000,
+            readonly: false
+          },
+          {
+            externalId: 'folder-2',
+            name: 'Archive Folder',
+            ownerId: 'user-789',
+            creationTime: 1640995800000,
+            modificationTime: 1640995900000,
+            readonly: true
+          }
+        ],
+        shortcuts: [
+          {
+            externalId: 'shortcut-1',
+            name: 'Important Network Shortcut',
+            description: 'Shortcut to frequently used network',
+            targetNetworkUUID: 'external-network-1',
+            ownerId: 'user-789',
+            creationTime: 1640996000000,
+            modificationTime: 1640996100000
+          }
+        ]
+      };
+      
+      mockHttpService.get.mockResolvedValue(mockHomeContent);
+      
+      const result = await userService.getUserHomeContent(userIdStr);
+      
+      expect(result.networks).toHaveLength(2);
+      expect(result.folders).toHaveLength(2);
+      expect(result.shortcuts).toHaveLength(1);
+      
+      expect(result.networks[0].name).toBe('Network One');
+      expect(result.folders[0].name).toBe('Research Folder');
+      expect(result.shortcuts[0].name).toBe('Important Network Shortcut');
+      expect(result.shortcuts[0].targetNetworkUUID).toBe('external-network-1');
     });
   });
 });

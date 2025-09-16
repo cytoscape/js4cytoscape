@@ -7,7 +7,7 @@
 export * from './cytoscape';
 
 // Import constants for local use in this file
-import { AuthType, Visibility, Permission, VPMappingType } from '../constants';
+import { AuthType, Visibility, Permission, VPMappingType, NDExFileType } from '../constants';
 
 // ============================================================================
 // Authentication Types
@@ -532,4 +532,29 @@ export interface NDExObjectUpdateStatus {
   uuid: string;
   modificationTime: number; // Timestamp in milliseconds
 }
+
+// ============================================================================
+// Home Content Types
+// ============================================================================
+
+/**
+ * Items in a file list returned for a folder or user account
+ * 
+ * @property uuid - Unique identifier of the file
+ * @property type - Type of the file (folder, network, or shortcut)
+ * @property name - Name of the file
+ * @property modificationTime - Last modification timestamp
+ * @property updatedBy - Username of the user who last updated the file
+ * @property attributes - Additional attributes associated with the file
+ */
+export interface FileListItem {
+  uuid: string;
+  name: string;
+  type: NDExFileType;
+  modificationTime: number;
+  attributes: any;
+  updatedBy: string;
+}
+
+
 

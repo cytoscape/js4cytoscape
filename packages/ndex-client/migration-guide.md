@@ -91,8 +91,10 @@ client.setBasicAuth('username', 'password');
 // New
 client.user.authenticate({ username: 'username', password: 'password' });
 // or set directly on client
+import { AuthType } from 'ndex-client';
+
 client.updateConfig({ 
-  auth: { type: 'basic', username: 'username', password: 'password' }
+  auth: { type: AuthType.BASIC, username: 'username', password: 'password' }
 });
 ```
 
@@ -104,10 +106,10 @@ client.setAuthToken(idToken);
 
 // New
 client.updateConfig({ 
-  auth: { type: 'oauth', idToken: 'your-id-token' }
+  auth: { type: AuthType.OAUTH, idToken: 'your-id-token' }
 });
 // or
-client.http.setIdToken('your-id-token');
+client.setIdToken('your-id-token');
 ```
 
 ## Function Migration Reference

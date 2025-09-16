@@ -7,12 +7,12 @@ Manage user accounts, authentication, and user-related operations.
 ### Authenticate and Get Current User
 
 ```typescript
-import { NDExClient, AuthType } from '@js4cytoscape/ndex-client';
+import { NDExClient } from '@js4cytoscape/ndex-client';
 
 const client = new NDExClient({
   baseURL: 'https://www.ndexbio.org',
   auth: {
-    type: AuthType.BASIC,
+    type: 'basic',
     username: 'your-username',
     password: 'your-password'
   }
@@ -100,6 +100,45 @@ const userNetworks = await client.user.getAccountPageNetworks(
   0,    // offset
   50    // limit
 );
+```
+
+### Get User's Home Content
+
+```typescript
+// Get complete home folder content including networks, folders, and shortcuts
+const userUUID = 'user-uuid-here';
+const homeContent = await client.user.getUserHomeContent(userUUID);
+
+console.log('Home content summary:');
+console.log(`- Networks: ${homeContent.networks.length}`);
+console.log(`- Folders: ${homeContent.folders.length}`);
+console.log(`- Shortcuts: ${homeContent.shortcuts.length}`);
+
+// Access individual components
+homeContent.networks.forEach(network => {
+  console.log(`Network: ${network.name} (${network.nodeCount} nodes)`);
+});
+
+homeContent.folders.forEach(folder => {
+  console.log(`Folder: ${folder.name}`);
+});
+
+homeContent.shortcuts.forEach(shortcut => {
+  console.log(`Shortcut: ${shortcut.name} -> ${shortcut.targetNetworkUUID}`);
+});
+```
+
+### Get Home Content with Format Parameter
+
+```typescript
+// Get home content with specific format
+const homeContent = await client.user.getUserHomeContent(
+  userUUID,
+  'minimal'  // Custom format parameter
+);
+
+// Default format is 'update' if not specified
+const defaultHomeContent = await client.user.getUserHomeContent(userUUID);
 ```
 
 ## User Profile Management
@@ -252,7 +291,7 @@ class UserManager {
   constructor(baseURL: string, username: string, password: string) {
     this.client = new NDExClient({
       baseURL,
-      auth: { type: AuthType.BASIC, username, password }
+      auth: { type: 'basic', username, password }
     });
   }
 

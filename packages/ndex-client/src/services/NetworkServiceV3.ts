@@ -1,9 +1,8 @@
 import { HTTPService } from './HTTPService';
-import { 
-  NetworkSummaryV3, 
-  SearchResult, 
-  SearchParameters, 
-  PaginationParams,
+import {
+  NetworkSummaryV3,
+  SearchResult,
+  SearchParameters,
   AccessParams,
   CX2Network as CX2NetworkType,
   NDExObjectUpdateStatus
@@ -137,7 +136,7 @@ export class NetworkServiceV3 {
     };
 
     if (accessKey != null) {
-      params.accesskey = accessKey;
+      params['accesskey'] = accessKey;
     }
 
     const endpoint = 'batch/networks/summary';

@@ -1,15 +1,13 @@
 import { HTTPService } from './HTTPService';
 import { NetworkServiceV2 } from './NetworkServiceV2';
 import { NetworkServiceV3 } from './NetworkServiceV3';
-import { 
+import {
   NetworkSummaryV3,
-  PaginationParams,
   AccessParams,
   CX2Network as CX2NetworkType,
   CX2Edge,
   CX1Edge,
   CX2MetaData,
-  NetworkPermission,
   NDExObjectUpdateStatus
 } from '../types';
 import { Visibility, NDExFileType } from '../constants';
@@ -169,7 +167,7 @@ export class UnifiedNetworkService {
     const params: Record<string, string> = {};
 
     if (saveResult !== undefined && saveResult === true) {
-      params.save = 'true';
+      params['save'] = 'true';
     }
 
     const data: Record<string, any> = {
@@ -179,19 +177,19 @@ export class UnifiedNetworkService {
 
     if (parameters !== undefined) {
       if (parameters.searchDepth !== undefined) {
-        data.searchDepth = parameters.searchDepth;
+        data['searchDepth'] = parameters.searchDepth;
       }
       if (parameters.edgeLimit !== undefined) {
-        data.edgeLimit = parameters.edgeLimit;
+        data['edgeLimit'] = parameters.edgeLimit;
       }
       if (parameters.errorWhenLimitIsOver !== undefined) {
-        data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+        data['errorWhenLimitIsOver'] = parameters.errorWhenLimitIsOver;
       }
       if (parameters.directOnly !== undefined) {
-        data.directOnly = parameters.directOnly;
+        data['directOnly'] = parameters.directOnly;
       }
       if (parameters.nodeIds != null) {
-        data.nodeIds = parameters.nodeIds;
+        data['nodeIds'] = parameters.nodeIds;
       }
     }
 
@@ -241,20 +239,20 @@ export class UnifiedNetworkService {
     const params: Record<string, string> = {};
 
     if (saveResult !== undefined && saveResult === true) {
-      params.save = 'true';
+      params['save'] = 'true';
     }
 
     const data: Record<string, any> = { searchString: searchTerms };
 
     if (parameters !== undefined) {
       if (parameters.edgeLimit !== undefined) {
-        data.edgeLimit = parameters.edgeLimit;
+        data['edgeLimit'] = parameters.edgeLimit;
       }
       if (parameters.errorWhenLimitIsOver !== undefined) {
-        data.errorWhenLimitIsOver = parameters.errorWhenLimitIsOver;
+        data['errorWhenLimitIsOver'] = parameters.errorWhenLimitIsOver;
       }
       if (parameters.nodeIds != null) {
-        data.nodeIds = parameters.nodeIds;
+        data['nodeIds'] = parameters.nodeIds;
       }
     }
 
@@ -400,7 +398,7 @@ export class UnifiedNetworkService {
     };
 
     if (accessKey !== undefined) {
-      params.accesskey = accessKey;
+      params['accesskey'] = accessKey;
     }
 
     const endpoint = `networks/${networkUUID}/aspects/edges`;
@@ -458,11 +456,11 @@ export class UnifiedNetworkService {
     const params: Record<string, string> = {};
 
     if (limit !== undefined) {
-      params.size = limit.toString();
+      params['size'] = limit.toString();
     }
 
     if (accessKey !== undefined) {
-      params.accesskey = accessKey;
+      params['accesskey'] = accessKey;
     }
 
     const endpoint = `networks/${networkUUID}/aspects/${aspectName}`;
@@ -520,19 +518,19 @@ export class UnifiedNetworkService {
     const params: Record<string, string> = {};
 
     if (limit !== undefined) {
-      params.size = limit.toString();
+      params['size'] = limit.toString();
     }
 
     if (order !== undefined) {
-      params.order = order;
+      params['order'] = order;
     }
 
     if (accessKey !== undefined) {
-      params.accesskey = accessKey;
+      params['accesskey'] = accessKey;
     }
 
     if (format !== undefined) {
-      params.format = format;
+      params['format'] = format;
     }
 
     const data = {
@@ -576,7 +574,7 @@ export class UnifiedNetworkService {
     const params: Record<string, string> = {};
 
     if (accessKey !== undefined) {
-      params.accesskey = accessKey;
+      params['accesskey'] = accessKey;
     }
 
     const endpoint = `networks/${networkUUID}/aspects`;

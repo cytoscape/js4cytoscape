@@ -25,31 +25,48 @@ describe('FilesService', () => {
   describe('Basic File Operations', () => {
     describe('copyFile', () => {
       it('should call http.post with correct parameters when accessKey provided', async () => {
-        const mockResponse = { success: true };
+        const mockResponse = { uuid: 'new-uuid', modificationTime: 1234567890 };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.copyFile('from-uuid', '/path/to', 'NETWORK', 'access-key');
+        const result = await filesService.copyFile({
+          fileId: 'from-uuid',
+          targetId: 'target-folder-uuid',
+          type: 'NETWORK',
+          accessKey: 'access-key'
+        });
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/copy',
-          { from_uuid: 'from-uuid', type: 'NETWORK', to_path: '/path/to' },
+          { fileId: 'from-uuid', type: 'NETWORK', targetId: 'target-folder-uuid' },
           { params: { accesskey: 'access-key' }, version: 'v3' }
         );
         expect(result).toBe(mockResponse);
       });
 
       it('should call http.post without accesskey when not provided', async () => {
-        const mockResponse = { success: true };
+        const mockResponse = { uuid: 'new-uuid', modificationTime: 1234567890 };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.copyFile('from-uuid', '/path/to', 'NETWORK');
+        const result = await filesService.copyFile({
+          fileId: 'from-uuid',
+          targetId: 'target-folder-uuid',
+          type: 'NETWORK'
+        });
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/copy',
-          { from_uuid: 'from-uuid', type: 'NETWORK', to_path: '/path/to' },
+          { fileId: 'from-uuid', type: 'NETWORK', targetId: 'target-folder-uuid' },
           { params: {}, version: 'v3' }
         );
         expect(result).toBe(mockResponse);
+      });
+
+      it('should throw error when trying to copy a folder', async () => {
+        expect(() => filesService.copyFile({
+          fileId: 'folder-uuid',
+          targetId: 'target-folder-uuid',
+          type: 'FOLDER'
+        })).toThrow('Folder copying is not supported. Only NETWORK and SHORTCUT types are allowed.');
       });
     });
 
@@ -270,28 +287,26 @@ describe('FilesService', () => {
     describe('listShares', () => {
       it('should call http.post with limit parameter', async () => {
         const mockResponse = { shares: [] };
-        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+        mockHttpService.get.mockResolvedValueOnce(mockResponse);
 
         const result = await filesService.listShares(10);
 
-        expect(mockHttpService.post).toHaveBeenCalledWith(
+        expect(mockHttpService.get).toHaveBeenCalledWith(
           'files/sharing/list',
-          { limit: 10 },
-          { version: 'v3' }
+          { params: { limit: 10 }, version: 'v3' }
         );
         expect(result).toBe(mockResponse);
       });
 
       it('should call http.post without parameters when limit not provided', async () => {
         const mockResponse = { shares: [] };
-        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+        mockHttpService.get.mockResolvedValueOnce(mockResponse);
 
         const result = await filesService.listShares();
 
-        expect(mockHttpService.post).toHaveBeenCalledWith(
+        expect(mockHttpService.get).toHaveBeenCalledWith(
           'files/sharing/list',
-          {},
-          { version: 'v3' }
+          { params: {}, version: 'v3' }
         );
         expect(result).toBe(mockResponse);
       });

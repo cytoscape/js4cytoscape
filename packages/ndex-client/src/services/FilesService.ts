@@ -1,5 +1,6 @@
 import { HTTPService } from './HTTPService';
 import { Permission, NDExFileType } from '../constants';
+import { FileListItem, NDExObjectUpdateStatus } from '../types';
 
 interface ShareData {
   files: Record<string, NDExFileType>;
@@ -26,18 +27,61 @@ export class FilesService {
 
   /**
    * Copy a file to a different location
-   * @param fromUuid - Source file UUID
-   * @param toPath - Target path
-   * @param type - File type (NETWORK, FOLDER, SHORTCUT)
-   * @param accessKey - Optional access key for protected files
+   *
+   * Copies a network or shortcut to a target folder. Folder copying is not supported.
+   * The copied file will be placed in the specified target folder with the same name
+   * and properties as the original.
+   *
+   * @param options - Copy operation configuration
+   * @param options.fileId - UUID of the source file to copy
+   * @param options.targetId - UUID of the target folder where the file will be copied
+   * @param options.type - Type of file being copied (only NETWORK and SHORTCUT are supported)
+   * @param options.accessKey - Optional access key for accessing protected files
+   * @returns Promise resolving to the copied file's UUID and modification time
+   *
+   * @example
+   * ```typescript
+   * // Copy a network to a specific folder
+   * await client.files.copyFile({
+   *   fileId: "12345678-1234-1234-1234-123456789abc",
+   *   targetId: "87654321-4321-4321-4321-876543210fed",
+   *   type: "NETWORK"
+   * });
+   *
+   * // Copy a shortcut with access key
+   * await client.files.copyFile({
+   *   fileId: "11111111-2222-3333-4444-555555555555",
+   *   targetId: "66666666-7777-8888-9999-000000000000",
+   *   type: "SHORTCUT",
+   *   accessKey: "secret-key-123"
+   * });
+   * ```
    */
-  copyFile(fromUuid: string, toPath: string, type: string, accessKey?: string): Promise<any> {
+  copyFile(options: {
+    fileId: string;
+    targetId: string;
+    type: NDExFileType;
+    accessKey?: string;
+  }): Promise<NDExObjectUpdateStatus> {
+    // Validate that only supported file types are used
+    if (options.type === 'FOLDER') {
+      throw new Error('Folder copying is not supported. Only NETWORK and SHORTCUT types are allowed.');
+    }
+
     let parameters: Record<string, any> = {};
 
-    if (accessKey !== undefined) {
-      parameters['accesskey'] = accessKey;
+    if (options.accessKey !== undefined) {
+      parameters['accesskey'] = options.accessKey;
     }
-    return this.http.post('files/copy', {from_uuid: fromUuid, type: type, to_path: toPath}, {params: parameters, version: 'v3'});
+
+    return this.http.post('files/copy', {
+      fileId: options.fileId,
+      type: options.type,
+      targetId: options.targetId
+    }, {
+      params: parameters,
+      version: 'v3'
+    });
   }
 
   /** Get file count statistics for the current user */
@@ -129,7 +173,7 @@ export class FilesService {
     if (limit !== undefined) {
       parameters['limit'] = limit;
     }
-    return this.http.post('files/sharing/list', parameters, { version: 'v3' });
+    return this.http.get('files/sharing/list', { params: parameters, version: 'v3' });
   }
   
   share(files: ShareData['files']): Promise<any> {
@@ -180,7 +224,7 @@ export class FilesService {
     return this.http.get(`files/folders/${folderId}/count`, { params: parameters, version: 'v3' });
   }
 
-  getFolderList(folderId: string, accessKey?: string, format?: string, type?: string): Promise<any> {
+  getFolderList(folderId: string, accessKey?: string, format?: string, type?: string): Promise<FileListItem[]> {
     const parameters: Record<string, any> = {};
     if (accessKey !== undefined) {
       parameters['accesskey'] = accessKey;
@@ -191,7 +235,7 @@ export class FilesService {
     if (type !== undefined) {
       parameters['type'] = type;
     }
-    return this.http.get(`files/folders/${folderId}/list`, { params: parameters, version: 'v3' });
+    return this.http.get<FileListItem[]>(`files/folders/${folderId}/list`, { params: parameters, version: 'v3' });
   }
 
   // Shortcut operations

@@ -1,8 +1,8 @@
 import { HTTPService } from './HTTPService';
-import { 
+import {
   NDExUser,
-  PaginationParams,
-  NetworkSummaryV2
+  NetworkSummaryV2,
+  FileListItem
 } from '../types';
 import { AuthType } from '../constants';
 
@@ -174,10 +174,10 @@ export class UserService {
     const params: Record<string, string> = {};
     
     if (start !== undefined) {
-      params.start = start.toString();
+      params['start'] = start.toString();
     }
     if (size !== undefined) {
-      params.limit = size.toString();
+      params['limit'] = size.toString();
     }
 
     const data = { searchString: searchTerms };
@@ -208,15 +208,37 @@ export class UserService {
     // Build parameters for the network summary request
     const params: Record<string, string> = {};
     if (offset !== undefined) {
-      params.offset = offset.toString();
+      params['offset'] = offset.toString();
     }
     if (limit !== undefined) {
-      params.limit = limit.toString();
+      params['limit'] = limit.toString();
     }
 
     // Get network summaries for the user
     const endpoint = `user/${userUUID}/networksummary`;
     return this.http.get<NetworkSummaryV2[]>(endpoint, { params });
+  }
+
+  /**
+   * Get User's Home Content
+   * Returns the content of a user's home folder including networks, folders, and shortcuts.
+   * Shows different content based on authentication status and relationship to the user.
+   * 
+   * @param userUuid - User UUID to get home content for
+   * @param format - Format parameter: 'update' or 'compact' (default: "update")
+   * @returns List of file items in the user's home folder
+   * @note This function requires authentication. The auth attribute must be set in the client configuration.
+   */
+  async getUserHomeContent(
+    userUuid: string,
+    format: 'update' | 'compact' = 'update'
+  ): Promise<FileListItem[]> {
+    const params: Record<string, string> = {
+      format
+    };
+
+    const endpoint = `users/${userUuid}/home`;
+    return this.http.get<FileListItem[]>(endpoint, { params, version: 'v3' });
   }
 
 

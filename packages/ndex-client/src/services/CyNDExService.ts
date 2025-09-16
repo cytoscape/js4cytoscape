@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from 'axios';
 import {
   CyNDExConfig,
   CyNDExAuthConfig,
-  NDExImportParams,
   NDExExportParams,
   CytoscapeNetworkSummary,
   CyNDExStatusResponse,
@@ -146,7 +145,7 @@ export class CyNDExService {
    * Clear authentication credentials
    */
   clearAuth(): void {
-    this.authConfig = undefined;
+    delete this.authConfig;
   }
 
   /**
@@ -259,13 +258,19 @@ export class CyNDExService {
     accessKey?: string, 
     createView?: boolean
   ): Promise<any> {
-    const importParams: NDExImportParams = {
+    const importParams: any = {
       serverUrl: `${this.ndexBaseURL}/v2`,
       uuid: uuid,
-      accessKey: accessKey,
-      createView: createView,
       ...this.getAuthFields()
     };
+
+    if (accessKey !== undefined) {
+      importParams.accessKey = accessKey;
+    }
+
+    if (createView !== undefined) {
+      importParams.createView = createView;
+    }
 
     return this._httpPost('/cyndex2/v1/networks', undefined, importParams);
   }
