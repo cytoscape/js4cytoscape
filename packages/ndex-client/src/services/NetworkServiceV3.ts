@@ -229,21 +229,115 @@ export class NetworkServiceV3 {
   }
 
   /**
-   * Upload network file (CX2, CX, or other formats)
+   * Upload CX2 network via multipart/form-data
+   *
+   * Server endpoint: POST /v3/networks
+   * Consumes: multipart/form-data
+   * Form field: 'CXNetworkStream' (the CX2 content)
+   * Query params: visibility, folderId
+   * Returns: NdexObjectUpdateStatus
    */
-  async uploadNetworkFile(
-    file: File | Blob | string,
+  async uploadCX2Network(
+    cx2: File | Blob | Buffer | string | NodeJS.ReadableStream,
     options: {
-      filename?: string;
       visibility?: Visibility;
-      name?: string;
+      folderId?: string;
       onProgress?: (progress: number) => void;
     } = {}
-  ): Promise<{ uuid: string }> {
-    return this.http.uploadFile<{ uuid: string }>('networks/upload', file, {
-      version: 'v3',
-      ...options,
-    });
+  ): Promise<NDExObjectUpdateStatus> {
+    const params: Record<string, string> = {};
+    if (options.visibility !== undefined) params['visibility'] = String(options.visibility);
+    if (options.folderId !== undefined) params['folderId'] = options.folderId;
+
+    const isNode = typeof (globalThis as any).window === 'undefined';
+
+    if (isNode) {
+      // Use Node's form-data package for robust multipart encoding
+      let FormDataNode: any;
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        FormDataNode = require('form-data');
+      } catch (_e) {
+        FormDataNode = null;
+      }
+
+      if (FormDataNode) {
+        const fd = new FormDataNode();
+        const isReadableStream = (v: any): v is NodeJS.ReadableStream => v && typeof v === 'object' && typeof v.pipe === 'function';
+        if (isReadableStream(cx2)) {
+          fd.append('CXNetworkStream', cx2 as NodeJS.ReadableStream, { filename: 'network.cx2', contentType: 'application/json' });
+        } else if (typeof (globalThis as any).Buffer !== 'undefined' && (globalThis as any).Buffer.isBuffer(cx2)) {
+          fd.append('CXNetworkStream', cx2 as Buffer, { filename: 'network.cx2', contentType: 'application/json' });
+        } else if (typeof cx2 === 'string') {
+          fd.append('CXNetworkStream', (globalThis as any).Buffer.from(cx2), { filename: 'network.cx2', contentType: 'application/json' });
+        } else if (typeof (globalThis as any).Blob !== 'undefined' && cx2 instanceof (globalThis as any).Blob) {
+          const ab = await (cx2 as Blob).arrayBuffer();
+          fd.append('CXNetworkStream', (globalThis as any).Buffer.from(ab), { filename: 'network.cx2', contentType: (cx2 as any).type || 'application/json' });
+        } else {
+          fd.append('CXNetworkStream', (globalThis as any).Buffer.from(String(cx2)), { filename: 'network.cx2', contentType: 'application/json' });
+        }
+
+        const axiosConfig: any = { version: 'v3', params, headers: fd.getHeaders?.() || {}, maxBodyLength: Infinity };
+        // onUploadProgress is generally not supported in Node's default adapter; skip to avoid TS friction
+        return this.http.post<NDExObjectUpdateStatus>('networks', fd, axiosConfig);
+      }
+      // If form-data is not available and a ReadableStream was provided, fail fast with guidance
+      const isReadableStream = (v: any): v is NodeJS.ReadableStream => v && typeof v === 'object' && typeof v.pipe === 'function';
+      if (isReadableStream(cx2)) {
+        throw new Error("Readable stream upload requires 'form-data' package. Please install 'form-data' or pass a string/Buffer/Blob instead.");
+      }
+      // Otherwise, fall through to web FormData path below (will buffer in memory)
+    }
+
+    // Browser / Node 18+ web FormData path
+    const formData = new FormData();
+    const hasFileCtor = typeof (globalThis as any).File !== 'undefined';
+    const hasBlobCtor = typeof (globalThis as any).Blob !== 'undefined';
+
+    if (hasFileCtor && cx2 instanceof (globalThis as any).File) {
+      formData.append('CXNetworkStream', cx2 as any, (cx2 as any).name || 'network.cx2');
+    } else if (hasBlobCtor && cx2 instanceof (globalThis as any).Blob) {
+      formData.append('CXNetworkStream', cx2 as any, 'network.cx2');
+    } else if (typeof cx2 === 'string') {
+      const blob = new Blob([cx2], { type: 'application/json' });
+      formData.append('CXNetworkStream', blob, 'network.cx2');
+    } else if (typeof (globalThis as any).Buffer !== 'undefined' && (globalThis as any).Buffer.isBuffer(cx2)) {
+      const blob = new Blob([cx2 as Buffer], { type: 'application/json' });
+      formData.append('CXNetworkStream', blob, 'network.cx2');
+    } else {
+      const blob = new Blob([String(cx2)], { type: 'application/json' });
+      formData.append('CXNetworkStream', blob, 'network.cx2');
+    }
+
+    const axiosConfigWeb: any = { version: 'v3', params };
+    if (options.onProgress) {
+      axiosConfigWeb.onUploadProgress = (evt: any) => {
+        const p = Math.round((evt.loaded * 100) / (evt.total || 1));
+        options.onProgress!(p);
+      };
+    }
+    return this.http.post<NDExObjectUpdateStatus>('networks', formData, axiosConfigWeb);
+  }
+
+  /**
+   * Upload network file (Deprecated convenience wrapper)
+   *
+   * Delegates to uploadCX2Network(). Kept for backward compatibility.
+   */
+  async uploadNetworkFile(
+    file: File | Blob | Buffer | string | NodeJS.ReadableStream,
+    options: {
+      visibility?: Visibility;
+      onProgress?: (progress: number) => void;
+      folderId?: string;
+    } = {}
+  ): Promise<NDExObjectUpdateStatus> {
+    // Ignore filename/name – server reads data from 'CXNetworkStream'
+    const payloadOpts: any = {};
+    if (options.visibility !== undefined) payloadOpts.visibility = options.visibility;
+    if (options.folderId !== undefined) payloadOpts.folderId = options.folderId;
+    if (options.onProgress) payloadOpts.onProgress = options.onProgress;
+    return this.uploadCX2Network(file, payloadOpts);
   }
 
   /**

@@ -42,10 +42,9 @@ describe('HTTPService', () => {
       expect(mockedAxios.create).toHaveBeenCalledWith({
         baseURL: 'https://www.ndexbio.org',
         timeout: 30000,
-        headers: {
-          'Content-Type': 'application/json',
+        headers: expect.objectContaining({
           'User-Agent': 'NDEx-JS-Client/1.0.0'
-        }
+        })
       });
     });
 
@@ -62,11 +61,10 @@ describe('HTTPService', () => {
       expect(mockedAxios.create).toHaveBeenCalledWith({
         baseURL: 'https://test.ndexbio.org',
         timeout: 5000,
-        headers: {
-          'Content-Type': 'application/json',
+        headers: expect.objectContaining({
           'User-Agent': 'NDEx-JS-Client/1.0.0',
           'Custom-Header': 'test'
-        }
+        })
       });
     });
 
@@ -192,9 +190,7 @@ describe('HTTPService', () => {
       expect(mockAxiosInstance.post).toHaveBeenCalledWith(
         '/v3/networks',
         expect.any(FormData),
-        expect.objectContaining({
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
+        expect.any(Object)
       );
       
       formDataSpy.mockRestore();

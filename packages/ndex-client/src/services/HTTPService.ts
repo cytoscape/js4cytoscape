@@ -34,9 +34,8 @@ export class HTTPService {
       ...config,
     };
 
-    // Create headers object
+    // Create headers object (avoid forcing Content-Type; let axios set it per request)
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
       ...this.config.headers,
       ...this.getAuthHeaders(),
     };
@@ -240,24 +239,28 @@ export class HTTPService {
 
     const formData = new FormData();
     
-    if (file instanceof File) {
-      formData.append('file', file, file.name);
-    } else if (file instanceof Blob) {
-      formData.append('file', file, 'file.cx2');
+    const hasFileCtor = typeof (globalThis as any).File !== 'undefined';
+    const hasBlobCtor = typeof (globalThis as any).Blob !== 'undefined';
+
+    if (hasFileCtor && file instanceof (globalThis as any).File) {
+      formData.append('file', file as any, (file as any).name);
+    } else if (hasBlobCtor && file instanceof (globalThis as any).Blob) {
+      formData.append('file', file as any, 'file.cx2');
     } else if (typeof file === 'string') {
       const blob = new Blob([file], { type: contentType || 'application/json' });
-      formData.append('file', blob,'file.cx2');
+      formData.append('file', blob, 'file.cx2');
+    } else if (typeof (globalThis as any).Buffer !== 'undefined' && (globalThis as any).Buffer.isBuffer(file)) {
+      // Node Buffer → convert to Blob so it works with web FormData (Node 18+)
+      const blob = new Blob([file as Buffer], { type: contentType || 'application/octet-stream' });
+      formData.append('file', blob, 'file.cx2');
     } else {
-      // Buffer (Node.js environment)
-      formData.append('file', file as any, 'file.cx2');
+      // Fallback: coerce to string and wrap in Blob
+      const blob = new Blob([String(file)], { type: contentType || 'application/octet-stream' });
+      formData.append('file', blob, 'file.cx2');
     }
 
     try {
-      const config: any = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
+      const config: any = {};
 
       if (onProgress) {
         config.onUploadProgress = (progressEvent: any) => {
@@ -266,6 +269,7 @@ export class HTTPService {
         };
       }
 
+      // Do not set Content-Type manually; let axios set the multipart boundary
       const response = await this.axiosInstance.post<APIResponse<T>>(url, formData, config);
 
       return this.handleResponse<T>(response);

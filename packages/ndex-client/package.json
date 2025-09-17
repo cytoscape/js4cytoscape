@@ -64,7 +64,7 @@
   "author": "Jing Chen",
   "license": "MIT",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "keywords": [
     "ndex",
@@ -76,7 +76,8 @@
     "typescript"
   ],
   "dependencies": {
-    "axios": "^1.11.0"
+    "axios": "^1.11.0",
+    "form-data": "^4.0.4"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
