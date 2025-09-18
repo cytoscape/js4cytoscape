@@ -556,5 +556,20 @@ export interface FileListItem {
   updatedBy: string;
 }
 
+/**
+ * Shortcut object structure returned from shortcut operations
+ *
+ * @property name - Name of the shortcut
+ * @property parent - UUID of the parent folder (optional)
+ * @property target - UUID of the target object
+ * @property targetType - File type of the target object
+ */
+export interface Shortcut {
+  name: string;
+  parent?: string;
+  target: string;
+  targetType: NDExFileType;
+}
+
 
 

@@ -1,6 +1,6 @@
 import { HTTPService } from './HTTPService';
 import { Permission, NDExFileType } from '../constants';
-import { FileListItem, NDExObjectUpdateStatus } from '../types';
+import { FileListItem, NDExObjectUpdateStatus, Shortcut } from '../types';
 
 interface ShareData {
   files: Record<string, NDExFileType>;
@@ -279,11 +279,11 @@ export class FilesService {
    * });
    * ```
    */
-  createShortcut(options: CreateShortcutOptions): Promise<any> {
+  createShortcut(options: CreateShortcutOptions): Promise<NDExObjectUpdateStatus> {
     return this.http.post('files/shortcuts', options, { version: 'v3' });
   }
 
-  getShortcut(shortcutId: string, accessKey?: string): Promise<any> {
+  getShortcut(shortcutId: string, accessKey?: string): Promise<Shortcut> {
     const parameters: Record<string, any> = {};
     if (accessKey !== undefined) {
       parameters['accesskey'] = accessKey;
