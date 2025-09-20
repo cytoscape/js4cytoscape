@@ -2,7 +2,8 @@ import { HTTPService } from './HTTPService';
 import {
   NDExUser,
   NetworkSummaryV2,
-  FileListItem
+  FileListItem,
+  SearchResult
 } from '../types';
 import { AuthType } from '../constants';
 
@@ -164,13 +165,13 @@ export class UserService {
    * @param searchTerms - Search string to find users
    * @param start - Starting offset for pagination (optional)
    * @param size - Maximum number of results to return (optional)
-   * @returns Array of users matching the search criteria
+   * @returns Search result containing users matching the search criteria
    */
   async searchUsers(
-    searchTerms: string, 
-    start?: number, 
+    searchTerms: string,
+    start?: number,
     size?: number
-  ): Promise<NDExUser[]> {
+  ): Promise<SearchResult<NDExUser>> {
     const params: Record<string, string> = {};
     
     if (start !== undefined) {
@@ -182,8 +183,8 @@ export class UserService {
 
     const data = { searchString: searchTerms };
     const endpoint = 'search/user';
-    
-    return this.http.post<NDExUser[]>(endpoint, data, { params });
+
+    return this.http.post<SearchResult<NDExUser>>(endpoint, data, { params });
   }
 
 

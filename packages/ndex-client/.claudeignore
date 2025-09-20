@@ -13,6 +13,13 @@ docs/
 docs-site/build/
 docs-site/node_modules/
 
+docs-root/api/
+docs-root/
+docs-root/guide/.docusaurus
+docs-root/guide/build/
+docs-root/guide/node_modules
+
+
 # Test artifacts
 *.log
 *.coverage

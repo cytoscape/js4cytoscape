@@ -153,7 +153,7 @@ export class NetworkServiceV3 {
   /**
    * Search networks with V3 enhanced features
    */
-  async searchNetworks(searchParams: SearchParameters = {}): Promise<SearchResult> {
+  async searchNetworks(searchParams: SearchParameters = {}): Promise<SearchResult<NetworkSummaryV3>> {
     const params = new URLSearchParams();
     
     if (searchParams.searchString) {
@@ -182,7 +182,7 @@ export class NetworkServiceV3 {
     }
 
     const endpoint = `search/network${params.toString() ? `?${params.toString()}` : ''}`;
-    return this.http.get<SearchResult>(endpoint, { version: 'v3' });
+    return this.http.get<SearchResult<NetworkSummaryV3>>(endpoint, { version: 'v3' });
   }
   /**
    * Get network as CX2Network object with utilities

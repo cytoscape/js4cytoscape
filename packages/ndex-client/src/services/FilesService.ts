@@ -6,8 +6,47 @@ interface ShareData {
   files: Record<string, NDExFileType>;
 }
 
-interface MemberData {
-  members: Record<string, Permission>;
+
+/**
+ * Request object for sharing member operations
+ *
+ * This interface defines the structure for requests that manage file sharing permissions.
+ * It combines file identification with member permission management in a single request.
+ */
+export interface SharingMemberRequest {
+  /**
+   * Object mapping file UUIDs to their corresponding file types
+   *
+   * @description Each key represents the UUID of a file to be shared, and the value
+   * indicates what type of file it is (NETWORK, FOLDER, or SHORTCUT)
+   *
+   * @example
+   * ```typescript
+   * {
+   *   "12345678-1234-1234-1234-123456789abc": "NETWORK",
+   *   "87654321-4321-4321-4321-876543210fed": "FOLDER"
+   * }
+   * ```
+   */
+  files: Record<string, NDExFileType>;
+
+  /**
+   * Object mapping member UUIDs to their permission levels
+   *
+   * @description Each key represents the UUID of a user or member who should receive
+   * explicit permissions, and the value is the type of permission they should have.
+   * If the permission value is null, the existing file permission for the member will be revoked.
+   *
+   * @example
+   * ```typescript
+   * {
+   *   "user1-uuid-1234-5678-9abc-def012345678": "READ",
+   *   "user2-uuid-8765-4321-fedc-ba0987654321": "WRITE",
+   *   "user3-uuid-1111-2222-3333-444444444444": null // This will revoke permissions
+   * }
+   * ```
+   */
+  members: Record<string, Permission | null>;
 }
 
 
@@ -144,7 +183,7 @@ export class FilesService {
     }
   }
 
-  private _validateMemberData(data: MemberData): void {
+  private _validateMemberData(data: { members: Record<string, Permission | null> }): void {
     // Only need to validate UUID format - TypeScript ensures permission values are correct
     for (const uuid of Object.keys(data.members)) {
       if (typeof uuid !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
@@ -153,19 +192,92 @@ export class FilesService {
     }
   }
 
-  updateMember(files: ShareData['files'], members: MemberData['members']): Promise<any> {
-    this._validateShareData({ files });
-    this._validateMemberData({ members });
-    return this.http.post('files/sharing/members', { files, members }, { version: 'v3' });
+  /**
+   * Update member permissions for shared files
+   *
+   * This method allows you to grant, modify, or revoke permissions for specific members
+   * across multiple files in a single operation. It's particularly useful for bulk
+   * permission management and ensuring consistent access control.
+   *
+   * @param request - The sharing member request containing files and member permissions
+   * @param request.files - Object mapping file UUIDs to their file types
+   * @param request.members - Object mapping member UUIDs to their permission levels (or null to revoke)
+   *
+   * @returns Promise resolving to an object with file UUIDs as keys and permission status messages as values
+   *
+   * @example
+   * ```typescript
+   * // Grant permissions to multiple members for different files
+   * const result = await client.files.updateMember({
+   *   files: {
+   *     "network-uuid-123": "NETWORK",
+   *     "folder-uuid-456": "FOLDER"
+   *   },
+   *   members: {
+   *     "user1-uuid": "READ",
+   *     "user2-uuid": "WRITE",
+   *     "user3-uuid": null // Revoke permissions
+   *   }
+   * });
+   *
+   * // Result example:
+   * // {
+   * //   "network-uuid-123": "network permission granted",
+   * //   "folder-uuid-456": "folder permission granted"
+   * // }
+   *
+   * // Revoke all permissions for a user
+   * await client.files.updateMember({
+   *   files: {
+   *     "network-uuid-789": "NETWORK"
+   *   },
+   *   members: {
+   *     "user-to-remove-uuid": null
+   *   }
+   * });
+   * ```
+   *
+   * @throws {Error} When file UUIDs have invalid format
+   * @throws {Error} When file types are invalid
+   * @throws {Error} When member UUIDs have invalid format
+   */
+  updateMember(request: SharingMemberRequest): Promise<Record<string, string>> {
+    this._validateShareData({ files: request.files });
+    this._validateMemberData({ members: request.members });
+    return this.http.post('files/sharing/members', { files: request.files, members: request.members }, { version: 'v3' });
   }
 
-  listMembers(files: any): Promise<any> {
+  listMembers(files: Record<string, NDExFileType>): Promise<any> {
+    this._validateShareData({ files });
     return this.http.get('files/sharing/members/list', {params: files, version: 'v3'});
   }
 
-  transferOwnership(files: ShareData['files'], newOwner: string): Promise<any> {
-    this._validateShareData({ files });
-    return this.http.post('files/sharing/transfer_ownership', { files, new_owner: newOwner }, { version: 'v3' });
+  /**
+   * Transfer ownership of networks to a new owner
+   *
+   * This method transfers ownership of multiple networks to a specified user.
+   * The current owner will lose ownership rights, and the new owner will gain
+   * full control over the specified networks.
+   *
+   * @param request - Transfer ownership request
+   * @param request.networks - Array of network UUIDs to transfer ownership for
+   * @param request.newOwner - UUID of the user who will become the new owner
+   * @returns Promise that resolves when the ownership transfer is complete
+   *
+   * @example
+   * ```typescript
+   * // Transfer ownership of multiple networks to a new owner
+   * await client.files.transferOwnership({
+   *   networks: [
+   *     "12345678-1234-1234-1234-123456789abc",
+   *     "87654321-4321-4321-4321-876543210fed"
+   *   ],
+   *   newOwner: "new-owner-uuid-1111-2222-3333-444444444444"
+   * });
+   * ```
+   */
+  transferOwnership(request: { networks: string[]; newOwner: string }): Promise<void> {
+    return this.http.post('files/sharing/transfer', request, { version: 'v3' });
   }
 
   listShares(limit?: number): Promise<any> {

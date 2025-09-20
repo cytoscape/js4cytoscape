@@ -204,7 +204,20 @@ describe('FilesService', () => {
         }).not.toThrow();
       });
 
-      // Note: Missing members property and invalid permission tests removed 
+      it('should validate member data with null permissions for revocation', () => {
+        const validData = {
+          members: {
+            '12345678-1234-1234-1234-123456789abc': 'READ' as Permission,
+            '87654321-4321-4321-4321-cba987654321': null
+          }
+        };
+
+        expect(() => {
+          (filesService as any)._validateMemberData(validData);
+        }).not.toThrow();
+      });
+
+      // Note: Missing members property and invalid permission tests removed
       // because TypeScript now enforces correct typing at compile time
 
       it('should throw error for invalid UUID in members', () => {
@@ -222,13 +235,14 @@ describe('FilesService', () => {
   describe('Sharing Operations', () => {
     const validFiles = { '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const };
     const validMembers = { '87654321-4321-4321-4321-cba987654321': 'READ' as Permission };
+    const validRequest = { files: validFiles, members: validMembers };
 
     describe('updateMember', () => {
       it('should call http.post with validated data', async () => {
-        const mockResponse = { success: true };
+        const mockResponse = { '12345678-1234-1234-1234-123456789abc': 'network permission granted' };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.updateMember(validFiles, validMembers);
+        const result = await filesService.updateMember(validRequest);
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/sharing/members',
@@ -239,10 +253,32 @@ describe('FilesService', () => {
       });
 
       it('should throw error for invalid files data', () => {
-        const invalidFiles = { 'invalid-uuid': 'NETWORK' as const };
+        const invalidRequest = {
+          files: { 'invalid-uuid': 'NETWORK' as const },
+          members: validMembers
+        };
 
-        expect(() => filesService.updateMember(invalidFiles, validMembers)).toThrow('Invalid UUID format');
+        expect(() => filesService.updateMember(invalidRequest)).toThrow('Invalid UUID format');
         expect(mockHttpService.post).not.toHaveBeenCalled();
+      });
+
+      it('should support permission revocation with null values', async () => {
+        const mockResponse = { '12345678-1234-1234-1234-123456789abc': 'network permission revoked' };
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const revokeRequest = {
+          files: validFiles,
+          members: { '87654321-4321-4321-4321-cba987654321': null }
+        };
+
+        const result = await filesService.updateMember(revokeRequest);
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'files/sharing/members',
+          { files: validFiles, members: { '87654321-4321-4321-4321-cba987654321': null } },
+          { version: 'v3' }
+        );
+        expect(result).toBe(mockResponse);
       });
     });
 
@@ -263,24 +299,20 @@ describe('FilesService', () => {
     });
 
     describe('transferOwnership', () => {
-      it('should call http.post with validated data', async () => {
+      it('should call http.post with correct parameters', async () => {
         const mockResponse = { success: true };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.transferOwnership(validFiles, 'new-owner');
+        const networks = ['12345678-1234-1234-1234-123456789abc', '87654321-4321-4321-4321-876543210fed'];
+        const newOwner = 'new-owner-uuid';
+        const result = await filesService.transferOwnership({ networks, newOwner });
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
-          'files/sharing/transfer_ownership',
-          { files: validFiles, new_owner: 'new-owner' },
+          'files/sharing/transfer',
+          { networks, newOwner },
           { version: 'v3' }
         );
         expect(result).toBe(mockResponse);
-      });
-
-
-      it('should throw error for invalid files', () => {
-        const invalidFiles = { 'invalid': 'NETWORK' as const };
-        expect(() => filesService.transferOwnership(invalidFiles, 'owner')).toThrow('Invalid UUID format');
       });
     });
 

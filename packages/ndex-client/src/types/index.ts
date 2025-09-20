@@ -328,11 +328,18 @@ export interface CX2Status {
 // Search Types
 // ============================================================================
 
-export interface SearchResult {
+export interface SearchResult<T> {
+  ResultList: T[];
+  start: number;
+  numFound: number;
+}
+
+/* commenting out as not currently used
+export interface NetworkSearchResult {
   numFound: number;
   start: number;
   networks: NetworkSummaryV2[] | NetworkSummaryV3[];
-}
+} */
 
 export interface SearchParameters {
   searchString?: string;
@@ -570,6 +577,9 @@ export interface Shortcut {
   target: string;
   targetType: NDExFileType;
 }
+
+// Re-export sharing types from services
+export type { SharingMemberRequest } from '../services/FilesService';
 
 
 
