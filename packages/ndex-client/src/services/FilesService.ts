@@ -1,11 +1,6 @@
 import { HTTPService } from './HTTPService';
-import { Permission, NDExFileType } from '../constants';
+import { Permission, NDExFileType, Visibility } from '../constants';
 import { FileListItem, NDExObjectUpdateStatus, Shortcut } from '../types';
-
-interface ShareData {
-  files: Record<string, NDExFileType>;
-}
-
 
 /**
  * Request object for sharing member operations
@@ -288,14 +283,45 @@ export class FilesService {
     return this.http.get('files/sharing/list', { params: parameters, version: 'v3' });
   }
   
-  share(files: ShareData['files']): Promise<any> {
-    this._validateShareData({ files });
-    return this.http.post('files/sharing/share', { files }, { version: 'v3' });
+  /**
+   * Share files with public access
+   *
+   * Makes specified files publicly accessible by generating access keys for each file.
+   * The generated access keys can be used by others to access the shared files without
+   * requiring explicit permissions.
+   *
+   * @param fileTable - Object mapping file UUIDs to their file types
+   * @returns Promise resolving to an object mapping file UUIDs to their generated access keys
+   *
+   * @example
+   * ```typescript
+   * // Share a network and a folder
+   * const result = await client.files.share({
+   *   "e6fc6a72-59ea-4f1d-ad81-59eda2cb8dce": "NETWORK",
+   *   "40c08b7b-a4dd-4f00-87b3-1b945991948a": "FOLDER"
+   * });
+   *
+   * // Result example:
+   * // {
+   * //   "e6fc6a72-59ea-4f1d-ad81-59eda2cb8dce": "abc123def456",
+   * //   "40c08b7b-a4dd-4f00-87b3-1b945991948a": "xyz789uvw012"
+   * // }
+   *
+   * // Use the access key to access shared content
+   * const sharedNetwork = await client.networks.getNetwork(
+   *   "e6fc6a72-59ea-4f1d-ad81-59eda2cb8dce",
+   *   { accessKey: result["e6fc6a72-59ea-4f1d-ad81-59eda2cb8dce"] }
+   * );
+   * ```
+   */
+  share(fileTable: Record<string, NDExFileType>): Promise<Record<string, string>> {
+    this._validateShareData({ files: fileTable });
+    return this.http.post('files/sharing/share', { files: fileTable }, { version: 'v3' });
   }
 
-  unshare(files: ShareData['files']): Promise<any> {
-    this._validateShareData({ files });
-    return this.http.post('files/sharing/unshare', { files }, { version: 'v3' });
+  unshare(fileTable: Record<string, NDExFileType>): Promise<void> {
+    this._validateShareData({ files: fileTable });
+    return this.http.post('files/sharing/unshare', { files: fileTable }, { version: 'v3' });
   }
 
   // Folder operations
@@ -409,5 +435,33 @@ export class FilesService {
 
   deleteShortcut(shortcutId: string): Promise<any> {
     return this.http.delete(`files/shortcuts/${shortcutId}`, { version: 'v3' });
+  }
+
+  /**
+   * Set visibility for multiple files
+   *
+   * Updates the visibility settings for the specified files, controlling who can
+   * access them based on the visibility level (public, private, etc.).
+   *
+   * @param options - Visibility update configuration
+   * @param options.files - Object mapping file UUIDs to their file types
+   * @param options.visibility - The visibility level to apply to all specified files
+   * @returns Promise that resolves when the visibility has been updated
+   *
+   * @example
+   * ```typescript
+   * // Make multiple files public
+   * await client.files.setVisibility({
+   *   files: {
+   *     "12345678-1234-1234-1234-123456789abc": "NETWORK",
+   *     "87654321-4321-4321-4321-876543210fed": "FOLDER"
+   *   },
+   *   visibility: "PUBLIC"
+   * });
+   * ```
+   */
+  setVisibility(options: {files: Record<string, NDExFileType>, visibility: Visibility}): Promise<void> {
+    return this.http.post(`batch/files/setvisibility`,
+         { files: options.files, visibility: options.visibility}, { version: 'v3' });
   }
 }

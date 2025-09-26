@@ -372,6 +372,36 @@ export class UnifiedNetworkService {
   }
 
   /**
+   * Get network access key
+   *
+   * Retrieves the access key for a network if it has been enabled for public access.
+   * When a network has an access key enabled, it can be accessed by others without
+   * explicit permissions using this key.
+   *
+   * @param networkUUID - The UUID of the network to get the access key for
+   * @returns Promise resolving to an object with accessKey property when enabled,
+   *          or null when access key is not enabled on this network
+   *
+   * @example
+   * ```typescript
+   * // Check if network has an access key
+   * const result = await client.networks.getNetworkAccessKey('12345678-1234-1234-1234-123456789abc');
+   *
+   * if (result) {
+   *   console.log('Access key:', result.accessKey); // "sdfdfdfsdfdsfs"
+   *   // Use the access key to access the network
+   *   const networkData = await client.networks.getRawCX2Network(networkUUID, { accessKey: result.accessKey });
+   * } else {
+   *   console.log('No access key enabled for this network');
+   * }
+   * ```
+   */
+  async getNetworkAccessKey(networkUUID: string): Promise<{ accessKey: string } | null> {
+    const endpoint = `network/${networkUUID}/accesskey`;
+    return this.http.get<{ accessKey: string } | null>(endpoint, { version: 'v2' });
+  }
+
+  /**
    * Get random edges from network (migrated from original NDEx.js)
    * 
    * Retrieves a random sample of edges from a network using the V3 API.

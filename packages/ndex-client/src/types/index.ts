@@ -546,21 +546,33 @@ export interface NDExObjectUpdateStatus {
 
 /**
  * Items in a file list returned for a folder or user account
- * 
+ *
  * @property uuid - Unique identifier of the file
  * @property type - Type of the file (folder, network, or shortcut)
- * @property name - Name of the file
+ * @property name - Name of the file (optional for some items)
  * @property modificationTime - Last modification timestamp
- * @property updatedBy - Username of the user who last updated the file
+ * @property updatedBy - Username of the user who last updated the file (optional)
  * @property attributes - Additional attributes associated with the file
+ * @property isShared - Whether the file is shared (optional)
+ * @property isReadOnly - Whether the file is read-only (networks only, optional)
+ * @property warnings - Array of warning messages (networks only, optional)
+ * @property isCompleted - Whether the file processing is completed (networks only, optional)
+ * @property errorMessage - Error message if file has errors (optional)
  */
 export interface FileListItem {
   uuid: string;
-  name: string;
+  name?: string;
   type: NDExFileType;
   modificationTime: number;
   attributes: any;
-  updatedBy: string;
+  updatedBy?: string;
+  isShared?: boolean;
+  isReadOnly?: boolean;
+  warnings?: string[];
+  isCompleted?: boolean;
+  errorMessage?: string;
+  isValid?: boolean;
+  DOI: string;
 }
 
 /**
