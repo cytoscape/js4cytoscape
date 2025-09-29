@@ -3,6 +3,67 @@ import { Permission, NDExFileType, Visibility } from '../constants';
 import { FileListItem, NDExObjectUpdateStatus, Shortcut } from '../types';
 
 /**
+ * Permission details for a file including its type and member permissions
+ *
+ * @description This interface represents the permission information for a single file,
+ * including what type of file it is and which users have what permissions on it.
+ */
+export interface FilePermissionDetails {
+  /**
+   * The type of the file (NETWORK, FOLDER, or SHORTCUT)
+   */
+  type: NDExFileType;
+
+  /**
+   * Map of user UUIDs to their permission levels on this file
+   *
+   * @description Each key represents a user's UUID, and the corresponding value
+   * indicates what permission level that user has on the file.
+   *
+   * @example
+   * ```typescript
+   * {
+   *   "user1-uuid-1234-5678-9abc-def012345678": "READ",
+   *   "user2-uuid-8765-4321-fedc-ba0987654321": "WRITE",
+   *   "user3-uuid-1111-2222-3333-444444444444": "ADMIN"
+   * }
+   * ```
+   */
+  members: Record<string, Permission>;
+}
+
+/**
+ * List of file permission records returned by listMembers
+ *
+ * @description Each element in the array is a record where the key is a file UUID
+ * and the value contains the file's type and member permissions.
+ *
+ * @example
+ * ```typescript
+ * [
+ *   {
+ *     "12345678-1234-1234-1234-123456789abc": {
+ *       type: "NETWORK",
+ *       members: {
+ *         "user1-uuid": "READ",
+ *         "user2-uuid": "WRITE"
+ *       }
+ *     }
+ *   },
+ *   {
+ *     "87654321-4321-4321-4321-876543210fed": {
+ *       type: "FOLDER",
+ *       members: {
+ *         "user3-uuid": "ADMIN"
+ *       }
+ *     }
+ *   }
+ * ]
+ * ```
+ */
+export type FilePermissionList = Record<string, FilePermissionDetails>[];
+
+/**
  * Request object for sharing member operations
  *
  * This interface defines the structure for requests that manage file sharing permissions.
@@ -242,9 +303,70 @@ export class FilesService {
     return this.http.post('files/sharing/members', { files: request.files, members: request.members }, { version: 'v3' });
   }
 
-  listMembers(files: Record<string, NDExFileType>): Promise<any> {
+  /**
+   * List members and their permissions for specified files
+   *
+   * Retrieves detailed permission information for the specified files, including
+   * the file type and a mapping of all users who have explicit permissions on each file.
+   * This is useful for auditing file access and understanding who has what level of
+   * access to your shared content.
+   *
+   * @param files - Object mapping file UUIDs to their file types
+   * @returns Promise resolving to a list of permission records for each file
+   *
+   * @example
+   * ```typescript
+   * // Get permission details for multiple files
+   * const permissions = await client.files.listMembers({
+   *   "12345678-1234-1234-1234-123456789abc": "NETWORK",
+   *   "87654321-4321-4321-4321-876543210fed": "FOLDER",
+   *   "11111111-2222-3333-4444-555555555555": "SHORTCUT"
+   * });
+   *
+   * // Result example:
+   * // [
+   * //   {
+   * //     "12345678-1234-1234-1234-123456789abc": {
+   * //       type: "NETWORK",
+   * //       members: {
+   * //         "user1-uuid-1234-5678-9abc-def012345678": "READ",
+   * //         "user2-uuid-8765-4321-fedc-ba0987654321": "WRITE",
+   * //         "user3-uuid-1111-2222-3333-444444444444": "ADMIN"
+   * //       }
+   * //     }
+   * //   },
+   * //   {
+   * //     "87654321-4321-4321-4321-876543210fed": {
+   * //       type: "FOLDER",
+   * //       members: {
+   * //         "user4-uuid-aaaa-bbbb-cccc-dddddddddddd": "ADMIN",
+   * //         "user5-uuid-eeee-ffff-0000-111111111111": "READ"
+   * //       }
+   * //     }
+   * //   }
+   * // ]
+   *
+   * // Access specific file permissions
+   * const networkPermissions = permissions.find(record =>
+   *   record["12345678-1234-1234-1234-123456789abc"]
+   * )?.["12345678-1234-1234-1234-123456789abc"];
+   *
+   * if (networkPermissions) {
+   *   console.log('File type:', networkPermissions.type); // "NETWORK"
+   *   console.log('Members:', networkPermissions.members);
+   *
+   *   // Check if specific user has permission
+   *   const userPermission = networkPermissions.members["user1-uuid-1234-5678-9abc-def012345678"];
+   *   console.log('User permission:', userPermission); // "READ"
+   * }
+   * ```
+   *
+   * @throws {Error} When file UUIDs have invalid format
+   * @throws {Error} When file types are invalid
+   */
+  listMembers(files: Record<string, NDExFileType>): Promise<FilePermissionList> {
     this._validateShareData({ files });
-    return this.http.get('files/sharing/members/list', {params: files, version: 'v3'});
+    return this.http.post('files/sharing/members/list', files, { version: 'v3' });
   }
 
   /**

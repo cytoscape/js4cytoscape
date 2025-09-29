@@ -48,7 +48,7 @@ export class NetworkServiceV2 {
    * Get network summary by UUID
    */
   async getNetworkSummary(
-    networkUUID: string, 
+    networkUUID: string,
     options: AccessParams = {}
   ): Promise<NetworkSummaryV2> {
     const params = new URLSearchParams();
@@ -58,6 +58,47 @@ export class NetworkServiceV2 {
 
     const endpoint = `network/${networkUUID}/summary${params.toString() ? `?${params.toString()}` : ''}`;
     return this.http.get<NetworkSummaryV2>(endpoint, { version: 'v2' });
+  }
+
+  /**
+   * Update network summary
+   *
+   * Updates the summary information for an existing network. This allows modification
+   * of network metadata such as name, description, visibility, and other summary properties
+   * without updating the actual network content (nodes/edges).
+   *
+   * @param networkUUID - The UUID of the network to update
+   * @param networkSummary - The updated network summary object containing the new metadata
+   * @returns Promise that resolves when the update is complete
+   *
+   * @example
+   * ```typescript
+   * // Update network name and description
+   * await networkService.updateNetworkSummary('12345678-1234-1234-1234-123456789abc', {
+   *   externalId: '12345678-1234-1234-1234-123456789abc',
+   *   name: 'Updated Network Name',
+   *   description: 'Updated network description',
+   *   nodeCount: 150,
+   *   edgeCount: 200,
+   *   visibility: 'PUBLIC',
+   *   owner: 'username',
+   *   ownerUUID: 'user-uuid',
+   *   creationTime: 1234567890,
+   *   modificationTime: 1234567890,
+   *   isReadOnly: false,
+   *   isValid: true,
+   *   hasLayout: true,
+   *   hasSample: false,
+   *   updatedBy: 'username'
+   * });
+   * ```
+   */
+  async updateNetworkSummary(
+    networkUUID: string,
+    networkSummary: NetworkSummaryV2
+  ): Promise<void> {
+    const endpoint = `network/${networkUUID}/summary`;
+    return this.http.put<void>(endpoint, networkSummary, { version: 'v2' });
   }
 
    /**

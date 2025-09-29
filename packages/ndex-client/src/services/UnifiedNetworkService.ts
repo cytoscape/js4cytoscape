@@ -3,6 +3,8 @@ import { NetworkServiceV2 } from './NetworkServiceV2';
 import { NetworkServiceV3 } from './NetworkServiceV3';
 import {
   NetworkSummaryV3,
+  NetworkSummaryV2,
+  CX1NetworkProperty,
   AccessParams,
   CX2Network as CX2NetworkType,
   CX2Edge,
@@ -28,20 +30,135 @@ export class UnifiedNetworkService {
 
   /**
    * Get network summary using V3 API
-   * 
+   *
    * Retrieves comprehensive summary information for a network including metadata,
    * statistics, permissions, and other network properties using the V3 API.
-   * 
+   *
    * @param networkUUID - The UUID of the network to get summary for
    * @param options - Access options including optional access key for private networks
    * @returns Promise resolving to NetworkSummaryV3 object containing network summary information
    */
   async getNetworkSummary(
-    networkUUID: string, 
+    networkUUID: string,
     options: AccessParams = {}
   ): Promise<NetworkSummaryV3> {
     return this.v3Service.getNetworkSummary(networkUUID, options);
   }
+
+  /**
+   * Update network summary using V3 to V2 transformation
+   *
+   * Updates network summary information by accepting a NetworkSummaryV3 object,
+   * transforming it to the V2 format, and calling the V2 API endpoint.
+   * This provides a unified interface for updating network summaries while
+   * maintaining compatibility with the existing V2 backend infrastructure.
+   *
+   * @param networkUUID - The UUID of the network to update
+   * @param networkSummaryV3 - The updated network summary in V3 format
+   * @returns Promise that resolves when the update is complete
+   *
+   * @example
+   * ```typescript
+   * // Update network summary using V3 format
+   * const summaryV3: NetworkSummaryV3 = {
+   *   externalId: '12345678-1234-1234-1234-123456789abc',
+   *   name: 'Updated Network Name',
+   *   description: 'Updated network description',
+   *   nodeCount: 150,
+   *   edgeCount: 200,
+   *   visibility: 'PUBLIC',
+   *   owner: 'username',
+   *   ownerUUID: 'user-uuid',
+   *   creationTime: 1234567890,
+   *   modificationTime: 1234567890,
+   *   isReadOnly: false,
+   *   isValid: true,
+   *   hasLayout: true,
+   *   hasSample: false,
+   *   updatedBy: 'username',
+   *   properties: {
+   *     category: { t: 'string', v: 'biological' },
+   *     version: { t: 'double', v: 2.1 }
+   *   }
+   * };
+   *
+   * await client.networks.updateNetworkSummary('network-uuid', summaryV3);
+   * ```
+   */
+  async updateNetworkSummary(
+    networkUUID: string,
+    networkSummaryV3: NetworkSummaryV3
+  ): Promise<void> {
+    // Transform V3 to V2 format
+    const networkSummaryV2: NetworkSummaryV2 = this.transformV3ToV2(networkSummaryV3);
+
+    // Delegate to V2 service
+    return (this.v2Service as any).updateNetworkSummary(networkUUID, networkSummaryV2);
+  }
+
+  /**
+   * Transform NetworkSummaryV3 to NetworkSummaryV2 format
+   *
+   * Converts V3 properties format (CX2-style object map) to V2 properties format (CX1-style array).
+   * This transformation is necessary because the V2 API expects properties in the older array format.
+   * Special handling for "version" attribute - moved to top-level version field.
+   *
+   * @param v3Summary - Network summary in V3 format with CX2-style properties
+   * @returns Network summary in V2 format with CX1-style properties
+   */
+  private transformV3ToV2(v3Summary: NetworkSummaryV3): NetworkSummaryV2 {
+    const { properties, ...baseProperties } = v3Summary;
+
+    let topLevelVersion: string | undefined;
+    const v1Properties: CX1NetworkProperty[] = [];
+
+    if (properties) {
+      for (const [key, value] of Object.entries(properties)) {
+        if (key === 'version') {
+          // Move version to top-level version attribute
+          topLevelVersion = this.convertValueToString(value.v);
+        } else {
+          // Transform other properties to CX1 format
+          v1Properties.push({
+            predicateString: key,
+            value: this.convertValueToString(value.v),
+            dataType: value.t
+          });
+        }
+      }
+    }
+
+    const result: NetworkSummaryV2 = {
+      ...baseProperties,
+      properties: v1Properties
+    };
+
+    // Only set version if it exists to avoid undefined assignment
+    if (topLevelVersion !== undefined) {
+      result.version = topLevelVersion;
+    }
+
+    return result;
+  }
+
+  /**
+   * Convert CX2 property values to strings
+   *
+   * For singleton values, converts to string directly.
+   * For list type values, converts each element to string.
+   *
+   * @param value - The CX2 property value (can be any type or array)
+   * @returns String representation of the value
+   */
+  private convertValueToString(value: any): string {
+    if (Array.isArray(value)) {
+      // For list types, convert each element to string
+      return value.map(item => String(item)).join(',');
+    }
+    // For singleton values, convert to string
+    return String(value);
+  }
+
 
   /**
    * Search networks using specified API version

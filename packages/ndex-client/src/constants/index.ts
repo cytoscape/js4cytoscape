@@ -132,3 +132,25 @@ export const VPMappingType = {
 } as const;
 
 export type VPMappingType = (typeof VPMappingType)[keyof typeof VPMappingType];
+
+// ============================================================================
+// CX Data Type Constants
+// ============================================================================
+
+/**
+ * CX data types for network properties and attributes
+ */
+export const CXDataType = {
+  STRING: 'string',
+  LONG: 'long',
+  INTEGER: 'integer',
+  DOUBLE: 'double',
+  BOOLEAN: 'boolean',
+  LIST_OF_STRING: 'list_of_string',
+  LIST_OF_LONG: 'list_of_long',
+  LIST_OF_INTEGER: 'list_of_integer',
+  LIST_OF_DOUBLE: 'list_of_double',
+  LIST_OF_BOOLEAN: 'list_of_boolean',
+} as const;
+
+export type CXDataType = (typeof CXDataType)[keyof typeof CXDataType];

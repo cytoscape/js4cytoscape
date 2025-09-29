@@ -7,7 +7,7 @@
 export * from './cytoscape';
 
 // Import constants for local use in this file
-import { AuthType, Visibility, Permission, VPMappingType, NDExFileType } from '../constants';
+import { AuthType, Visibility, Permission, VPMappingType, NDExFileType, CXDataType } from '../constants';
 
 // ============================================================================
 // Authentication Types
@@ -75,13 +75,86 @@ export interface CX1MetaDataResponse {
 export interface CX1NetworkProperty {
   predicateString: string;
   value: string;
-  dataType?: 'string' | 'integer' | 'double' | 'boolean' | 'list_of_string';
+  dataType?: CXDataType;
 }
 
+/**
+ * CX2 network properties structure
+ *
+ * @description Represents network properties in CX2 format, where each property
+ * is defined with both its data type and value. This format allows for type-safe
+ * property handling and is the standard way properties are stored in CX2 networks.
+ *
+ * The key represents the name of the attribute, and the value contains both the
+ * data type specification and the actual value.
+ *
+ * @example
+ * ```typescript
+ * const networkProps: CX2NetworkProperties = {
+ *   name: {
+ *     t: "string",
+ *     v: "My Network"
+ *   },
+ *   nodeCount: {
+ *     t: "integer",
+ *     v: 150
+ *   },
+ *   version: {
+ *     t: "double",
+ *     v: 1.5
+ *   },
+ *   tags: {
+ *     t: "list_of_string",
+ *     v: ["biology", "protein-interaction", "human"]
+ *   },
+ *   isPublic: {
+ *     t: "boolean",
+ *     v: true
+ *   }
+ * };
+ *
+ * // Applications can use the value directly
+ * const networkName = networkProps.name.v; // "My Network"
+ * const nodeCount = networkProps.nodeCount.v; // 150
+ * ```
+ */
 export interface CX2NetworkProperties {
+  /**
+   * Property definition indexed by attribute name
+   *
+   * @description Each key represents the name of a network attribute, and the
+   * corresponding value contains the type specification and actual value.
+   */
   [key: string]: {
-    t: string;  // type
-    v: any;     // value
+    /**
+     * Data type of the attribute
+     *
+     * @description Specifies the CX2 data type for this attribute. Common types include:
+     * - `"string"` - Text values
+     * - `"long"` - Long integer values
+     * - `"integer"` - Whole numbers
+     * - `"double"` - Decimal numbers
+     * - `"boolean"` - True/false values
+     * - `"list_of_string"` - Array of text values
+     * - `"list_of_long"` - Array of long integers
+     * - `"list_of_integer"` - Array of whole numbers
+     * - `"list_of_double"` - Array of decimal numbers
+     * - `"list_of_boolean"` - Array of boolean values
+     *
+     * @example CXDataType.STRING, CXDataType.INTEGER, CXDataType.DOUBLE, CXDataType.LIST_OF_STRING
+     */
+    t: CXDataType;
+
+    /**
+     * Actual value of the attribute
+     *
+     * @description The concrete value for this attribute. Applications can
+     * typically use this value directly without additional processing. The
+     * type of this value should correspond to the data type specified in `t`.
+     *
+     * @example "My Network", 150, 1.5, true, ["tag1", "tag2"]
+     */
+    v: any;
   };
 }
 
@@ -591,7 +664,7 @@ export interface Shortcut {
 }
 
 // Re-export sharing types from services
-export type { SharingMemberRequest } from '../services/FilesService';
+export type { SharingMemberRequest, FilePermissionDetails, FilePermissionList } from '../services/FilesService';
 
 
 

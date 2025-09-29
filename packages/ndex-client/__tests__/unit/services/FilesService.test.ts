@@ -283,18 +283,108 @@ describe('FilesService', () => {
     });
 
     describe('listMembers', () => {
-      it('should call http.get with correct parameters', async () => {
-        const mockResponse = { members: [] };
-        mockHttpService.get.mockResolvedValueOnce(mockResponse);
+      it('should call http.post with correct parameters', async () => {
+        const mockResponse = [
+          {
+            '12345678-1234-1234-1234-123456789abc': {
+              type: 'NETWORK',
+              members: {
+                'user1-uuid-1234-5678-9abc-def012345678': 'READ',
+                'user2-uuid-8765-4321-fedc-ba0987654321': 'WRITE'
+              }
+            }
+          }
+        ];
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
         const files = { '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const };
         const result = await filesService.listMembers(files);
 
-        expect(mockHttpService.get).toHaveBeenCalledWith(
+        expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/sharing/members/list',
-          { params: files, version: 'v3' }
+          files,
+          { version: 'v3' }
         );
         expect(result).toBe(mockResponse);
+      });
+
+      it('should return properly typed FilePermissionList structure', async () => {
+        const mockResponse = [
+          {
+            '12345678-1234-1234-1234-123456789abc': {
+              type: 'NETWORK',
+              members: {
+                'user1-uuid-1234-5678-9abc-def012345678': 'READ',
+                'user2-uuid-8765-4321-fedc-ba0987654321': 'WRITE',
+                'user3-uuid-1111-2222-3333-444444444444': 'ADMIN'
+              }
+            }
+          },
+          {
+            '87654321-4321-4321-4321-876543210fed': {
+              type: 'FOLDER',
+              members: {
+                'user4-uuid-aaaa-bbbb-cccc-dddddddddddd': 'ADMIN',
+                'user5-uuid-eeee-ffff-0000-111111111111': 'READ'
+              }
+            }
+          }
+        ];
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const files = {
+          '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const,
+          '87654321-4321-4321-4321-876543210fed': 'FOLDER' as const
+        };
+        const result = await filesService.listMembers(files);
+
+        // Verify the result structure matches FilePermissionList type
+        expect(result).toHaveLength(2);
+
+        // Check first file permissions
+        const networkFile = result[0]['12345678-1234-1234-1234-123456789abc'];
+        expect(networkFile).toBeDefined();
+        expect(networkFile.type).toBe('NETWORK');
+        expect(networkFile.members).toEqual({
+          'user1-uuid-1234-5678-9abc-def012345678': 'READ',
+          'user2-uuid-8765-4321-fedc-ba0987654321': 'WRITE',
+          'user3-uuid-1111-2222-3333-444444444444': 'ADMIN'
+        });
+
+        // Check second file permissions
+        const folderFile = result[1]['87654321-4321-4321-4321-876543210fed'];
+        expect(folderFile).toBeDefined();
+        expect(folderFile.type).toBe('FOLDER');
+        expect(folderFile.members).toEqual({
+          'user4-uuid-aaaa-bbbb-cccc-dddddddddddd': 'ADMIN',
+          'user5-uuid-eeee-ffff-0000-111111111111': 'READ'
+        });
+      });
+
+      it('should handle empty members for a file', async () => {
+        const mockResponse = [
+          {
+            '12345678-1234-1234-1234-123456789abc': {
+              type: 'NETWORK',
+              members: {}
+            }
+          }
+        ];
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const files = { '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const };
+        const result = await filesService.listMembers(files);
+
+        expect(result).toHaveLength(1);
+        const networkFile = result[0]['12345678-1234-1234-1234-123456789abc'];
+        expect(networkFile.type).toBe('NETWORK');
+        expect(networkFile.members).toEqual({});
+      });
+
+      it('should throw error for invalid files data', () => {
+        const invalidFiles = { 'invalid-uuid': 'NETWORK' as const };
+        expect(() => filesService.listMembers(invalidFiles)).toThrow('Invalid UUID format');
+        expect(mockHttpService.post).not.toHaveBeenCalled();
       });
     });
 
@@ -345,18 +435,27 @@ describe('FilesService', () => {
     });
 
     describe('share', () => {
-      it('should call http.post with validated files', async () => {
-        const mockResponse = { success: true };
+      it('should call http.post with validated files and return access keys', async () => {
+        const mockResponse = {
+          '12345678-1234-1234-1234-123456789abc': 'access-key-abc123',
+          '87654321-4321-4321-4321-876543210fed': 'access-key-def456'
+        };
         mockHttpService.post.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.share(validFiles);
+        const files = {
+          '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const,
+          '87654321-4321-4321-4321-876543210fed': 'FOLDER' as const
+        };
+        const result = await filesService.share(files);
 
         expect(mockHttpService.post).toHaveBeenCalledWith(
           'files/sharing/share',
-          { files: validFiles },
+          { files },
           { version: 'v3' }
         );
         expect(result).toBe(mockResponse);
+        expect(result['12345678-1234-1234-1234-123456789abc']).toBe('access-key-abc123');
+        expect(result['87654321-4321-4321-4321-876543210fed']).toBe('access-key-def456');
       });
 
       it('should throw error for invalid files', () => {
@@ -508,6 +607,109 @@ describe('FilesService', () => {
         expect(result).toBe(mockResponse);
       });
 
+      it('should return FileListItem array with correct structure', async () => {
+        const mockResponse = [
+          {
+            uuid: '46933b60-721c-11f0-a8e5-005056aeb0b3',
+            type: 'FOLDER',
+            name: 'test folder',
+            modificationTime: 1754412621719,
+            attributes: { description: null },
+            isShared: false
+          },
+          {
+            uuid: 'd512af15-89e6-11f0-8e16-005056aeb0b3',
+            type: 'NETWORK',
+            name: 'Copy of U-2 OS Multi-scale Integrated Cell Map',
+            modificationTime: 1757028495896,
+            attributes: {
+              visibility: 'PRIVATE',
+              edges: 298,
+              description: null
+            },
+            isReadOnly: false,
+            warnings: [],
+            isCompleted: true,
+            isShared: false
+          },
+          {
+            uuid: 'cab37402-8c61-11f0-8e16-005056aeb0b3',
+            type: 'NETWORK',
+            modificationTime: 1757301208898,
+            attributes: {
+              visibility: 'PRIVATE',
+              edges: 87,
+              description: null
+            },
+            isReadOnly: false,
+            warnings: [],
+            isCompleted: true,
+            isShared: false
+          },
+          {
+            uuid: '8619e1d6-9446-11f0-8d0a-005056aeb0b3',
+            type: 'SHORTCUT',
+            name: 'test folder 3 - Shortcut',
+            modificationTime: 1758169106695,
+            attributes: {
+              target_type: 'FOLDER',
+              target_status: 'ACTIVE',
+              target: '7a01d498-907c-11f0-b46f-005056aeb0b3'
+            }
+          }
+        ];
+        mockHttpService.get.mockResolvedValueOnce(mockResponse);
+
+        const result = await filesService.getFolderList('folder-123');
+
+        expect(result).toHaveLength(4);
+
+        // Test folder item
+        expect(result[0]).toMatchObject({
+          uuid: expect.any(String),
+          type: 'FOLDER',
+          name: expect.any(String),
+          modificationTime: expect.any(Number),
+          attributes: expect.any(Object),
+          isShared: expect.any(Boolean)
+        });
+
+        // Test network item with optional properties
+        expect(result[1]).toMatchObject({
+          uuid: expect.any(String),
+          type: 'NETWORK',
+          name: expect.any(String),
+          modificationTime: expect.any(Number),
+          attributes: expect.any(Object),
+          isReadOnly: expect.any(Boolean),
+          warnings: expect.any(Array),
+          isCompleted: expect.any(Boolean),
+          isShared: expect.any(Boolean)
+        });
+
+        // Test network item without name (optional property)
+        expect(result[2]).toMatchObject({
+          uuid: expect.any(String),
+          type: 'NETWORK',
+          modificationTime: expect.any(Number),
+          attributes: expect.any(Object),
+          isReadOnly: expect.any(Boolean),
+          warnings: expect.any(Array),
+          isCompleted: expect.any(Boolean),
+          isShared: expect.any(Boolean)
+        });
+        expect(result[2].name).toBeUndefined();
+
+        // Test shortcut item
+        expect(result[3]).toMatchObject({
+          uuid: expect.any(String),
+          type: 'SHORTCUT',
+          name: expect.any(String),
+          modificationTime: expect.any(Number),
+          attributes: expect.any(Object)
+        });
+      });
+
     });
   });
 
@@ -593,6 +795,66 @@ describe('FilesService', () => {
         expect(result).toBe(mockResponse);
       });
 
+    });
+  });
+
+  describe('Visibility Operations', () => {
+    describe('setVisibility', () => {
+      it('should call http.post with correct parameters', async () => {
+        const mockResponse = undefined;
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const files = {
+          '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const,
+          '87654321-4321-4321-4321-876543210fed': 'FOLDER' as const
+        };
+        const visibility = 'PUBLIC';
+
+        const result = await filesService.setVisibility({ files, visibility });
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'batch/files/setvisibility',
+          { files, visibility },
+          { version: 'v3' }
+        );
+        expect(result).toBe(mockResponse);
+      });
+
+      it('should handle different visibility levels', async () => {
+        const mockResponse = undefined;
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const files = { '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const };
+        const visibility = 'PRIVATE';
+
+        await filesService.setVisibility({ files, visibility });
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'batch/files/setvisibility',
+          { files, visibility: 'PRIVATE' },
+          { version: 'v3' }
+        );
+      });
+
+      it('should handle multiple file types', async () => {
+        const mockResponse = undefined;
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const files = {
+          '12345678-1234-1234-1234-123456789abc': 'NETWORK' as const,
+          '87654321-4321-4321-4321-876543210fed': 'FOLDER' as const,
+          '11111111-2222-3333-4444-555555555555': 'SHORTCUT' as const
+        };
+        const visibility = 'PUBLIC';
+
+        await filesService.setVisibility({ files, visibility });
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'batch/files/setvisibility',
+          { files, visibility },
+          { version: 'v3' }
+        );
+      });
     });
   });
 
