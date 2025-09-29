@@ -549,20 +549,61 @@ describe('FilesService', () => {
     });
 
     describe('updateFolder', () => {
-      it('should call http.put with correct parameters', async () => {
-        const mockResponse = { success: true };
-        mockHttpService.put.mockResolvedValueOnce(mockResponse);
+      it('should call http.put with all folder properties including parent', async () => {
+        mockHttpService.put.mockResolvedValueOnce(undefined);
 
-        const result = await filesService.updateFolder('folder-123', 'New Name', 'parent-folder');
+        const folderData = {
+          name: 'Updated Folder Name',
+          description: 'Updated folder description',
+          parent: 'parent-folder-uuid'
+        };
+
+        const result = await filesService.updateFolder('folder-123', folderData);
 
         expect(mockHttpService.put).toHaveBeenCalledWith(
           'files/folders/folder-123',
-          { name: 'New Name', parent: 'parent-folder' },
+          folderData,
           { version: 'v3' }
         );
-        expect(result).toBe(mockResponse);
+        expect(result).toBeUndefined();
       });
 
+      it('should call http.put without parent when parent is omitted', async () => {
+        mockHttpService.put.mockResolvedValueOnce(undefined);
+
+        const folderData = {
+          name: 'Home Folder',
+          description: 'Folder in home directory'
+        };
+
+        const result = await filesService.updateFolder('folder-456', folderData);
+
+        expect(mockHttpService.put).toHaveBeenCalledWith(
+          'files/folders/folder-456',
+          folderData,
+          { version: 'v3' }
+        );
+        expect(result).toBeUndefined();
+      });
+
+      it('should handle folder data with explicit parent undefined', async () => {
+        mockHttpService.put.mockResolvedValueOnce(undefined);
+
+        const folderData = {
+          name: 'Explicit Home Folder',
+          description: 'Folder with explicit undefined parent',
+          parent: undefined
+        };
+
+        const result = await filesService.updateFolder('folder-789', folderData);
+
+        expect(mockHttpService.put).toHaveBeenCalledWith(
+          'files/folders/folder-789',
+          folderData,
+          { version: 'v3' }
+        );
+        expect(result).toBeUndefined();
+      });
     });
 
     describe('deleteFolder', () => {
@@ -768,20 +809,83 @@ describe('FilesService', () => {
     });
 
     describe('updateShortcut', () => {
-      it('should call http.put with all parameters', async () => {
+      it('should call http.put with shortcut object including parent', async () => {
         const mockResponse = { success: true };
         mockHttpService.put.mockResolvedValueOnce(mockResponse);
 
-        const result = await filesService.updateShortcut('shortcut-123', 'Updated Name', 'parent', 'target', 'FOLDER');
+        const shortcutObject = {
+          name: 'Updated Shortcut Name',
+          target: 'target-network-uuid',
+          targetType: 'NETWORK' as const,
+          parent: 'parent-folder-uuid'
+        };
+
+        const result = await filesService.updateShortcut('shortcut-123', shortcutObject);
 
         expect(mockHttpService.put).toHaveBeenCalledWith(
           'files/shortcuts/shortcut-123',
-          { name: 'Updated Name', parent: 'parent', target: 'target', targetType: 'FOLDER' },
+          {
+            name: 'Updated Shortcut Name',
+            target: 'target-network-uuid',
+            targetType: 'NETWORK',
+            parent: 'parent-folder-uuid'
+          },
           { version: 'v3' }
         );
         expect(result).toBe(mockResponse);
       });
 
+      it('should call http.put with parent as null when parent is omitted', async () => {
+        const mockResponse = { success: true };
+        mockHttpService.put.mockResolvedValueOnce(mockResponse);
+
+        const shortcutObject = {
+          name: 'Home Directory Shortcut',
+          target: 'target-folder-uuid',
+          targetType: 'FOLDER' as const
+          // parent omitted
+        };
+
+        const result = await filesService.updateShortcut('shortcut-456', shortcutObject);
+
+        expect(mockHttpService.put).toHaveBeenCalledWith(
+          'files/shortcuts/shortcut-456',
+          {
+            name: 'Home Directory Shortcut',
+            target: 'target-folder-uuid',
+            targetType: 'FOLDER',
+            parent: null
+          },
+          { version: 'v3' }
+        );
+        expect(result).toBe(mockResponse);
+      });
+
+      it('should call http.put with parent as null when parent is explicitly undefined', async () => {
+        const mockResponse = { success: true };
+        mockHttpService.put.mockResolvedValueOnce(mockResponse);
+
+        const shortcutObject = {
+          name: 'Explicit Undefined Parent',
+          target: 'target-shortcut-uuid',
+          targetType: 'SHORTCUT' as const,
+          parent: undefined
+        };
+
+        const result = await filesService.updateShortcut('shortcut-789', shortcutObject);
+
+        expect(mockHttpService.put).toHaveBeenCalledWith(
+          'files/shortcuts/shortcut-789',
+          {
+            name: 'Explicit Undefined Parent',
+            target: 'target-shortcut-uuid',
+            targetType: 'SHORTCUT',
+            parent: null
+          },
+          { version: 'v3' }
+        );
+        expect(result).toBe(mockResponse);
+      });
     });
 
     describe('deleteShortcut', () => {

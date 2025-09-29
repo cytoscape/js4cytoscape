@@ -468,8 +468,50 @@ export class FilesService {
     return this.http.get(`files/folders/${folderId}`, { params: parameters, version: 'v3' });
   }
 
-  updateFolder(folderId: string, name: string, parentFolderId?: string): Promise<any> {
-    return this.http.put(`files/folders/${folderId}`, { name: name, parent: parentFolderId }, { version: 'v3' });
+  /**
+   * Update folder properties
+   *
+   * Updates the properties of an existing folder including name, description, and parent location.
+   * When parent is omitted, the folder remains in or is moved to the owner's home directory.
+   *
+   * @param folderId - The UUID of the folder to update
+   * @param folderData - Object containing folder properties to update
+   * @param folderData.name - The new name for the folder
+   * @param folderData.description - The new description for the folder
+   * @param folderData.parent - Optional UUID of the parent folder. If omitted, folder is placed in owner's home directory
+   * @returns Promise that resolves when the folder update is complete
+   *
+   * @example
+   * ```typescript
+   * // Update folder name and description, keep in current location
+   * await client.files.updateFolder('folder-uuid', {
+   *   name: 'Updated Folder Name',
+   *   description: 'Updated folder description'
+   * });
+   *
+   * // Move folder to a different parent and update properties
+   * await client.files.updateFolder('folder-uuid', {
+   *   name: 'Moved Folder',
+   *   description: 'This folder has been moved',
+   *   parent: 'parent-folder-uuid'
+   * });
+   *
+   * // Move folder to home directory by omitting parent
+   * await client.files.updateFolder('folder-uuid', {
+   *   name: 'Home Folder',
+   *   description: 'Moved to home directory'
+   * });
+   * ```
+   */
+  updateFolder(
+    folderId: string,
+    folderData: {
+      name: string;
+      description: string;
+      parent?: string;
+    }
+  ): Promise<void> {
+    return this.http.put(`files/folders/${folderId}`, folderData, { version: 'v3' });
   }
 
   deleteFolder(folderId: string): Promise<any> {
@@ -551,8 +593,52 @@ export class FilesService {
     return this.http.get(`files/shortcuts/${shortcutId}`, { params: parameters, version: 'v3' });
   }
   
-  updateShortcut(shortcutId: string, name: string, parentFolderId?: string, targetId?: string, targetType?: string): Promise<any> {
-    return this.http.put(`files/shortcuts/${shortcutId}`, { name: name, parent: parentFolderId, target: targetId, targetType }, { version: 'v3' });
+  /**
+   * Update shortcut properties
+   *
+   * Updates the properties of an existing shortcut including name, parent location, target, and target type.
+   * The parent attribute is always included in the request payload - when parent is omitted from the shortcut object,
+   * parent is set to null to indicate the shortcut should be moved to the owner's home directory.
+   *
+   * @param shortcutId - The UUID of the shortcut to update
+   * @param shortcutObject - Object containing shortcut properties to update
+   * @param shortcutObject.name - The new name for the shortcut
+   * @param shortcutObject.target - UUID of the target object the shortcut points to
+   * @param shortcutObject.targetType - Type of the target object ('NETWORK', 'FOLDER', or 'SHORTCUT')
+   * @param shortcutObject.parent - Optional UUID of the parent folder. If omitted, shortcut is moved to home directory
+   * @returns Promise resolving when the shortcut update is complete
+   *
+   * @example
+   * ```typescript
+   * // Update shortcut name and target, move to home directory
+   * await client.files.updateShortcut('shortcut-uuid', {
+   *   name: 'Updated Shortcut Name',
+   *   target: 'target-network-uuid',
+   *   targetType: 'NETWORK'
+   * });
+   *
+   * // Update shortcut and move to a specific folder
+   * await client.files.updateShortcut('shortcut-uuid', {
+   *   name: 'Folder Shortcut',
+   *   target: 'target-folder-uuid',
+   *   targetType: 'FOLDER',
+   *   parent: 'parent-folder-uuid'
+   * });
+   *
+   * // Update all shortcut properties
+   * await client.files.updateShortcut('shortcut-uuid', {
+   *   name: 'Complete Update',
+   *   target: 'target-network-uuid',
+   *   targetType: 'NETWORK',
+   *   parent: 'parent-folder-uuid'
+   * });
+   * ```
+   */
+  updateShortcut(shortcutId: string, shortcutObject: CreateShortcutOptions): Promise<any> {
+    return this.http.put(`files/shortcuts/${shortcutId}`, {
+      ...shortcutObject,
+      parent: shortcutObject.parent ?? null
+    }, { version: 'v3' });
   }
 
   deleteShortcut(shortcutId: string): Promise<any> {
