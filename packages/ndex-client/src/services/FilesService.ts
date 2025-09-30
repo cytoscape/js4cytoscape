@@ -1,6 +1,6 @@
 import { HTTPService } from './HTTPService';
 import { Permission, NDExFileType, Visibility } from '../constants';
-import { FileListItem, NDExObjectUpdateStatus, Shortcut } from '../types';
+import { FileListItem, NDExObjectUpdateStatus, Shortcut, SearchResult } from '../types';
 
 /**
  * Permission details for a file including its type and member permissions
@@ -105,6 +105,25 @@ export interface SharingMemberRequest {
   members: Record<string, Permission | null>;
 }
 
+/**
+ * Parameters for searching files in NDEx
+ */
+export interface FileSearchParams {
+  /** Search terms as a string, supports Lucene syntax */
+  searchString?: string;
+  /** Username of the account to filter on, only files owned by that user will be returned */
+  accountName?: string;
+  /** Filter by permission level, only applicable to signed-in users */
+  permission?: Permission;
+  /** File type to filter on, if null or omitted all file types will be returned */
+  type?: NDExFileType | null;
+  /** Visibility filter, only supports "PRIVATE" or "PUBLIC" */
+  visibility: 'PRIVATE' | 'PUBLIC';
+  /** Starting index for pagination */
+  start?: number;
+  /** Number of results to return for pagination */
+  size?: number;
+}
 
 interface CreateShortcutOptions {
   name: string;
@@ -540,6 +559,36 @@ export class FilesService {
     return this.http.get<FileListItem[]>(`files/folders/${folderId}/list`, { params: parameters, version: 'v3' });
   }
 
+  /**
+   * Get folder access key
+   *
+   * Retrieves the access key for a folder if it has been enabled for public access.
+   * When a folder has an access key enabled, it can be accessed by others without
+   * explicit permissions using this key.
+   *
+   * @param folderId - The UUID of the folder to get the access key for
+   * @returns Promise resolving to an object with accessKey property when enabled,
+   *          or null when access key is not enabled on this folder
+   *
+   * @example
+   * ```typescript
+   * // Check if folder has an access key
+   * const result = await client.files.getFolderAccessKey('12345678-1234-1234-1234-123456789abc');
+   *
+   * if (result) {
+   *   console.log('Access key:', result.accessKey); // "sdfdfdfsdfdsfs"
+   *   // Use the access key to access the folder
+   *   const folderData = await client.files.getFolder(folderId, result.accessKey);
+   * } else {
+   *   console.log('No access key enabled for this folder');
+   * }
+   * ```
+   */
+  getFolderAccessKey(folderId: string): Promise<{ accessKey: string } | null> {
+    const endpoint = `files/folders/${folderId}/accesskey`;
+    return this.http.get<{ accessKey: string } | null>(endpoint, { version: 'v3' });
+  }
+
   // Shortcut operations
   getShortcuts(limit?: number): Promise<any> {
     let parameters: Record<string, any> = {};
@@ -671,5 +720,60 @@ export class FilesService {
   setVisibility(options: {files: Record<string, NDExFileType>, visibility: Visibility}): Promise<void> {
     return this.http.post(`batch/files/setvisibility`,
          { files: options.files, visibility: options.visibility}, { version: 'v3' });
+  }
+
+  /**
+   * Search for files in NDEx
+   *
+   * Searches for networks, folders, and shortcuts based on various criteria including
+   * search terms, ownership, permissions, file type, and visibility. Results are paginated
+   * and support Lucene query syntax for advanced search capabilities.
+   *
+   * @param params - Search parameters
+   * @param params.searchString - Search terms as a string, supports Lucene syntax
+   * @param params.accountName - Username to filter files by owner
+   * @param params.permission - Filter by permission level (only for signed-in users)
+   * @param params.type - File type filter (NETWORK, FOLDER, SHORTCUT, or null for all types)
+   * @param params.visibility - Visibility filter (required, "PRIVATE" or "PUBLIC")
+   * @param params.start - Starting index for pagination (default: 0)
+   * @param params.size - Number of results to return (default: varies by server)
+   * @returns Promise resolving to search results containing matching files
+   *
+   * @example
+   * ```typescript
+   * // Search for public networks containing "cancer"
+   * const results = await client.files.searchFiles({
+   *   searchString: "cancer",
+   *   type: "NETWORK",
+   *   visibility: "PUBLIC",
+   *   start: 0,
+   *   size: 25
+   * });
+   *
+   * console.log(`Found ${results.numFound} total results`);
+   * console.log(`Showing results starting at ${results.start}`);
+   * results.ResultList.forEach(file => {
+   *   console.log(`${file.name} (${file.type})`);
+   * });
+   *
+   * // Search with Lucene syntax for networks owned by specific user
+   * const userNetworks = await client.files.searchFiles({
+   *   searchString: "name:pathway AND description:signaling",
+   *   accountName: "john_doe",
+   *   type: "NETWORK",
+   *   visibility: "PUBLIC"
+   * });
+   *
+   * // Search for all private files the signed-in user has WRITE permission on
+   * const writableFiles = await client.files.searchFiles({
+   *   permission: "WRITE",
+   *   visibility: "PRIVATE",
+   *   start: 0,
+   *   size: 50
+   * });
+   * ```
+   */
+  searchFiles(params: FileSearchParams): Promise<SearchResult<FileListItem>> {
+    return this.http.post('search/files', params, { version: 'v3' });
   }
 }

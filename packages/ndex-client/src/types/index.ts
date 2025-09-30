@@ -664,7 +664,7 @@ export interface Shortcut {
 }
 
 // Re-export sharing types from services
-export type { SharingMemberRequest, FilePermissionDetails, FilePermissionList } from '../services/FilesService';
+export type { SharingMemberRequest, FilePermissionDetails, FilePermissionList, FileSearchParams } from '../services/FilesService';
 
 
 

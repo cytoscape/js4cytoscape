@@ -766,14 +766,14 @@ export class UnifiedNetworkService {
 
   /**
    * Update network from raw CX2 data (migrated from original NDEx.js)
-   * 
+   *
    * Updates an existing network with new raw CX2 data using the V3 API.
    * This function replaces the entire network content with the provided CX2 data.
-   * 
+   *
    * @param networkUUID - The UUID of the network to update
    * @param rawCX2 - Raw CX2 network data as an object or CX2Network instance
    * @returns Promise resolving when the network update is complete
-   * 
+   *
    * @example
    * ```typescript
    * // Update existing network with new CX2 data
@@ -786,6 +786,30 @@ export class UnifiedNetworkService {
   ): Promise<void> {
     const endpoint = `networks/${networkUUID}`;
     return this.http.put<void>(endpoint, rawCX2, { version: 'v3' });
+  }
+
+  /**
+   * Set read-only flag on a network
+   *
+   * Sets or unsets the read-only flag for a network using the V2 API.
+   * When a network is marked as read-only, it cannot be modified.
+   *
+   * @param networkId - The UUID of the network to modify
+   * @param readOnly - true to set the network as read-only, false to allow modifications
+   * @returns Promise resolving when the read-only status is updated
+   *
+   * @example
+   * ```typescript
+   * // Set network as read-only
+   * await client.networks.setReadOnly('network-uuid', true);
+   *
+   * // Allow network modifications
+   * await client.networks.setReadOnly('network-uuid', false);
+   * ```
+   */
+  async setReadOnly(networkId: string, readOnly: boolean): Promise<void> {
+    const endpoint = `network/${networkId}/systemproperty`;
+    return this.http.put<void>(endpoint, { readOnly }, { version: 'v2' });
   }
 
   /**
