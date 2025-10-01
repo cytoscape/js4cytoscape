@@ -59,28 +59,6 @@ export class NetworkServiceV3 {
     return this.http.get<CX2NetworkType>(endpoint, { version: 'v3' });
   }
 
-
-  /**
-   * Create network DOI
-   * 
-   * @param networkUUID - The UUID of the network to create a DOI for
-   * @param key - DOI creation key
-   * @param email - Email address for DOI registration
-   * @returns Promise resolving to a confirmation message string from the server
-   */
-  async createNetworkDOI(
-    networkUUID: string, 
-    key: string, 
-    email: string
-  ): Promise<string> {
-    const params = new URLSearchParams();
-    params.append('key', key);
-    params.append('email', email);
-
-    const endpoint = `networks/${networkUUID}/DOI?${params.toString()}`;
-    return this.http.get<string>(endpoint, { version: 'v3' });
-  }
-
   /**
    * Get attributes of selected nodes
    * 

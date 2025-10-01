@@ -212,18 +212,51 @@ export class UnifiedNetworkService {
 
   /**
    * Create network DOI
-   * 
-   * @param networkUUID - The UUID of the network to create a DOI for
-   * @param key - DOI creation key
-   * @param email - Email address for DOI registration
-   * @returns Promise resolving to a confirmation message string from the server
+   *
+   * Requests a DOI (Digital Object Identifier) for a network. A reference is not required to request a DOI.
+   * If you want the ability to add or modify a reference later on, set `isCertified` to true.
+   * When certified, the network will be permanently locked, made publicly visible, and no further changes
+   * will be allowed.
+   *
+   * @param params - DOI request parameters
+   * @param params.networkId - UUID of the network to create a DOI for
+   * @param params.isCertified - If true, network will be permanently locked and made public with no further changes allowed
+   * @param params.contactEmail - Email address that the DOI creation confirmation should be sent to
+   * @returns Promise that resolves when the DOI request is submitted
+   *
+   * @example
+   * ```typescript
+   * // Request a DOI for a network without certification
+   * await client.networks.createNetworkDOI({
+   *   networkId: '12345678-1234-1234-1234-123456789abc',
+   *   isCertified: false,
+   *   contactEmail: 'user@example.com'
+   * });
+   *
+   * // Request a certified DOI (network will be permanently locked)
+   * await client.networks.createNetworkDOI({
+   *   networkId: '12345678-1234-1234-1234-123456789abc',
+   *   isCertified: true,
+   *   contactEmail: 'user@example.com'
+   * });
+   * ```
    */
-  async createNetworkDOI(
-    networkUUID: string, 
-    key: string, 
-    email: string
-  ): Promise<string> {
-    return this.v3Service.createNetworkDOI(networkUUID, key, email);
+  async createNetworkDOI(params: {
+    networkId: string;
+    isCertified: boolean;
+    contactEmail: string;
+  }): Promise<void> {
+    const endpoint = 'admin/request';
+    const payload = {
+      type: 'DOI',
+      networkId: params.networkId,
+      properties: {
+        contactEmail: params.contactEmail
+      },
+      isCertified: params.isCertified
+    };
+
+    return this.http.post<void>(endpoint, payload, { version: 'v2' });
   }
 
   /**
