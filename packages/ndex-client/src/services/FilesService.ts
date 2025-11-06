@@ -416,7 +416,7 @@ export class FilesService {
     return this.http.post('files/sharing/transfer', request, { version: 'v3' });
   }
 
-  listShares(limit?: number): Promise<any> {
+  listShares(limit?: number): Promise<FileListItem[]> {
     const parameters: Record<string, any> = {};
     if (limit !== undefined) {
       parameters['limit'] = limit;

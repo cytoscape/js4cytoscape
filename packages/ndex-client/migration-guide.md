@@ -162,7 +162,7 @@ client.setIdToken('your-id-token');
 
 | Old NDEx.js Method | New Method | Notes |
 |-------------------|------------|--------|
-| `getNetworkDOI(uuid, key, email)` | `client.networks.createNetworkDOI(uuid, key, email)` | Create DOI |
+| `getNetworkDOI(uuid, key, email)` | `client.networks.createNetworkDOI({ networkId: uuid, isCertified: boolean, contactEmail: email })` | Create DOI - signature changed to object parameter |
 | `cancelDOIRequest(uuid)` | **REMOVED** | Use admin service if available |
 
 ### Access Key Operations

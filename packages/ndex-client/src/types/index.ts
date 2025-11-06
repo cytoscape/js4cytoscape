@@ -639,8 +639,13 @@ export interface FileListItem {
   modificationTime: number;
   attributes: any;
   updatedBy?: string;
-  isShared?: boolean;
+  owner?: string;
+  ownerUUID?: string;
+  visibility?: Visibility;
+  edges?: number;
+  permission?: Permission;
   isReadOnly?: boolean;
+  isShared?: boolean;
   warnings?: string[];
   isCompleted?: boolean;
   errorMessage?: string;

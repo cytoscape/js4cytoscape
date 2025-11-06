@@ -459,14 +459,14 @@ export class UnifiedNetworkService {
    * @param folderId - Target folder ID to move networks to
    * @returns Promise resolving when networks are moved
    */
-  async moveNetworks(networkIds: string[], folderId: string): Promise<any> {
+  async moveNetworks(networkIds: string[], folderId?: string): Promise<any> {
     if (!Array.isArray(networkIds)) {
       throw new Error('Invalid networkIds - must be an array');
     }
 
     const endpoint = 'batch/networks/move';
     const data = {
-      targetFolder: folderId,
+      targetFolder: folderId !== undefined ? folderId : null,  // Use null for home folder
       networks: networkIds
     };
 

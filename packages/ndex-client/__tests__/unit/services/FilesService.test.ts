@@ -407,8 +407,8 @@ describe('FilesService', () => {
     });
 
     describe('listShares', () => {
-      it('should call http.post with limit parameter', async () => {
-        const mockResponse = { shares: [] };
+      it('should call http.get with limit parameter', async () => {
+        const mockResponse: any[] = [];
         mockHttpService.get.mockResolvedValueOnce(mockResponse);
 
         const result = await filesService.listShares(10);
@@ -420,8 +420,8 @@ describe('FilesService', () => {
         expect(result).toBe(mockResponse);
       });
 
-      it('should call http.post without parameters when limit not provided', async () => {
-        const mockResponse = { shares: [] };
+      it('should call http.get without parameters when limit not provided', async () => {
+        const mockResponse: any[] = [];
         mockHttpService.get.mockResolvedValueOnce(mockResponse);
 
         const result = await filesService.listShares();
