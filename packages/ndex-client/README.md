@@ -46,6 +46,42 @@ const user = await client.user.getCurrentUser();
 console.log('User:', user.data);
 ```
 
+## Error Handling
+
+All API errors are thrown as typed subclasses of `NDExError`:
+
+| Class | Status codes | Default `errorCode` |
+|---|---|---|
+| `NDExAuthError` | 401, 403 | `'AUTH_ERROR'` |
+| `NDExValidationError` | 400 | `'VALIDATION_ERROR'` |
+| `NDExNotFoundError` | 404 | `'NOT_FOUND'` |
+| `NDExServerError` | 500–504 | `'SERVER_ERROR'` |
+| `NDExNetworkError` | — (no response) | `'NETWORK_ERROR'` |
+
+The `errorCode` property always reflects the **server-supplied error code** from the
+response body when one is present. This lets you distinguish NDEx-specific error
+conditions without parsing the human-readable `message` string:
+
+```typescript
+} catch (error) {
+  if (error instanceof NDExAuthError) {
+    switch (error.errorCode) {
+      case 'NDEx_User_Account_Not_Verified':
+        // guide user to verify email
+        break;
+      case 'NDEx_Object_Not_Found_Exception':
+        // no NDEx account for this identity
+        break;
+      default:
+        // generic auth failure
+    }
+  }
+}
+```
+
+When the server does not supply an error code, the class-specific fallback value
+(`'AUTH_ERROR'`, `'NOT_FOUND'`, etc.) is used.
+
 ## Documentation
 
 ### Documentation Architecture

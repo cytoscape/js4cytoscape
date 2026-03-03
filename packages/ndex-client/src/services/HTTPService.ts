@@ -355,7 +355,7 @@ export class HTTPService {
     if (error.response) {
       // Server responded with error status
       const message = error.response.data?.message || error.message;
-      const errorCode = error.response.data?.errorCode || `HTTP_${error.response.status}`;
+      const errorCode: string | undefined = error.response.data?.errorCode;
       const description = error.response.data?.description;
       
       this.throwNDExError(message, error.response.status, errorCode, description);
@@ -369,24 +369,27 @@ export class HTTPService {
   }
 
   /**
-   * Throw appropriate NDEx error based on status code
+   * Throw appropriate NDEx error based on status code.
+   * The `errorCode` from the server response is forwarded to the thrown error's
+   * `errorCode` property. When no server code is present the subclass default
+   * (`'AUTH_ERROR'`, `'NOT_FOUND'`, etc.) is used as a fallback.
    */
-  private throwNDExError(message: string, statusCode: number, errorCode: string, description?: string): never {
+  private throwNDExError(message: string, statusCode: number, errorCode: string | undefined, description?: string): never {
     switch (statusCode) {
       case 400:
-        throw new NDExValidationError(message, statusCode);
+        throw new NDExValidationError(message, statusCode, errorCode);
       case 401:
       case 403:
-        throw new NDExAuthError(message, statusCode);
+        throw new NDExAuthError(message, statusCode, errorCode);
       case 404:
-        throw new NDExNotFoundError(message, statusCode);
+        throw new NDExNotFoundError(message, statusCode, errorCode);
       case 500:
       case 502:
       case 503:
       case 504:
-        throw new NDExServerError(message, statusCode);
+        throw new NDExServerError(message, statusCode, errorCode);
       default:
-        throw new NDExError(message, statusCode, errorCode, description);
+        throw new NDExError(message, statusCode, errorCode ?? `HTTP_${statusCode}`, description);
     }
   }
 

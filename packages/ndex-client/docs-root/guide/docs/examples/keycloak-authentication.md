@@ -202,22 +202,20 @@ The complete working example is available in [`examples/keycloak-oauth-example.h
         
         // Handle NDEx authentication errors (email verification, etc.)
         function handleNDExAuthError(error) {
-            if (error.response?.status === 401) {
-                const errorCode = error.response.data?.errorCode;
-                
-                if (errorCode === 'NDEx_User_Account_Not_Verified') {
-                    const confirmed = confirm(
-                        'Please verify your email address before signing in.\\n' +
-                        'Click OK if you already verified your email address.'
-                    );
-                    if (confirmed) {
-                        window.location.reload();
-                    } else {
-                        keycloak.logout(window.location.href);
-                    }
+            // error.errorCode is set by the typed NDExAuthError class;
+            // falls back to 'AUTH_ERROR' when the server provides no code.
+            if (error.errorCode === 'NDEx_User_Account_Not_Verified') {
+                const confirmed = confirm(
+                    'Please verify your email address before signing in.\\n' +
+                    'Click OK if you already verified your email address.'
+                );
+                if (confirmed) {
+                    window.location.reload();
                 } else {
-                    displayError('NDEx authentication failed: ' + (error.response.data?.message || 'Unknown error'));
+                    keycloak.logout(window.location.href);
                 }
+            } else if (error.statusCode === 401 || error.statusCode === 403) {
+                displayError('NDEx authentication failed: ' + (error.message || 'Unknown error'));
             } else {
                 displayError('Unexpected authentication error: ' + error.message);
             }

@@ -333,24 +333,26 @@ console.log('Random edge sample:', randomEdges);
 ## Error Handling Best Practices
 
 ```typescript
+import { NDExServerError, NDExError } from '@js4cytoscape/ndex-client';
+
 async function robustNetworkOperation(networkUUID: string) {
   const maxRetries = 3;
   let retryCount = 0;
-  
+
   while (retryCount < maxRetries) {
     try {
       const result = await client.networks.getRawCX2Network(networkUUID);
       return result;
     } catch (error) {
       retryCount++;
-      
-      if (error.response?.status === 429) {
+
+      if (error instanceof NDExError && error.statusCode === 429) {
         // Rate limit - wait and retry
         console.log(`Rate limited, waiting... (attempt ${retryCount})`);
         await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
-      } else if (error.response?.status === 503) {
+      } else if (error instanceof NDExServerError) {
         // Server unavailable - wait longer
-        console.log(`Server unavailable, waiting... (attempt ${retryCount})`);
+        console.log(`Server unavailable (${error.errorCode}), waiting... (attempt ${retryCount})`);
         await new Promise(resolve => setTimeout(resolve, 5000));
       } else {
         // Other errors - don't retry
@@ -358,7 +360,7 @@ async function robustNetworkOperation(networkUUID: string) {
       }
     }
   }
-  
+
   throw new Error(`Failed after ${maxRetries} retries`);
 }
 ```

@@ -238,17 +238,21 @@ if (user) {
 ### Common User Operation Errors
 
 ```typescript
+import { NDExAuthError, NDExNotFoundError } from '@js4cytoscape/ndex-client';
+
 async function safeUserOperation() {
   try {
     const user = await client.user.getCurrentUser();
     return user;
   } catch (error) {
-    if (error.response?.status === 401) {
-      console.error('❌ Authentication failed - check credentials');
-      // Redirect to login
-    } else if (error.response?.status === 403) {
-      console.error('❌ Access forbidden - insufficient permissions');
-    } else if (error.response?.status === 404) {
+    if (error instanceof NDExAuthError) {
+      if (error.statusCode === 403) {
+        console.error('❌ Access forbidden - insufficient permissions');
+      } else {
+        console.error('❌ Authentication failed - check credentials');
+        // Redirect to login
+      }
+    } else if (error instanceof NDExNotFoundError) {
       console.error('❌ User not found');
     } else {
       console.error('❌ Unexpected error:', error.message);
@@ -261,17 +265,19 @@ async function safeUserOperation() {
 ### Validation Errors
 
 ```typescript
+import { NDExValidationError } from '@js4cytoscape/ndex-client';
+
 async function updateUserWithValidation(userUpdate: any) {
   try {
     await client.user.updateCurrentUser(userUpdate);
     return true;
   } catch (error) {
-    if (error.response?.status === 400) {
-      console.error('❌ Validation failed:', error.response.data);
+    if (error instanceof NDExValidationError) {
+      console.error('❌ Validation failed:', error.message, '(code:', error.errorCode, ')');
       // Handle specific validation errors
-      if (error.response.data.message?.includes('email')) {
+      if (error.message?.includes('email')) {
         console.error('Invalid email format');
-      } else if (error.response.data.message?.includes('externalId')) {
+      } else if (error.message?.includes('externalId')) {
         console.error('Missing or invalid user ID');
       }
     }

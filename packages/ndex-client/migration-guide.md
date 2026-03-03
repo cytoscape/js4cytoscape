@@ -325,17 +325,24 @@ try {
 
 ### New Error Handling
 ```typescript
-import { NDExError, NDExAuthError, NDExNotFoundError } from 'ndex-client';
+import { NDExError, NDExAuthError, NDExNotFoundError } from '@js4cytoscape/ndex-client';
 
 try {
   const result = await client.networks.getRawCX1Network(uuid);
 } catch (error) {
   if (error instanceof NDExAuthError) {
-    console.error('Authentication failed:', error.message);
+    // Check the server-specific error code for fine-grained handling
+    if (error.errorCode === 'NDEx_User_Account_Not_Verified') {
+      // Prompt the user to verify their email address
+    } else if (error.errorCode === 'NDEx_Object_Not_Found_Exception') {
+      // No NDEx account found for this Keycloak identity
+    } else {
+      console.error('Authentication failed:', error.message);
+    }
   } else if (error instanceof NDExNotFoundError) {
     console.error('Network not found:', error.message);
   } else if (error instanceof NDExError) {
-    console.error('NDEx error:', error.message, 'Status:', error.statusCode);
+    console.error('NDEx error:', error.message, 'Code:', error.errorCode);
   } else {
     console.error('Unexpected error:', error);
   }

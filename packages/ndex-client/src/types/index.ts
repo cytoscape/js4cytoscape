@@ -518,41 +518,67 @@ export class NDExNetworkError extends NDExError {
 }
 
 /**
- * Error thrown when authentication fails
+ * Error thrown when authentication or authorisation fails (HTTP 401/403).
+ *
+ * The `errorCode` property reflects the server-supplied error code from the
+ * response body (e.g. `'NDEx_User_Account_Not_Verified'`,
+ * `'NDEx_Object_Not_Found_Exception'`). When no server code is available it
+ * falls back to `'AUTH_ERROR'`.
  */
 export class NDExAuthError extends NDExError {
-  constructor(message: string = 'Authentication failed', statusCode: number = 401) {
-    super(message, statusCode, 'AUTH_ERROR');
+  constructor(
+    message: string = 'Authentication failed',
+    statusCode: number = 401,
+    errorCode?: string,
+  ) {
+    super(message, statusCode, errorCode ?? 'AUTH_ERROR');
     this.name = 'NDExAuthError';
   }
 }
 
 /**
- * Error thrown when requested resource is not found
+ * Error thrown when a requested resource is not found (HTTP 404).
+ *
+ * The `errorCode` property reflects the server-supplied error code.
+ * Falls back to `'NOT_FOUND'` when absent.
  */
 export class NDExNotFoundError extends NDExError {
-  constructor(message: string = 'Resource not found', statusCode: number = 404) {
-    super(message, statusCode, 'NOT_FOUND');
+  constructor(
+    message: string = 'Resource not found',
+    statusCode: number = 404,
+    errorCode?: string,
+  ) {
+    super(message, statusCode, errorCode ?? 'NOT_FOUND');
     this.name = 'NDExNotFoundError';
   }
 }
 
 /**
- * Error thrown when request validation fails
+ * Error thrown when request validation fails (HTTP 400).
+ *
+ * The `errorCode` property reflects the server-supplied error code.
+ * Falls back to `'VALIDATION_ERROR'` when absent.
  */
 export class NDExValidationError extends NDExError {
-  constructor(message: string, statusCode: number = 400) {
-    super(message, statusCode, 'VALIDATION_ERROR');
+  constructor(message: string, statusCode: number = 400, errorCode?: string) {
+    super(message, statusCode, errorCode ?? 'VALIDATION_ERROR');
     this.name = 'NDExValidationError';
   }
 }
 
 /**
- * Error thrown when server encounters an internal error
+ * Error thrown when the server encounters an internal error (HTTP 5xx).
+ *
+ * The `errorCode` property reflects the server-supplied error code.
+ * Falls back to `'SERVER_ERROR'` when absent.
  */
 export class NDExServerError extends NDExError {
-  constructor(message: string = 'Internal server error', statusCode: number = 500) {
-    super(message, statusCode, 'SERVER_ERROR');
+  constructor(
+    message: string = 'Internal server error',
+    statusCode: number = 500,
+    errorCode?: string,
+  ) {
+    super(message, statusCode, errorCode ?? 'SERVER_ERROR');
     this.name = 'NDExServerError';
   }
 }

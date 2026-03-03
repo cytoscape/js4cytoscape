@@ -333,12 +333,18 @@ const client = new NDExClient({
 ### Error Handling
 
 ```typescript
+import { NDExAuthError } from '@js4cytoscape/ndex-client';
+
 try {
   await client.user.getCurrentUser();
 } catch (error) {
-  if (error.message.includes('Authentication')) {
-    console.error('Authentication failed - check credentials');
-    // Prompt user to re-authenticate
+  if (error instanceof NDExAuthError) {
+    if (error.errorCode === 'NDEx_User_Account_Not_Verified') {
+      console.error('Please verify your email address before signing in');
+    } else {
+      console.error('Authentication failed - check credentials');
+      // Prompt user to re-authenticate
+    }
   } else {
     console.error('Other error:', error.message);
   }
@@ -543,17 +549,21 @@ const summary = await client.networks.getNetworkSummary(networkUUID, { accessKey
 ### Error Handling
 
 ```typescript
+import { NDExAuthError, NDExNotFoundError } from '@js4cytoscape/ndex-client';
+
 async function safeNetworkOperation(networkUUID: string) {
   try {
     const network = await client.networks.getRawCX2Network(networkUUID);
     return network;
   } catch (error) {
-    if (error.response?.status === 404) {
+    if (error instanceof NDExNotFoundError) {
       console.error('Network not found or no permission');
-    } else if (error.response?.status === 401) {
-      console.error('Authentication required');
-    } else if (error.response?.status === 403) {
-      console.error('Access forbidden - check permissions');
+    } else if (error instanceof NDExAuthError) {
+      if (error.statusCode === 403) {
+        console.error('Access forbidden - check permissions');
+      } else {
+        console.error('Authentication required');
+      }
     } else {
       console.error('Unexpected error:', error.message);
     }

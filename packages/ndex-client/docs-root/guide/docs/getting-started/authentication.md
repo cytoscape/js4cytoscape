@@ -201,12 +201,20 @@ const client = new NDExClient({
 ## Error Handling
 
 ```typescript
+import { NDExAuthError } from '@js4cytoscape/ndex-client';
+
 try {
   await client.user.getCurrentUser();
 } catch (error) {
-  if (error.message.includes('Authentication')) {
-    console.error('Authentication failed - check credentials');
-    // Prompt user to re-authenticate
+  if (error instanceof NDExAuthError) {
+    if (error.errorCode === 'NDEx_User_Account_Not_Verified') {
+      console.error('Please verify your email address before signing in');
+    } else if (error.errorCode === 'NDEx_Object_Not_Found_Exception') {
+      console.error('No NDEx account found for this identity');
+    } else {
+      console.error('Authentication failed - check credentials');
+      // Prompt user to re-authenticate
+    }
   } else {
     console.error('Other error:', error.message);
   }

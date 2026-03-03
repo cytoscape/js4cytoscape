@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { HTTPService } from '../../../src/services/HTTPService';
-import { NDExClientConfig } from '../../../src/types';
+import { NDExClientConfig, NDExAuthError, NDExValidationError, NDExNotFoundError, NDExServerError } from '../../../src/types';
 import { AuthType } from '../../../src/index';
 
 // Mock axios
@@ -272,8 +272,164 @@ describe('HTTPService', () => {
         },
         status: 400
       });
-      
+
       await expect(httpService.get('networks')).rejects.toThrow('Invalid request parameters');
+    });
+
+    describe('errorCode preservation', () => {
+      it('should preserve NDEx_User_Account_Not_Verified on 401', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 401,
+            data: {
+              errorCode: 'NDEx_User_Account_Not_Verified',
+              message: 'User account is not verified',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('user/123');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExAuthError);
+        expect((thrown as NDExAuthError).errorCode).toBe('NDEx_User_Account_Not_Verified');
+        expect((thrown as NDExAuthError).statusCode).toBe(401);
+        expect((thrown as NDExAuthError).message).toBe('User account is not verified');
+      });
+
+      it('should preserve NDEx_Object_Not_Found_Exception on 401', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 401,
+            data: {
+              errorCode: 'NDEx_Object_Not_Found_Exception',
+              message: 'No NDEx account found for this identity',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('user/me');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExAuthError);
+        expect((thrown as NDExAuthError).errorCode).toBe('NDEx_Object_Not_Found_Exception');
+        expect((thrown as NDExAuthError).statusCode).toBe(401);
+      });
+
+      it('should fall back to AUTH_ERROR when no server errorCode on 401', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 401,
+            data: { message: 'Unauthorized' },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('user/me');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExAuthError);
+        expect((thrown as NDExAuthError).errorCode).toBe('AUTH_ERROR');
+      });
+
+      it('should preserve server errorCode on 403', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 403,
+            data: {
+              errorCode: 'NDEx_Forbidden',
+              message: 'Forbidden',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('networks/private');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExAuthError);
+        expect((thrown as NDExAuthError).errorCode).toBe('NDEx_Forbidden');
+        expect((thrown as NDExAuthError).statusCode).toBe(403);
+      });
+
+      it('should preserve server errorCode on 400', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 400,
+            data: {
+              errorCode: 'NDEx_Invalid_Parameter',
+              message: 'Invalid parameter value',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('networks');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExValidationError);
+        expect((thrown as NDExValidationError).errorCode).toBe('NDEx_Invalid_Parameter');
+        expect((thrown as NDExValidationError).statusCode).toBe(400);
+        expect((thrown as NDExValidationError).message).toBe('Invalid parameter value');
+      });
+
+      it('should preserve server errorCode on 404', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 404,
+            data: {
+              errorCode: 'NDEx_Object_Not_Found_Exception',
+              message: 'Network not found',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('networks/missing-uuid');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExNotFoundError);
+        expect((thrown as NDExNotFoundError).errorCode).toBe('NDEx_Object_Not_Found_Exception');
+        expect((thrown as NDExNotFoundError).statusCode).toBe(404);
+        expect((thrown as NDExNotFoundError).message).toBe('Network not found');
+      });
+
+      it('should preserve server errorCode on 500', async () => {
+        mockAxiosInstance.get.mockRejectedValue({
+          response: {
+            status: 500,
+            data: {
+              errorCode: 'NDEx_Internal_Error',
+              message: 'Internal server error occurred',
+            },
+          },
+        });
+
+        let thrown: unknown;
+        try {
+          await httpService.get('networks/abc');
+        } catch (e) {
+          thrown = e;
+        }
+        expect(thrown).toBeInstanceOf(NDExServerError);
+        expect((thrown as NDExServerError).errorCode).toBe('NDEx_Internal_Error');
+        expect((thrown as NDExServerError).statusCode).toBe(500);
+        expect((thrown as NDExServerError).message).toBe('Internal server error occurred');
+      });
     });
   });
 
