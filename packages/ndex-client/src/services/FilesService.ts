@@ -1,6 +1,6 @@
 import { HTTPService } from './HTTPService';
 import { Permission, NDExFileType, Visibility } from '../constants';
-import { FileListItem, NDExObjectUpdateStatus, Shortcut, SearchResult } from '../types';
+import { FileListItem, FileSearchResult, NDExObjectUpdateStatus, Shortcut } from '../types';
 
 /**
  * Permission details for a file including its type and member permissions
@@ -725,19 +725,21 @@ export class FilesService {
   /**
    * Search for files in NDEx
    *
-   * Searches for networks, folders, and shortcuts based on various criteria including
-   * search terms, ownership, permissions, file type, and visibility. Results are paginated
-   * and support Lucene query syntax for advanced search capabilities.
+   * Searches files using the server's SimpleFileQuery request body and pagination
+   * query parameters. The query object can filter by search text, owner, permission,
+   * and file type, while visibility is sent separately as a required URL parameter.
+   * Results are returned in a paginated object with `numFound`, `start`, and
+   * a `files` array.
    *
    * @param params - Search parameters
    * @param params.searchString - Search terms as a string, supports Lucene syntax
-   * @param params.accountName - Username to filter files by owner
-   * @param params.permission - Filter by permission level (only for signed-in users)
+   * @param params.accountName - Account name to filter files by owner
+   * @param params.permission - Permission level filter, only applicable to signed-in users
    * @param params.type - File type filter (NETWORK, FOLDER, SHORTCUT, or null for all types)
-   * @param params.visibility - Visibility filter (required, "PRIVATE" or "PUBLIC")
-   * @param params.start - Starting index for pagination (default: 0)
-   * @param params.size - Number of results to return (default: varies by server)
-   * @returns Promise resolving to search results containing matching files
+   * @param params.visibility - Required visibility filter sent as a URL parameter ("PRIVATE" or "PUBLIC")
+   * @param params.start - Optional starting index for pagination, sent as a URL parameter
+   * @param params.size - Optional number of results to return, sent as a URL parameter
+   * @returns Promise resolving to a paginated search result containing matching files
    *
    * @example
    * ```typescript
@@ -752,11 +754,11 @@ export class FilesService {
    *
    * console.log(`Found ${results.numFound} total results`);
    * console.log(`Showing results starting at ${results.start}`);
-   * results.ResultList.forEach(file => {
+   * results.files.forEach(file => {
    *   console.log(`${file.name} (${file.type})`);
    * });
    *
-   * // Search with Lucene syntax for networks owned by specific user
+   * // Search for public networks owned by a specific user
    * const userNetworks = await client.files.searchFiles({
    *   searchString: "name:pathway AND description:signaling",
    *   accountName: "john_doe",
@@ -764,7 +766,7 @@ export class FilesService {
    *   visibility: "PUBLIC"
    * });
    *
-   * // Search for all private files the signed-in user has WRITE permission on
+   * // Search for private files the signed-in user can write to
    * const writableFiles = await client.files.searchFiles({
    *   permission: "WRITE",
    *   visibility: "PRIVATE",
@@ -773,7 +775,28 @@ export class FilesService {
    * });
    * ```
    */
-  searchFiles(params: FileSearchParams): Promise<SearchResult<FileListItem>> {
-    return this.http.post('search/files', params, { version: 'v3' });
+  searchFiles(params: FileSearchParams): Promise<FileSearchResult> {
+    const { visibility, start, size, ...query } = params;
+
+    const requestParams: {
+      visibility: 'PRIVATE' | 'PUBLIC';
+      start?: string;
+      size?: string;
+    } = {
+      visibility
+    };
+
+    if (start !== undefined) {
+      requestParams.start = String(start);
+    }
+
+    if (size !== undefined) {
+      requestParams.size = String(size);
+    }
+
+    return this.http.post('search/files', query, {
+      version: 'v3',
+      params: requestParams
+    });
   }
 }

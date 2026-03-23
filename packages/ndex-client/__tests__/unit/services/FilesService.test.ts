@@ -903,6 +903,75 @@ describe('FilesService', () => {
   });
 
   describe('Visibility Operations', () => {
+    describe('searchFiles', () => {
+      it('should send visibility, start, and size as URL parameters', async () => {
+        const mockResponse = {
+          files: [],
+          start: 0,
+          numFound: 0
+        };
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        const result = await filesService.searchFiles({
+          searchString: 'cancer',
+          accountName: 'john_doe',
+          permission: 'WRITE',
+          type: 'NETWORK',
+          visibility: 'PRIVATE',
+          start: 10,
+          size: 25
+        });
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'search/files',
+          {
+            searchString: 'cancer',
+            accountName: 'john_doe',
+            permission: 'WRITE',
+            type: 'NETWORK'
+          },
+          {
+            version: 'v3',
+            params: {
+              visibility: 'PRIVATE',
+              start: '10',
+              size: '25'
+            }
+          }
+        );
+        expect(result).toBe(mockResponse);
+      });
+
+      it('should omit optional pagination parameters when not provided', async () => {
+        const mockResponse = {
+          files: [],
+          start: 0,
+          numFound: 0
+        };
+        mockHttpService.post.mockResolvedValueOnce(mockResponse);
+
+        await filesService.searchFiles({
+          searchString: 'pathway',
+          visibility: 'PUBLIC',
+          type: 'NETWORK'
+        });
+
+        expect(mockHttpService.post).toHaveBeenCalledWith(
+          'search/files',
+          {
+            searchString: 'pathway',
+            type: 'NETWORK'
+          },
+          {
+            version: 'v3',
+            params: {
+              visibility: 'PUBLIC'
+            }
+          }
+        );
+      });
+    });
+
     describe('setVisibility', () => {
       it('should call http.post with correct parameters', async () => {
         const mockResponse = undefined;

@@ -407,6 +407,12 @@ export interface SearchResult<T> {
   numFound: number;
 }
 
+export interface FileSearchResult {
+  files: FileListItem[];
+  start: number;
+  numFound: number;
+}
+
 /* commenting out as not currently used
 export interface NetworkSearchResult {
   numFound: number;
@@ -696,6 +702,5 @@ export interface Shortcut {
 
 // Re-export sharing types from services
 export type { SharingMemberRequest, FilePermissionDetails, FilePermissionList, FileSearchParams } from '../services/FilesService';
-
 
 
