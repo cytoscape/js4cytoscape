@@ -5,14 +5,14 @@
 const integrationTestConfig = {
   // NDEx Server Configuration
   server: {
-    baseURL: 'https://dev1.ndexbio.org',
-    apiVersion: 'v2'
+    baseURL: process.env.NDEX_TEST_BASE_URL || '',
+    apiVersion: process.env.NDEX_TEST_API_VERSION || 'v2'
   },
   
   // Test Account Credentials
   testAccount: {
-    username: 'cj1',
-    password: 'ggggggggg'
+    username: process.env.NDEX_TEST_USERNAME || '',
+    password: process.env.NDEX_TEST_PASSWORD || ''
   },
 
   // Test Timeouts and Limits
@@ -23,8 +23,8 @@ const integrationTestConfig = {
 
   // Test Data Identifiers (for consistent test data across integration tests)
   testData: {
-    publicNetworkId: '2015e494-1f11-11e7-8156-06832d634f41',
-    privateNetworkId: '2977ee7f-1d34-11e7-8145-06832d634f41'
+    publicNetworkId: process.env.NDEX_TEST_PUBLIC_NETWORK_ID || '',
+    privateNetworkId: process.env.NDEX_TEST_PRIVATE_NETWORK_ID || ''
   }
 };
 
