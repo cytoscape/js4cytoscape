@@ -69,9 +69,6 @@ import { NDExClientConfig, BasicAuth, OAuthAuth } from './types';
  * 
  * // User operations
  * const profile = await client.user.getCurrentUser();
- * 
- * // Admin operations (requires admin privileges)
- * const stats = await client.admin.getSystemStats();
  * ```
  */
 export class NDExClient {

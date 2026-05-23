@@ -44,12 +44,12 @@ console.log('Profile:', {
 ```typescript
 // Search users by name or email
 const searchResults = await client.user.searchUsers(
-  { searchString: 'john smith' },
+  'john smith',
   0,    // start index
   10    // limit
 );
 
-searchResults.forEach(user => {
+searchResults.ResultList.forEach(user => {
   console.log(`${user.firstName} ${user.lastName} (${user.userName})`);
 });
 ```
@@ -105,26 +105,32 @@ const userNetworks = await client.user.getAccountPageNetworks(
 ### Get User's Home Content
 
 ```typescript
-// Get complete home folder content including networks, folders, and shortcuts
+import { NDExFileType } from '@js4cytoscape/ndex-client';
+
+// Get complete home folder content (networks, folders, and shortcuts in one flat list)
 const userUUID = 'user-uuid-here';
 const homeContent = await client.user.getUserHomeContent(userUUID);
 
-console.log('Home content summary:');
-console.log(`- Networks: ${homeContent.networks.length}`);
-console.log(`- Folders: ${homeContent.folders.length}`);
-console.log(`- Shortcuts: ${homeContent.shortcuts.length}`);
+// The response is a flat FileListItem[] — filter by `type` to separate categories
+const networks  = homeContent.filter(item => item.type === NDExFileType.NETWORK);
+const folders   = homeContent.filter(item => item.type === NDExFileType.FOLDER);
+const shortcuts = homeContent.filter(item => item.type === NDExFileType.SHORTCUT);
 
-// Access individual components
-homeContent.networks.forEach(network => {
-  console.log(`Network: ${network.name} (${network.nodeCount} nodes)`);
+console.log('Home content summary:');
+console.log(`- Networks: ${networks.length}`);
+console.log(`- Folders: ${folders.length}`);
+console.log(`- Shortcuts: ${shortcuts.length}`);
+
+networks.forEach(network => {
+  console.log(`Network: ${network.name} (${network.edges} edges)`);
 });
 
-homeContent.folders.forEach(folder => {
+folders.forEach(folder => {
   console.log(`Folder: ${folder.name}`);
 });
 
-homeContent.shortcuts.forEach(shortcut => {
-  console.log(`Shortcut: ${shortcut.name} -> ${shortcut.targetNetworkUUID}`);
+shortcuts.forEach(shortcut => {
+  console.log(`Shortcut: ${shortcut.name}`);
 });
 ```
 
@@ -134,7 +140,7 @@ homeContent.shortcuts.forEach(shortcut => {
 // Get home content with specific format
 const homeContent = await client.user.getUserHomeContent(
   userUUID,
-  'minimal'  // Custom format parameter
+  'compact'  // 'update' (default) or 'compact'
 );
 
 // Default format is 'update' if not specified
