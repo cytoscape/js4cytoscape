@@ -473,7 +473,7 @@ export interface NDExClientConfig {
   retryDelay?: number;
   debug?: boolean;
   headers?: Record<string, string>;
-  auth?: BasicAuth | OAuthAuth;  // Simplified to 2 authentication options
+  auth?: BasicAuth | OAuthAuth | undefined;  // Use undefined to clear authentication
 }
 
 export interface APIResponse<T = any> {
@@ -702,5 +702,4 @@ export interface Shortcut {
 
 // Re-export sharing types from services
 export type { SharingMemberRequest, FilePermissionDetails, FilePermissionList, FileSearchParams } from '../services/FilesService';
-
 

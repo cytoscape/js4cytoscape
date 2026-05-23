@@ -106,7 +106,7 @@ export class NDExClient {
    * Clear authentication
    */
   logout(): void {
-    this.httpService.updateConfig({});
+    this.httpService.updateConfig({ auth: undefined });
   }
 
   /**

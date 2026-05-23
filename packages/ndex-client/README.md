@@ -217,8 +217,9 @@ const apiUrl = `${siteUrl}${basePath}/api/`;
 
 2. **Configure integration tests** (optional)
    ```bash
-   # Edit test/testconfig.js with your NDEx credentials
+   # Create test/testconfig.js and set the NDEX_TEST_* environment variables
    # This is only needed if you want to run integration tests
+   # Do not commit real credentials to GitHub
    ```
 
 ### Building
@@ -296,19 +297,72 @@ npm run test:ci
 
 #### Test Configuration
 
-Integration tests use the configuration in `test/testconfig.js`:
+Integration tests read their settings from `test/testconfig.js`. Keep real
+credentials out of source control by loading them from environment variables.
+
+Create `test/testconfig.js` with this structure:
 
 ```javascript
+/**
+ * Integration Test Configuration
+ *
+ * This file stores server connection details and credentials for integration
+ * tests. Values are read from environment variables so credentials do not need
+ * to be committed to GitHub.
+ */
 const integrationTestConfig = {
+  // NDEx Server Configuration
   server: {
-    baseURL: 'https://dev1.ndexbio.org',  // Test server
+    baseURL: process.env.NDEX_TEST_BASE_URL || '',
+    apiVersion: process.env.NDEX_TEST_API_VERSION || 'v2'
   },
+
+  // Test Account Credentials
   testAccount: {
-    username: 'your-test-username',       // Update with your credentials
-    password: 'your-test-password'
+    username: process.env.NDEX_TEST_USERNAME || '',
+    password: process.env.NDEX_TEST_PASSWORD || ''
+  },
+
+  // Test Timeouts and Limits
+  timeouts: {
+    default: 10000,
+    longRunning: 30000
+  },
+
+  // Test Data Identifiers (for consistent test data across integration tests)
+  testData: {
+    publicNetworkId: process.env.NDEX_TEST_PUBLIC_NETWORK_ID || '',
+    privateNetworkId: process.env.NDEX_TEST_PRIVATE_NETWORK_ID || ''
   }
 };
+
+// Legacy export for backward compatibility
+const testAccount = integrationTestConfig.testAccount;
+
+module.exports = {
+  integrationTestConfig,
+  testAccount  // Keep for backward compatibility
+};
 ```
+
+Before running integration tests, set the required environment variables:
+
+```bash
+export NDEX_TEST_BASE_URL="https://dev1.ndexbio.org"
+export NDEX_TEST_USERNAME="your-test-username"
+export NDEX_TEST_PASSWORD="your-test-password"
+export NDEX_TEST_PUBLIC_NETWORK_ID="your-public-test-network-uuid"
+export NDEX_TEST_PRIVATE_NETWORK_ID="your-private-test-network-uuid"
+
+# Optional; defaults to v2
+export NDEX_TEST_API_VERSION="v2"
+```
+
+The integration test helper in `__tests__/integration/config/testConfig.ts`
+expects `integrationTestConfig.server.baseURL`,
+`integrationTestConfig.testAccount`, `integrationTestConfig.timeouts.longRunning`,
+and `integrationTestConfig.testData.publicNetworkId/privateNetworkId` to be
+defined.
 
 ### Other Scripts
 
