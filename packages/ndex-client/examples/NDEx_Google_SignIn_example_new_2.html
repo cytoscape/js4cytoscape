@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NDEx Google OAuth Sign In Example</title>
+    <meta charset='utf-8'/>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="../dist/ndexClient.js"></script>
+</head>
+<body>
+<p>NDEx Google OAuth Sign In Example.</p>
+
+<!--Add buttons to initiate auth sequence and sign out-->
+<button id="authorize-button" style="display: none;">Authorize</button>
+<button id="signout-button" style="display: none;">Sign Out</button>
+<button id="refresh-button" style="display: none;">Refresh</button>
+<button id="get-summary-button" style="display: none;">Get Network Summary</button>
+
+<div id="content"></div>
+
+<script type="text/javascript">
+
+
+    // the Client Id of NDEx Dev server.
+    var clientId = '802839698598-mrrd3iq3jl06n6c2fo1pmmc8uugt9ukq.apps.googleusercontent.com';
+    var scopes = 'profile email';
+    var appidtoken = undefined;
+
+    var authorizeButton = document.getElementById('authorize-button');
+    var signoutButton = document.getElementById('signout-button');
+    var refreshButton = document.getElementById('refresh-button');
+    var summaryButton = document.getElementById('get-summary-button');
+
+  /*  function handleClientLoad() {
+        // Load the API client and auth2 library
+        gapi.load('auth2', initClient);
+    } */
+
+    function initClient(creresponse) {
+        idToken = creresponse.credential;
+       // const responsePayload = decodeJwtResponse(idToken);
+        console.log(idToken);
+        updateSigninStatus(idToken);
+        authorizeButton.onclick = handleAuthClick;
+            signoutButton.onclick = handleSignoutClick;
+            summaryButton.onclick = handleSummaryClick;
+            refreshButton.onclick = handleRefresh;
+    }
+
+    function updateSigninStatus(idtoken) {
+        if (idtoken) {
+            authorizeButton.style.display = 'none';
+            signoutButton.style.display = 'block';
+            refreshButton.style.display = 'block';
+            summaryButton.style.display = 'block';
+            appidtoken = idToken;
+
+            //var curUser = gapi.auth2.getAuthInstance().currentUser.get();
+
+            //printToken(curUser.getAuthResponse());
+        } else {
+            authorizeButton.style.display = 'block';
+            signoutButton.style.display = 'none';
+            summaryButton.style.display = 'none';
+        }
+    }
+
+    function handleAuthClick(event) {
+        gapi.signIn({prompt: 'consent select_account'});
+
+    }
+
+    function handleRefresh(event) {
+      /*  google.accounts.id.initialize({
+      client_id: clientId,
+      callback: initClient,
+      auto_select: true
+    });
+    google.accounts.id.prompt();*/
+    }
+
+    function handleSignoutClick(event) {
+        //gapi.auth2.getAuthInstance().signOut();
+        google.accounts.id.disableAutoSelect();
+
+    }
+
+    function handleSummaryClick(event) {
+
+      var ndexOauth = new ndexClient.NDEx('https://dev.ndexbio.org/v2');
+
+      ndexOauth.setAuthToken(appidtoken);
+      // the UUID of the private network you want to test on.
+      var networkUUID = "72ca66c4-180a-11ed-9208-0242c246b7fb";
+
+      ndexOauth.getNetworkSummary( networkUUID).then( function (response) {
+        var p = document.createElement('pO');
+        p.appendChild(document.createTextNode('Summary: ' + JSON.stringify(response)));
+        document.getElementById('content').appendChild(p);
+      }, (err) => {
+        console.log(err);
+      })
+
+
+/*
+        // The NDEx server you want to connect to.
+        var NdexServer = "http://dev.ndexbio.org";
+
+        // the UUID of the private network you want to test on.
+        // This should be a network you can access if you are not authenticated by the NDEx server.
+        var networkUUID = "edbdcdb4-e03f-11e7-8dff-06832d634f41";
+
+        var client = new HttpClient();
+        client.get(NdexServer + '/v2/network/' + networkUUID + '/summary', function (response) {
+            var p = document.createElement('p');
+            p.appendChild(document.createTextNode('Summary: ' + response));
+            document.getElementById('content').appendChild(p);
+        }) */
+    }
+
+    // Load the API and make an API call.  Display the results on the screen.
+    function printToken(response) {
+
+        var p = document.createElement('p');
+        var dn = new Date();
+        p.appendChild(document.createTextNode('Refresh time: ' + dn));
+        document.getElementById('content').appendChild(p);
+
+        p = document.createElement('p');
+        var id = response.id_token;
+        p.appendChild(document.createTextNode('ID-token: ' + id));
+        document.getElementById('content').appendChild(p);
+
+        p = document.createElement('p');
+        var d = new Date(response.expires_at);
+        var ele = document.createTextNode('Expires at: ' + d);
+        p.style.color = "#FF0000";
+        p.appendChild(ele);
+        document.getElementById('content').appendChild(p);
+
+    }
+
+    var HttpClient = function () {
+        this.get = function (aUrl, aCallback) {
+            var anHttpRequest = new XMLHttpRequest();
+            var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token;
+            anHttpRequest.onreadystatechange = function () {
+                if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
+                    aCallback(anHttpRequest.responseText);
+            };
+
+            anHttpRequest.open("GET", aUrl, true);
+            anHttpRequest.setRequestHeader('Authorization', "Bearer " + token);
+            anHttpRequest.send(null);
+        }
+    }
+/*
+   window.onload =  function () {
+    google.accounts.oauth2.initCodeClient({
+      client_id: clientId,
+     scope: 'https://www.googleapis.com/auth/profile',
+      ux_mode: 'popup',
+    callback: initClient
+    })
+};*/
+
+    window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: initClient,
+      auto_select: true
+    });
+    const parent = document.getElementById('authorize-button');
+    authorizeButton.style.display = 'block';
+    google.accounts.id.renderButton(parent, {theme: "outline", size: "large"});
+    google.accounts.id.prompt();
+  } 
+</script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches: [ main, ndex3-major-refactor ]
+    paths:
+      - 'packages/**/src/**'
+      - 'packages/**/docs-root/**'
+      - 'packages/**/docs-site/**'
+      - 'packages/**/package.json'
+      - 'packages/**/tsconfig.json'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  detect-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.detect.outputs.packages }}
+      has-docs: ${{ steps.detect.outputs.has-docs }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Detect packages with documentation
+        id: detect
+        run: |
+          packages_with_docs=()
+          for package_dir in packages/*/; do
+            package_name=$(basename "$package_dir")
+            if [ -f "$package_dir/package.json" ]; then
+              # Check if package has docs scripts or docs-root directory
+              if grep -q '"docs:' "$package_dir/package.json" || [ -d "$package_dir/docs-root" ] || [ -d "$package_dir/docs-site" ]; then
+                packages_with_docs+=("$package_name")
+                echo "Found package with docs: $package_name"
+              fi
+            fi
+          done
+          
+          if [ ${#packages_with_docs[@]} -eq 0 ]; then
+            echo "has-docs=false" >> $GITHUB_OUTPUT
+            echo "packages=[]" >> $GITHUB_OUTPUT
+          else
+            echo "has-docs=true" >> $GITHUB_OUTPUT
+            # Convert array to JSON format properly
+            packages_json="["
+            for i in "${!packages_with_docs[@]}"; do
+              if [ $i -gt 0 ]; then
+                packages_json+=","
+              fi
+              packages_json+="\"${packages_with_docs[$i]}\""
+            done
+            packages_json+="]"
+            echo "packages=${packages_json}" >> $GITHUB_OUTPUT
+            echo "Generated JSON: ${packages_json}"
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: detect-packages
+    if: needs.detect-packages.outputs.has-docs == 'true'
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.detect-packages.outputs.packages) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies (root)
+        run: npm ci
+
+      - name: Install dependencies (${{ matrix.package }})
+        run: npm ci
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Check if package has docs:api script
+        id: check-api-docs
+        run: |
+          if grep -q '"docs:api"' packages/${{ matrix.package }}/package.json; then
+            echo "has-api-docs=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-api-docs=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build API documentation
+        if: steps.check-api-docs.outputs.has-api-docs == 'true'
+        run: npm run docs:api
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Check if package has docs-root
+        id: check-docs-root
+        run: |
+          if [ -d "packages/${{ matrix.package }}/docs-root" ]; then
+            echo "has-docs-root=true" >> $GITHUB_OUTPUT
+          elif [ -d "packages/${{ matrix.package }}/docs-site" ]; then
+            echo "has-docs-site=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-docs=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build unified documentation (new structure)
+        if: steps.check-docs-root.outputs.has-docs-root == 'true'
+        run: npm run docs:build
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Install docs-site dependencies (legacy)
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
+        run: npm ci
+        working-directory: packages/${{ matrix.package }}/docs-site
+
+      - name: Build Docusaurus site (legacy)
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
+        run: npm run build
+        working-directory: packages/${{ matrix.package }}/docs-site
+
+      - name: Upload unified docs artifact
+        if: steps.check-docs-root.outputs.has-docs-root == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/docs-root
+
+      - name: Upload legacy docs artifact
+        if: steps.check-docs-root.outputs.has-docs-site == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/docs-site/build
+
+  combine-docs:
+    runs-on: ubuntu-latest
+    needs: [detect-packages, build]
+    if: needs.detect-packages.outputs.has-docs == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all documentation artifacts
+        uses: actions/download-artifact@v4.1.3
+        with:
+          path: ./docs-artifacts
+
+      - name: Create combined documentation site
+        run: |
+          mkdir -p combined-docs
+          
+          # Create main index page
+          cat > combined-docs/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>JS4Cytoscape Documentation</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+              .package { border: 1px solid #ddd; margin: 20px 0; padding: 20px; border-radius: 8px; }
+              .package h2 { color: #2e7d32; }
+              .package a { display: inline-block; margin-top: 10px; padding: 10px 20px; 
+                          background: #1976d2; color: white; text-decoration: none; border-radius: 4px; }
+              .package a:hover { background: #1565c0; }
+            </style>
+          </head>
+          <body>
+            <h1>JS4Cytoscape Package Documentation</h1>
+            <p>Welcome to the JS4Cytoscape monorepo documentation. Select a package below:</p>
+          EOF
+          
+          # Add links for each package with documentation
+          for package in $(echo '${{ needs.detect-packages.outputs.packages }}' | jq -r '.[]'); do
+            if [ -d "docs-artifacts/docs-$package" ]; then
+              # Copy package docs to subdirectory
+              cp -r "docs-artifacts/docs-$package" "combined-docs/$package"
+              
+              # Add package link to index
+              cat >> combined-docs/index.html << EOF
+              <div class="package">
+                <h2>$package</h2>
+                <p>Documentation for the $package package.</p>
+                <a href="./$package/">View Documentation</a>
+              </div>
+          EOF
+            fi
+          done
+          
+          # Close HTML
+          cat >> combined-docs/index.html << 'EOF'
+          </body>
+          </html>
+          EOF
+
+      - name: Upload combined documentation
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: combined-docs
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: combine-docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

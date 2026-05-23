@@ -35,3 +35,31 @@ node_modules
 .nyc_output/
 
 yarn.lock
+
+# Build output
+dist/
+
+# Generated documentation (TypeDoc output)
+docs-site/docs/api/
+
+# Old docs directory (if using legacy TypeDoc setup)
+# docs/
+
+# Docusaurus build artifacts
+docs-site/build/
+docs-site/.docusaurus/
+
+# Debug and legacy files
+debug-response.js
+debug-integration-test.js
+jsdoc.json
+
+# Do not commit credential-bearing test configuration.
+# If `test/testconfig.js` was ever tracked, remove it from Git separately;
+# adding it to .gitignore alone does not protect existing history or tracked files.
+# Prefer a documented example file plus environment variables / CI secrets.
+
+# New documentation architecture
+docs-root/api/
+docs-root/docusaurus/build/
+docs-root/docusaurus/.docusaurus/
