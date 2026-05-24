@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--
+  Open in Cytoscape — minimal integration demo
+
+  Shows how a web page can:
+    1. Detect whether Cytoscape Desktop is running on the user's machine.
+    2. Send a CX2 network into that running Cytoscape with one button click.
+    3. Drive Cytoscape afterwards (run a layout, rotate the network, fit view).
+
+  Everything is done from this single HTML file against Cytoscape's local
+  CyREST endpoint at http://127.0.0.1:1234. No server, no build step.
+
+  Libraries (loaded from a CDN at the bottom of <body>):
+    - @js4cytoscape/js4cytoscape  -> cyBadge(), commandsPOST(), cyrestGET()
+    - @js4cytoscape/ndex-client   -> NDExClient.CyNDExService for the CX2 POST
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open in Cytoscape — Demo</title>
+
+  <!-- Styles for the Cytoscape status badge rendered by cyBadge(). -->
+  <link rel="stylesheet" href="https://cytoscape.org/javascript-notebooks/js4cytoscape-style.css">
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #222;
+      line-height: 1.5;
+    }
+    h1 { margin-bottom: .25rem; }
+    .row { display: flex; align-items: center; gap: .75rem; margin: 1rem 0; }
+    button.cyaction {
+      background: #F7941E;
+      color: #fff;
+      border: 0;
+      border-radius: 30px;
+      padding: .75rem 1.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-right: .5rem;
+      margin-bottom: .5rem;
+    }
+    button.cyaction:hover:not(:disabled) { background: #d97e10; }
+    button.cyaction:disabled {
+      background: #cfcfcf;
+      cursor: not-allowed;
+    }
+    .actions { margin: 1rem 0 .25rem; }
+    #status { font-size: .9rem; color: #555; min-height: 1.2em; }
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow: auto;
+      font-size: 12px;
+      max-height: 260px;
+    }
+    .note { font-size: .85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Open in Cytoscape</h1>
+  <p>
+    Click <strong>Open in Cytoscape</strong> to send a small CX2 network &mdash;
+    a 6-node cell hierarchy (Cell &rarr; organelles &rarr; chromosome /
+    nucleolus / gene) &mdash; to your running Cytoscape Desktop via CyREST.
+    Then click <strong>Apply Hierarchical Layout</strong> to lay it out as a
+    tree with the root on top.
+  </p>
+
+  <!-- cyBadge() fills this <span> with "cytoscape v3.x" / "not running" -->
+  <div class="row">
+    <span>Cytoscape status:</span>
+    <span class="cytoscape-badge"></span>
+  </div>
+
+  <div class="actions">
+    <button id="openBtn"   class="cyaction">Open in Cytoscape</button>
+    <br>
+    <!-- Disabled until the CX2 is successfully sent. -->
+    <button id="layoutBtn" class="cyaction" disabled>Apply Hierarchical Layout</button>
+  </div>
+  <p id="status"></p>
+
+  <h3>The CX2 payload sent to Cytoscape</h3>
+  <pre id="preview"></pre>
+
+  <p class="note">
+    Requires Cytoscape Desktop 3.10+ running locally (CyREST listens on
+    <code>http://127.0.0.1:1234</code>).
+  </p>
+
+  <!--
+    Two libraries do all the work:
+      1. @js4cytoscape/js4cytoscape  -> cyBadge(), commandsPOST(), cyrestGET() as globals
+      2. @js4cytoscape/ndex-client   -> the NDExClient global, including CyNDExService
+  -->
+  <script src="https://unpkg.com/@js4cytoscape/js4cytoscape@1.1.0/dist/main.js"></script>
+  <script src="https://unpkg.com/@js4cytoscape/ndex-client/dist/index.global.js"></script>
+
+  <script>
+    // =========================================================================
+    // 1. Sample data: a tiny CX2 network shaped like a cell hierarchy.
+    //
+    //   Cell (root, orange)
+    //   |-- Nucleus       (organelle, blue)
+    //   |    |-- Chromosome (child, green)
+    //   |    `-- Nucleolus  (child, green)
+    //   `-- Mitochondrion (organelle, blue)
+    //        `-- MT-CO1     (gene,  green)
+    //
+    // CX2 is an ordered array of "aspect" objects. The aspects we use here:
+    //   - CXVersion / metaData    -> required envelope (CX2 spec)
+    //   - attributeDeclarations   -> column types for nodes / edges
+    //   - networkAttributes       -> network-level metadata (the title)
+    //   - nodes                   -> node ids (+ optional x/y; omitted here
+    //                                so Cytoscape applies its default layout)
+    //   - edges                   -> directed edges via source (s) / target (t)
+    //   - visualProperties        -> default node/edge styling
+    //   - nodeBypasses            -> per-node style overrides (colors by tier)
+    //
+    // Full CX2 spec: https://cytoscape.org/cx/cx2/specification/
+    // =========================================================================
+    const sampleCx2 = [
+      { CXVersion: "2.0", hasFragments: false },
+      { metaData: [
+          { name: "attributeDeclarations", elementCount: 1 },
+          { name: "networkAttributes",     elementCount: 1 },
+          { name: "nodes",                 elementCount: 6 },
+          { name: "edges",                 elementCount: 5 },
+          { name: "visualProperties",      elementCount: 1 },
+          { name: "nodeBypasses",          elementCount: 5 },
+          { name: "edgeBypasses",          elementCount: 0 }
+      ]},
+      { attributeDeclarations: [{
+          networkAttributes: { name: { d: "string" } },
+          nodes: {
+            name: { d: "string" }
+          },
+          edges: {
+            interaction: { d: "string" }
+          }
+      }]},
+      { networkAttributes: [{ name: "Cell Hierarchy Demo" }] },
+      { nodes: [
+          { id: 0, v: { name: "Cell"          } },
+          { id: 1, v: { name: "Nucleus"       } },
+          { id: 2, v: { name: "Mitochondrion" } },
+          { id: 3, v: { name: "Chromosome"    } },
+          { id: 4, v: { name: "Nucleolus"     } },
+          { id: 5, v: { name: "MT-CO1"        } }
+      ]},
+      { edges: [
+          { id: 0, s: 0, t: 1, v: { interaction: "contains" } },
+          { id: 1, s: 0, t: 2, v: { interaction: "contains" } },
+          { id: 2, s: 1, t: 3, v: { interaction: "contains" } },
+          { id: 3, s: 1, t: 4, v: { interaction: "contains" } },
+          { id: 4, s: 2, t: 5, v: { interaction: "encodes"  } }
+      ]},
+      { visualProperties: [{
+          default: {
+            network: { NETWORK_BACKGROUND_COLOR: "#FFFFFF" },
+            node: {
+              NODE_SHAPE: "ellipse",
+              NODE_WIDTH: 70, NODE_HEIGHT: 70,
+              NODE_BACKGROUND_COLOR: "#F7941E",
+              NODE_BORDER_COLOR: "#7A4A0E",
+              NODE_BORDER_WIDTH: 2,
+              NODE_LABEL_COLOR: "#FFFFFF",
+              NODE_LABEL_FONT_SIZE: 10
+            },
+            edge: {
+              EDGE_LINE_COLOR: "#0078B9",
+              EDGE_WIDTH: 3,
+              EDGE_TARGET_ARROW_SHAPE: "triangle",
+              EDGE_TARGET_ARROW_COLOR: "#0078B9"
+            }
+          }
+      }]},
+      // Per-node color overrides so the three tiers are visually distinct.
+      { nodeBypasses: [
+          { id: 1, v: { NODE_BACKGROUND_COLOR: "#0078B9", NODE_BORDER_COLOR: "#003F61" } }, // Nucleus
+          { id: 2, v: { NODE_BACKGROUND_COLOR: "#0078B9", NODE_BORDER_COLOR: "#003F61" } }, // Mitochondrion
+          { id: 3, v: { NODE_BACKGROUND_COLOR: "#5BA84F", NODE_BORDER_COLOR: "#2F5C26" } }, // Chromosome
+          { id: 4, v: { NODE_BACKGROUND_COLOR: "#5BA84F", NODE_BORDER_COLOR: "#2F5C26" } }, // Nucleolus
+          { id: 5, v: { NODE_BACKGROUND_COLOR: "#5BA84F", NODE_BORDER_COLOR: "#2F5C26" } }  // MT-CO1
+      ]},
+      { edgeBypasses: [] },
+      { status: [{ error: "", success: true }] }
+    ];
+
+    // Echo the payload into the page so readers can see what's being sent.
+    document.getElementById("preview").textContent = JSON.stringify(sampleCx2, null, 2);
+
+
+    // =========================================================================
+    // 2. Cytoscape status badge.
+    //
+    // cyBadge() (from @js4cytoscape/js4cytoscape) finds every element with
+    // class="cytoscape-badge" and fills it with either "cytoscape vX.Y.Z" or
+    // "not running" depending on whether http://127.0.0.1:1234 responds.
+    // =========================================================================
+    window.addEventListener("load", () => cyBadge());
+
+
+    // =========================================================================
+    // 3. "Open in Cytoscape": POST the CX2 to Cytoscape Desktop.
+    //
+    // CyNDExService.postCX2NetworkToCytoscape(cx2String, title, collection)
+    // wraps the CyREST call:  POST /v1/networks?format=cx2&title=...&collection=...
+    // The freshly imported network becomes Cytoscape's "current" network,
+    // which means subsequent commands without a SUID will target it.
+    // =========================================================================
+    const cyNDEx    = new NDExClient.CyNDExService();
+    const status    = document.getElementById("status");
+    const openBtn   = document.getElementById("openBtn");
+    const layoutBtn = document.getElementById("layoutBtn");
+
+    openBtn.addEventListener("click", async () => {
+      status.textContent = "Sending network to Cytoscape…";
+      layoutBtn.disabled = true;          // re-disable on every send
+      try {
+        await cyNDEx.postCX2NetworkToCytoscape(
+          JSON.stringify(sampleCx2),
+          "Cell Hierarchy Demo",   // network title shown in Cytoscape
+          "Web Tutorial"            // collection name
+        );
+        status.textContent = "Network opened in Cytoscape.";
+        layoutBtn.disabled = false;       // enable the follow-up step
+      } catch (err) {
+        status.textContent =
+          "Failed to send network: " + err.message +
+          " — is Cytoscape Desktop running?";
+      }
+    });
+
+
+    // =========================================================================
+    // 4. "Apply Hierarchical Layout": drive Cytoscape after the import.
+    //
+    // commandsPOST() (from @js4cytoscape/js4cytoscape) sends any string from
+    // Cytoscape's "Command Line" dialog. That's the universal escape hatch
+    // for automation: anything you can type in Help > Automation > CyREST
+    // Command API works here too.
+    //
+    // The three commands below:
+    //   1. `layout hierarchical`        -- arrange the network as a tree
+    //   2. `layout rotate angle=180`    -- Cytoscape's Layout Tools rotates
+    //                                       the whole network so the root
+    //                                       (placed at the bottom by the
+    //                                       hierarchical algorithm) ends up
+    //                                       on top
+    //   3. `view fit content`           -- zoom to fit
+    //
+    // Important: commandsPOST() does NOT throw on a bad command name. It
+    // returns a JSON object with an `errors` array. runCmd() below checks
+    // for that and throws so failures surface to the user.
+    //
+    // To discover what commands exist on a given install:
+    //   await cyrestGET("apply/layouts")        -> layout algorithm names
+    //   await cyrestGET("commands/layout")      -> commands in the layout ns
+    // =========================================================================
+    async function runCmd(cmd) {
+      const result = await commandsPOST(cmd);
+      if (result && result.errors && result.errors.length) {
+        const msg = result.errors.map(e => e.message || JSON.stringify(e)).join("; ");
+        throw new Error("`" + cmd + "` -> " + msg);
+      }
+      return result;
+    }
+
+    layoutBtn.addEventListener("click", async () => {
+      status.textContent = "Applying hierarchical layout…";
+      try {
+        await runCmd("layout hierarchical");
+        await runCmd("layout rotate angle=180");
+        await runCmd("view fit content");
+        status.textContent = "Hierarchical layout applied (root on top).";
+      } catch (err) {
+        status.textContent = "Layout failed: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
