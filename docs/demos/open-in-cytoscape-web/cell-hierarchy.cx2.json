@@ -1,0 +1,62 @@
+[
+  { "CXVersion": "2.0", "hasFragments": false },
+  { "metaData": [
+      { "name": "attributeDeclarations", "elementCount": 1 },
+      { "name": "networkAttributes",     "elementCount": 1 },
+      { "name": "nodes",                 "elementCount": 6 },
+      { "name": "edges",                 "elementCount": 5 },
+      { "name": "visualProperties",      "elementCount": 1 },
+      { "name": "nodeBypasses",          "elementCount": 5 },
+      { "name": "edgeBypasses",          "elementCount": 0 }
+  ]},
+  { "attributeDeclarations": [{
+      "networkAttributes": { "name": { "d": "string" } },
+      "nodes": { "name": { "d": "string" } },
+      "edges": { "interaction": { "d": "string" } }
+  }]},
+  { "networkAttributes": [{ "name": "Cell Hierarchy Demo" }] },
+  { "nodes": [
+      { "id": 0, "v": { "name": "Cell"          } },
+      { "id": 1, "v": { "name": "Nucleus"       } },
+      { "id": 2, "v": { "name": "Mitochondrion" } },
+      { "id": 3, "v": { "name": "Chromosome"    } },
+      { "id": 4, "v": { "name": "Nucleolus"     } },
+      { "id": 5, "v": { "name": "MT-CO1"        } }
+  ]},
+  { "edges": [
+      { "id": 0, "s": 0, "t": 1, "v": { "interaction": "contains" } },
+      { "id": 1, "s": 0, "t": 2, "v": { "interaction": "contains" } },
+      { "id": 2, "s": 1, "t": 3, "v": { "interaction": "contains" } },
+      { "id": 3, "s": 1, "t": 4, "v": { "interaction": "contains" } },
+      { "id": 4, "s": 2, "t": 5, "v": { "interaction": "encodes"  } }
+  ]},
+  { "visualProperties": [{
+      "default": {
+        "network": { "NETWORK_BACKGROUND_COLOR": "#FFFFFF" },
+        "node": {
+          "NODE_SHAPE": "ellipse",
+          "NODE_WIDTH": 70, "NODE_HEIGHT": 70,
+          "NODE_BACKGROUND_COLOR": "#F7941E",
+          "NODE_BORDER_COLOR": "#7A4A0E",
+          "NODE_BORDER_WIDTH": 2,
+          "NODE_LABEL_COLOR": "#FFFFFF",
+          "NODE_LABEL_FONT_SIZE": 10
+        },
+        "edge": {
+          "EDGE_LINE_COLOR": "#0078B9",
+          "EDGE_WIDTH": 3,
+          "EDGE_TARGET_ARROW_SHAPE": "triangle",
+          "EDGE_TARGET_ARROW_COLOR": "#0078B9"
+        }
+      }
+  }]},
+  { "nodeBypasses": [
+      { "id": 1, "v": { "NODE_BACKGROUND_COLOR": "#0078B9", "NODE_BORDER_COLOR": "#003F61" } },
+      { "id": 2, "v": { "NODE_BACKGROUND_COLOR": "#0078B9", "NODE_BORDER_COLOR": "#003F61" } },
+      { "id": 3, "v": { "NODE_BACKGROUND_COLOR": "#5BA84F", "NODE_BORDER_COLOR": "#2F5C26" } },
+      { "id": 4, "v": { "NODE_BACKGROUND_COLOR": "#5BA84F", "NODE_BORDER_COLOR": "#2F5C26" } },
+      { "id": 5, "v": { "NODE_BACKGROUND_COLOR": "#5BA84F", "NODE_BORDER_COLOR": "#2F5C26" } }
+  ]},
+  { "edgeBypasses": [] },
+  { "status": [{ "error": "", "success": true }] }
+]

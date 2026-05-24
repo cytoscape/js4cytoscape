@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--
+  Open in Cytoscape Web — minimal integration demo
+
+  Companion to ../open-in-cytoscape/index.html. Same 6-node cell hierarchy
+  network, but instead of pushing it into Cytoscape Desktop over the local
+  CyREST endpoint, this page hands it off to Cytoscape Web (web.cytoscape.org)
+  entirely through URLs. No install required on the user's machine.
+
+  Two patterns are shown as buttons, and a third "advanced" pattern is shown
+  as a copyable link:
+
+    1. Open from URL          -> https://web.cytoscape.org/?import=<encoded-cx2-url>
+    2. Open via NDEx UUID     -> https://web.cytoscape.org/0/networks/<uuid>
+    3. Open with view state   -> #2 + extra query params (panels, selection, ...)
+
+  The CX2 payload lives in a sibling file (cell-hierarchy.cx2.json) so that
+  Cytoscape Web can fetch it for pattern #1. The "Open via NDEx" button uses
+  a precomputed network UUID; the NDExClient save snippet at the bottom of
+  the page shows the code a real web app would call to produce that UUID
+  from its own CX2.
+
+  Deployment notes:
+    - This page (and cell-hierarchy.cx2.json next to it) must be served from
+      an https origin that allows cross-origin reads from web.cytoscape.org
+      (Access-Control-Allow-Origin: *). GitHub Pages, S3 + CloudFront, and
+      most static hosts do this by default. Opening the file via file://
+      will not work because Cytoscape Web cannot fetch file:// URLs.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open in Cytoscape Web — Demo</title>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      color: #222;
+      line-height: 1.5;
+    }
+    h1 { margin-bottom: .25rem; }
+    h3 { margin-top: 2rem; }
+    .row { display: flex; align-items: center; gap: .75rem; margin: 1rem 0; flex-wrap: wrap; }
+    .pattern {
+      border: 1px solid #e3e3e3;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      background: #fafafa;
+    }
+    .pattern h3 { margin-top: 0; }
+    a.cyaction, button.cyaction {
+      display: inline-block;
+      background: #F7941E;
+      color: #fff;
+      border: 0;
+      border-radius: 30px;
+      padding: .65rem 1.1rem;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    a.cyaction:hover, button.cyaction:hover { background: #d97e10; }
+    .url-preview {
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 12px;
+      background: #fff;
+      border: 1px solid #e3e3e3;
+      border-radius: 4px;
+      padding: .5rem .65rem;
+      word-break: break-all;
+      margin-top: .5rem;
+    }
+    .note  { font-size: .85rem; color: #666; }
+    code   { background: #eee; padding: 0 .25rem; border-radius: 3px; }
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow: auto;
+      font-size: 12px;
+      max-height: 260px;
+    }
+    .advisory {
+      border-left: 3px solid #F7941E;
+      padding: .5rem .75rem;
+      background: #fff8ee;
+      font-size: .9rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Open in Cytoscape Web</h1>
+  <p>
+    Same network as the
+    <a href="../open-in-cytoscape/index.html">desktop demo</a> &mdash;
+    a 6-node cell hierarchy &mdash; but no install required.
+    Cytoscape Web runs entirely in the browser, so the &ldquo;integration&rdquo;
+    is literally a hyperlink.
+  </p>
+
+  <div class="advisory">
+    <strong>How this works:</strong> there is no <code>127.0.0.1:1234</code>
+    bridge for Cytoscape Web. Instead, you hand it a URL &mdash; either a
+    network already in NDEx, or any CX2 file the browser can fetch.
+  </div>
+
+
+  <!-- =======================================================================
+       Pattern 1: ?import=<URL>
+       ===================================================================== -->
+  <div class="pattern">
+    <h3>1. Open from URL <span class="note">(simplest case)</span></h3>
+    <p>
+      Host a CX2 file anywhere reachable over HTTPS (S3, GitHub Pages, your
+      CDN, NDEx, &hellip;) and pass its URL to Cytoscape Web via the
+      <code>?import=</code> query parameter. No auth, no library required.
+    </p>
+
+    <div class="row">
+      <a id="importBtn" class="cyaction" target="_blank" rel="noopener">
+        Open from URL in Cytoscape Web
+      </a>
+    </div>
+    <div class="note">CX2 file being imported:</div>
+    <div id="cx2UrlPreview"    class="url-preview"></div>
+    <div class="note">Generated link (this is the entire integration):</div>
+    <div id="importUrlPreview" class="url-preview"></div>
+  </div>
+
+
+  <!-- =======================================================================
+       Pattern 2: NDEx UUID
+       ===================================================================== -->
+  <div class="pattern">
+    <h3>2. Open via NDEx UUID <span class="note">(recommended when your app has user accounts)</span></h3>
+    <p>
+      If your app already stores user networks in NDEx, the link carries
+      just the UUID. Cytoscape Web fetches the network from NDEx for you.
+      Private networks work too &mdash; append <code>?accesskey=&lt;key&gt;</code>.
+    </p>
+
+    <div class="row">
+      <a id="ndexBtn" class="cyaction" target="_blank" rel="noopener">
+        Open via NDEx UUID in Cytoscape Web
+      </a>
+    </div>
+    <div class="note">Generated link:</div>
+    <div id="ndexUrlPreview" class="url-preview"></div>
+
+    <p class="note" style="margin-top:1rem;">
+      In a real web app, the UUID above is produced by uploading the CX2 to
+      NDEx with <code>@js4cytoscape/ndex-client</code>:
+    </p>
+<pre>import { NDExClient } from '@js4cytoscape/ndex-client';
+
+const client = new NDExClient({ baseURL: 'https://www.ndexbio.org' });
+client.updateConfig({ auth: { type: 'BASIC', username, password } });
+
+// Save the user's CX2 and get back the new network's UUID.
+const { data: uuid } = await client.network.createNetworkFromCX2(cx2);
+
+// Hand the UUID to Cytoscape Web.
+window.open(`https://web.cytoscape.org/0/networks/${uuid}`, '_blank');</pre>
+  </div>
+
+
+  <!-- =======================================================================
+       Pattern 3 (no button, just a link): view-state URL parameters
+       ===================================================================== -->
+  <div class="pattern">
+    <h3>3. Open with pre-set view state <span class="note">(advanced)</span></h3>
+    <p>
+      The URL can also carry view state: which panels are open, which nodes
+      are pre-selected, which tab in the table browser is active, whether
+      the filter panel is enabled, and more. Useful for deep-linking from
+      reports, papers, and email.
+    </p>
+    <div class="note">Example (open Cytoscape Web with a network, both side
+      panels collapsed, the bottom panel open on its third tab, and one node
+      pre-selected):</div>
+    <div id="advancedUrlPreview" class="url-preview"></div>
+    <div class="row">
+      <a id="advancedBtn" class="cyaction" target="_blank" rel="noopener">
+        Open with view state
+      </a>
+    </div>
+  </div>
+
+
+  <p class="note">
+    Both pattern-1 and pattern-2 send the user to
+    <code>https://web.cytoscape.org</code> in a new tab. No software is
+    installed on the user's machine.
+  </p>
+
+
+  <script>
+    // ========================================================================
+    // CONFIG — values you swap when wiring this up for your own app/talk.
+    // ========================================================================
+
+    // Cytoscape Web entry point.
+    const CYWEB_BASE = "https://web.cytoscape.org";
+
+    // The CX2 file lives next to this HTML page. We build an *absolute* URL
+    // from window.location so it works no matter where the page is hosted.
+    // Cytoscape Web (a separate origin) needs an absolute URL it can fetch.
+    const CX2_FILE_URL = new URL(
+      "cell-hierarchy.cx2.json",
+      window.location.href
+    ).href;
+
+    // Precomputed public NDEx UUID used for both the "Open via NDEx UUID"
+    // button and the "Open with view state" link. Swap in your own public
+    // network UUID if you want to show a different network on stage.
+    const NDEX_DEMO_UUID = "c868db9f-6193-11e5-8ac5-06603eb7f303";
+
+    // UUID for the "advanced view-state" example. Same network by default;
+    // pick a richer / more visually interesting one if you want the panel
+    // and selection effects to land harder.
+    const ADVANCED_UUID = NDEX_DEMO_UUID;
+
+    // Internal node id to highlight via the `selectednodes` parameter.
+    // If this id does not exist in ADVANCED_UUID the network still opens —
+    // the highlight just won't appear. Set to a real node id once you have
+    // picked the network you want to use here.
+    const ADVANCED_SELECTED_NODE = "0";
+
+
+    // ========================================================================
+    // Pattern 1 — ?import=<encoded CX2 url>
+    // ========================================================================
+    const importUrl = `${CYWEB_BASE}/?import=${encodeURIComponent(CX2_FILE_URL)}`;
+
+    document.getElementById("importBtn").href           = importUrl;
+    document.getElementById("cx2UrlPreview").textContent    = CX2_FILE_URL;
+    document.getElementById("importUrlPreview").textContent = importUrl;
+
+
+    // ========================================================================
+    // Pattern 2 — /0/networks/<uuid>
+    // ========================================================================
+    const ndexUrl = `${CYWEB_BASE}/0/networks/${NDEX_DEMO_UUID}`;
+
+    document.getElementById("ndexBtn").href           = ndexUrl;
+    document.getElementById("ndexUrlPreview").textContent = ndexUrl;
+
+
+    // ========================================================================
+    // Pattern 3 — view-state query parameters
+    //
+    // Recognized parameters (subject to Cytoscape Web's documentation):
+    //   left=open|closed
+    //   right=open|closed
+    //   bottom=open|closed
+    //   activeTableBrowserTab=<index>
+    //   selectednodes=<comma-separated node ids>
+    //   filterEnabled=true|false  (omitted from the demo below)
+    // ========================================================================
+    const advancedParams = new URLSearchParams({
+      left:                   "closed",
+      right:                  "closed",
+      bottom:                 "open",
+      activeTableBrowserTab:  "2",
+      selectednodes:          ADVANCED_SELECTED_NODE
+    });
+    const advancedUrl =
+      `${CYWEB_BASE}/0/networks/${ADVANCED_UUID}?${advancedParams.toString()}`;
+
+    document.getElementById("advancedBtn").href           = advancedUrl;
+    document.getElementById("advancedUrlPreview").textContent = advancedUrl;
+  </script>
+</body>
+</html>
