@@ -257,20 +257,31 @@
     //   3. `view fit content`           -- zoom to fit
     //
     // Important: commandsPOST() does NOT throw on a bad command name. It
-    // returns a JSON object with an `errors` array. runCmd() below checks
-    // for that and throws so failures surface to the user.
+    // returns the raw response body as a *string* (Cytoscape sends JSON,
+    // but the helper calls res.text(), not res.json()). On failure that
+    // JSON has an `errors` array; runCmd() parses the string and surfaces
+    // the message so failures don't look like successes.
     //
     // To discover what commands exist on a given install:
     //   await cyrestGET("apply/layouts")        -> layout algorithm names
     //   await cyrestGET("commands/layout")      -> commands in the layout ns
     // =========================================================================
     async function runCmd(cmd) {
-      const result = await commandsPOST(cmd);
-      if (result && result.errors && result.errors.length) {
-        const msg = result.errors.map(e => e.message || JSON.stringify(e)).join("; ");
+      const raw = await commandsPOST(cmd);
+      let parsed;
+      try {
+        parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+      } catch (_) {
+        // Non-JSON response (some commands return plain text on success).
+        return raw;
+      }
+      if (parsed && parsed.errors && parsed.errors.length) {
+        const msg = parsed.errors
+          .map(e => e.message || JSON.stringify(e))
+          .join("; ");
         throw new Error("`" + cmd + "` -> " + msg);
       }
-      return result;
+      return parsed;
     }
 
     layoutBtn.addEventListener("click", async () => {
