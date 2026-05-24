@@ -11,7 +11,7 @@ module.exports = {
     'src/**/*.ts',
     '!src/**/*.d.ts',
     '!src/**/__tests__/**',
-    '!src/**/index.ts' // Exclude barrel exports from coverage
+    '!src/types/index.ts' // Pure type re-exports (compile to nothing)
   ],
   coverageReporters: ['text', 'lcov', 'html'],
   coverageDirectory: 'coverage/unit',
