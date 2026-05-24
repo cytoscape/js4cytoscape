@@ -6,7 +6,8 @@ import { CyWebWorkspace } from '../types';
  * 
  * Provides methods for managing CyWeb workspaces including creation, retrieval,
  * updates, and deletion of workspaces and their associated networks.
- * All workspace operations use the V3 API.
+ * Workspace endpoints use the V3 API. The current-user lookup needed by
+ * getUserCyWebWorkspaces() uses the v2 /user endpoint (no v3 equivalent).
  */
 export class WorkspaceService {
   constructor(private http: HTTPService) {}
