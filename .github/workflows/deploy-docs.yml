@@ -164,6 +164,47 @@ jobs:
           if [ -d "docs/demos" ]; then
              mkdir -p combined-docs/demos
              cp -R docs/demos/. combined-docs/demos/
+                         
+             cat > combined-docs/demos/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>JS4Cytoscape Demos</title>
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+              .demo { border: 1px solid #ddd; margin: 20px 0; padding: 20px; border-radius: 8px; }
+              .demo h2 { color: #2e7d32; margin-top: 0; }
+              .demo a { display: inline-block; margin-top: 10px; padding: 10px 20px;
+                         background: #1976d2; color: white; text-decoration: none; border-radius: 4px; }
+              .demo a:hover { background: #1565c0; }
+              .back { display: inline-block; margin-bottom: 20px; }
+            </style>
+          </head>
+          <body>
+            <a class="back" href="../">← Back to documentation home</a>
+            <h1>JS4Cytoscape Demos</h1>
+            <p>Select a demo below:</p>
+          EOF
+
+            for demo_dir in combined-docs/demos/*/; do
+              if [ -f "${demo_dir}index.html" ]; then
+                demo_name=$(basename "$demo_dir")
+                demo_title=$(echo "$demo_name" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+                
+                cat >> combined-docs/demos/index.html << EOF
+                  <div class="demo">
+                    <h2>${demo_title}</h2>
+                    <p>Interactive demo: ${demo_title}</p>
+                    <a href="./${demo_name}/">Open Demo</a>
+                  </div>
+                EOF
+              fi
+            done
+
+            cat >> combined-docs/demos/index.html << 'EOF'
+               </body>
+               </html>
+            EOF
           fi
           
           # Create main index page
