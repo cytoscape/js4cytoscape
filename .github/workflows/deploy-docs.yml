@@ -9,6 +9,7 @@ on:
       - 'packages/**/docs-site/**'
       - 'packages/**/package.json'
       - 'packages/**/tsconfig.json'
+      - 'docs/demos/**'
       - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
@@ -158,6 +159,12 @@ jobs:
       - name: Create combined documentation site
         run: |
           mkdir -p combined-docs
+          
+          # Copy demo pages into the GitHub Pages site
+          if [ -d "docs/demos" ]; then
+             mkdir -p combined-docs/demos
+             cp -R docs/demos/. combined-docs/demos/
+          fi
           
           # Create main index page
           cat > combined-docs/index.html << 'EOF'
