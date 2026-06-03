@@ -184,6 +184,12 @@ jobs:
           <body>
             <h1>JS4Cytoscape Package Documentation</h1>
             <p>Welcome to the JS4Cytoscape monorepo documentation. Select a package below:</p>
+
+            <div class="package">
+              <h2>Demos</h2>
+              <p>Interactive demo pages for JS4Cytoscape.</p>
+              <a href="./demos/">View Demos</a>
+            </div>
           EOF
           
           # Add links for each package with documentation
