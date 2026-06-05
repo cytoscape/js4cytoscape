@@ -197,14 +197,14 @@ jobs:
                     <p>Interactive demo: ${demo_title}</p>
                     <a href="./${demo_name}/">Open Demo</a>
                   </div>
-                EOF
+          EOF
               fi
             done
 
             cat >> combined-docs/demos/index.html << 'EOF'
                </body>
                </html>
-            EOF
+          EOF
           fi
           
           # Create main index page
