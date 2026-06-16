@@ -96,7 +96,7 @@
 <body>
   <h1>Open in Cytoscape Web</h1>
   <p>
-    Same network as the
+    This is the same network as the
     <a href="../open-in-cytoscape/index.html">desktop demo</a> &mdash;
     a 6-node cell hierarchy &mdash; but no install required.
     Cytoscape Web runs entirely in the browser, so the &ldquo;integration&rdquo;
@@ -118,7 +118,7 @@
     <p>
       Host a CX2 file anywhere reachable over HTTPS (S3, GitHub Pages, your
       CDN, NDEx, &hellip;) and pass its URL to Cytoscape Web via the
-      <code>?import=</code> query parameter. No auth, no library required.
+      <code>?import=</code> query parameter. No authentication, no library required.
     </p>
 
     <div class="row">
@@ -140,7 +140,7 @@
     <h3>2. Open via NDEx UUID <span class="note">(recommended when your app has user accounts)</span></h3>
     <p>
       If your app already stores user networks in NDEx, the link carries
-      just the UUID. Cytoscape Web fetches the network from NDEx for you.
+      only the UUID. Cytoscape Web fetches the network from NDEx for you.
       Private networks work too &mdash; append <code>?accesskey=&lt;key&gt;</code>.
     </p>
 
@@ -173,28 +173,25 @@ window.open(`https://web.cytoscape.org/0/networks/${uuid}`, '_blank');</pre>
        Pattern 3 (no button, just a link): view-state URL parameters
        ===================================================================== -->
   <div class="pattern">
-    <h3>3. Open with pre-set view state <span class="note">(advanced)</span></h3>
+    <h3>3. Open with pre-set view state in Cytoscape Web <span class="note">(advanced)</span></h3>
     <p>
       The URL can also carry view state: which panels are open, which nodes
       are pre-selected, which tab in the table browser is active, whether
       the filter panel is enabled, and more. Useful for deep-linking from
-      reports, papers, and email.
+      reports, papers, and emails.
     </p>
-    <div class="note">Example (open Cytoscape Web with a network, both side
-      panels collapsed, the bottom panel open on its third tab, and one node
-      pre-selected):</div>
+    <div class="note">Example (opens Cytoscape Web with a network loaded, both side panels collapsed, the bottom panel open on its third tab, and one node pre-selected):</div>
     <div id="advancedUrlPreview" class="url-preview"></div>
     <div class="row">
       <a id="advancedBtn" class="cyaction" target="_blank" rel="noopener">
-        Open with view state
+        Open with view state in Cytoscape Web
       </a>
     </div>
   </div>
 
 
   <p class="note">
-    Both pattern-1 and pattern-2 send the user to
-    <code>https://web.cytoscape.org</code> in a new tab. No software is
+    Both methods open <code>https://web.cytoscape.org</code> in a new tab. No software is
     installed on the user's machine.
   </p>
 
