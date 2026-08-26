@@ -214,13 +214,17 @@ export class UnifiedNetworkService {
    * Create network DOI
    *
    * Requests a DOI (Digital Object Identifier) for a network. A reference is not required to request a DOI.
-   * If you want the ability to add or modify a reference later on, set `isCertified` to true.
-   * When certified, the network will be permanently locked, made publicly visible, and no further changes
-   * will be allowed.
+   * If you want the ability to add or modify a reference later on, set `isCertified` to **false**: the
+   * network becomes "pre-certified" and keeps its current visibility until you call
+   * {@link updateNetworkReference}, which supplies the reference and certifies it.
+   * When `isCertified` is true the network is certified immediately: permanently locked, made publicly
+   * visible, and no further changes will be allowed.
    *
    * @param params - DOI request parameters
    * @param params.networkId - UUID of the network to create a DOI for
-   * @param params.isCertified - If true, network will be permanently locked and made public with no further changes allowed
+   * @param params.isCertified - If true, network will be permanently locked and made public with no further
+   *                             changes allowed. If false, the network is left pre-certified so a reference
+   *                             can still be added via {@link updateNetworkReference}.
    * @param params.contactEmail - Email address that the DOI creation confirmation should be sent to
    * @returns Promise that resolves when the DOI request is submitted
    *
@@ -257,6 +261,43 @@ export class UnifiedNetworkService {
     };
 
     return this.http.post<void>(endpoint, payload, { version: 'v2' });
+  }
+
+  /**
+   * Update the reference on a pre-certified network
+   *
+   * Completes the DOI flow started by `createNetworkDOI({ isCertified: false })`. The reference is
+   * stored as the network's `reference` property, replacing any existing value.
+   *
+   * This is a one-way door. On success the server **certifies** the network: visibility is set to
+   * PUBLIC, the network is fully indexed, and no further modification is allowed.
+   *
+   * The caller must be an admin of the network. The server does not report a permission failure for
+   * this endpoint — a non-admin caller gets a success response and nothing happens — so callers must
+   * check ownership themselves before offering this action.
+   *
+   * @param networkId - UUID of the pre-certified network
+   * @param reference - Reference text. HTML is accepted and is what the NDEx web apps store.
+   * @returns Promise that resolves once the reference is stored and the network is certified
+   * @throws {Error} When `reference` is empty — the server rejects a blank reference with a 400
+   * @throws {403} When the network is already certified, or has no DOI / pending DOI request
+   *
+   * @example
+   * ```typescript
+   * await client.networks.updateNetworkReference(
+   *   '12345678-1234-1234-1234-123456789abc',
+   *   'Pratt D, et al. <strong>NDEx, the Network Data Exchange.</strong>'
+   * );
+   * ```
+   */
+  async updateNetworkReference(networkId: string, reference: string): Promise<void> {
+    if (!reference || reference.trim() === '') {
+      throw new Error('reference is required');
+    }
+
+    const endpoint = `network/${networkId}/reference`;
+
+    return this.http.put<void>(endpoint, { reference }, { version: 'v2' });
   }
 
   /**
