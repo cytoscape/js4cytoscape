@@ -85,4 +85,31 @@ describe('UnifiedNetworkService', () => {
       ).rejects.toBe(forbidden);
     });
   });
+
+  describe('cancelNetworkDOI', () => {
+    it('should post a Cancel_DOI request for the network', async () => {
+      mockHttpService.post.mockResolvedValueOnce(undefined);
+
+      await networkService.cancelNetworkDOI(NETWORK_ID);
+
+      expect(mockHttpService.post).toHaveBeenCalledWith(
+        'admin/request',
+        { type: 'Cancel_DOI', networkId: NETWORK_ID },
+        { version: 'v2' }
+      );
+    });
+
+    // The server only clears a request stuck at "Pending"; a minted DOI is permanent.
+    it('should propagate a 403 when the DOI is not stuck at Pending', async () => {
+      const forbidden = Object.assign(new Error('Request failed with status code 403'), {
+        response: {
+          status: 403,
+          data: { message: 'Only pending DOI request can be cancelled.' }
+        }
+      });
+      mockHttpService.post.mockRejectedValueOnce(forbidden);
+
+      await expect(networkService.cancelNetworkDOI(NETWORK_ID)).rejects.toBe(forbidden);
+    });
+  });
 });

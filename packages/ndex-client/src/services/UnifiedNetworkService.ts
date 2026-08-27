@@ -228,6 +228,11 @@ export class UnifiedNetworkService {
    * @param params.contactEmail - Email address that the DOI creation confirmation should be sent to
    * @returns Promise that resolves when the DOI request is submitted
    *
+   * @remarks
+   * Minting happens synchronously inside this call. On failure the network is left read-only with
+   * its DOI stuck at `"Pending"` rather than rolled back, and must be cleared with
+   * {@link cancelNetworkDOI} before another request can be made.
+   *
    * @example
    * ```typescript
    * // Request a DOI for a network without certification
@@ -298,6 +303,42 @@ export class UnifiedNetworkService {
     const endpoint = `network/${networkId}/reference`;
 
     return this.http.put<void>(endpoint, { reference }, { version: 'v2' });
+  }
+
+  /**
+   * Cancel a DOI request that failed to mint
+   *
+   * `createNetworkDOI` mints synchronously. If minting fails — the network is missing the required
+   * `author` property, it is PRIVATE with no enabled access key, or the DOI service is unreachable —
+   * the network is left read-only with its DOI stuck at the literal string `"Pending"`. It is not
+   * rolled back, and because a stuck network counts as already having a DOI, a further
+   * `createNetworkDOI` call is rejected.
+   *
+   * Cancelling is the only way out: it clears the DOI, clears certification, and releases the
+   * read-only flag, returning the network to normal so the request can be retried.
+   *
+   * Only a network stuck at `"Pending"` can be cancelled — a successfully minted DOI is permanent.
+   * The caller must own the network.
+   *
+   * @param networkId - UUID of the network whose DOI request should be cancelled
+   * @returns Promise that resolves once the request is cleared
+   * @throws {403} When the caller does not own the network, or the network has no DOI stuck at
+   *               `"Pending"` — including a DOI that minted successfully
+   *
+   * @example
+   * ```typescript
+   * // A mint failed and left the network read-only; clear it and try again
+   * await client.networks.cancelNetworkDOI('12345678-1234-1234-1234-123456789abc');
+   * ```
+   */
+  async cancelNetworkDOI(networkId: string): Promise<void> {
+    const endpoint = 'admin/request';
+    const payload = {
+      type: 'Cancel_DOI',
+      networkId
+    };
+
+    return this.http.post<void>(endpoint, payload, { version: 'v2' });
   }
 
   /**
