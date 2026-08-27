@@ -682,7 +682,23 @@ export interface FileListItem {
   isCompleted?: boolean;
   errorMessage?: string;
   isValid?: boolean;
-  DOI: string;
+  /**
+   * Digital Object Identifier. The literal string "pending" while a DOI request
+   * is in flight, the assigned DOI afterwards. Absent when none was requested.
+   */
+  doi?: string;
+  /**
+   * True once the network has been certified: public, indexed, permanently
+   * locked. A network with a `doi` but `isCertified` false is "pre-certified" —
+   * its reference can still be added, which is what certifies it.
+   *
+   * Search results also carry a copy under `attributes.isCertified`, retained for
+   * backward compatibility. Deployments older than the release that added this
+   * field omit it from folder and home listings entirely, so treat `undefined`
+   * as "unknown" rather than "not certified" — the network summary always
+   * carries it.
+   */
+  isCertified?: boolean;
 }
 
 /**
