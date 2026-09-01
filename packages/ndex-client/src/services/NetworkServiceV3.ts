@@ -280,7 +280,10 @@ export class NetworkServiceV3 {
       const blob = new Blob([cx2], { type: 'application/json' });
       formData.append('CXNetworkStream', blob, 'network.cx2');
     } else if (typeof (globalThis as any).Buffer !== 'undefined' && (globalThis as any).Buffer.isBuffer(cx2)) {
-      const blob = new Blob([cx2 as Buffer], { type: 'application/json' });
+      const buf = cx2 as Buffer;
+      // Copy to a clean ArrayBuffer to avoid TS Buffer/BlobPart incompatibility
+      const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+      const blob = new Blob([ab], { type: 'application/json' });
       formData.append('CXNetworkStream', blob, 'network.cx2');
     } else {
       const blob = new Blob([String(cx2)], { type: 'application/json' });

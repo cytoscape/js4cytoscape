@@ -251,7 +251,9 @@ export class HTTPService {
       formData.append('file', blob, 'file.cx2');
     } else if (typeof (globalThis as any).Buffer !== 'undefined' && (globalThis as any).Buffer.isBuffer(file)) {
       // Node Buffer → convert to Blob so it works with web FormData (Node 18+)
-      const blob = new Blob([file as Buffer], { type: contentType || 'application/octet-stream' });
+      const buf = file as Buffer;
+      const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+      const blob = new Blob([ab], { type: contentType || 'application/octet-stream' });
       formData.append('file', blob, 'file.cx2');
     } else {
       // Fallback: coerce to string and wrap in Blob
